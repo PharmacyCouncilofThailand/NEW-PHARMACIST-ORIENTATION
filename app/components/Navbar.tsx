@@ -33,13 +33,7 @@ const MoonIcon = memo(function MoonIcon() {
   );
 });
 
-const ArrowIcon = memo(function ArrowIcon() {
-  return (
-    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-    </svg>
-  );
-});
+
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -108,10 +102,7 @@ export default function Navbar() {
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300 tracking-wide">
                   {t("banner.text")} <span className="text-violet-700 dark:text-violet-400 font-bold">{t("banner.event")}</span> {t("banner.open")}
                 </span>
-                <span className="text-sm font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1 group">
-                  {t("banner.earlyBird")}
-                  <ArrowIcon />
-                </span>
+
               </div>
             ))}
           </div>
