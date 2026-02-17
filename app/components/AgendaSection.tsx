@@ -40,15 +40,13 @@ const days: DayData[] = [
   {
     num: 1, dateKey: "agenda.day1.date", themeKey: "agenda.day1.theme", themeDescKey: "agenda.day1.themeDesc",
     events: [
-      { id: "d1e1", time: "08:00", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.registration", badgeColor: "register", icon: "📋", titleKey: "agenda.d1e1.title", descKey: "agenda.d1e1.desc", metaKey: "agenda.d1e1.meta" },
-      { id: "d1e2", time: "08:30", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🎓", titleKey: "agenda.d1e2.title", descKey: "agenda.d1e2.desc", metaKey: "agenda.d1e2.meta" },
-      { id: "d1e3", time: "09:00", durationKey: "agenda.dur.90min", durationMin: 90, badgeKey: "agenda.badge.lecture", badgeColor: "lecture", icon: "📚", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta" },
-      { id: "d1e4", time: "10:30", durationKey: "agenda.dur.15min", durationMin: 15, badgeKey: "agenda.badge.break", badgeColor: "break", icon: "☕", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc" },
-      { id: "d1e5", time: "10:45", durationKey: "agenda.dur.75min", durationMin: 75, badgeKey: "agenda.badge.lecture", badgeColor: "lecture", icon: "💻", titleKey: "agenda.d1e5.title", descKey: "agenda.d1e5.desc", metaKey: "agenda.d1e5.meta" },
-      { id: "d1e6", time: "12:00", durationKey: "agenda.dur.60min", durationMin: 60, badgeKey: "agenda.badge.lunch", badgeColor: "break", icon: "🍽️", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc" },
-      { id: "d1e7", time: "13:00", durationKey: "agenda.dur.120min", durationMin: 120, badgeKey: "agenda.badge.workshop", badgeColor: "workshop", icon: "🔬", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc", metaKey: "agenda.d1e7.meta" },
-      { id: "d1e8", time: "15:00", durationKey: "agenda.dur.60min", durationMin: 60, badgeKey: "agenda.badge.lecture", badgeColor: "lecture", icon: "🛡️", titleKey: "agenda.d1e8.title", descKey: "agenda.d1e8.desc", metaKey: "agenda.d1e8.meta" },
-      { id: "d1e9", time: "16:00", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.summary", badgeColor: "summary", icon: "📝", titleKey: "agenda.d1e9.title", descKey: "agenda.d1e9.desc" },
+      { id: "d1e1", time: "10:00", durationKey: "agenda.dur.150min", durationMin: 150, badgeKey: "agenda.badge.activity", badgeColor: "workshop", icon: "💼", titleKey: "agenda.d1e1.title", descKey: "agenda.d1e1.desc", metaKey: "agenda.d1e1.meta" },
+      { id: "d1e2", time: "12:30", durationKey: "agenda.dur.5min", durationMin: 5, badgeKey: "agenda.badge.registration", badgeColor: "register", icon: "🎁", titleKey: "agenda.d1e2.title", descKey: "agenda.d1e2.desc", metaKey: "agenda.d1e2.meta" },
+      { id: "d1e3", time: "12:35", durationKey: "agenda.dur.5min", durationMin: 5, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🎙️", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta" },
+      { id: "d1e4", time: "12:40", durationKey: "agenda.dur.40min", durationMin: 40, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🗣️", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc", metaKey: "agenda.d1e4.meta" },
+      { id: "d1e5", time: "13:20", durationKey: "agenda.dur.130min", durationMin: 130, badgeKey: "agenda.badge.ceremony", badgeColor: "lecture", icon: "📜", titleKey: "agenda.d1e5.title", descKey: "agenda.d1e5.desc", metaKey: "agenda.d1e5.meta" },
+      { id: "d1e6", time: "15:30", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.lecture", badgeColor: "lecture", icon: "💡", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc", metaKey: "agenda.d1e6.meta" },
+      { id: "d1e7", time: "16:00", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.summary", badgeColor: "summary", icon: "🏁", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc", metaKey: "agenda.d1e7.meta" },
     ],
   },
 ];

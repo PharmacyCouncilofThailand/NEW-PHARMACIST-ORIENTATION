@@ -94,9 +94,14 @@ export default function Footer() {
           <p className="text-xs font-medium opacity-60">© 2026 Pharmacy Department. All rights reserved.</p>
           
           <div className="flex gap-3">
-             {["Home", "Welcome", "Agenda", "Gallery"].map(item => (
-                <a key={item} href="#" className="px-3 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
-                  {item}
+             {[
+               { label: t("nav.home"), href: "#hero" },
+               { label: t("nav.welcome"), href: "#welcome" },
+               { label: t("nav.agenda"), href: "#agenda" },
+               { label: t("nav.gallery"), href: "#memories" }
+             ].map(item => (
+                <a key={item.label} href={item.href} className="px-3 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
+                  {item.label}
                 </a>
              ))}
           </div>

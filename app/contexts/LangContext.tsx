@@ -24,61 +24,41 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.signUp": { TH: "สมัครสมาชิก", EN: "Sign Up" },
 
   // Hero
-  "hero.subtitle1": { TH: "ร่วมเป็นส่วนหนึ่งของ", EN: "Be part of the" },
-  "hero.future": { TH: "อนาคต", EN: "future" },
+  "hero.subtitle1": { TH: "ยินดีต้อนรับ เภสัชกรใหม่ สู่", EN: "Warmly welcoming new pharmacists to the" },
+  "hero.future": { TH: "โลกวิชาชีพ", EN: "professional world" },
   "hero.subtitle2": {
-    TH: "ของการบริบาลทางเภสัชกรรม",
-    EN: "of pharmaceutical care.",
+    TH: "อย่างเต็มตัว",
+    EN: "fully.",
   },
   "hero.subtitle3": {
-    TH: "เริ่มต้นเส้นทาง",
-    EN: "Start your sustainable and valuable",
+    TH: "แล้วมาพบกันใน",
+    EN: "See you at the",
   },
-  "hero.journey": { TH: "วิชาชีพ", EN: "professional journey" },
-  "hero.subtitle4": { TH: "ที่ยั่งยืนและมีคุณค่ากับเรา", EN: "with us." },
+  "hero.journey": { TH: "งานปฐมนิเทศเภสัชกรใหม่ปี 2569", EN: "New Pharmacist Orientation 2026" },
+  "hero.subtitle4": { TH: "เพื่อเริ่มต้นการเดินทางไปด้วยกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเลย", EN: "Register Now" },
 
   // Welcome Section
-  "welcome.badge": { TH: "✨ เริ่มต้นการเดินทาง", EN: "✨ Start Your Journey" },
-  "welcome.title1": { TH: "ข้อความ", EN: "Welcome " },
-  "welcome.title2": { TH: "ต้อนรับ", EN: "Message" },
-  "welcome.desc1": {
-    TH: "เตรียมพร้อมในทุกด้านของการทำงาน",
-    EN: "Prepare for every aspect of working life.",
+  "welcome.badge": { TH: "✨ สารจากนายกสภาเภสัชกรรม", EN: "✨ Message from the President" },
+  "welcome.title1": { TH: "งานปฐมนิเทศ", EN: "New Pharmacist" },
+  "welcome.title2": { TH: "เภสัชกรใหม่ ปี 2569", EN: "Orientation 2026" },
+  "welcome.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569 เวลา 10.00 - 16.00 น.", EN: "Saturday, May 17, 2026 | 10:00 AM - 4:00 PM" },
+  "welcome.location": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitsalathibet Bldg, MOPH" },
+  "welcome.message": {
+    TH: "สภาเภสัชกรรม ยินดีกับเภสัชกรใหม่ที่สอบผ่าน และขอต้อนรับเภสัชกรใหม่ทุกท่าน ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ การเดินในสายงานอาชีพเพิ่งเริ่มต้น องค์ความรู้จะเกิดขึ้นใหม่ตลอดเวลา การศึกษาอย่างต่อเนื่อง เพื่อช่วยสั่งสมประสบการณ์ สร้างทักษะเพิ่มความแข็งแกร่งให้ทุกท่านและวิชาชีพพวกเรา มาร่วมแบ่งปัน บอกเล่าเรื่องราวดี ๆ ให้กันฟัง ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้กันนะครับ",
+    EN: "The Pharmacy Council congratulates all new pharmacists who have passed their exams and warmly welcomes you to the profession with pride. Your professional journey has just begun. New knowledge emerges constantly; continuous education will help accumulate experience and strengthen skills for both you and our profession. Let's join, share, and tell good stories to each other at this New Pharmacist Orientation 2026."
   },
-  "welcome.desc2": {
-    TH: "ด้วยโปรแกรมที่ออกแบบมาเฉพาะสำหรับคุณ",
-    EN: "With a comprehensive program designed especially for you.",
-  },
+  "welcome.presidentName": { TH: "(เภสัชกรปรีชา พันธุ์ติเวช)", EN: "(Pharmacist Preecha Bhandtivej)" },
+  "welcome.presidentPosition": { TH: "นายกสภาเภสัชกรรม", EN: "President of the Pharmacy Council" },
 
   // Welcome Cards
-  "card.org.title": { TH: "องค์กร", EN: "Organization" },
-  "card.org.desc": {
-    TH: "ทำความรู้จักโครงสร้าง วิสัยทัศน์ พันธกิจ และค่านิยมหลักที่เรายึดมั่นร่วมกัน",
-    EN: "Get to know our structure, vision, mission, and the core values we uphold together.",
-  },
-  "card.dispensing.title": { TH: "ระบบจ่ายยา", EN: "Dispensing System" },
-  "card.dispensing.desc": {
-    TH: "เข้าใจขั้นตอนการจ่ายยาผู้ป่วยใน/นอก เทคโนโลยีที่ใช้ และการจัดการคลังยาสมัยใหม่",
-    EN: "Understand the workflow of IPD/OPD dispensing, technology usage, and modern inventory management.",
-  },
-  "card.culture.title": { TH: "วัฒนธรรมของเรา", EN: "Our Culture" },
-  "card.culture.desc": {
-    TH: "สัมผัสบรรยากาศการทำงานที่อบอุ่น การทำงานเป็นทีม และระบบพี่เลี้ยง",
-    EN: "Experience the warm working atmosphere, teamwork, and brother-sister mentorship.",
-  },
-  "card.career.title": { TH: "เส้นทางอาชีพ", EN: "Career Path" },
-  "card.career.desc": {
-    TH: "แนวทางความก้าวหน้าในอาชีพ การศึกษาเพิ่มเติม และสาขาเฉพาะทางสำหรับเภสัชกร",
-    EN: "Guidance on career advancement, further education, and specialized fields for pharmacists.",
-  },
-  "card.learnMore": { TH: "เรียนรู้เพิ่มเติม", EN: "Learn more" },
+
 
   // Agenda Section
-  "agenda.badge": { TH: "📅 กำหนดการ", EN: "📅 Schedule" },
+  "agenda.badge": { TH: " กำหนดการ", EN: " Schedule" },
   "agenda.title1": { TH: "กำหนดการ", EN: "Event " },
   "agenda.title2": { TH: "กิจกรรม", EN: "Agenda" },
-  "agenda.subtitle1": { TH: "รายละเอียดกิจกรรมตลอด 3 วัน", EN: "Detailed activities throughout the 3-day orientation" },
+  "agenda.subtitle1": { TH: "รายละเอียดกิจกรรมตลอด 1 วัน", EN: "Detailed activities throughout the 1-day orientation" },
   "agenda.subtitle2": { TH: "เพื่อเตรียมพร้อมสู่การปฏิบัติงานจริง", EN: "to prepare you for real-world practice." },
   "agenda.clickHint": { TH: "คลิกที่แต่ละกิจกรรมเพื่อดูรายละเอียด", EN: "Click each event to expand" },
   "agenda.sessions": { TH: "กิจกรรม", EN: "sessions" },
@@ -90,59 +70,61 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.day": { TH: "วันที่", EN: "Day" },
 
   // Agenda Day themes
-  "agenda.day1.theme": { TH: "รากฐาน", EN: "Foundation" },
-  "agenda.day1.themeDesc": { TH: "สร้างฐานวิชาชีพของคุณ", EN: "Building your professional base" },
+  "agenda.day1.theme": { TH: "ก้าวแรกสู่วิชาชีพ", EN: "First Step" },
+  "agenda.day1.themeDesc": { TH: "เริ่มต้นเส้นทางเภสัชกรอย่างมั่นใจ", EN: "Start your journey with confidence" },
 
   // Agenda Day dates
-  "agenda.day1.date": { TH: "10 มี.ค. 2569", EN: "Mar 10, 2026" },
+  "agenda.day1.date": { TH: "17 พ.ค. 2569", EN: "May 17, 2026" },
 
   // Agenda Badge labels
   "agenda.badge.registration": { TH: "ลงทะเบียน", EN: "Registration" },
-  "agenda.badge.ceremony": { TH: "พิธี", EN: "Ceremony" },
+  "agenda.badge.ceremony": { TH: "พิธีการ", EN: "Ceremony" },
   "agenda.badge.lecture": { TH: "บรรยาย", EN: "Lecture" },
   "agenda.badge.workshop": { TH: "เวิร์กช็อป", EN: "Workshop" },
   "agenda.badge.break": { TH: "พัก", EN: "Break" },
-  "agenda.badge.lunch": { TH: "พักกลางวัน", EN: "Lunch" },
+
   "agenda.badge.summary": { TH: "สรุป", EN: "Summary" },
   "agenda.badge.activity": { TH: "กิจกรรม", EN: "Activity" },
 
   // Agenda Duration labels
-  "agenda.dur.15min": { TH: "15 นาที", EN: "15 min" },
+  "agenda.dur.5min": { TH: "5 นาที", EN: "5 min" },
   "agenda.dur.30min": { TH: "30 นาที", EN: "30 min" },
-  "agenda.dur.60min": { TH: "60 นาที", EN: "60 min" },
-  "agenda.dur.75min": { TH: "75 นาที", EN: "75 min" },
-  "agenda.dur.90min": { TH: "90 นาที", EN: "90 min" },
-  "agenda.dur.105min": { TH: "105 นาที", EN: "105 min" },
-  "agenda.dur.120min": { TH: "120 นาที", EN: "120 min" },
+  "agenda.dur.40min": { TH: "40 นาที", EN: "40 min" },
+
+  "agenda.dur.130min": { TH: "130 นาที", EN: "130 min" },
+  "agenda.dur.150min": { TH: "150 นาที", EN: "2.5 hrs" },
 
   // Day 1 Events
-  "agenda.d1e1.title": { TH: "ลงทะเบียนและรับเอกสาร", EN: "Registration & Documents" },
-  "agenda.d1e1.desc": { TH: "ลงทะเบียนเข้าร่วมงานและรับเอกสาร/อุปกรณ์ที่จำเป็น", EN: "Register for the event and collect necessary documents/equipment." },
-  "agenda.d1e1.meta": { TH: "📍 ห้องประชุมใหญ่ ชั้น 1", EN: "📍 Main Conference Room, 1st Fl." },
-  "agenda.d1e2.title": { TH: "พิธีเปิดและต้อนรับ", EN: "Opening Ceremony & Welcome" },
-  "agenda.d1e2.desc": { TH: "กล่าวต้อนรับโดยผู้อำนวยการโรงพยาบาลและแนะนำทีมบริหารเภสัชกรรม", EN: "Welcome speech by Hospital Director and introduction of the Pharmacy Executive Team." },
-  "agenda.d1e2.meta": { TH: "👤 ผู้อำนวยการ / หัวหน้ากลุ่มงานเภสัชกรรม", EN: "👤 Director / Head of Pharmacy" },
-  "agenda.d1e3.title": { TH: "โครงสร้างองค์กรและระบบเภสัชกรรม", EN: "Organization Structure & Pharmacy Systems" },
-  "agenda.d1e3.desc": { TH: "ภาพรวมโครงสร้างแผนกเภสัชกรรม ระบบกระจายยา การจัดซื้อ และการจัดการคลังยา", EN: "Overview of pharmacy department structure, drug distribution system, purchasing, and inventory management." },
-  "agenda.d1e3.meta": { TH: "👤 หัวหน้ากลุ่มงานเภสัชกรรม", EN: "👤 Head of Pharmacy Service Group" },
-  "agenda.d1e4.title": { TH: "พักเบรก", EN: "Coffee Break" },
-  "agenda.d1e4.desc": { TH: "☕ เครื่องดื่มและอาหารว่าง", EN: "☕ Refreshments and snacks" },
-  "agenda.d1e5.title": { TH: "ระบบ IT และซอฟต์แวร์เภสัชกรรม", EN: "IT Systems & Pharmacy Software" },
-  "agenda.d1e5.desc": { TH: "แนะนำระบบสารสนเทศโรงพยาบาล (HIS) ระบบจ่ายยาอัตโนมัติ และซอฟต์แวร์ที่เกี่ยวข้อง", EN: "Introduction to Hospital Information System (HIS), Automated Dispensing System, and related software." },
-  "agenda.d1e5.meta": { TH: "👤 ทีมเภสัชสารสนเทศ", EN: "👤 Pharmacy Informatics Team" },
-  "agenda.d1e6.title": { TH: "พักกลางวัน", EN: "Lunch Break" },
-  "agenda.d1e6.desc": { TH: "🍽️ รับประทานอาหารกลางวันกับทีม", EN: "🍽️ Lunch with the team" },
-  "agenda.d1e7.title": { TH: "เวิร์กช็อป: ระบบจ่ายยาผู้ป่วยนอก", EN: "Workshop: OPD Dispensing System" },
-  "agenda.d1e7.desc": { TH: "ฝึกปฏิบัติจริงที่เภสัชกรรมผู้ป่วยนอก: คัดกรอง ตรวจสอบ จ่ายยา และให้คำปรึกษา", EN: "Hands-on practice at OPD Pharmacy: Prescription screening, checking, dispensing, and counseling." },
-  "agenda.d1e7.meta": { TH: "📍 เภสัชกรรมผู้ป่วยนอก", EN: "📍 OPD Pharmacy" },
-  "agenda.d1e8.title": { TH: "ความปลอดภัยด้านยาและการรายงาน ADR", EN: "Drug Safety & ADR Reporting" },
-  "agenda.d1e8.desc": { TH: "การป้องกันความคลาดเคลื่อนทางยา LASA ยาที่ต้องเฝ้าระวังสูง และระบบรายงาน ADR", EN: "Medication error prevention, LASA, High Alert Drugs, and ADR reporting systems." },
-  "agenda.d1e8.meta": { TH: "👤 เภสัชกรข้อมูลยาและความปลอดภัย", EN: "👤 DI & Safety Pharmacist" },
-  "agenda.d1e9.title": { TH: "สรุปและถาม-ตอบ", EN: "Summary & Q&A" },
-  "agenda.d1e9.desc": { TH: "สรุปประจำวัน ถาม-ตอบ และนัดหมายวันถัดไป", EN: "Daily wrap-up, Q&A session, and next day's appointment." },
+  "agenda.d1e1.title": { TH: "Pharmacy Job Fair 2026", EN: "Pharmacy Job Fair 2026" },
+  "agenda.d1e1.desc": { TH: "เปิดโลกทัศน์เส้นทางอาชีพและโอกาสงานเภสัชกรรมหลากหลายสาขา", EN: "Explore career paths and job opportunities in various pharmacy fields." },
+  "agenda.d1e1.meta": { TH: "บูธหน่วยงานและบริษัทชั้นนำ", EN: "Leading Organizations & Companies" },
+
+  "agenda.d1e2.title": { TH: "ลงทะเบียนและรับของที่ระลึก", EN: "Registration & Welcome Gifts" },
+  "agenda.d1e2.desc": { TH: "ลงทะเบียนและรับของที่ระลึกจากสภาเภสัชกรรม", EN: "Register and receive souvenirs from the Pharmacy Council." },
+  "agenda.d1e2.meta": { TH: "ทีมงานสภาเภสัชกรรม", EN: "Pharmacy Council Team" },
+
+  "agenda.d1e3.title": { TH: "กล่าวต้อนรับ", EN: "Opening Remarks" },
+  "agenda.d1e3.desc": { TH: "กล่าวต้อนรับผู้ร่วมงานและชี้แจงกำหนดการ", EN: "Welcome remarks and schedule explanation." },
+  "agenda.d1e3.meta": { TH: "ภญ.โสภิตรา - ประชาสัมพันธ์สภาฯ", EN: "Pharm. Sopitra - PR" },
+
+  "agenda.d1e4.title": { TH: "พิธีเปิดและให้โอวาท", EN: "Opening Ceremony & Advice" },
+  "agenda.d1e4.desc": { TH: "กล่าวให้โอวาทแก่น้องเภสัชกรใหม่ในการก้าวเข้าสู่วิชาชีพ", EN: "Address and advice for new pharmacists entering the profession." },
+  "agenda.d1e4.meta": { TH: "นายกสภาเภสัชกรรม", EN: "President of Pharmacy Council" },
+
+  "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
+  "agenda.d1e5.desc": { TH: "พิธีมอบใบอนุญาตเป็นผู้ประกอบวิชาชีพเภสัชกรรม", EN: "Professional Pharmacy License Presentation Ceremony." },
+  "agenda.d1e5.meta": { TH: "คณะผู้บริหารสภาเภสัชกรรม", EN: "Pharmacy Council Executives" },
+
+  "agenda.d1e6.title": { TH: "Expert Insight Session", EN: "Expert Insight Session" },
+  "agenda.d1e6.desc": { TH: "การบรรยายพิเศษจากผู้เชี่ยวชาญ", EN: "Special lecture from experts." },
+  "agenda.d1e6.meta": { TH: "วิทยากรรับเชิญพิเศษ", EN: "Special Guest Speaker" },
+
+  "agenda.d1e7.title": { TH: "ปิดงาน", EN: "Closing Session" },
+  "agenda.d1e7.desc": { TH: "สรุปภาพรวมกิจกรรมและปิดงาน", EN: "Event wrap-up and closing." },
+  "agenda.d1e7.meta": { TH: "ทีมงานสภาเภสัชกรรม", EN: "Pharmacy Council Team" },
 
   // Memories Section
-  "memories.badge": { TH: "📸 ภาพบรรยากาศ", EN: "📸 Gallery" },
+  "memories.badge": { TH: " ภาพบรรยากาศ", EN: "Gallery" },
   "memories.title1": { TH: "ภาพ", EN: "Cherished " },
   "memories.title2": { TH: "ความทรงจำ", EN: "Memories" },
 
@@ -202,10 +184,7 @@ const translations: Record<string, Record<Lang, string>> = {
     EN: "Pharmacy Orientation 2026",
   },
   "banner.open": { TH: "แล้ว!", EN: "is now OPEN!" },
-  "banner.earlyBird": {
-    TH: "รับส่วนลด Early Bird",
-    EN: "Get Early Bird Discount",
-  },
+
 
   // Branding
   "nav.brand": { TH: "ปฐมนิเทศเภสัชกรใหม่", EN: "New Pharmacist Orientation" },
