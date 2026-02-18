@@ -87,7 +87,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.badge.activity": { TH: "กิจกรรม", EN: "Activity" },
 
   // Agenda Duration labels
-  "agenda.dur.5min": { TH: "5 นาที", EN: "5 min" },
+  "agenda.dur.5min": { TH: "5 นาที", EN: " min" },
   "agenda.dur.30min": { TH: "30 นาที", EN: "30 min" },
   "agenda.dur.40min": { TH: "40 นาที", EN: "40 min" },
 
@@ -105,11 +105,11 @@ const translations: Record<string, Record<Lang, string>> = {
 
   "agenda.d1e3.title": { TH: "กล่าวต้อนรับ", EN: "Opening Remarks" },
   "agenda.d1e3.desc": { TH: "กล่าวต้อนรับผู้ร่วมงานและชี้แจงกำหนดการ", EN: "Welcome remarks and schedule explanation." },
-  "agenda.d1e3.meta": { TH: "ภญ.โสภิตรา - ประชาสัมพันธ์สภาฯ", EN: "Pharm. Sopitra - PR" },
+  "agenda.d1e3.meta": { TH: "ภญ.โฉมคนางค์ ภูมิสายดร (ประชาสัมพันธ์และโฆษกสภาฯ)", EN: "Pharm. Chomkhanang Phumsaidorn (PR & Spokesperson)" },
 
-  "agenda.d1e4.title": { TH: "พิธีเปิดและให้โอวาท", EN: "Opening Ceremony & Advice" },
+  "agenda.d1e4.title": { TH: "กล่าวเปิดงานและให้โอวาท", EN: "Opening Ceremony & Advice" },
   "agenda.d1e4.desc": { TH: "กล่าวให้โอวาทแก่น้องเภสัชกรใหม่ในการก้าวเข้าสู่วิชาชีพ", EN: "Address and advice for new pharmacists entering the profession." },
-  "agenda.d1e4.meta": { TH: "นายกสภาเภสัชกรรม", EN: "President of Pharmacy Council" },
+  "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช (นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej (President)" },
 
   "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
   "agenda.d1e5.desc": { TH: "พิธีมอบใบอนุญาตเป็นผู้ประกอบวิชาชีพเภสัชกรรม", EN: "Professional Pharmacy License Presentation Ceremony." },
