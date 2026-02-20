@@ -2,9 +2,9 @@
 
 import { useRef, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useImageSequence } from "@/hooks/useImageSequence";
-import { useLenis } from "@/components/ui/SmoothScroll";
-import LogoMarquee from "@/components/LogoMarquee";
+import { useImageSequence } from "../hooks/useImageSequence";
+import { useLenis } from "./ui/SmoothScroll";
+import LogoMarquee from "./LogoMarquee";
 
 /* ===========================
    Configuration
