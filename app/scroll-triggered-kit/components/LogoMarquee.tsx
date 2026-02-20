@@ -1,6 +1,6 @@
 "use client";
 
-import { LOGOS } from "@/data/logos";
+import { LOGOS } from "../data/logos";
 
 export default function LogoMarquee() {
     return (
