@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLang } from "../contexts/LangContext";
+import VisitorCounter from "./VisitorCounter";
 
 export default function Footer() {
   const { t } = useLang();
@@ -23,7 +24,7 @@ export default function Footer() {
                 <Image src="/logo.jpg" alt="Pharmacy Council" width={70} height={70} className="rounded-xl object-cover" />
               </div>
               <div>
-                <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t("footer.brandName")}</h3>
+                <h3 className="text-2xl font-black tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">{t("footer.brandName")}</h3>
 
               </div>
             </div>
@@ -88,6 +89,9 @@ export default function Footer() {
           </div>
 
         </div>
+
+        {/* Visitor Counter */}
+        <VisitorCounter />
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-slate-200 dark:border-slate-800/50">

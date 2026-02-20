@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { useAuth } from "../contexts/AuthContext";
 import { useLang } from "../contexts/LangContext";
 
 const steps = [
@@ -14,39 +15,76 @@ const steps = [
 export default function RegisterPage() {
   const router = useRouter();
   const { t } = useLang();
+  const { register } = useAuth();
   const [step, setStep] = useState(1);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    examId: "",
+    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Memoized — uses functional update to avoid formData in deps
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  }, []);
+    if (error) setError("");
+  }, [error]);
 
   const handleNext = () => {
-    if (step === 1 && formData.firstName && formData.lastName) {
+    if (step === 1 && formData.firstName && formData.lastName && formData.examId && formData.phone) {
       setStep(2);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step === 1) {
       handleNext();
       return;
     }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("รหัสผ่านไม่ตรงกัน");
+      return;
+    }
+
     setIsLoading(true);
-    setTimeout(() => {
-      router.push("/");
-    }, 1500);
+    setError("");
+
+    try {
+      // Prepare user data
+      const userData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        examId: formData.examId,
+        phone: formData.phone,
+        email: formData.email,
+        password: formData.password
+      };
+
+      const success = await register(userData);
+      
+      if (success) {
+        // Reduced timeout for better UX, just enough to show spinner briefly
+        setTimeout(() => {
+          router.push("/");
+        }, 800);
+      } else {
+        setError("ไม่สามารถลงทะเบียนได้ กรุณาลองใหม่อีกครั้ง");
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.error(err);
+      setError("เกิดข้อผิดพลาดในการเชื่อมต่อ");
+      setIsLoading(false);
+    }
   };
 
   const renderField = (name: string, labelKey: string, type: string = "text") => {
@@ -154,7 +192,7 @@ export default function RegisterPage() {
           <div className="glass-card rounded-[2rem] p-10 animate-fade-slide" style={{ animationDelay: '100ms' }}>
 
             {/* Header */}
-            <div className="text-center mb-10">
+            <div className="text-center mb-8">
               <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight mb-2">
                 {step === 1 ? t("register.createAccount") : t("register.secureAccount")}
               </h1>
@@ -163,12 +201,24 @@ export default function RegisterPage() {
               </p>
             </div>
 
+            {/* Error Message */}
+            {error && (
+              <div className="mb-6 flex items-center gap-2 px-4 py-3 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/40 text-red-600 dark:text-red-400 text-sm font-medium animate-fade-in">
+                <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z" />
+                </svg>
+                {error}
+              </div>
+            )}
+
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
               {step === 1 ? (
                 <div className="space-y-5">
                   {renderField("firstName", "register.firstName")}
                   {renderField("lastName", "register.lastName")}
+                  {renderField("examId", "register.examId")}
+                  {renderField("phone", "register.phone", "tel")}
                 </div>
               ) : (
                 <div className="space-y-5">

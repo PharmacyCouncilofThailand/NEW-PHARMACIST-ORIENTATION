@@ -1,25 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "../contexts/LangContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { t } = useLang();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     setIsLoading(true);
-    setTimeout(() => {
-      router.push("/");
-    }, 1500);
+    const ok = await login(email, password);
+    if (ok) {
+      const from = searchParams.get("from") || "/";
+      router.push(from);
+    } else {
+      setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -124,6 +134,16 @@ export default function LoginPage() {
                   {t("login.forgot")}
                 </a>
               </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/40 text-red-600 dark:text-red-400 text-sm font-medium">
+                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z" />
+                  </svg>
+                  {error}
+                </div>
+              )}
 
               {/* Submit Button */}
               <button
