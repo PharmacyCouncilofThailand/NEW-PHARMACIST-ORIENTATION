@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "../contexts/ThemeContext";
 import { useLang } from "../contexts/LangContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const navLinks = [
   { href: "#hero", key: "nav.home" },
@@ -41,6 +42,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { toggleTheme, isDark } = useTheme();
   const { lang, toggleLang, t } = useLang();
+  const { user, isLoggedIn, logout } = useAuth();
 
   useEffect(() => {
     let ticking = false;
@@ -186,21 +188,75 @@ export default function Navbar() {
               {/* Divider */}
               <div className="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1" />
 
-              {/* Sign In */}
-              <Link
-                href="/login"
-                className="px-5 py-2 rounded-full text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-all"
-              >
-                {t("nav.signIn")}
-              </Link>
+              {isLoggedIn ? (
+                <div className="relative group">
+                  <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 transition-colors hover:bg-slate-200 dark:hover:bg-white/20">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-violet-600 to-blue-600 flex items-center justify-center text-white text-[10px] font-bold uppercase">
+                      {user?.name?.[0] ?? user?.email?.[0] ?? "U"}
+                    </div>
+                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[100px] truncate">
+                      {user?.name ?? user?.email}
+                    </span>
+                    <svg className="w-3 h-3 text-slate-400 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
 
-              {/* Sign Up */}
-              <Link
-                href="/register"
-                className="px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/25 hover:shadow-xl hover:shadow-violet-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-              >
-                {t("nav.signUp")}
-              </Link>
+                  {/* Dropdown Panel */}
+                  <div className="absolute right-0 top-full mt-2 w-60 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xl shadow-black/10 dark:shadow-black/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 origin-top-right scale-95 group-hover:scale-100 p-1.5 z-50">
+                    {/* User Info Header */}
+                    <div className="px-3 py-2.5 border-b border-slate-100 dark:border-slate-700 mb-1">
+                      <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.name}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                    </div>
+
+                    {/* Exam Seat No. */}
+                    <div className="px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 flex items-center justify-between">
+                      <span>{t("nav.examId")}</span>
+                      <span className="text-xs font-mono bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-300 px-1.5 py-0.5 rounded">
+                        {user?.examId || "—"}
+                      </span>
+                    </div>
+
+                    {/* Phone */}
+                    <div className="px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 flex items-center justify-between">
+                      <span>{t("nav.phone")}</span>
+                      <span className="text-xs font-mono bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
+                        {user?.phone || "—"}
+                      </span>
+                    </div>
+
+                    <div className="h-px bg-slate-100 dark:bg-slate-700 my-1" />
+
+                    {/* Logout */}
+                    <button
+                      onClick={logout}
+                      className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      {t("nav.signOut")}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* Guest state */
+                <>
+                  <Link
+                    href="/login"
+                    className="px-5 py-2 rounded-full text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-all"
+                  >
+                    {t("nav.signIn")}
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/25 hover:shadow-xl hover:shadow-violet-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                  >
+                    {t("nav.signUp")}
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile Toggle */}
@@ -264,20 +320,41 @@ export default function Navbar() {
           className={`flex flex-col items-center gap-3 w-64 transition-all duration-300 ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
           style={{ transitionDelay: `${navLinks.length * 100}ms` }}
         >
-          <Link
-            href="/login"
-            onClick={closeMenu}
-            className="w-full py-3 rounded-xl text-center text-sm font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
-          >
-            {t("nav.signIn")}
-          </Link>
-          <Link
-            href="/register"
-            onClick={closeMenu}
-            className="w-full py-3 rounded-xl text-center text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/25 transition-all"
-          >
-            {t("nav.signUp")}
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/10 w-full justify-center">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-r from-violet-600 to-blue-600 flex items-center justify-center text-white text-xs font-bold uppercase">
+                  {user?.name?.[0] ?? user?.email?.[0] ?? "U"}
+                </div>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 truncate">
+                  {user?.name ?? user?.email}
+                </span>
+              </div>
+              <button
+                onClick={() => { closeMenu(); logout(); }}
+                className="w-full py-3 rounded-xl text-center text-sm font-bold text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+              >
+                {t("nav.signOut")}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                onClick={closeMenu}
+                className="w-full py-3 rounded-xl text-center text-sm font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
+              >
+                {t("nav.signIn")}
+              </Link>
+              <Link
+                href="/register"
+                onClick={closeMenu}
+                className="w-full py-3 rounded-xl text-center text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/25 transition-all"
+              >
+                {t("nav.signUp")}
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { useLang } from "../contexts/LangContext";
+import { useAuth } from "../contexts/AuthContext";
 
 // SVG arrow icon extracted as constant to avoid re-creation
 const ArrowIcon = memo(function ArrowIcon() {
@@ -19,6 +20,7 @@ export default function HeroSection() {
   const router = useRouter();
 
   const { t, lang } = useLang();
+  const { isLoggedIn } = useAuth();
   const orb1Ref = useRef<HTMLDivElement>(null);
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
@@ -156,6 +158,15 @@ export default function HeroSection() {
             </span>
             <div className="absolute inset-0 animate-shimmer pointer-events-none" />
           </button>
+
+          {isLoggedIn && (
+            <button
+              onClick={() => router.push("/scroll")}
+              className="px-8 py-4 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-lg hover:bg-white dark:hover:bg-slate-800 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-200 dark:hover:border-violet-900 transition-all duration-300 shadow-sm"
+            >
+              {t("hero.explore")}
+            </button>
+          )}
         </div>
       </div>
 
