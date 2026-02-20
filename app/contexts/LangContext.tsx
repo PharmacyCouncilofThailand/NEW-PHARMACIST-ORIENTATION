@@ -22,6 +22,10 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.gallery": { TH: "ภาพบรรยากาศ", EN: "Gallery" },
   "nav.signIn": { TH: "เข้าสู่ระบบ", EN: "Sign In" },
   "nav.signUp": { TH: "สมัครสมาชิก", EN: "Sign Up" },
+  "nav.signOut": { TH: "ออกจากระบบ", EN: "Sign Out" },
+  "nav.license": { TH: "ใบอนุญาต", EN: "License" },
+  "nav.examId": { TH: "เลขที่นั่งสอบ", EN: "Exam Seat No." },
+  "nav.phone": { TH: "เบอร์โทร", EN: "Phone" },
 
   // Hero
   "hero.subtitle1": { TH: "ยินดีต้อนรับ เภสัชกรใหม่ สู่", EN: "Warmly welcoming new pharmacists to the" },
@@ -37,6 +41,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.journey": { TH: "งานปฐมนิเทศเภสัชกรใหม่ปี 2569", EN: "New Pharmacist Orientation 2026" },
   "hero.subtitle4": { TH: "เพื่อเริ่มต้นการเดินทางไปด้วยกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเลย", EN: "Register Now" },
+  "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
 
   // Welcome Section
   "welcome.badge": { TH: "✨ สารจากนายกสภาเภสัชกรรม", EN: "✨ Message from the President" },
@@ -132,6 +137,11 @@ const translations: Record<string, Record<Lang, string>> = {
   // Footer
 
 
+  // Visitor Counter
+  "visitor.label": { TH: "จำนวนผู้เยี่ยมชมเว็บไซต์", EN: "Website Visitors" },
+  "visitor.today": { TH: "วันนี้", EN: "Today" },
+  "visitor.threeDay": { TH: "3 วันล่าสุด", EN: "Last 3 Days" },
+
   // Login
   "login.welcome": { TH: "ยินดีต้อนรับ", EN: "Welcome" },
   "login.subtitle": {
@@ -162,6 +172,8 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   "register.firstName": { TH: "ชื่อ", EN: "First Name" },
   "register.lastName": { TH: "นามสกุล", EN: "Last Name" },
+  "register.examId": { TH: "เลขประจำตัวผู้เข้าสอบ", EN: "Exam Candidate ID" },
+  "register.phone": { TH: "เบอร์โทรศัพท์", EN: "Phone Number" },
   "register.email": { TH: "อีเมล", EN: "Email Address" },
   "register.password": { TH: "รหัสผ่าน", EN: "Password" },
   "register.confirmPassword": { TH: "ยืนยันรหัสผ่าน", EN: "Confirm Password" },
@@ -202,6 +214,42 @@ const translations: Record<string, Record<Lang, string>> = {
     TH: "ยังไม่มีบัญชี?",
     EN: "New to Orientation?",
   },
+  // Scroll Sequence
+  "scroll.loading": { TH: "กำลังโหลดประสบการณ์", EN: "Loading Experience" },
+  
+  // Intro
+  "scroll.intro.badge": { TH: "เภสัชกรรม 2569", EN: "Pharmacy 2026" },
+  "scroll.intro.title1": { TH: "จบเภสัช", EN: "Graduated" },
+  "scroll.intro.title2": { TH: "แล้วไปไหน?", EN: "What's Next?" },
+  "scroll.intro.desc": { TH: "Scroll เพื่อสำรวจเส้นทางอาชีพ", EN: "Scroll to explore career paths" },
+
+  // Career 1
+  "scroll.career1.badge": { TH: "01 — บริการผู้ป่วย", EN: "01 — Patient Care" },
+  "scroll.career1.title1": { TH: "เภสัชกร", EN: "Pharmacist" },
+  "scroll.career1.title2": { TH: "ร้านยา & โรงพยาบาล", EN: "Pharmacy & Hospital" },
+  "scroll.career1.desc": { 
+    TH: "ดูแลผู้ป่วยโดยตรง จ่ายยา ให้คำปรึกษา และเป็นด่านแรกด้านสุขภาพของชุมชน ทั้งในโรงพยาบาลรัฐ เอกชน และร้านยาชุมชน", 
+    EN: "Direct patient care, dispensing, counseling, and being the first line of community health in public/private hospitals and community pharmacies." 
+  },
+
+  // Career 2
+  "scroll.career2.badge": { TH: "02 — อุตสาหกรรม & วิจัย", EN: "02 — Industry & Research" },
+  "scroll.career2.title1": { TH: "นักวิจัย", EN: "Researcher" },
+  "scroll.career2.title2": { TH: "& อุตสาหกรรมยา", EN: "& Pharma Industry" },
+  "scroll.career2.desc": { 
+    TH: "พัฒนายาและผลิตภัณฑ์สุขภาพ ทำงานใน บริษัทยาข้ามชาติ สถาบันวิจัย หรือ หน่วยงานกำกับดูแลยา (อย.)", 
+    EN: "Developing drugs and health products in multinational companies, research institutes, or regulatory agencies (FDA)." 
+  },
+
+  // CTA
+  "scroll.cta.badge": { TH: "03 — เส้นทางของคุณ", EN: "03 — Your Path" },
+  "scroll.cta.title1": { TH: "ยินดีต้อนรับ", EN: "Welcome" },
+  "scroll.cta.title2": { TH: "สู่วิชาชีพ", EN: "to the Profession" },
+  "scroll.cta.desc": { 
+    TH: "ไม่ว่าจะเลือกเส้นทางใด คุณคือกำลังสำคัญ ของระบบสาธารณสุขไทย", 
+    EN: "Whichever path you choose, you are a vital force in Thailand's public health system." 
+  },
+  "scroll.cta.scrollHint": { TH: "เลื่อนลงต่อ", EN: "Keep Scrolling" },
 };
 
 interface LangContextType {

@@ -13,7 +13,9 @@ export default function Home() {
       <StickySubnav />
       <main>
         <HeroSection />
-        <WelcomeSection />
+        <div id="welcome">
+          <WelcomeSection />
+        </div>
         <AgendaSection />
         <MemoriesSection />
       </main>
@@ -21,4 +23,5 @@ export default function Home() {
     </>
   );
 }
+
 
