@@ -8,7 +8,8 @@ interface AuthUser {
   name?: string;
   firstName?: string;
   lastName?: string;
-  examId?: string;
+  licenseId?: string;
+  university?: string;
   phone?: string;
 }
 
@@ -61,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(async (data: any): Promise<boolean> => {
-    const { email, password, firstName, lastName, examId, phone } = data;
+    const { email, password, firstName, lastName, licenseId, university, phone } = data;
     if (!email || !password) return false;
 
     const sessionUser: AuthUser = {
@@ -69,7 +70,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       name: `${firstName} ${lastName}`,
       firstName,
       lastName,
-      examId,
+      licenseId,
+      university,
       phone
     };
 

@@ -24,7 +24,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.signUp": { TH: "สมัครสมาชิก", EN: "Sign Up" },
   "nav.signOut": { TH: "ออกจากระบบ", EN: "Sign Out" },
   "nav.license": { TH: "ใบอนุญาต", EN: "License" },
-  "nav.examId": { TH: "เลขที่นั่งสอบ", EN: "Exam Seat No." },
+  "nav.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License No." },
   "nav.phone": { TH: "เบอร์โทร", EN: "Phone" },
 
   // Hero
@@ -172,7 +172,7 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   "register.firstName": { TH: "ชื่อ", EN: "First Name" },
   "register.lastName": { TH: "นามสกุล", EN: "Last Name" },
-  "register.examId": { TH: "เลขประจำตัวผู้เข้าสอบ", EN: "Exam Candidate ID" },
+  "register.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License Number" },
   "register.phone": { TH: "เบอร์โทรศัพท์", EN: "Phone Number" },
   "register.email": { TH: "อีเมล", EN: "Email Address" },
   "register.password": { TH: "รหัสผ่าน", EN: "Password" },
