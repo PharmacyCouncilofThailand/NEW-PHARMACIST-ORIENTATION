@@ -3,9 +3,9 @@
 import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "../contexts/ThemeContext";
-import { useLang } from "../contexts/LangContext";
-import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../../contexts/ThemeContext";
+import { useLang } from "../../contexts/LangContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const navLinks = [
   { href: "#hero", key: "nav.home" },

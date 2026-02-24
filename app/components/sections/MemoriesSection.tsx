@@ -1,8 +1,8 @@
 "use client";
 
-import ScrollReveal from "./ScrollReveal";
+import ScrollReveal from "../scroll/ScrollReveal";
 import Image from "next/image";
-import { useLang } from "../contexts/LangContext";
+import { useLang } from "../../contexts/LangContext";
 
 interface Memory {
   img: string;

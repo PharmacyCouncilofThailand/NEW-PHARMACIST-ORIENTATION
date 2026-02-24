@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect, useMemo, memo } from "react";
-import ScrollReveal from "./ScrollReveal";
-import { useLang } from "../contexts/LangContext";
+import ScrollReveal from "../scroll/ScrollReveal";
+import { useLang } from "../../contexts/LangContext";
 
 /* ────────────────────── types ────────────────────── */
 interface TimelineEvent {
