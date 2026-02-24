@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useLang } from "../contexts/LangContext";
-import VisitorCounter from "./VisitorCounter";
+import { useLang } from "../../contexts/LangContext";
+import VisitorCounter from "../effects/VisitorCounter";
 
 export default function Footer() {
   const { t } = useLang();

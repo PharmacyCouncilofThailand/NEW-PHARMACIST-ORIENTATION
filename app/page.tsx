@@ -1,10 +1,10 @@
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import WelcomeSection from "./components/WelcomeSection";
-import AgendaSection from "./components/AgendaSection";
-import MemoriesSection from "./components/MemoriesSection";
-import Footer from "./components/Footer";
-import StickySubnav from "./components/StickySubnav";
+import Navbar from "./components/layout/Navbar";
+import HeroSection from "./components/sections/HeroSection";
+import WelcomeSection from "./components/sections/WelcomeSection";
+import AgendaSection from "./components/sections/AgendaSection";
+import MemoriesSection from "./components/sections/MemoriesSection";
+import Footer from "./components/layout/Footer";
+import StickySubnav from "./components/layout/StickySubnav";
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import PharmacyScrollSequence from "../components/PharmacyScrollSequence";
+import PharmacyScrollSequence from "../components/scroll/PharmacyScrollSequence";
 import Link from "next/link";
 
 export default function ScrollPage() {

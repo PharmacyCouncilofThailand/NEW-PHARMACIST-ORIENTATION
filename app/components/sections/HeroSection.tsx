@@ -4,8 +4,8 @@ import { useEffect, useRef, memo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { useLang } from "../contexts/LangContext";
-import { useAuth } from "../contexts/AuthContext";
+import { useLang } from "../../contexts/LangContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 // SVG arrow icon extracted as constant to avoid re-creation
 const ArrowIcon = memo(function ArrowIcon() {
