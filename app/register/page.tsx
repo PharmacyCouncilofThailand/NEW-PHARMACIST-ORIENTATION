@@ -1,302 +1,590 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo, memo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "../contexts/AuthContext";
 import { useLang } from "../contexts/LangContext";
+import s from "./register.module.css";
 
-const steps = [
-  { id: 1, key: "register.step.personal" },
-  { id: 2, key: "register.step.credentials" },
-];
+/* ═══════════════════════════════════════════
+   CONSTANTS (outside component – never re-created)
+═══════════════════════════════════════════ */
+const UNIVERSITIES = {
+  TH: [
+    "จุฬาลงกรณ์มหาวิทยาลัย","มหาวิทยาลัยมหิดล","มหาวิทยาลัยเชียงใหม่",
+    "มหาวิทยาลัยสงขลานครินทร์","มหาวิทยาลัยขอนแก่น","มหาวิทยาลัยศิลปากร",
+    "มหาวิทยาลัยนเรศวร","มหาวิทยาลัยศรีนครินทรวิโรฒ","มหาวิทยาลัยมหาสารคาม",
+    "มหาวิทยาลัยอุบลราชธานี","มหาวิทยาลัยพะเยา","มหาวิทยาลัยรังสิต",
+    "มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ","มหาวิทยาลัยสยาม","มหาวิทยาลัยพายัพ",
+    "มหาวิทยาลัยวลัยลักษณ์","มหาวิทยาลัยบูรพา","มหาวิทยาลัยอีสเทิร์นเอเชีย",
+    "มหาวิทยาลัยธรรมศาสตร์","มหาวิทยาลัยเวสเทิร์น",
+    "สถาบันวิทยาการประกอบการแห่งอโยธยา","สถาบันพระบรมราชชนก",
+    "วิทยาลัยนครราชสีมา","มหาวิทยาลัยเกษตรศาสตร์","มหาวิทยาลัยปทุมธานี",
+  ],
+  EN: [
+    "Chulalongkorn University","Mahidol University","Chiang Mai University",
+    "Prince of Songkla University","Khon Kaen University","Silpakorn University",
+    "Naresuan University","Srinakharinwirot University","Mahasarakham University",
+    "Ubon Ratchathani University","University of Phayao","Rangsit University",
+    "Huachiew Chalermprakiet University","Siam University","Payap University",
+    "Walailak University","Burapha University","Eastern Asia University",
+    "Thammasat University","Western University",
+    "Institute of Business Technology and Ayothaya","Praboromarajchanok Institute",
+    "Nakhon Ratchasima College","Kasetsart University","Pathumthani University",
+  ],
+} as const;
 
+const STEP_COUNT = 2;
+
+const STRENGTH_COLORS = ["#ef4444", "#f97316", "#eab308", "#22c55e"] as const;
+const STRENGTH_LABELS = {
+  TH: ["อ่อนมาก", "อ่อน", "ปานกลาง", "แข็งแรง"],
+  EN: ["Weak", "Fair", "Good", "Strong"],
+} as const;
+
+const INITIAL_FORM = {
+  firstName: "", lastName: "", licenseId: "", phone: "",
+  email: "", password: "", confirmPassword: "",
+} as const;
+
+type FormData = { [K in keyof typeof INITIAL_FORM]: string };
+
+/* ═══════════════════════════════════════════
+   PURE HELPERS (referentially stable)
+═══════════════════════════════════════════ */
+function getPasswordStrength(pw: string): number {
+  let score = 0;
+  if (pw.length >= 6)  score++;
+  if (pw.length >= 10) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  return Math.min(score, 4);
+}
+
+/* ═══════════════════════════════════════════
+   ICON COMPONENTS (memoized – no re-render)
+═══════════════════════════════════════════ */
+const IconUser = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+  </svg>
+));
+IconUser.displayName = "IconUser";
+
+const IconDoc = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+  </svg>
+));
+IconDoc.displayName = "IconDoc";
+
+const IconUni = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+  </svg>
+));
+IconUni.displayName = "IconUni";
+
+const IconPhone = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+  </svg>
+));
+IconPhone.displayName = "IconPhone";
+
+const IconMail = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+  </svg>
+));
+IconMail.displayName = "IconMail";
+
+const IconLock = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+  </svg>
+));
+IconLock.displayName = "IconLock";
+
+const IconShield = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+  </svg>
+));
+IconShield.displayName = "IconShield";
+
+const IconEyeOpen = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+  </svg>
+));
+IconEyeOpen.displayName = "IconEyeOpen";
+
+const IconEyeClosed = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+  </svg>
+));
+IconEyeClosed.displayName = "IconEyeClosed";
+
+const IconCheck = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
+  </svg>
+));
+IconCheck.displayName = "IconCheck";
+
+const IconChevron = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7"/>
+  </svg>
+));
+IconChevron.displayName = "IconChevron";
+
+const IconArrowRight = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+  </svg>
+));
+IconArrowRight.displayName = "IconArrowRight";
+
+const IconArrowLeft = memo(() => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
+  </svg>
+));
+IconArrowLeft.displayName = "IconArrowLeft";
+
+/* ═══════════════════════════════════════════
+   SUB-COMPONENTS
+═══════════════════════════════════════════ */
+
+/** Reusable floating-label input field */
+interface FloatFieldProps {
+  name: keyof FormData;
+  label: string;
+  icon: React.ReactNode;
+  value: string;
+  type?: string;
+  autoComplete?: string;
+  focused: string | null;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus: (name: string) => void;
+  onBlur: () => void;
+  rightSlot?: React.ReactNode;
+}
+
+const FloatField = memo<FloatFieldProps>(({
+  name, label, icon, value, type = "text", autoComplete = "off",
+  focused, onChange, onFocus, onBlur, rightSlot,
+}) => {
+  const isUp = focused === name || !!value;
+  return (
+    <div className={s.field}>
+      <div className={`${s.inputWrap} ${focused === name ? s.inputWrapFocused : ""}`}>
+        <span className={`${s.icon} ${isUp ? s.iconLit : ""}`}>{icon}</span>
+        <div className={s.fieldInner}>
+          <label className={`${s.label} ${isUp ? s.labelUp : ""}`}>{label}</label>
+          <input
+            className={s.input}
+            name={name}
+            type={type}
+            autoComplete={autoComplete}
+            value={value}
+            onChange={onChange}
+            onFocus={() => onFocus(name)}
+            onBlur={onBlur}
+          />
+        </div>
+        {rightSlot && <div className={s.right}>{rightSlot}</div>}
+      </div>
+    </div>
+  );
+});
+FloatField.displayName = "FloatField";
+
+/** Password strength indicator */
+const PasswordStrength = memo<{ strength: number; lang: string }>(({ strength, lang }) => (
+  <div className={s.strength}>
+    {[0, 1, 2, 3].map(i => (
+      <div key={i} className={s.strBar}>
+        <div
+          className={s.strFill}
+          style={{
+            width: strength > i ? "100%" : "0%",
+            background: STRENGTH_COLORS[strength - 1] || "#e2e8f0",
+          }}
+        />
+      </div>
+    ))}
+    <span className={s.strLabel} style={{ color: STRENGTH_COLORS[strength - 1] }}>
+      {lang === "TH"
+        ? STRENGTH_LABELS.TH[strength - 1]
+        : STRENGTH_LABELS.EN[strength - 1]}
+    </span>
+  </div>
+));
+PasswordStrength.displayName = "PasswordStrength";
+
+/** Password match feedback */
+const MatchFeedback = memo<{ match: boolean; lang: string }>(({ match, lang }) => (
+  <div className={s.matchFeedback} style={{ color: match ? "#10b981" : "#ef4444" }}>
+    {match ? (
+      <>
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/>
+        </svg>
+        {lang === "TH" ? "รหัสผ่านตรงกัน" : "Passwords match"}
+      </>
+    ) : (
+      <>
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+        {lang === "TH" ? "รหัสผ่านไม่ตรงกัน" : "Passwords do not match"}
+      </>
+    )}
+  </div>
+));
+MatchFeedback.displayName = "MatchFeedback";
+
+/* ═══════════════════════════════════════════
+   MAIN PAGE COMPONENT
+═══════════════════════════════════════════ */
 export default function RegisterPage() {
   const router = useRouter();
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { register } = useAuth();
-  const [step, setStep] = useState(1);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    examId: "",
-    phone: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  // Memoized — uses functional update to avoid formData in deps
+  /* ── State (grouped logically) ── */
+  const [step, setStep]         = useState(1);
+  const [formData, setFormData] = useState<FormData>({ ...INITIAL_FORM });
+  const [university, setUni]    = useState("");
+  const [focused, setFocused]   = useState<string | null>(null);
+  const [showPw, setShowPw]     = useState(false);
+  const [showCpw, setShowCpw]   = useState(false);
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState("");
+  const [done, setDone]         = useState(false);
+
+
+  /* ── Derived values (memoized) ── */
+  const uniList     = useMemo(() => UNIVERSITIES[lang] ?? UNIVERSITIES.EN, [lang]);
+  const pwStrength  = useMemo(() => getPasswordStrength(formData.password), [formData.password]);
+  const pwMatch     = formData.password === formData.confirmPassword;
+
+  /* ── Handlers (stable via useCallback) ── */
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    if (error) setError("");
-  }, [error]);
-
-  const handleNext = () => {
-    if (step === 1 && formData.firstName && formData.lastName && formData.examId && formData.phone) {
-      setStep(2);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (step === 1) {
-      handleNext();
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("รหัสผ่านไม่ตรงกัน");
-      return;
-    }
-
-    setIsLoading(true);
     setError("");
+  }, []);
 
-    try {
-      // Prepare user data
-      const userData = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        examId: formData.examId,
-        phone: formData.phone,
-        email: formData.email,
-        password: formData.password
-      };
+  const handleFocus = useCallback((name: string) => setFocused(name), []);
+  const handleBlur  = useCallback(() => setFocused(null), []);
 
-      const success = await register(userData);
-      
-      if (success) {
-        // Reduced timeout for better UX, just enough to show spinner briefly
-        setTimeout(() => {
-          router.push("/");
-        }, 800);
-      } else {
-        setError("ไม่สามารถลงทะเบียนได้ กรุณาลองใหม่อีกครั้ง");
-        setIsLoading(false);
-      }
-    } catch (err) {
-      console.error(err);
-      setError("เกิดข้อผิดพลาดในการเชื่อมต่อ");
-      setIsLoading(false);
+  const selectUni = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUni(e.target.value);
+    setError("");
+  }, []);
+
+  const goNext = useCallback(() => {
+    const { firstName, lastName, licenseId, phone } = formData;
+    if (!firstName || !lastName || !licenseId || !phone || !university) {
+      setError(lang === "TH" ? "กรุณากรอกข้อมูลให้ครบทุกช่อง" : "Please fill in all fields");
+      return;
     }
-  };
+    setError("");
+    setStep(2);
+  }, [formData, university, lang]);
 
-  const renderField = (name: string, labelKey: string, type: string = "text") => {
-    const value = formData[name as keyof typeof formData];
-    return (
-      <div className="relative">
-        <label
-          className={`absolute left-4 transition-all duration-300 pointer-events-none z-10 ${
-            focusedField === name || value
-              ? "top-2 text-[10px] font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400"
-              : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
-          }`}
-        >
-          {t(labelKey)}
-        </label>
-        <input
-          type={type}
-          name={name}
-          required
-          className={`w-full px-4 pt-7 pb-3 rounded-2xl border-2 outline-none transition-all duration-300 font-medium text-slate-700 dark:text-white bg-white/60 dark:bg-white/5 backdrop-blur-sm ${
-            focusedField === name
-              ? "border-violet-400 shadow-[0_0_0_4px_rgba(124,58,237,0.08)]"
-              : "border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600"
-          }`}
-          value={value}
-          onChange={handleChange}
-          onFocus={() => setFocusedField(name)}
-          onBlur={() => setFocusedField(null)}
-        />
-      </div>
-    );
-  };
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (step === 1) { goNext(); return; }
 
+    if (!pwMatch) {
+      setError(lang === "TH" ? "รหัสผ่านไม่ตรงกัน" : "Passwords do not match");
+      return;
+    }
+    if (formData.password.length < 6) {
+      setError(lang === "TH" ? "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร" : "Minimum 6 characters");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    try {
+      const ok = await register({ ...formData, university });
+      if (ok) {
+        setDone(true);
+        setTimeout(() => router.push("/"), 1800);
+      } else {
+        setError(lang === "TH" ? "ไม่สามารถสมัครได้ กรุณาลองใหม่" : "Registration failed");
+        setLoading(false);
+      }
+    } catch {
+      setError(lang === "TH" ? "เกิดข้อผิดพลาด" : "An error occurred");
+      setLoading(false);
+    }
+  }, [step, goNext, pwMatch, formData, university, lang, register, router]);
+
+  /* ═════════════════════════════════
+     RENDER
+  ═════════════════════════════════ */
   return (
-    <div className="min-h-screen w-full relative overflow-hidden">
-      {/* ===== FULL-SCREEN BACKGROUND ===== */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#eef2ff] to-[#f0f9ff] dark:from-[#0f172a] dark:via-[#1e1b4b] dark:to-[#0f172a]" />
-      <div className="absolute inset-0 aurora-bg opacity-30 pointer-events-none" />
+    <div className={s.root}>
+      {/* Background layers */}
+      <div className={s.bg} />
+      <div className={s.dots} />
+      <div className={s.orb1} />
+      <div className={s.orb2} />
 
-      {/* Perspective Grid */}
-      <div
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(124, 58, 237, 0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(37, 99, 235, 0.12) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-          transform: "perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-200px)",
-          maskImage: "linear-gradient(to bottom, transparent 0%, white 40%, white 80%, transparent 100%)",
-        }}
-      />
-
-      {/* Floating Orbs */}
-      <div className="absolute top-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-violet-400/15 blur-[120px] rounded-full animate-float-slow pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[50vw] h-[50vw] bg-blue-400/15 blur-[120px] rounded-full animate-float pointer-events-none" />
-
-      {/* ===== CONTENT ===== */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[420px]">
-
-          {/* Logo */}
-          <div className="text-center mb-10 animate-fade-slide">
-            <Link href="/" className="inline-block group">
-              <div className="w-20 h-20 mx-auto rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-2 border-white dark:border-slate-700 shadow-xl shadow-violet-200/30 dark:shadow-violet-900/30 flex items-center justify-center p-1.5 transition-transform group-hover:scale-110">
-                <Image src="/logo.jpg" alt="Pharmacy Council" width={68} height={68} className="rounded-full object-cover" quality={100} />
-              </div>
-            </Link>
+      <div className={s.card}>
+        {done ? (
+          /* ── Success state ── */
+          <div className={s.success}>
+            <div className={s.successRing}>
+              <svg className="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <h2>{lang === "TH" ? "สมัครสำเร็จ! 🎉" : "Registration Complete! 🎉"}</h2>
+            <p>{lang === "TH" ? "กำลังพาคุณไปหน้าหลัก..." : "Redirecting to home..."}</p>
           </div>
-
-          {/* Progress Steps */}
-          <div className="flex items-center justify-center gap-3 mb-8 animate-fade-slide" style={{ animationDelay: '50ms' }}>
-            {steps.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => s.id < step && setStep(s.id)}
-                className="flex items-center gap-2"
-              >
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500 ${
-                    step >= s.id
-                      ? "bg-gradient-to-r from-violet-600 to-blue-600 text-white shadow-md shadow-violet-200/50"
-                      : "bg-slate-100 dark:bg-slate-700 text-slate-400"
-                  }`}
-                >
-                  {step > s.id ? (
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  ) : (
-                    s.id
-                  )}
+        ) : (
+          <>
+            {/* ── Logo row ── */}
+            <div className={s.top}>
+              <Link href="/" className={s.logoWrap}>
+                <Image src="/logo.jpg" alt="Logo" width={40} height={40} className={s.logoImg} quality={100} />
+                <div>
+                  <div className={s.logoText}>
+                    {lang === "TH" ? "สภาเภสัชกรรม" : "Pharmacy Council"}
+                  </div>
+                  <div className={s.logoSub}>
+                    {lang === "TH" ? "แห่งประเทศไทย" : "of Thailand"}
+                  </div>
                 </div>
-                <span className={`text-xs font-bold transition-colors ${step >= s.id ? "text-slate-700 dark:text-white" : "text-slate-400"}`}>
-                  {t(s.key)}
-                </span>
-                {s.id < steps.length && (
-                  <div className={`w-10 h-0.5 rounded-full transition-colors duration-500 ${step > s.id ? "bg-violet-400" : "bg-slate-200 dark:bg-slate-700"}`} />
-                )}
-              </button>
-            ))}
-          </div>
+              </Link>
+            </div>
 
-          {/* Main Card */}
-          <div className="glass-card rounded-[2rem] p-10 animate-fade-slide" style={{ animationDelay: '100ms' }}>
-
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight mb-2">
-                {step === 1 ? t("register.createAccount") : t("register.secureAccount")}
+            {/* ── Header ── */}
+            <div className={s.head}>
+              <div className={s.eyebrow}>
+                <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="4"/>
+                </svg>
+                {lang === "TH"
+                  ? `ขั้นตอนที่ ${step} จาก ${STEP_COUNT}`
+                  : `Step ${step} of ${STEP_COUNT}`}
+              </div>
+              <h1>
+                {step === 1
+                  ? (lang === "TH" ? "ข้อมูลส่วนตัว" : "Personal Info")
+                  : (lang === "TH" ? "ตั้งค่าบัญชี"   : "Account Setup")}
               </h1>
-              <p className="text-slate-400 text-[15px]">
-                {step === 1 ? t("register.personalInfo") : t("register.credentialInfo")}
+              <p>
+                {step === 1
+                  ? (lang === "TH" ? "กรุณากรอกชื่อ เลขใบอนุญาต และมหาวิทยาลัยของคุณ" : "Enter your name, license number, and university")
+                  : (lang === "TH" ? "สร้างอีเมลและรหัสผ่านเพื่อเข้าใช้งาน" : "Set up your login email and password")}
               </p>
             </div>
 
-            {/* Error Message */}
+            <div className={s.divider} />
+
+            {/* ── Error ── */}
             {error && (
-              <div className="mb-6 flex items-center gap-2 px-4 py-3 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/40 text-red-600 dark:text-red-400 text-sm font-medium animate-fade-in">
-                <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z" />
+              <div className={s.error}>
+                <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18 9 9 0 010-18z"/>
                 </svg>
                 {error}
               </div>
             )}
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-5">
+            {/* ── Form ── */}
+            <form onSubmit={handleSubmit} className={s.formAnim} key={step}>
               {step === 1 ? (
-                <div className="space-y-5">
-                  {renderField("firstName", "register.firstName")}
-                  {renderField("lastName", "register.lastName")}
-                  {renderField("examId", "register.examId")}
-                  {renderField("phone", "register.phone", "tel")}
+                <div className={s.stepCol}>
+
+                  {/* Name row */}
+                  <div className={s.grid2}>
+                    {(["firstName", "lastName"] as const).map(name => (
+                      <FloatField
+                        key={name}
+                        name={name}
+                        label={t(`register.${name}`)}
+                        icon={<IconUser />}
+                        value={formData[name]}
+                        focused={focused}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                    ))}
+                  </div>
+
+                  {/* License */}
+                  <FloatField
+                    name="licenseId"
+                    label={t("register.licenseId")}
+                    icon={<IconDoc />}
+                    value={formData.licenseId}
+                    focused={focused}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+
+                  {/* University — native select */}
+                  <div className={s.field}>
+                    <div className={`${s.inputWrap} ${focused === "university" ? s.inputWrapFocused : ""}`}>
+                      <span className={`${s.icon} ${university ? s.iconLit : ""}`}>
+                        <IconUni />
+                      </span>
+                      <div className={s.fieldInner}>
+                        <label className={`${s.label} ${university ? s.labelUp : ""}`}>
+                          {lang === "TH" ? "มหาวิทยาลัย / สถาบัน" : "University / Institution"}
+                        </label>
+                        <select
+                          className={s.select}
+                          value={university}
+                          onChange={selectUni}
+                          onFocus={() => handleFocus("university")}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled hidden />
+                          {uniList.map((u, i) => (
+                            <option key={i} value={u}>{u}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <FloatField
+                    name="phone"
+                    label={t("register.phone")}
+                    icon={<IconPhone />}
+                    type="tel"
+                    value={formData.phone}
+                    focused={focused}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
                 </div>
               ) : (
-                <div className="space-y-5">
-                  {renderField("email", "register.email", "email")}
-                  {renderField("password", "register.password", "password")}
-                  {renderField("confirmPassword", "register.confirmPassword", "password")}
+                /* ── Step 2: Account ── */
+                <div className={s.stepCol}>
+
+                  {/* Email */}
+                  <FloatField
+                    name="email"
+                    label={t("register.email")}
+                    icon={<IconMail />}
+                    type="email"
+                    value={formData.email}
+                    focused={focused}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+
+                  {/* Password */}
+                  <FloatField
+                    name="password"
+                    label={t("register.password")}
+                    icon={<IconLock />}
+                    type={showPw ? "text" : "password"}
+                    autoComplete="new-password"
+                    value={formData.password}
+                    focused={focused}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    rightSlot={
+                      <button type="button" className={s.eye} tabIndex={-1} onClick={() => setShowPw(p => !p)}>
+                        {showPw ? <IconEyeClosed /> : <IconEyeOpen />}
+                      </button>
+                    }
+                  />
+                  {formData.password && <PasswordStrength strength={pwStrength} lang={lang} />}
+
+                  {/* Confirm Password */}
+                  <FloatField
+                    name="confirmPassword"
+                    label={t("register.confirmPassword")}
+                    icon={<IconShield />}
+                    type={showCpw ? "text" : "password"}
+                    autoComplete="new-password"
+                    value={formData.confirmPassword}
+                    focused={focused}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    rightSlot={
+                      <button type="button" className={s.eye} tabIndex={-1} onClick={() => setShowCpw(p => !p)}>
+                        {showCpw ? <IconEyeClosed /> : <IconEyeOpen />}
+                      </button>
+                    }
+                  />
+                  {formData.confirmPassword && formData.password && (
+                    <MatchFeedback match={pwMatch} lang={lang} />
+                  )}
                 </div>
               )}
 
-              {/* Action Buttons */}
-              <div className="flex gap-3 pt-2">
+              {/* ── Action buttons ── */}
+              <div className={s.actionRow}>
                 {step > 1 && (
                   <button
                     type="button"
-                    onClick={() => setStep(step - 1)}
-                    className="w-14 h-14 rounded-2xl border-2 border-slate-100 dark:border-slate-700 text-slate-400 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-white/5 hover:border-slate-200 dark:hover:border-slate-600 hover:text-slate-600 transition-all"
+                    className={s.btnBack}
+                    onClick={() => { setStep(1); setError(""); }}
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
+                    <IconArrowLeft />
                   </button>
                 )}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={`group relative flex-1 py-4 rounded-2xl text-white font-bold text-[15px] shadow-lg transition-all duration-300 overflow-hidden
-                    ${isLoading
-                      ? "bg-slate-300 cursor-not-allowed shadow-none"
-                      : "bg-gradient-to-r from-violet-600 to-blue-600 hover:shadow-[0_10px_40px_-10px_rgba(124,58,237,0.5)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-md"
-                    }`}
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    {isLoading ? (
+                <button type="submit" disabled={loading} className={s.btn} style={{ flex: 1 }}>
+                  {!loading && <div className={s.btnShine} />}
+                  <div className={s.btnContent}>
+                    {loading ? (
                       <>
                         <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
                         </svg>
                         {t("register.creating")}
                       </>
                     ) : step === 1 ? (
                       <>
                         {t("register.continue")}
-                        <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
+                        <IconArrowRight />
                       </>
                     ) : (
                       <>
-                        {t("register.createAccount")}
-                        <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {lang === "TH" ? "สร้างบัญชี" : "Create Account"}
+                        <IconCheck />
                       </>
                     )}
-                  </span>
-                  {!isLoading && <div className="absolute inset-0 animate-shimmer pointer-events-none" />}
+                  </div>
                 </button>
               </div>
             </form>
-          </div>
 
-          {/* Login Link */}
-          <div className="mt-8 animate-fade-slide" style={{ animationDelay: '200ms' }}>
-            <Link
-              href="/login"
-              className="group block w-full glass-card rounded-2xl p-5 text-center hover:shadow-lg hover:shadow-violet-100/50 dark:hover:shadow-violet-900/30 hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                {t("register.hasAccount")}{" "}
-                <span className="font-bold text-violet-600 dark:text-violet-400 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-colors">
-                  {t("register.signIn")}
-                </span>
-              </p>
-            </Link>
-          </div>
-
-        </div>
+            {/* ── Login link ── */}
+            <div className={s.loginRow}>
+              <span>{t("register.hasAccount")}</span>
+              <Link href="/login">{t("register.signIn")}</Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
