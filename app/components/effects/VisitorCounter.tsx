@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLang } from "../contexts/LangContext";
+import { useLang } from "../../contexts/LangContext";
 
 function getTodayKey() {
   return new Date().toISOString().slice(0, 10);

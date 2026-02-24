@@ -3,9 +3,9 @@
 import { useRef, useEffect, useCallback, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useImageSequence } from "../hooks/useImageSequence";
-import { useLenis } from "./ui/SmoothScroll";
-import { useLang } from "../contexts/LangContext";
+import { useImageSequence } from "../../hooks/useImageSequence";
+import { useLenis } from "../ui/SmoothScroll";
+import { useLang } from "../../contexts/LangContext";
 
 /* ===========================
    Configuration

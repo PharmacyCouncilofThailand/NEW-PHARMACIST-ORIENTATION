@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai, Inter } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "./components/CustomCursor";
-import StarryBackground from "./components/StarryBackground";
-import ScrollProgress from "./components/ScrollProgress";
+import CustomCursor from "./components/effects/CustomCursor";
+import StarryBackground from "./components/effects/StarryBackground";
+import ScrollProgress from "./components/scroll/ScrollProgress";
 import { Providers } from "./providers";
 
 const notoSansThai = Noto_Sans_Thai({

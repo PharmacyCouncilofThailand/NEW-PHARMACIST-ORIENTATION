@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import ScrollReveal from "./ScrollReveal";
-import { useLang } from "../contexts/LangContext";
+import ScrollReveal from "../scroll/ScrollReveal";
+import { useLang } from "../../contexts/LangContext";
 
 
 
