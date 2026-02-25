@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════
-   Register Page — CSS Module
+   Login Page — CSS Module
+   (Mirrors register.module.css design)
    ═══════════════════════════════════════════ */
 
 /* ── Root ── */
@@ -182,7 +183,6 @@
   display: flex;
   flex-direction: column;
   gap: .3rem;
-  position: relative;
 }
 .inputWrap {
   position: relative;
@@ -232,7 +232,7 @@
 }
 .input::placeholder { color: transparent; }
 
-/* ── Right side (eye toggle) ── */
+/* ── Right side (eye toggle / forgot link) ── */
 .right { flex-shrink: 0; padding-right: .5rem; }
 .eye {
   width: 34px; height: 34px;
@@ -243,200 +243,26 @@
 }
 .eye:hover { color: #7c3aed; background: rgba(124,58,237,.06); }
 
-/* ── Password strength ── */
-.strength {
-  display: flex; align-items: center; gap: .25rem;
-  padding: 0 .1rem;
-}
-.strBar  { flex: 1; height: 3px; border-radius: 999px; background: #e2e8f0; overflow: hidden; }
-.strFill { height: 100%; border-radius: 999px; transition: width .35s, background .35s; }
-.strLabel { font-size: .62rem; font-weight: 700; white-space: nowrap; margin-left: .4rem; }
-
-/* ── 2-col grid ── */
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-@media (max-width: 420px) { .grid2 { grid-template-columns: 1fr; } }
-
-/* ── Custom University Dropdown ── */
-.uniDropdown {
-  position: relative;
-}
-
-.uniTrigger {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-size: .9375rem;
-  font-weight: 600;
-  color: #0f172a;
-  padding: 1.3rem 0 .35rem;
-  line-height: 1;
-  cursor: pointer;
-  text-align: left;
-  padding-right: 2rem;
-}
-
-.uniTriggerPlaceholder {
-  color: transparent;
-}
-
-.uniChevron {
-  position: absolute;
-  right: .5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #94a3b8;
-  transition: transform .3s cubic-bezier(.4,0,.2,1), color .2s;
-  pointer-events: none;
-}
-.uniChevronOpen {
-  transform: translateY(-50%) rotate(180deg);
+.forgotLink {
+  font-size: .68rem;
+  font-weight: 800;
   color: #7c3aed;
+  text-decoration: none;
+  padding: .35rem .5rem;
+  border-radius: .5rem;
+  transition: color .2s, background .2s;
+  white-space: nowrap;
+}
+.forgotLink:hover {
+  color: #5b21b6;
+  background: rgba(124,58,237,.06);
 }
 
-/* ── Dropdown Panel ── */
-.uniPanel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: 100;
-  background: linear-gradient(135deg, rgba(30,27,50,0.97) 0%, rgba(22,20,45,0.98) 100%);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(124,58,237,.25);
-  border-radius: 1rem;
-  box-shadow:
-    0 24px 80px rgba(0,0,0,.45),
-    0 0 0 1px rgba(255,255,255,.05) inset,
-    0 1px 0 rgba(255,255,255,.06) inset;
-  padding: .5rem;
-  overflow: visible;
-  animation: dropIn .25s cubic-bezier(.34,1.4,.64,1) both;
-}
-
-@keyframes dropIn {
-  from { opacity: 0; transform: translateY(-8px) scale(.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* ── Search box inside panel ── */
-.uniSearch {
+/* ── Step / form column ── */
+.stepCol {
   display: flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .55rem .75rem;
-  margin-bottom: .35rem;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: .65rem;
-}
-.uniSearchIcon {
-  color: rgba(255,255,255,.35);
-  flex-shrink: 0;
-}
-.uniSearchInput {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: .82rem;
-  font-weight: 500;
-  color: rgba(255,255,255,.9);
-  caret-color: #a78bfa;
-}
-.uniSearchInput::placeholder {
-  color: rgba(255,255,255,.3);
-}
-
-/* ── Options list ── */
-.uniList {
-  max-height: 280px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: .15rem 0;
-}
-.uniList::-webkit-scrollbar {
-  width: 5px;
-}
-.uniList::-webkit-scrollbar-track {
-  background: transparent;
-}
-.uniList::-webkit-scrollbar-thumb {
-  background: rgba(124,58,237,.35);
-  border-radius: 999px;
-}
-.uniList::-webkit-scrollbar-thumb:hover {
-  background: rgba(124,58,237,.55);
-}
-
-/* ── Individual option ── */
-.uniOption {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  width: 100%;
-  padding: .65rem .75rem;
-  border: none;
-  border-radius: .55rem;
-  background: transparent;
-  color: rgba(255,255,255,.75);
-  font-size: .82rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all .15s ease;
-  text-align: left;
-  line-height: 1.35;
-}
-.uniOption:hover {
-  background: linear-gradient(135deg, rgba(124,58,237,.2) 0%, rgba(59,130,246,.15) 100%);
-  color: #fff;
-}
-.uniOptionActive {
-  background: linear-gradient(135deg, rgba(124,58,237,.45) 0%, rgba(59,130,246,.35) 100%) !important;
-  color: #fff;
-  font-weight: 600;
-}
-
-.uniCheckmark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,.15);
-  transition: all .2s ease;
-}
-.uniCheckmarkActive {
-  background: linear-gradient(135deg, #7c3aed, #2563eb);
-  border-color: transparent;
-  box-shadow: 0 0 12px rgba(124,58,237,.4);
-}
-
-.uniOptionLabel {
-  flex: 1;
-  min-width: 0;
-}
-
-/* ── No results ── */
-.uniNoResults {
-  padding: 1.5rem;
-  text-align: center;
-  color: rgba(255,255,255,.35);
-  font-size: .8rem;
-  font-weight: 500;
-}
-
-/* ── Overlay (click-away) ── */
-.uniOverlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99;
-  background: transparent;
+  flex-direction: column;
+  gap: .875rem;
 }
 
 /* ── CTA button ── */
@@ -449,6 +275,7 @@
   box-shadow: 0 6px 22px rgba(124,58,237,.38);
   overflow: hidden;
   transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+  margin-top: 1.5rem;
 }
 .btn:hover:not(:disabled) {
   transform: translateY(-2px);
@@ -471,71 +298,18 @@
   position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center; gap: .45rem;
 }
-.btnBack {
-  width: 52px; height: 52px; flex-shrink: 0;
-  border: 1.5px solid #e2e8f0; border-radius: 1rem;
-  background: transparent; cursor: pointer; color: #64748b;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color .2s, color .2s, background .2s;
-}
-.btnBack:hover { border-color: #c4b5fd; color: #7c3aed; background: rgba(124,58,237,.05); }
 
-/* ── Login link ── */
-.loginRow {
+/* ── Register link ── */
+.registerRow {
   display: flex; align-items: center; justify-content: center;
   gap: .35rem; margin-top: 1.25rem;
   font-size: .84rem; color: #64748b;
 }
-.loginRow a {
+.registerRow a {
   font-weight: 800; color: #7c3aed; text-decoration: none;
   transition: color .18s;
 }
-.loginRow a:hover { color: #5b21b6; }
+.registerRow a:hover { color: #5b21b6; }
 
-/* ── Success ── */
-.success {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 1rem; padding: 2.5rem 1rem; text-align: center;
-  animation: cardIn .4s ease both;
-}
-.successRing {
-  width: 80px; height: 80px; border-radius: 50%;
-  background: linear-gradient(135deg,#10b981,#059669);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  box-shadow: 0 0 0 12px rgba(16,185,129,.12), 0 8px 28px rgba(16,185,129,.4);
-  animation: pop .5s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes pop {
-  from { transform: scale(.6); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-.success h2 { font-size: 1.4rem; font-weight: 900; color: #0f172a; letter-spacing: -.02em; margin: 0; }
-.success p  { font-size: .875rem; color: #64748b; margin: 0; }
-
-/* ── Form step animation ── */
+/* ── Form animation ── */
 .formAnim { animation: fadeIn .3s cubic-bezier(.34,1.56,.64,1) both; }
-
-/* ── Step container ── */
-.stepCol {
-  display: flex;
-  flex-direction: column;
-  gap: .875rem;
-}
-
-/* ── Action row ── */
-.actionRow {
-  display: flex;
-  gap: .75rem;
-  margin-top: 1.5rem;
-}
-
-/* ── Match feedback ── */
-.matchFeedback {
-  font-size: .72rem;
-  font-weight: 700;
-  padding-left: .1rem;
-  display: flex;
-  align-items: center;
-  gap: .3rem;
-}

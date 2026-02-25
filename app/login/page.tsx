@@ -1,213 +1,242 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useCallback, Suspense, memo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "../contexts/LangContext";
 import { useAuth } from "../contexts/AuthContext";
+import s from "./login.module.css";
 
+/* ═══════════════════════════════════════════
+   ICON COMPONENTS (memoized)
+═══════════════════════════════════════════ */
+const IconMail = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+  </svg>
+));
+IconMail.displayName = "IconMail";
+
+const IconLock = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+  </svg>
+));
+IconLock.displayName = "IconLock";
+
+const IconEyeOpen = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+  </svg>
+));
+IconEyeOpen.displayName = "IconEyeOpen";
+
+const IconEyeClosed = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+  </svg>
+));
+IconEyeClosed.displayName = "IconEyeClosed";
+
+const IconArrowRight = memo(() => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+  </svg>
+));
+IconArrowRight.displayName = "IconArrowRight";
+
+/* ═══════════════════════════════════════════
+   MAIN PAGE (Suspense wrapper for useSearchParams)
+═══════════════════════════════════════════ */
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="loader-ring" /></div>}>
+    <Suspense fallback={<div className={s.root}><div className={s.bg} /></div>}>
       <LoginContent />
     </Suspense>
   );
 }
 
+/* ═══════════════════════════════════════════
+   LOGIN CONTENT
+═══════════════════════════════════════════ */
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  /* ── State ── */
+  const [email, setEmail]       = useState("");
+  const [password, setPassword] = useState("");
+  const [showPw, setShowPw]     = useState(false);
+  const [focused, setFocused]   = useState<string | null>(null);
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState("");
+
+  /* ── Handlers ── */
+  const handleFocus = useCallback((name: string) => setFocused(name), []);
+  const handleBlur  = useCallback(() => setFocused(null), []);
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true);
+    setLoading(true);
     const ok = await login(email, password);
     if (ok) {
       const from = searchParams.get("from") || "/";
       router.push(from);
     } else {
-      setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
-      setIsLoading(false);
+      setError(
+        lang === "TH"
+          ? "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+          : "Invalid email or password"
+      );
+      setLoading(false);
     }
-  };
+  }, [email, password, login, searchParams, router, lang]);
 
+  /* ═════════════════════════════════
+     RENDER
+  ═════════════════════════════════ */
   return (
-    <div className="min-h-screen w-full relative overflow-hidden">
-      {/* ===== FULL-SCREEN BACKGROUND ===== */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#eef2ff] to-[#f0f9ff] dark:from-[#0f172a] dark:via-[#1e1b4b] dark:to-[#0f172a]" />
-      <div className="absolute inset-0 aurora-bg opacity-30 pointer-events-none" />
+    <div className={s.root}>
+      {/* Background layers */}
+      <div className={s.bg} />
+      <div className={s.dots} />
+      <div className={s.orb1} />
+      <div className={s.orb2} />
 
-      {/* Perspective Grid */}
-      <div
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(124, 58, 237, 0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(37, 99, 235, 0.12) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-          transform: "perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-200px)",
-          maskImage: "linear-gradient(to bottom, transparent 0%, white 40%, white 80%, transparent 100%)",
-        }}
-      />
-
-      {/* Floating Orbs */}
-      <div className="absolute top-[-10%] left-[-5%] w-[50vw] h-[50vw] bg-violet-400/15 blur-[120px] rounded-full animate-float pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-blue-400/15 blur-[120px] rounded-full animate-float-slow pointer-events-none" />
-
-      {/* ===== CONTENT ===== */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[420px]">
-
-          {/* Logo */}
-          <div className="text-center mb-10 animate-fade-slide">
-            <Link href="/" className="inline-block group">
-              <div className="w-20 h-20 mx-auto rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-2 border-white dark:border-slate-700 shadow-xl shadow-violet-200/30 dark:shadow-violet-900/30 flex items-center justify-center p-1.5 transition-transform group-hover:scale-110">
-                <Image src="/logo.jpg" alt="Pharmacy Council" width={68} height={68} className="rounded-full object-cover" quality={100} />
+      <div className={s.card}>
+        {/* ── Logo row ── */}
+        <div className={s.top}>
+          <Link href="/" className={s.logoWrap}>
+            <Image src="/logo.jpg" alt="Logo" width={40} height={40} className={s.logoImg} quality={100} />
+            <div>
+              <div className={s.logoText}>
+                {lang === "TH" ? "สภาเภสัชกรรม" : "Pharmacy Council"}
               </div>
-            </Link>
-          </div>
+              <div className={s.logoSub}>
+                {lang === "TH" ? "แห่งประเทศไทย" : "of Thailand"}
+              </div>
+            </div>
+          </Link>
+        </div>
 
-          {/* Main Card */}
-          <div className="glass-card rounded-[2rem] p-10 animate-fade-slide" style={{ animationDelay: '100ms' }}>
-            
-            {/* Header */}
-            <div className="text-center mb-10">
-              <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight mb-2">{t("login.welcome")}</h1>
-              <p className="text-slate-400 text-[15px]">{t("login.subtitle")}</p>
+        {/* ── Header ── */}
+        <div className={s.head}>
+          <div className={s.eyebrow}>
+            <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 8 8">
+              <circle cx="4" cy="4" r="4"/>
+            </svg>
+            {lang === "TH" ? "เข้าสู่ระบบ" : "Sign In"}
+          </div>
+          <h1>{t("login.welcome")}</h1>
+          <p>{t("login.subtitle")}</p>
+        </div>
+
+        <div className={s.divider} />
+
+        {/* ── Error ── */}
+        {error && (
+          <div className={s.error}>
+            <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18 9 9 0 010-18z"/>
+            </svg>
+            {error}
+          </div>
+        )}
+
+        {/* ── Form ── */}
+        <form onSubmit={handleSubmit} className={s.formAnim}>
+          <div className={s.stepCol}>
+
+            {/* Email */}
+            <div className={s.field}>
+              <div className={`${s.inputWrap} ${focused === "email" ? s.inputWrapFocused : ""}`}>
+                <span className={`${s.icon} ${focused === "email" || email ? s.iconLit : ""}`}>
+                  <IconMail />
+                </span>
+                <div className={s.fieldInner}>
+                  <label className={`${s.label} ${focused === "email" || email ? s.labelUp : ""}`}>
+                    {t("login.email")}
+                  </label>
+                  <input
+                    className={s.input}
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setError(""); }}
+                    onFocus={() => handleFocus("email")}
+                    onBlur={handleBlur}
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email Field */}
-              <div className="relative">
-                <label
-                  className={`absolute left-4 transition-all duration-300 pointer-events-none z-10 ${
-                    focusedField === 'email' || email
-                      ? 'top-2 text-[10px] font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400'
-                      : 'top-1/2 -translate-y-1/2 text-sm text-slate-400'
-                  }`}
-                >
-                  {t("login.email")}
-                </label>
-                <input
-                  type="email"
-                  required
-                  className={`w-full px-4 pt-7 pb-3 rounded-2xl border-2 outline-none transition-all duration-300 font-medium text-slate-700 dark:text-white bg-white/60 dark:bg-white/5 backdrop-blur-sm ${
-                    focusedField === 'email'
-                      ? 'border-violet-400 shadow-[0_0_0_4px_rgba(124,58,237,0.08)]'
-                      : 'border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600'
-                  }`}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField(null)}
-                />
-              </div>
-
-              {/* Password Field */}
-              <div className="relative">
-                <label
-                  className={`absolute left-4 transition-all duration-300 pointer-events-none z-10 ${
-                    focusedField === 'password' || password
-                      ? 'top-2 text-[10px] font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400'
-                      : 'top-1/2 -translate-y-1/2 text-sm text-slate-400'
-                  }`}
-                >
-                  {t("login.password")}
-                </label>
-                <input
-                  type="password"
-                  required
-                  className={`w-full px-4 pt-7 pb-3 rounded-2xl border-2 outline-none transition-all duration-300 font-medium text-slate-700 dark:text-white bg-white/60 dark:bg-white/5 backdrop-blur-sm ${
-                    focusedField === 'password'
-                      ? 'border-violet-400 shadow-[0_0_0_4px_rgba(124,58,237,0.08)]'
-                      : 'border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600'
-                  }`}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => setFocusedField('password')}
-                  onBlur={() => setFocusedField(null)}
-                />
-                <a href="#" className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-violet-500 hover:text-violet-700 transition-colors">
-                  {t("login.forgot")}
-                </a>
-              </div>
-
-              {/* Error Message */}
-              {error && (
-                <div className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/40 text-red-600 dark:text-red-400 text-sm font-medium">
-                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z" />
-                  </svg>
-                  {error}
+            {/* Password */}
+            <div className={s.field}>
+              <div className={`${s.inputWrap} ${focused === "password" ? s.inputWrapFocused : ""}`}>
+                <span className={`${s.icon} ${focused === "password" || password ? s.iconLit : ""}`}>
+                  <IconLock />
+                </span>
+                <div className={s.fieldInner}>
+                  <label className={`${s.label} ${focused === "password" || password ? s.labelUp : ""}`}>
+                    {t("login.password")}
+                  </label>
+                  <input
+                    className={s.input}
+                    type={showPw ? "text" : "password"}
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value); setError(""); }}
+                    onFocus={() => handleFocus("password")}
+                    onBlur={handleBlur}
+                  />
                 </div>
+                <div className={s.right} style={{ display: "flex", alignItems: "center", gap: ".25rem" }}>
+                  <button
+                    type="button"
+                    className={s.eye}
+                    tabIndex={-1}
+                    onClick={() => setShowPw(p => !p)}
+                  >
+                    {showPw ? <IconEyeClosed /> : <IconEyeOpen />}
+                  </button>
+                  <a href="#" className={s.forgotLink}>{t("login.forgot")}</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* ── Submit button ── */}
+          <button type="submit" disabled={loading} className={s.btn}>
+            {!loading && <div className={s.btnShine} />}
+            <div className={s.btnContent}>
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                  </svg>
+                  {t("login.signingIn")}
+                </>
+              ) : (
+                <>
+                  {t("login.signIn")}
+                  <IconArrowRight />
+                </>
               )}
+            </div>
+          </button>
+        </form>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isLoading}
-                className={`group relative w-full py-4 rounded-2xl text-white font-bold text-[15px] shadow-lg transition-all duration-300 overflow-hidden mt-2
-                  ${isLoading
-                    ? 'bg-slate-300 cursor-not-allowed shadow-none'
-                    : 'bg-gradient-to-r from-violet-600 to-blue-600 hover:shadow-[0_10px_40px_-10px_rgba(124,58,237,0.5)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-md'
-                  }`}
-              >
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  {isLoading ? (
-                    <>
-                      <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      {t("login.signingIn")}
-                    </>
-                  ) : (
-                    <>
-                      {t("login.signIn")}
-                      <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </>
-                  )}
-                </span>
-                {!isLoading && <div className="absolute inset-0 animate-shimmer pointer-events-none" />}
-              </button>
-            </form>
-          </div>
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 my-8 animate-fade-slide" style={{ animationDelay: '200ms' }}>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-slate-200 dark:to-slate-700" />
-            <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">{t("login.or")}</span>
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-slate-200 dark:to-slate-700" />
-          </div>
-
-          {/* Register Link */}
-          <div className="animate-fade-slide" style={{ animationDelay: '300ms' }}>
-            <Link
-              href="/register"
-              className="group block w-full glass-card rounded-2xl p-5 text-center hover:shadow-lg hover:shadow-violet-100/50 dark:hover:shadow-violet-900/30 hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                {t("login.noAccount")}{" "}
-                <span className="font-bold text-violet-600 dark:text-violet-400 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-colors">
-                  {t("login.createAccount")}
-                </span>
-              </p>
-            </Link>
-          </div>
-
+        {/* ── Register link ── */}
+        <div className={s.registerRow}>
+          <span>{t("login.noAccount")}</span>
+          <Link href="/register">{t("login.createAccount")}</Link>
         </div>
       </div>
     </div>
