@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo, memo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef, memo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -145,6 +145,13 @@ const IconChevron = memo(() => (
 ));
 IconChevron.displayName = "IconChevron";
 
+const IconSearch = memo(() => (
+  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+  </svg>
+));
+IconSearch.displayName = "IconSearch";
+
 const IconArrowRight = memo(() => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -270,6 +277,11 @@ export default function RegisterPage() {
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState("");
   const [done, setDone]         = useState(false);
+  const [uniOpen, setUniOpen]   = useState(false);
+  const [uniQuery, setUniQuery] = useState("");
+
+  const dropdownRef  = useRef<HTMLDivElement>(null);
+  const searchRef    = useRef<HTMLInputElement>(null);
 
 
   /* ── Derived values (memoized) ── */
@@ -287,10 +299,46 @@ export default function RegisterPage() {
   const handleFocus = useCallback((name: string) => setFocused(name), []);
   const handleBlur  = useCallback(() => setFocused(null), []);
 
-  const selectUni = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setUni(e.target.value);
+  const selectUni = useCallback((val: string) => {
+    setUni(val);
+    setUniOpen(false);
+    setUniQuery("");
     setError("");
   }, []);
+
+  const toggleUni = useCallback(() => {
+    setUniOpen(prev => {
+      if (!prev) setTimeout(() => searchRef.current?.focus(), 60);
+      return !prev;
+    });
+    setUniQuery("");
+  }, []);
+
+  const filteredUni = useMemo(() => {
+    if (!uniQuery.trim()) return uniList;
+    const q = uniQuery.toLowerCase();
+    return uniList.filter(u => u.toLowerCase().includes(q));
+  }, [uniList, uniQuery]);
+
+  /* close dropdown on outside click / Escape */
+  useEffect(() => {
+    if (!uniOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setUniOpen(false);
+        setUniQuery("");
+      }
+    };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setUniOpen(false); setUniQuery(""); }
+    };
+    document.addEventListener("mousedown", handleClick);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [uniOpen]);
 
   const goNext = useCallback(() => {
     const { firstName, lastName, licenseId, phone } = formData;
@@ -440,9 +488,13 @@ export default function RegisterPage() {
                     onBlur={handleBlur}
                   />
 
-                  {/* University — native select */}
-                  <div className={s.field}>
-                    <div className={`${s.inputWrap} ${focused === "university" ? s.inputWrapFocused : ""}`}>
+                  {/* University — custom dropdown */}
+                  <div className={s.field} ref={dropdownRef}>
+                    <div
+                      className={`${s.inputWrap} ${uniOpen ? s.inputWrapFocused : ""}`}
+                      onClick={toggleUni}
+                      style={{ cursor: "pointer" }}
+                    >
                       <span className={`${s.icon} ${university ? s.iconLit : ""}`}>
                         <IconUni />
                       </span>
@@ -450,20 +502,62 @@ export default function RegisterPage() {
                         <label className={`${s.label} ${university ? s.labelUp : ""}`}>
                           {lang === "TH" ? "มหาวิทยาลัย / สถาบัน" : "University / Institution"}
                         </label>
-                        <select
-                          className={s.select}
-                          value={university}
-                          onChange={selectUni}
-                          onFocus={() => handleFocus("university")}
-                          onBlur={handleBlur}
-                        >
-                          <option value="" disabled hidden />
-                          {uniList.map((u, i) => (
-                            <option key={i} value={u}>{u}</option>
-                          ))}
-                        </select>
+                        <div className={`${s.uniTrigger} ${!university ? s.uniTriggerPlaceholder : ""}`}>
+                          {university || "\u00A0"}
+                        </div>
                       </div>
+                      <span className={`${s.uniChevron} ${uniOpen ? s.uniChevronOpen : ""}`}>
+                        <IconChevron />
+                      </span>
                     </div>
+
+                    {uniOpen && (
+                      <div className={s.uniPanel}>
+                        {/* Search */}
+                        <div className={s.uniSearch}>
+                          <span className={s.uniSearchIcon}><IconSearch /></span>
+                          <input
+                            ref={searchRef}
+                            className={s.uniSearchInput}
+                            type="text"
+                            placeholder={lang === "TH" ? "ค้นหามหาวิทยาลัย..." : "Search university..."}
+                            value={uniQuery}
+                            onChange={e => setUniQuery(e.target.value)}
+                            onClick={e => e.stopPropagation()}
+                          />
+                        </div>
+
+                        {/* Options */}
+                        <div className={s.uniList}>
+                          {filteredUni.length > 0 ? (
+                            filteredUni.map((u, i) => {
+                              const isActive = u === university;
+                              return (
+                                <button
+                                  key={i}
+                                  type="button"
+                                  className={`${s.uniOption} ${isActive ? s.uniOptionActive : ""}`}
+                                  onClick={e => { e.stopPropagation(); selectUni(u); }}
+                                >
+                                  <span className={`${s.uniCheckmark} ${isActive ? s.uniCheckmarkActive : ""}`}>
+                                    {isActive && (
+                                      <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="#fff">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/>
+                                      </svg>
+                                    )}
+                                  </span>
+                                  <span className={s.uniOptionLabel}>{u}</span>
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <div className={s.uniNoResults}>
+                              {lang === "TH" ? "ไม่พบผลลัพธ์" : "No results found"}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Phone */}
