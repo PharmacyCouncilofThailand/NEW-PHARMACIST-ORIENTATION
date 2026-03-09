@@ -10,6 +10,17 @@
   animation: spin 0.8s ease-in-out infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.loader-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.6;
+  animation: ping 1.4s cubic-bezier(0,0,.2,1) infinite;
+}
 .loader-pulse { animation: pulse-fade 1.8s ease-in-out infinite; }
 @keyframes pulse-fade {
   0%, 100% { opacity: 0.4; }
