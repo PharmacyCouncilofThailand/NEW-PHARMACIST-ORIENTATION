@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  turbopack: {
+    root: process.cwd(),
+  },
   reactCompiler: true, // Optimizes React rendering (moved to top-level in Next.js 16)
   images: {
     remotePatterns: [

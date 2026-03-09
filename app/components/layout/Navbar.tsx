@@ -92,7 +92,7 @@ export default function Navbar() {
       <div className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-all duration-500">
         
         {/* Ad / Announcement Banner */}
-        <div className="w-full overflow-hidden transition-all duration-500 ease-in-out cursor-pointer z-50 max-h-12 opacity-100 bg-transparent hover:bg-white/10 dark:hover:bg-white/5" 
+        <div className="w-full overflow-hidden transition-all duration-500 ease-in-out cursor-pointer z-50 max-h-12 opacity-100 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800" 
           onClick={() => handleAnchorClick("#agenda")}
         >
           <div className="animate-marquee-left flex items-center gap-[50vw] py-2.5 px-4 whitespace-nowrap">
@@ -111,7 +111,7 @@ export default function Navbar() {
         </div>
 
         {/* Main Navbar */}
-        <nav className={`w-full transition-all duration-500 px-6 bg-transparent ${scrolled ? "py-2" : "py-4"}`}>
+        <nav className={`w-full transition-all duration-500 px-6 bg-white dark:bg-slate-900 shadow-sm ${scrolled ? "py-2" : "py-4"}`}>
           <div className="max-w-[1400px] mx-auto flex items-center justify-between">
             
             {/* Logo */}
@@ -120,7 +120,7 @@ export default function Navbar() {
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
               <Image 
-                src="/logo.jpg" 
+                src="/logo สภาเภสัชกรรม.jpg" 
                 alt="Logo" 
                 width={48} 
                 height={48} 
@@ -212,7 +212,7 @@ export default function Navbar() {
 
                     {/* License ID */}
                     <div className="px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 flex items-center justify-between gap-2">
-                      <span className="shrink-0">{lang === "TH" ? "ใบอนุญาต" : "License"}</span>
+                      <span className="shrink-0">{t("nav.license")}</span>
                       <span className="text-xs font-mono bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-300 px-1.5 py-0.5 rounded truncate max-w-[120px]">
                         {user?.licenseId || "—"}
                       </span>

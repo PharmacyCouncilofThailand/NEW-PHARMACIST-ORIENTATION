@@ -7,6 +7,7 @@ const sections = [
   { id: "welcome", label: "Welcome" },
   { id: "agenda", label: "Event Agenda" },
   { id: "memories", label: "Gallery" },
+  { id: "job-posters", label: "Job Fair" },
 ] as const;
 
 /**

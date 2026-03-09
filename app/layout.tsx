@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: "New Pharmacist Orientation 2026",
   description: "Welcome to the Pharmacy Family — Your first step into the profession.",
   icons: {
-    icon: "/logo.jpg",
+    icon: "/logo สภาเภสัชกรรม.jpg",
   },
 };
 

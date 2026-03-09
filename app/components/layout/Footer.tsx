@@ -20,8 +20,8 @@ export default function Footer() {
           <div className="space-y-10">
             {/* Brand */}
             <div className="flex items-center gap-5">
-              <div className="w-20 h-20 rounded-2xl bg-white dark:bg-slate-900 shadow-xl shadow-violet-200/50 dark:shadow-violet-900/30 flex items-center justify-center p-1.5 border border-slate-100 dark:border-slate-800">
-                <Image src="/logo.jpg" alt="Pharmacy Council" width={70} height={70} className="rounded-xl object-cover" />
+              <div className="w-20 h-20 flex items-center justify-center p-1.5">
+                <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={70} height={70} className="rounded-xl object-cover" />
               </div>
               <div>
                 <h3 className="text-2xl font-black tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">{t("footer.brandName")}</h3>
