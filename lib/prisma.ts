@@ -1,5 +1,5 @@
 import { PrismaLibSql } from "@prisma/adapter-libsql";
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import path from "path";
 
 // Prevent multiple PrismaClient instances in development (hot-reload)
