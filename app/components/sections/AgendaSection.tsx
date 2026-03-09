@@ -517,13 +517,9 @@ export default function AgendaSection() {
       <div className="max-w-[1240px] mx-auto px-6 relative z-10">
         <ScrollReveal variant="blur">
           <div className="text-center mb-16">
-            <span className="section-badge text-violet-600 border-violet-200 mb-6">{t("agenda.badge")}</span>
             <h2 className="text-[clamp(2.5rem,5vw,3.5rem)] font-black mb-6 tracking-tight text-slate-900 dark:text-white">
               {t("agenda.title1")}<span className="gradient-text-anim">{t("agenda.title2")}</span>
             </h2>
-            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-lg mx-auto leading-relaxed font-light">
-              {t("agenda.subtitle1")}<br />{t("agenda.subtitle2")}
-            </p>
           </div>
         </ScrollReveal>
         <ScrollReveal variant="scale">
@@ -535,23 +531,6 @@ export default function AgendaSection() {
                 <span className="text-lg font-black font-mono text-slate-800 dark:text-white">{t(currentDay.dateKey)}</span>
               </div>
             </div>
-            <div className="flex items-center gap-6 mt-4">
-              <div className="text-center">
-                <div className="flex items-center gap-3 justify-center">
-                  <div className="w-8 h-[1px] bg-gradient-to-r from-transparent to-violet-400/60" />
-                  <span className="text-sm font-bold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] animate-pulse">{t(currentDay.themeKey)}</span>
-                  <div className="w-8 h-[1px] bg-gradient-to-l from-transparent to-violet-400/60" />
-                </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 font-light tracking-wide">{t(currentDay.themeDescKey)}</p>
-              </div>
-            </div>
-             <div className="flex items-center gap-6 text-xs text-slate-400 dark:text-slate-500 mt-2 bg-slate-100/50 dark:bg-slate-800/50 px-6 py-2 rounded-full border border-slate-200/20 dark:border-slate-700/20">
-               <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-indigo-500" /><span className="font-semibold text-slate-600 dark:text-slate-300"><AnimatedNumber value={counts.lecture} /></span> {t("agenda.lectures")}</span>
-               <div className="w-px h-3 bg-slate-300 dark:bg-slate-700" />
-               <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-purple-500" /><span className="font-semibold text-slate-600 dark:text-slate-300"><AnimatedNumber value={counts.workshop} /></span> {t("agenda.workshops")}</span>
-               <div className="w-px h-3 bg-slate-300 dark:bg-slate-700" />
-               <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /><span className="font-semibold text-slate-600 dark:text-slate-300"><AnimatedNumber value={totalHours} suffix="h" /></span> {t("agenda.total")}</span>
-             </div>
           </div>
         </ScrollReveal>
         <ScrollReveal variant="fade-up" delay={200}>

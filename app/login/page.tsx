@@ -88,11 +88,7 @@ function LoginContent() {
       const from = searchParams.get("from") || "/";
       router.push(from);
     } else {
-      setError(
-        lang === "TH"
-          ? "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
-          : "Invalid email or password"
-      );
+      setError(t("login.error"));
       setLoading(false);
     }
   }, [email, password, login, searchParams, router, lang]);
@@ -112,13 +108,13 @@ function LoginContent() {
         {/* ── Logo row ── */}
         <div className={s.top}>
           <Link href="/" className={s.logoWrap}>
-            <Image src="/logo.jpg" alt="Logo" width={40} height={40} className={s.logoImg} quality={100} />
+            <Image src="/logo สภาเภสัชกรรม.jpg" alt="Logo" width={40} height={40} className={s.logoImg} quality={100} />
             <div>
               <div className={s.logoText}>
-                {lang === "TH" ? "สภาเภสัชกรรม" : "Pharmacy Council"}
+                {t("logo.council")}
               </div>
               <div className={s.logoSub}>
-                {lang === "TH" ? "แห่งประเทศไทย" : "of Thailand"}
+                {t("logo.thailand")}
               </div>
             </div>
           </Link>
@@ -130,7 +126,7 @@ function LoginContent() {
             <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 8 8">
               <circle cx="4" cy="4" r="4"/>
             </svg>
-            {lang === "TH" ? "เข้าสู่ระบบ" : "Sign In"}
+            {t("nav.signIn")}
           </div>
           <h1>{t("login.welcome")}</h1>
           <p>{t("login.subtitle")}</p>
@@ -237,6 +233,24 @@ function LoginContent() {
         <div className={s.registerRow}>
           <span>{t("login.noAccount")}</span>
           <Link href="/register">{t("login.createAccount")}</Link>
+        </div>
+
+        {/* ── Admin link ── */}
+        <div style={{ textAlign: "center", marginTop: "12px" }}>
+          <Link
+            href="/admin/login"
+            style={{
+              fontSize: "11px",
+              color: "rgba(100,116,139,0.5)",
+              textDecoration: "none",
+              letterSpacing: "0.05em",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = "rgba(167,139,250,0.8)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "rgba(100,116,139,0.5)")}
+          >
+            ⚙ {t("login.adminDash")}
+          </Link>
         </div>
       </div>
     </div>

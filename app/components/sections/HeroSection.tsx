@@ -3,6 +3,7 @@
 import { useEffect, useRef, memo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import CountdownSection from "./CountdownSection";
 
 import { useLang } from "../../contexts/LangContext";
 import { useAuth } from "../../contexts/AuthContext";
@@ -121,15 +122,15 @@ export default function HeroSection() {
 
         {/* Logo — entrance animation */}
         <div className="flex justify-center mb-8 hero-entrance">
-          <div className="w-24 h-24 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-2 border-white dark:border-slate-700 shadow-2xl shadow-violet-200/40 dark:shadow-violet-900/30 flex items-center justify-center animate-float p-2">
-            <Image src="/logo.jpg" alt="Pharmacy Council" width={80} height={80} className="rounded-full object-cover" quality={100} />
+          <div className="w-24 h-24 flex items-center justify-center animate-float">
+            <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={96} height={96} className="object-contain w-full h-full" quality={100} />
           </div>
         </div>
 
         {/* Title — staggered entrance */}
         <h1 className={`font-black tracking-tighter mb-6 ${lang === "TH" ? "leading-[1.2]" : "leading-[0.85]"}`}>
-          <span className="block text-[clamp(3.5rem,10vw,8rem)] gradient-text-anim hero-entrance-delay-1">{t("hero.mainTitle1")}</span>
-          <span className="block text-[clamp(3.5rem,10vw,8rem)] text-slate-800 dark:text-white hero-entrance-delay-2">{t("hero.mainTitle2")}</span>
+          <span className="block text-[clamp(2.5rem,8vw,7rem)] gradient-text-anim hero-entrance-delay-1">{t("hero.mainTitle1")}</span>
+          <span className="block text-[clamp(2.5rem,8vw,6.5rem)] text-slate-800 dark:text-white hero-entrance-delay-2">{t("hero.mainTitle2")}</span>
         </h1>
 
         {/* Decorative — entrance delay */}
@@ -167,6 +168,11 @@ export default function HeroSection() {
               {t("hero.explore")}
             </button>
           )}
+        </div>
+
+        {/* Embedded Countdown */}
+        <div className="w-full flex justify-center relative z-20 hero-entrance-delay-4 mt-8 sm:mt-12 mb-10">
+           <CountdownSection />
         </div>
       </div>
 

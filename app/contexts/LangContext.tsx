@@ -58,6 +58,47 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Welcome Cards
 
+  // Countdown Section
+  "countdown.days": { TH: "วัน", EN: "Days" },
+  "countdown.hours": { TH: "ชั่วโมง", EN: "Hours" },
+  "countdown.minutes": { TH: "นาที", EN: "Minutes" },
+  "countdown.seconds": { TH: "วินาที", EN: "Seconds" },
+  "countdown.eventDay": { TH: "✨ วันงานมาถึงแล้ว!", EN: "✨ The day has arrived!" },
+  "countdown.badge": { TH: "⏱️ นับถอยหลังสู่งาน", EN: "⏱️ Countdown to Event" },
+  "countdown.titlePast": { TH: "ยินดีต้อนรับสู่งานปฐมนิเทศ!", EN: "Welcome to the Orientation!" },
+  "countdown.title": { TH: "เตรียมพบกันในอีก", EN: "See you in..." },
+  "countdown.cta": { TH: "ลงทะเบียนเข้าร่วมงาน", EN: "Register for the Event" },
+
+  // Speaker Section
+  "speaker.badge": { TH: "🎤 วิทยากร", EN: "🎤 Speakers" },
+  "speaker.title1": { TH: "", EN: "" },
+  "speaker.title2": { TH: "วิทยากร", EN: "Speakers" },
+  "speaker.subtitle": { TH: "ผู้ทรงคุณวุฒิที่จะมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ", EN: "Experts who will share their experiences and inspiration." },
+  "speaker.clickHint": { TH: "คลิกเพื่ออ่านข้อมูล", EN: "Click to flip" },
+  "speaker.back": { TH: "กลับหน้าบัตร", EN: "Back" },
+  "speaker.note": { TH: "*รายชื่อวิทยากรอาจมีการเปลี่ยนแปลง", EN: "*Speaker list is subject to change" },
+  
+  "speaker.s1.name": { TH: "ภก. ปรีชา พันธุ์ติเวช", EN: "Pharm. Preecha Bhandtivej" },
+  "speaker.s1.position": { TH: "นายกสภาเภสัชกรรม", EN: "President of the Pharmacy Council" },
+  "speaker.s1.topic": { TH: "เปิดมุมมองวิชาชีพ", EN: "Professional Perspective" },
+  "speaker.s1.desc": { TH: "กล่าวให้โอวาทและชี้แนะแนวทางการประกอบวิชาชีพเภสัชกรรมในยุคดิจิทัล", EN: "Delivering advice and guidance on practicing pharmacy in the digital age." },
+  
+  "speaker.s2.name": { TH: "ภญ. โฉมคนางค์ ภูมิสายดร", EN: "Pharm. Chomkhanang Phumsaidorn" },
+  "speaker.s2.position": { TH: "ประชาสัมพันธ์และโฆษกสภาฯ", EN: "PR & Spokesperson" },
+  "speaker.s2.topic": { TH: "ต้อนรับและภาพรวม", EN: "Welcome & Overview" },
+  "speaker.s2.desc": { TH: "กล่าวต้อนรับและให้ข้อมูลภาพรวมกิจกรรมตลอดทั้งวันของการปฐมนิเทศ", EN: "Welcoming remarks and providing an overview of the orientation's activities." },
+  
+  "speaker.s3.name": { TH: "วิทยากรรับเชิญพิเศษ", EN: "Special Guest Speaker" },
+  "speaker.s3.position": { TH: "ผู้เชี่ยวชาญ", EN: "Expert" },
+  "speaker.s3.topic": { TH: "Expert Insight", EN: "Expert Insight" },
+  "speaker.s3.desc": { TH: "แบ่งปันประสบการณ์และมุมมองเพื่อสร้างแรงบันดาลใจในการทำงาน", EN: "Sharing experiences and perspectives to inspire you in your career." },
+  
+  "speaker.tag.president": { TH: "นายกสภาฯ", EN: "President" },
+  "speaker.tag.pharmacy": { TH: "วิชาชีพเภสัชกรรม", EN: "Pharmacy" },
+  "speaker.tag.ceremony": { TH: "พิธีการ", EN: "Ceremony" },
+  "speaker.tag.pr": { TH: "ประชาสัมพันธ์", EN: "PR" },
+  "speaker.tag.expert": { TH: "ผู้เชี่ยวชาญ", EN: "Expert" },
+  "speaker.tag.insight": { TH: "ประสบการณ์", EN: "Experience" },
 
   // Agenda Section
   "agenda.badge": { TH: " กำหนดการ", EN: " Schedule" },
@@ -133,6 +174,16 @@ const translations: Record<string, Record<Lang, string>> = {
   "memories.title1": { TH: "ภาพ", EN: "Cherished " },
   "memories.title2": { TH: "ความทรงจำ", EN: "Memories" },
 
+  // Job Posters Section
+  "jobPosters.badge": { TH: "โปสเตอร์สมัครงาน", EN: "Job Fair Posters" },
+  "jobPosters.title1": { TH: "โปสเตอร์", EN: "Career " },
+  "jobPosters.title2": { TH: "สมัครงาน", EN: "Opportunities" },
+  "jobPosters.subtitle": { TH: "รวมโปสเตอร์รับสมัครงานจากหน่วยงานและองค์กรชั้นนำ คลิกที่โปสเตอร์เพื่อดูรายละเอียดแบบเต็ม", EN: "Job openings from leading organizations. Click any poster to view full details." },
+  "jobPosters.count": { TH: "บูธ", EN: "Booths" },
+  "jobPosters.hint": { TH: "คลิกที่โปสเตอร์เพื่อดูขนาดเต็ม", EN: "Click any poster to view full size" },
+  "jobPosters.openDrive": { TH: "เปิดใน Drive", EN: "Open in Drive" },
+  "jobPosters.close": { TH: "ปิด", EN: "Close" },
+
   // Footer
   // Footer
 
@@ -186,7 +237,15 @@ const translations: Record<string, Record<Lang, string>> = {
     TH: "มีบัญชีอยู่แล้ว?",
     EN: "Already have an account?",
   },
-  "register.signIn": { TH: "เข้าสู่ระบบ →", EN: "Sign in →" },
+  "register.signIn": { TH: "เข้าสู่ระบบ", EN: "Sign In" },
+  "register.thaiId": { TH: "เลขบัตรประชาชน 13 หลัก", EN: "Thai ID Card" },
+  "register.thaiIdPlaceholder": { TH: "ตัวเลข 13 หลัก", EN: "13-digit number" },
+  "register.licenseOptional": { TH: "(ไม่บังคับ)", EN: "(Optional)" },
+  "register.organization": { TH: "องค์กร / สถานที่ทำงาน", EN: "Organization / Affiliation" },
+  "register.organizationPlaceholder": { TH: "สถานที่ทำงานของคุณ", EN: "Your workplace" },
+  "register.university": { TH: "มหาวิทยาลัย / สถาบัน", EN: "University / Institution" },
+  "register.selectUniversity": { TH: "เลือกสถาบัน", EN: "Select a university" },
+  "register.alreadyAccount": { TH: "มีบัญชีอยู่แล้ว?", EN: "Already have an account?" },
 
   // Banner
   "banner.new": { TH: "ใหม่", EN: "New" },
@@ -214,8 +273,14 @@ const translations: Record<string, Record<Lang, string>> = {
     TH: "ยังไม่มีบัญชี?",
     EN: "New to Orientation?",
   },
+  "login.adminDash": { TH: "แดชบอร์ดแอดมิน", EN: "Admin Dashboard" },
+  "login.error": { TH: "อีเมลหรือรหัสผ่านไม่ถูกต้อง", EN: "Invalid email or password" },
+  "logo.council": { TH: "สภาเภสัชกรรม", EN: "Pharmacy Council" },
+  "logo.thailand": { TH: "แห่งประเทศไทย", EN: "of Thailand" },
+
   // Scroll Sequence
   "scroll.loading": { TH: "กำลังโหลดประสบการณ์", EN: "Loading Experience" },
+  "scroll.back": { TH: "กลับหน้าหลัก", EN: "Back to Home" },
   
   // Intro
   "scroll.intro.badge": { TH: "เภสัชกรรม 2569", EN: "Pharmacy 2026" },

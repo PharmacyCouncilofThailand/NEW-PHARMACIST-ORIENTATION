@@ -83,18 +83,11 @@ export default function MemoriesSection() {
         <ScrollReveal variant="blur">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-xl">
-              <span className="section-badge text-violet-600 border-violet-200 mb-6">
-                {t("memories.badge")}
-              </span>
               <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
                  {t("memories.title1")}<br />
                  <span className="gradient-text-anim">{t("memories.title2")}</span>
               </h2>
             </div>
-            <p className="text-slate-400 max-w-sm text-right leading-relaxed hidden md:block border-l border-slate-200 dark:border-slate-700 pl-6 font-light">
-              Scroll through our collection of moments.<br />
-              <span className="text-violet-600 font-semibold">Captured in time.</span>
-            </p>
           </div>
         </ScrollReveal>
 
