@@ -45,6 +45,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.subtitle4": { TH: "เพื่อเริ่มต้นการเดินทางไปด้วยกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเลย", EN: "Register Now" },
   "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
+  "hero.year": { TH: "2026 · กรุงเทพมหานคร", EN: "2026 · Bangkok, Thailand" },
 
   // Welcome Section
   "welcome.badge": { TH: "✨ สารจากนายกสภาเภสัชกรรม", EN: "✨ Message from the President" },
@@ -196,8 +197,13 @@ const translations: Record<string, Record<Lang, string>> = {
   },
 
   // Footer
-  // Footer
-
+  "footer.officialEN": { TH: "Pharmacy Council of Thailand", EN: "Pharmacy Council of Thailand" },
+  "footer.officialTH": { TH: "สำนักงานสภาเภสัชกรรม", EN: "สำนักงานสภาเภสัชกรรม" },
+  "footer.tagline": {
+    TH: "หน่วยงานกำกับดูแลวิชาชีพเภสัชกรรมแห่งประเทศไทย",
+    EN: "The regulatory body for the pharmacy profession in Thailand."
+  },
+  "footer.contact": { TH: "ติดต่อเรา", EN: "Contact" },
 
   // Visitor Counter
   "visitor.label": { TH: "จำนวนผู้เยี่ยมชมเว็บไซต์", EN: "Website Visitors" },
@@ -278,6 +284,19 @@ const translations: Record<string, Record<Lang, string>> = {
     EN: "The Pharmacy Council of Thailand, Mahitsalathibet Building, 8th Floor, Ministry of Public Health, 88/19 Moo 4, Tiwanon Road, Talat Khwan, Mueang Nonthaburi, Nonthaburi 11000"
   },
 
+
+  // Registration CTA Section
+  "regcta.badge": { TH: "ลงทะเบียน", EN: "Registration" },
+  "regcta.title1": { TH: "พร้อมเริ่มต้น", EN: "Ready to Begin" },
+  "regcta.title2": { TH: "ร่วมงานปฐมนิเทศ", EN: "Your Journey?" },
+  "regcta.desc": {
+    TH: "ลงทะเบียนเข้าร่วมงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 เพื่อรับใบอนุญาต ร่วมกิจกรรม และพบปะกับเพื่อนร่วมวิชาชีพ",
+    EN: "Register for the New Pharmacist Orientation 2026 to receive your license, join activities, and network with fellow professionals."
+  },
+  "regcta.btn": { TH: "ลงทะเบียนเข้าร่วมงาน", EN: "Register for Orientation" },
+  "regcta.info1": { TH: "ฟรีสำหรับเภสัชกรใหม่", EN: "Free for New Pharmacists" },
+  "regcta.info2": { TH: "ไม่มีค่าใช้จ่าย", EN: "No Registration Fee" },
+  "regcta.info4": { TH: "17 พ.ค. 2569", EN: "May 17, 2026" },
 
   // Login/Register overrides
   "login.noAccount": {
