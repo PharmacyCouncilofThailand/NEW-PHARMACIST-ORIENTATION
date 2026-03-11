@@ -95,7 +95,7 @@ export default function WelcomeSection() {
              </div>
 
              {/* Right: President Image (Placeholder) */}
-              <div className="w-full max-w-sm lg:w-[400px] relative group perspective-1000 hidden lg:block">
+              <div className="w-full max-w-sm lg:w-[400px] mx-auto relative group perspective-1000 mt-12 lg:mt-0">
                   <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl shadow-violet-500/20 border-4 border-white dark:border-slate-800 -rotate-2 group-hover:rotate-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]">
                       {/* Placeholder Gradient */}
                       {/* President Image */}

@@ -10,8 +10,11 @@ import { useAuth } from "../../contexts/AuthContext";
 const navLinks = [
   { href: "#hero", key: "nav.home" },
   { href: "#welcome", key: "nav.welcome" },
+  { href: "#speakers", key: "nav.speakers" },
   { href: "#agenda", key: "nav.agenda" },
   { href: "#memories", key: "nav.gallery" },
+  { href: "#job-posters", key: "nav.career" },
+  { href: "#sponsors", key: "nav.sponsors" },
 ] as const;
 
 // Extract section IDs once (never changes)
@@ -111,29 +114,29 @@ export default function Navbar() {
         </div>
 
         {/* Main Navbar */}
-        <nav className={`w-full transition-all duration-500 px-6 bg-white dark:bg-slate-900 shadow-sm ${scrolled ? "py-2" : "py-4"}`}>
+        <nav className={`w-full transition-all duration-500 px-4 md:px-6 bg-white dark:bg-slate-900 shadow-sm ${scrolled ? "py-1.5" : "py-2.5"}`}>
           <div className="max-w-[1400px] mx-auto flex items-center justify-between">
             
             {/* Logo */}
             <button 
               onClick={() => handleAnchorClick("#hero")}
-              className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
             >
               <Image 
                 src="/logo สภาเภสัชกรรม.jpg" 
                 alt="Logo" 
-                width={48} 
-                height={48} 
+                width={40} 
+                height={40} 
                 className="rounded-full object-cover"
                 quality={100}
               />
-              <span className="font-bold text-xl tracking-tight hidden sm:block bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="font-bold text-lg md:text-xl tracking-tight hidden sm:block bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
                 {t("nav.brand")}
               </span>
             </button>
 
             {/* Desktop Links */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
               {navLinks.map((link) => {
                 const sectionId = link.href.replace("#", "");
                 const isActive = activeSection === sectionId;
@@ -143,7 +146,7 @@ export default function Navbar() {
                     key={link.href}
                     onClick={() => handleAnchorClick(link.href)}
                     className={`
-                      px-6 py-2 rounded-full text-sm font-medium transition-all duration-300
+                      px-3 xl:px-4 py-2 rounded-full text-[13px] xl:text-sm font-medium transition-all duration-300
                       ${isActive 
                         ? "bg-gradient-to-r from-violet-600 to-blue-600 text-white shadow-lg shadow-violet-500/30" 
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10"
@@ -157,7 +160,7 @@ export default function Navbar() {
             </div>
 
             {/* Right Actions */}
-            <div className="hidden md:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2">
 
               {/* Language Toggle */}
               <button
@@ -270,7 +273,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Toggle */}
-            <div className="flex md:hidden items-center gap-2">
+            <div className="flex lg:hidden items-center gap-2">
               {/* Mobile Language */}
               <button
                 onClick={toggleLang}
