@@ -3,6 +3,8 @@
 import { useEffect, useRef, memo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CountdownSection from "./CountdownSection";
 
 import { useLang } from "../../contexts/LangContext";
@@ -26,6 +28,13 @@ export default function HeroSection() {
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  
+  // GSAP Intro Refs
+  const sectionRef = useRef<HTMLElement>(null);
+  const maskContainerRef = useRef<HTMLDivElement>(null);
+  const maskTextRef = useRef<HTMLHeadingElement>(null);
+  const logoOverlayRef = useRef<HTMLDivElement>(null);
+  const logoImageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -58,7 +67,9 @@ export default function HeroSection() {
       if (!scrollTicking) {
         window.requestAnimationFrame(() => {
           if (contentRef.current) {
-            const scrollY = window.scrollY;
+            const rawScrollY = window.scrollY;
+            // Subtract GSAP pin duration (2500px) so parallax only starts after intro
+            const scrollY = Math.max(0, rawScrollY - 2500);
             const opacity = Math.max(0, 1 - scrollY / 600);
             const translateY = scrollY * 0.3;
             const scale = Math.max(0.9, 1 - scrollY / 3000);
@@ -75,11 +86,36 @@ export default function HeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // GSAP Intro Mask Scroll Animation
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const matchMedia = gsap.matchMedia();
 
+    matchMedia.add("(min-width: 300px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          scrub: 1,
+          pin: true,
+          start: "top top",
+          end: "+=2500", // Pin for 2500px of scrolling
+        },
+      });
 
-  return (
+      tl.to(logoImageRef.current, { scale: 5, autoAlpha: 0, duration: 1 }, 0)
+        .to(logoOverlayRef.current, { autoAlpha: 0, duration: 1 }, 0)
+        .to(maskTextRef.current, { autoAlpha: 1, duration: 0.5 }, 0.5)
+        .to(maskTextRef.current, { scale: 300, duration: 4, ease: "power2.in" }, 1)
+        .set([maskContainerRef.current, logoOverlayRef.current], { display: "none" }, 5);
+
+      return () => tl.kill();
+    });
+
+    return () => matchMedia.revert();
+  }, []);  return (
     <section
       id="hero"
+      ref={sectionRef}
       className="relative min-h-[110vh] flex items-center justify-center overflow-hidden"
     >
       {/* LAYER 1: AURORA */}
@@ -176,7 +212,51 @@ export default function HeroSection() {
         </div>
       </div>
 
+      {/* LAYER 5: GSAP MASK (Blend Mode) */}
+      <div 
+        ref={maskContainerRef}
+        className="absolute inset-0 flex justify-center items-center w-full pointer-events-none"
+        style={{ 
+          backgroundColor: "#fff", 
+          mixBlendMode: "screen",
+          zIndex: 50
+        }}
+      >
+        <h2 
+          ref={maskTextRef} 
+          className="text-black text-center font-black leading-[1.0] md:leading-[1.2] whitespace-nowrap"
+          style={{ 
+            fontSize: lang === "TH" ? "10vw" : "8vw",
+            minWidth: "100%",
+            opacity: 0,
+            visibility: "hidden", // for autoAlpha
+            willChange: "transform, opacity"
+          }}
+        >
+          {lang === "TH" ? (
+            <>ปฐมนิเทศ<br />เภสัชกรใหม่<br />2569</>
+          ) : (
+            <>NEW PHARMACIST<br />ORIENTATION<br />2026</>
+          )}
+        </h2>
+      </div>
 
+      {/* LAYER 6: INITIAL LOGO OVERLAY */}
+      <div 
+        ref={logoOverlayRef}
+        className="absolute inset-0 flex justify-center items-center w-full bg-white z-[60]"
+      >
+        <div ref={logoImageRef} className="will-change-transform">
+          <Image 
+            src="/logo สภาเภสัชกรรม.jpg" 
+            alt="Logo" 
+            width={180} 
+            height={180} 
+            className="rounded-full shadow-[0_0_60px_rgba(0,0,0,0.1)] object-cover bg-white"
+            priority
+          />
+        </div>
+      </div>
     </section>
   );
 }
