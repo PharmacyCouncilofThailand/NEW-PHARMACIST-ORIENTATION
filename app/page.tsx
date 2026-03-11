@@ -1,4 +1,5 @@
 import Navbar from "./components/layout/Navbar";
+import MaskScrollVideo from "./components/sections/MaskScrollVideo";
 import HeroSection from "./components/sections/HeroSection";
 import WelcomeSection from "./components/sections/WelcomeSection";
 import SpeakerSection from "./components/sections/SpeakerSection";
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <StickySubnav />
       <main>
+        <MaskScrollVideo />
         <HeroSection />
         <div id="welcome">
           <WelcomeSection />
