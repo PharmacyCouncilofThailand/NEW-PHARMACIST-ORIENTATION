@@ -5,6 +5,7 @@ import SpeakerSection from "./components/sections/SpeakerSection";
 import AgendaSection from "./components/sections/AgendaSection";
 import MemoriesSection from "./components/sections/MemoriesSection";
 import JobPostersSection from "./components/sections/JobPostersSection";
+import SponsorSection from "./components/sections/SponsorSection";
 import Footer from "./components/layout/Footer";
 import StickySubnav from "./components/layout/StickySubnav";
 
@@ -22,6 +23,7 @@ export default function Home() {
         <AgendaSection />
         <MemoriesSection />
         <JobPostersSection />
+        <SponsorSection />
       </main>
       <Footer />
     </>

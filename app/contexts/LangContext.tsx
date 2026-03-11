@@ -19,7 +19,10 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.home": { TH: "หน้าแรก", EN: "Home" },
   "nav.welcome": { TH: "ยินดีต้อนรับ", EN: "Welcome" },
   "nav.agenda": { TH: "กำหนดการ", EN: "Agenda" },
+  "nav.speakers": { TH: "วิทยากร", EN: "Speakers" },
   "nav.gallery": { TH: "ภาพบรรยากาศ", EN: "Gallery" },
+  "nav.career": { TH: "โอกาสทางวิชาชีพ", EN: "Career" },
+  "nav.sponsors": { TH: "ผู้สนับสนุน", EN: "Sponsors" },
   "nav.signIn": { TH: "เข้าสู่ระบบ", EN: "Sign In" },
   "nav.signUp": { TH: "สมัครสมาชิก", EN: "Sign Up" },
   "nav.signOut": { TH: "ออกจากระบบ", EN: "Sign Out" },
@@ -183,6 +186,14 @@ const translations: Record<string, Record<Lang, string>> = {
   "jobPosters.hint": { TH: "คลิกที่โปสเตอร์เพื่อดูขนาดเต็ม", EN: "Click any poster to view full size" },
   "jobPosters.openDrive": { TH: "เปิดใน Drive", EN: "Open in Drive" },
   "jobPosters.close": { TH: "ปิด", EN: "Close" },
+
+  // Sponsors
+  "sponsor.title1": { TH: "ผู้สนับสนุน", EN: " " },
+  "sponsor.title2": { TH: "อย่างเป็นทางการ", EN: "Sponsors" },
+  "sponsor.subtitle": { 
+    TH: "ขอขอบคุณผู้สนับสนุนที่ร่วมสนับสนุนให้งานปฐมนิเทศเภสัชกรใหม่ ปี 2569 ", 
+    EN: "Thank you to our sponsors for making the New Pharmacist Orientation 2026 possible." 
+  },
 
   // Footer
   // Footer

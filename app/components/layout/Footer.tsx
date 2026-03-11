@@ -101,8 +101,11 @@ export default function Footer() {
              {[
                { label: t("nav.home"), href: "#hero" },
                { label: t("nav.welcome"), href: "#welcome" },
+               { label: t("nav.speakers"), href: "#speakers" },
                { label: t("nav.agenda"), href: "#agenda" },
-               { label: t("nav.gallery"), href: "#memories" }
+               { label: t("nav.gallery"), href: "#memories" },
+               { label: t("nav.career"), href: "#job-posters" },
+               { label: t("nav.sponsors"), href: "#sponsors" }
              ].map(item => (
                 <a key={item.label} href={item.href} className="px-3 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
                   {item.label}
