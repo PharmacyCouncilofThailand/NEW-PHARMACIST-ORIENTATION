@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
 
   // If session already valid → redirect immediately
   useEffect(() => {
-    if (sessionStorage.getItem(ADMIN_TOKEN_KEY) === ADMIN_TOKEN_VALUE) {
+    if (localStorage.getItem(ADMIN_TOKEN_KEY) === ADMIN_TOKEN_VALUE) {
       router.replace("/admin/visitors");
     }
   }, [router]);
@@ -64,16 +64,22 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
 
-    // Small delay to feel intentional
-    await new Promise((r) => setTimeout(r, 500));
+    try {
+      // Small delay to feel intentional
+      await new Promise((r) => setTimeout(r, 500));
 
-    if (password === ADMIN_PASS) {
-      sessionStorage.setItem(ADMIN_TOKEN_KEY, ADMIN_TOKEN_VALUE);
-      router.push("/admin/visitors");
-    } else {
-      setError("รหัสผ่านไม่ถูกต้อง");
-      setShake(true);
-      setTimeout(() => setShake(false), 500);
+      if (password === ADMIN_PASS) {
+        localStorage.setItem(ADMIN_TOKEN_KEY, ADMIN_TOKEN_VALUE);
+        router.push("/admin/visitors");
+        // Don't reset loading — page is navigating away
+      } else {
+        setError("รหัสผ่านไม่ถูกต้อง");
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+        setLoading(false);
+      }
+    } catch {
+      setError("เกิดข้อผิดพลาด กรุณาลองใหม่");
       setLoading(false);
     }
   }, [password, loading, router]);

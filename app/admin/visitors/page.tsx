@@ -98,7 +98,7 @@ export default function AdminVisitorsPage() {
 
   /* Auth check — runs once on mount */
   useEffect(() => {
-    const ok = sessionStorage.getItem(ADMIN_TOKEN_KEY) === ADMIN_TOKEN_VALUE;
+    const ok = localStorage.getItem(ADMIN_TOKEN_KEY) === ADMIN_TOKEN_VALUE;
     if (!ok) {
       router.replace("/admin/login");
     } else {
@@ -108,7 +108,7 @@ export default function AdminVisitorsPage() {
 
   /* Logout */
   const handleLogout = useCallback(() => {
-    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
     router.push("/admin/login");
   }, [router]);
 
