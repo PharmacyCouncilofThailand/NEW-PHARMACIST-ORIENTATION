@@ -85,12 +85,16 @@ const FlipUnit = memo(function FlipUnit({
   );
 });
 
+const ZERO_TIME: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0, total: -1 };
+
 export default function CountdownSection() {
   const { t, lang } = useLang();
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft);
+  // Start with a stable zero state so server and client agree on first render.
+  // The real countdown value is set client-side only inside useEffect.
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(ZERO_TIME);
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const eventPassed = timeLeft.total <= 0;
+  const eventPassed = timeLeft.total === 0;
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -102,6 +106,8 @@ export default function CountdownSection() {
   }, []);
 
   useEffect(() => {
+    // Immediately set real time on mount, then update every second.
+    setTimeLeft(getTimeLeft());
     const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
     return () => clearInterval(id);
   }, []);

@@ -1,6 +1,7 @@
 import Navbar from "./components/layout/Navbar";
 import HeroSection from "./components/sections/HeroSection";
 import WelcomeSection from "./components/sections/WelcomeSection";
+import MaskScrollSection from "./components/sections/MaskScrollSection";
 import SpeakerSection from "./components/sections/SpeakerSection";
 import AgendaSection from "./components/sections/AgendaSection";
 import MemoriesSection from "./components/sections/MemoriesSection";
@@ -21,6 +22,7 @@ export default function Home() {
           <WelcomeSection />
         </div>
         <SpeakerSection />
+        <MaskScrollSection />
         <AgendaSection />
         <MemoriesSection />
         <JobPostersSection />

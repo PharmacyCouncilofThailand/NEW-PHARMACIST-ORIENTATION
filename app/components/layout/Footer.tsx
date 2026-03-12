@@ -29,9 +29,6 @@ export default function Footer() {
                 <h3 className="text-base font-black tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent leading-tight">
                   {t("footer.officialEN")}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 font-medium">
-                  {t("footer.officialTH")}
-                </p>
               </div>
             </div>
 

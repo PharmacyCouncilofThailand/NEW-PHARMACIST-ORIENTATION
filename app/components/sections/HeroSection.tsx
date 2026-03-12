@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import CountdownSection from "./CountdownSection";
 import { useLang } from "../../contexts/LangContext";
-import { useAuth } from "../../contexts/AuthContext";
 
 const ArrowIcon = memo(function ArrowIcon() {
   return (
@@ -18,31 +17,7 @@ const ArrowIcon = memo(function ArrowIcon() {
 export default function HeroSection() {
   const router = useRouter();
   const { t, lang } = useLang();
-  const { isLoggedIn } = useAuth();
-  const orb1Ref = useRef<HTMLDivElement>(null);
-  const orb2Ref = useRef<HTMLDivElement>(null);
-  const orb3Ref = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  // Parallax orbs on mouse move
-  useEffect(() => {
-    let ticking = false;
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const x = (e.clientX / window.innerWidth - 0.5) * 20;
-          const y = (e.clientY / window.innerHeight - 0.5) * 20;
-          if (orb1Ref.current) orb1Ref.current.style.transform = `translate3d(${x * -2}px, ${y * -2}px, 0)`;
-          if (orb2Ref.current) orb2Ref.current.style.transform = `translate3d(${x * 2}px, ${y * 2}px, 0)`;
-          if (orb3Ref.current) orb3Ref.current.style.transform = `translate3d(${x * 1.5}px, ${y * -1.5}px, 0)`;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   // Scroll-based parallax for hero content
   useEffect(() => {
@@ -69,32 +44,23 @@ export default function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* LAYER 1: AURORA */}
-      <div className="absolute inset-0 aurora-bg opacity-40 pointer-events-none" />
+      {/* VIDEO BACKGROUND */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ zIndex: 0 }}
+      >
+        <source src="/bg4.mp4" type="video/mp4" />
+      </video>
 
-      {/* LAYER 2: PERSPECTIVE GRID */}
-      <div
-        className="absolute inset-0 opacity-[0.12] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(124, 58, 237, 0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(37, 99, 235, 0.12) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-          transform: "perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-200px)",
-          maskImage: "linear-gradient(to bottom, transparent 0%, white 40%, white 80%, transparent 100%)",
-        }}
-      />
+      {/* Subtle dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/30 pointer-events-none" style={{ zIndex: 1 }} />
 
-      {/* LAYER 3: FLOATING ORBS */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div ref={orb1Ref} className="absolute top-[-10%] left-[-5%] w-[50vw] h-[50vw] bg-violet-400/20 blur-[120px] rounded-full animate-float will-change-transform" />
-        <div ref={orb2Ref} className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-blue-400/20 blur-[120px] rounded-full animate-float will-change-transform" style={{ animationDelay: "-3s" }} />
-        <div ref={orb3Ref} className="absolute top-[30%] right-[20%] w-[30vw] h-[30vw] bg-pink-300/10 blur-[100px] rounded-full animate-float-slow will-change-transform" style={{ animationDelay: "-5s" }} />
-      </div>
-
-      {/* LAYER 4: CONTENT */}
-      <div ref={contentRef} className="relative z-10 text-center px-6 pt-36 pb-8 w-full max-w-[1400px] will-change-transform">
+      {/* CONTENT */}
+      <div ref={contentRef} className="relative text-center px-6 pt-36 pb-8 w-full max-w-[1400px] will-change-transform" style={{ zIndex: 2 }}>
 
         {/* Logo */}
         <div className="flex justify-center mb-3 hero-entrance">
@@ -104,30 +70,23 @@ export default function HeroSection() {
         </div>
 
         {/* Title */}
-        <h1 className={`font-black tracking-tighter mb-2 ${lang === "TH" ? "leading-[1.2]" : "leading-[0.85]"}`}>
-          <span className="block text-[clamp(2.5rem,8vw,7rem)] gradient-text-anim hero-entrance-delay-1">{t("hero.mainTitle1")}</span>
-          <span className="block text-[clamp(2.5rem,8vw,6.5rem)] text-slate-800 dark:text-white hero-entrance-delay-2">{t("hero.mainTitle2")}</span>
+        <h1 suppressHydrationWarning className={`font-black tracking-tighter mb-2 ${lang === "TH" ? "leading-[1.2]" : "leading-[0.85]"}`}>
+          <span suppressHydrationWarning className="block text-[clamp(2.5rem,8vw,7rem)] bg-gradient-to-r from-pink-400 via-violet-300 to-blue-400 bg-clip-text text-transparent hero-entrance-delay-1 drop-shadow-lg">{t("hero.mainTitle1")}</span>
+          <span suppressHydrationWarning className="block text-[clamp(2.5rem,8vw,6.5rem)] text-white hero-entrance-delay-2 drop-shadow-lg">{t("hero.mainTitle2")}</span>
         </h1>
 
         {/* Year badge */}
-        <div className="flex justify-center mb-3 hero-entrance-delay-2">
-          <span className="px-5 py-1.5 rounded-full bg-slate-900/5 dark:bg-white/5 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-semibold tracking-wider backdrop-blur-sm">
+        <div className="flex justify-center mb-4 hero-entrance-delay-2">
+          <span suppressHydrationWarning className="px-5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-semibold tracking-wider backdrop-blur-sm">
             {t("hero.year")}
           </span>
         </div>
 
-        {/* Decorative divider */}
-        <div className="flex items-center justify-center gap-4 mb-3 hero-entrance-delay-3">
-          <div className="w-16 h-[2px] bg-gradient-to-r from-transparent to-violet-400 rounded-full" />
-          <div className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
-          <div className="w-16 h-[2px] bg-gradient-to-l from-transparent to-blue-400 rounded-full" />
-        </div>
-
         {/* Subtitle */}
-        <p className="text-[clamp(1rem,2.5vw,1.3rem)] text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-6 leading-relaxed font-light hero-entrance-delay-3">
-          {t("hero.subtitle1")} <span className="text-violet-600 dark:text-violet-400 font-semibold">{t("hero.future")}</span> {t("hero.subtitle2")}
+        <p suppressHydrationWarning className="text-[clamp(1rem,2.5vw,1.2rem)] text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed font-light hero-entrance-delay-3">
+          {t("hero.subtitle1")} <span suppressHydrationWarning className="text-pink-300 font-semibold">{t("hero.future")}</span> {t("hero.subtitle2")}
           <br className="hidden md:block" />
-          {t("hero.subtitle3")} <span className="text-blue-600 dark:text-blue-400 font-semibold">{t("hero.journey")}</span> {t("hero.subtitle4")}
+          {t("hero.subtitle3")} <span suppressHydrationWarning className="text-violet-300 font-semibold">{t("hero.journey")}</span> {t("hero.subtitle4")}
         </p>
 
         {/* CTA */}
@@ -135,24 +94,14 @@ export default function HeroSection() {
           <button
             id="hero-register-btn"
             onClick={() => router.push("/register")}
-            className="group relative px-10 py-4 rounded-full bg-gradient-to-r from-violet-600 to-blue-600 text-white font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.5)] overflow-hidden"
+            className="group relative px-10 py-4 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 text-white font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_10px_40px_-10px_rgba(168,85,247,0.7)] overflow-hidden"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span suppressHydrationWarning className="relative z-10 flex items-center gap-2">
               {t("hero.register")}
               <ArrowIcon />
             </span>
             <div className="absolute inset-0 animate-shimmer pointer-events-none" />
           </button>
-
-          {isLoggedIn && (
-            <button
-              id="hero-explore-btn"
-              onClick={() => router.push("/scroll")}
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500/10 to-violet-500/10 backdrop-blur-md border border-pink-200 dark:border-pink-900 text-pink-600 dark:text-pink-400 font-bold text-lg hover:bg-pink-50 dark:hover:bg-pink-950/30 transition-all duration-300 shadow-sm"
-            >
-              {t("hero.explore")}
-            </button>
-          )}
         </div>
 
         {/* Countdown */}
