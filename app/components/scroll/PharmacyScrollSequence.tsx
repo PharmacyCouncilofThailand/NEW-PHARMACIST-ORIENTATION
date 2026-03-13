@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useCallback, ReactNode } from "react";
-import { useRouter } from "next/navigation";
+
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { useImageSequence } from "../../hooks/useImageSequence";
 import { useLenis } from "../ui/SmoothScroll";
@@ -62,7 +62,6 @@ export default function PharmacyScrollSequence() {
   const rafRef = useRef<number>(0);
   const hasAutoScrolled = useRef(false);
   const { t } = useLang();
-  const router = useRouter();
 
   const { images, isLoading, loadProgress } = useImageSequence({
     totalFrames: TOTAL_FRAMES,

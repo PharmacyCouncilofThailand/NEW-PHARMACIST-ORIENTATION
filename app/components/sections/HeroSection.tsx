@@ -53,7 +53,7 @@ export default function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ zIndex: 0 }}
       >
-        <source src="/bg4.mp4" type="video/mp4" />
+        <source src="/bg5.mp4" type="video/mp4" />
       </video>
 
       {/* Subtle dark overlay for readability */}
@@ -71,8 +71,8 @@ export default function HeroSection() {
 
         {/* Title */}
         <h1 suppressHydrationWarning className={`font-black tracking-tighter mb-2 ${lang === "TH" ? "leading-[1.2]" : "leading-[0.85]"}`}>
-          <span suppressHydrationWarning className="block text-[clamp(2.5rem,8vw,7rem)] bg-gradient-to-r from-pink-400 via-violet-300 to-blue-400 bg-clip-text text-transparent hero-entrance-delay-1 drop-shadow-lg">{t("hero.mainTitle1")}</span>
-          <span suppressHydrationWarning className="block text-[clamp(2.5rem,8vw,6.5rem)] text-white hero-entrance-delay-2 drop-shadow-lg">{t("hero.mainTitle2")}</span>
+          <span suppressHydrationWarning className="block text-[clamp(2rem,6.5vw,5.5rem)] bg-gradient-to-r from-pink-400 via-violet-300 to-blue-400 bg-clip-text text-transparent hero-entrance-delay-1 drop-shadow-lg">{t("hero.mainTitle1")}</span>
+          <span suppressHydrationWarning className="block text-[clamp(2rem,6.5vw,5rem)] text-white hero-entrance-delay-2 drop-shadow-lg">{t("hero.mainTitle2")}</span>
         </h1>
 
         {/* Year badge */}

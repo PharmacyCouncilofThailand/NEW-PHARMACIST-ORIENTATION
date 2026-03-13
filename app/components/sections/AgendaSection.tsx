@@ -70,25 +70,7 @@ const FILTER_ALL = "all";
 
 /* ───────── Shared Components ───────── */
 
-const AnimatedNumber = memo(function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const [display, setDisplay] = useState(0);
-  useEffect(() => {
-    let start = 0;
-    const end = value;
-    const duration = 800;
-    const startTime = performance.now();
-    let frameId: number;
-    const step = (now: number) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * end * 10) / 10);
-      if (progress < 1) frameId = requestAnimationFrame(step);
-    };
-    frameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frameId);
-  }, [value]);
-  return <span>{display}{suffix}</span>;
-});
+
 
 const TiltCard = memo(function TiltCard({
   children,
@@ -448,10 +430,7 @@ export default function AgendaSection() {
     break: currentDay.events.filter((e) => e.badgeColor === "break" || e.badgeColor === "summary").length,
   }), [currentDay.events]);
 
-  const totalHours = useMemo(() =>
-    Math.round(currentDay.events.reduce((sum, e) => sum + e.durationMin, 0) / 60 * 10) / 10,
-    [currentDay.events]
-  );
+
 
   useEffect(() => {
     const t = setTimeout(() => setCardsVisible(true), 300);
