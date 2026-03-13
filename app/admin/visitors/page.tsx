@@ -177,6 +177,48 @@ export default function AdminVisitorsPage() {
     : 1;
   const todayStr = getTodayStr();
 
+  /* SVG Line Chart helpers */
+  const SVG_W = 800;
+  const SVG_H = 180;
+  const PAD_L = 8;
+  const PAD_R = 8;
+  const PAD_T = 24;
+  const PAD_B = 32;
+
+  const plotW = SVG_W - PAD_L - PAD_R;
+  const plotH = SVG_H - PAD_T - PAD_B;
+
+  const toX = (i: number) =>
+    chartRecords.length > 1
+      ? PAD_L + (i / (chartRecords.length - 1)) * plotW
+      : PAD_L + plotW / 2;
+
+  const toY = (v: number) => PAD_T + plotH - (v / maxCount) * plotH;
+
+  /* Build smooth bezier path */
+  const buildPath = () => {
+    if (chartRecords.length === 0) return "";
+    if (chartRecords.length === 1)
+      return `M ${toX(0)} ${toY(chartRecords[0].count)}`;
+
+    const points = chartRecords.map((r, i) => ({ x: toX(i), y: toY(r.count) }));
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const cx = (points[i].x + points[i + 1].x) / 2;
+      d += ` C ${cx} ${points[i].y}, ${cx} ${points[i + 1].y}, ${points[i + 1].x} ${points[i + 1].y}`;
+    }
+    return d;
+  };
+
+  const buildAreaPath = () => {
+    if (chartRecords.length === 0) return "";
+    const line = buildPath();
+    const lastX = toX(chartRecords.length - 1);
+    const firstX = toX(0);
+    const baseY = PAD_T + plotH;
+    return `${line} L ${lastX} ${baseY} L ${firstX} ${baseY} Z`;
+  };
+
   /* ─── Auth-checking / loading states ──── */
   if (auth === null || (auth && loading)) {
     return (
@@ -295,7 +337,7 @@ export default function AdminVisitorsPage() {
           ))}
         </div>
 
-        {/* ── Bar Chart ── */}
+        {/* ── Line Chart ── */}
         <div className={s.chartCard}>
           <div className={s.chartHeader}>
             <div>
@@ -311,30 +353,94 @@ export default function AdminVisitorsPage() {
             </div>
           ) : (
             <div className={s.chartScroll}>
-              <div className={s.chartBars}>
-                {chartRecords.map((r) => {
-                  const heightPct = Math.max((r.count / maxCount) * 100, 2);
-                  const isToday   = r.date === todayStr;
+              <svg
+                viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+                width="100%"
+                height={SVG_H}
+                className={s.lineChart}
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.35" />
+                    <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+
+                {/* Grid lines */}
+                {[0.25, 0.5, 0.75, 1].map((v) => (
+                  <line
+                    key={v}
+                    x1={PAD_L} y1={PAD_T + plotH - v * plotH}
+                    x2={PAD_L + plotW} y2={PAD_T + plotH - v * plotH}
+                    stroke="rgba(255,255,255,0.05)"
+                    strokeWidth={1}
+                  />
+                ))}
+
+                {/* Area fill */}
+                <path
+                  d={buildAreaPath()}
+                  fill="url(#lineGrad)"
+                />
+
+                {/* Line */}
+                <path
+                  d={buildPath()}
+                  fill="none"
+                  stroke="#7c3aed"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                {/* Data points + labels */}
+                {chartRecords.map((r, i) => {
+                  const cx = toX(i);
+                  const cy = toY(r.count);
+                  const isToday = r.date === todayStr;
                   return (
-                    <div
-                      key={r.date}
-                      className={s.barCol}
-                      title={`${r.date}: ${r.count.toLocaleString()} คน`}
-                    >
-                      <div className={s.barCount}>
-                        {r.count > 0 ? r.count.toLocaleString() : ""}
-                      </div>
-                      <div className={s.barWrap}>
-                        <div
-                          className={`${s.bar} ${isToday ? s.barToday : ""}`}
-                          style={{ height: `${heightPct}%` }}
-                        />
-                      </div>
-                      <div className={s.barDate}>{r.date.slice(5)}</div>
-                    </div>
+                    <g key={r.date}>
+                      {/* Dot glow (today) */}
+                      {isToday && (
+                        <circle cx={cx} cy={cy} r={8}
+                          fill="#10b981" fillOpacity={0.25} />
+                      )}
+                      {/* Dot */}
+                      <circle
+                        cx={cx} cy={cy} r={isToday ? 5 : 4}
+                        fill={isToday ? "#10b981" : "#a78bfa"}
+                        stroke="#0f172a" strokeWidth={2}
+                        className={s.lineDot}
+                      >
+                        <title>{`${r.date}: ${r.count.toLocaleString()} คน`}</title>
+                      </circle>
+                      {/* Count label */}
+                      {r.count > 0 && (
+                        <text
+                          x={cx} y={cy - 10}
+                          textAnchor="middle"
+                          fontSize={9}
+                          fill={isToday ? "#10b981" : "#94a3b8"}
+                          fontWeight={700}
+                        >
+                          {r.count.toLocaleString()}
+                        </text>
+                      )}
+                      {/* Date label */}
+                      <text
+                        x={cx}
+                        y={PAD_T + plotH + 20}
+                        textAnchor="middle"
+                        fontSize={9}
+                        fill={isToday ? "#10b981" : "#475569"}
+                      >
+                        {r.date.slice(5)}
+                      </text>
+                    </g>
                   );
                 })}
-              </div>
+              </svg>
             </div>
           )}
         </div>
