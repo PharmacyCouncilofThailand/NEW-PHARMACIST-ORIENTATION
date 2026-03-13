@@ -12,14 +12,16 @@ interface Memory {
 }
 
 const rawMemories: Memory[] = [
-  { img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80", year: "2025", title: "Opening Ceremony", desc: "Grand opening with directors" },
-  { img: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&q=80", year: "2025", title: "Dispensing Workshop", desc: "Hands-on practice at OPD" },
-  { img: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&q=80", year: "2025", title: "Aseptic Lab", desc: "Clean room training" },
-  { img: "https://images.unsplash.com/photo-1576671081837-49000212a370?w=600&q=80", year: "2024", title: "Team Building", desc: "Building relationships" },
-  { img: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&q=80", year: "2024", title: "Certification", desc: "Proud moment" },
-  { img: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80", year: "2024", title: "Group Photo", desc: "Memorable shot" },
-  { img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80", year: "2023", title: "Learning", desc: "Knowledge sharing" },
-  { img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80", year: "2023", title: "Closing", desc: "Until next time" },
+  { img: "/recent-photos/1E53B59F01CD44CD787B849199CF5C0F3E267069.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/51B995066240D701A0DD085CA2ED2FB1D7187928.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/773CB9D0F423CB04543E6FE0609A024C37881EBF.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/7F0FC46AD05B780BA0652C2E5C82B8D030F690E2.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/854EE14C1FE23AE07940D6DCC50B6F9711F6F69E.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/B5BD2714196F1975A1125DAF6C40D30278F262E5.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/E47A6A1D43F7DD875B3DF3D29F8BBCB7988618A9.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/F60B64B5CEA083BD81DE9B4D2E4466A69BE01059.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/FD1719C1BB54DC20CC78A18EBA501119E994A669.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
+  { img: "/recent-photos/FE540C7BDE9AEB1B564C7BD4961B4BEB964BDA37.jpeg", year: "2026", title: "New Pharmacist Orientation", desc: "Memorable moments together" },
 ];
 
 // Pre-computed reversed array (avoids re-creating on every render)
