@@ -25,8 +25,32 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "New Pharmacist Orientation 2026",
-  description: "Welcome to the Pharmacy Family — Your first step into the profession.",
+  title: "New Pharmacist Orientation | ปฐมนิเทศเภสัชกรใหม่",
+  description: "Welcome to the Pharmacy Family — Your first step into the profession. งานปฐมนิเทศเภสัชกรใหม่ ก้าวแรกสู่วิชาชีพ",
+  keywords: [
+    "เภสัชกรใหม่",
+    "ปฐมนิเทศเภสัชกร",
+    "สภาเภสัชกรรม",
+    "Pharmacist Orientation",
+    "Pharmacy",
+  ],
+  authors: [{ name: "สภาเภสัชกรรม (Pharmacy Council of Thailand)" }],
+  openGraph: {
+    title: "New Pharmacist Orientation | ปฐมนิเทศเภสัชกรใหม่",
+    description: "Welcome to the Pharmacy Family — Your first step into the profession. งานปฐมนิเทศเภสัชกรใหม่ ก้าวแรกสู่วิชาชีพ",
+    url: "https://pharmacy-council.or.th", // สามารถเปลี่ยนเป็น URL จริงได้ภายหลัง
+    siteName: "New Pharmacist Orientation",
+    images: [
+      {
+        url: "/logo สภาเภสัชกรรม.jpg",
+        width: 800,
+        height: 600,
+        alt: "Pharmacy Council of Thailand Logo",
+      },
+    ],
+    locale: "th_TH",
+    type: "website",
+  },
   icons: {
     icon: "/logo สภาเภสัชกรรม.jpg",
   },
