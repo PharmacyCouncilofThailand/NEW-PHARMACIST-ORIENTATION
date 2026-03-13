@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, createContext, useContext, useState } from "react";
+import { useEffect, createContext, useContext, useState } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
