@@ -3,39 +3,40 @@
 import { useState, useEffect } from "react";
 import { useLang } from "../../contexts/LangContext";
 import ScrollReveal from "../scroll/ScrollReveal";
+import Image from "next/image";
 
 // 25 Pharmacy Universities in Thailand
 const uniDataConfig = [
-  { abbr: "CU", key: "uni.cu", dbName: "จุฬาลงกรณ์มหาวิทยาลัย", defaultCount: 180 },
-  { abbr: "MU", key: "uni.mu", dbName: "มหาวิทยาลัยมหิดล", defaultCount: 165 },
-  { abbr: "CMU", key: "uni.cmu", dbName: "มหาวิทยาลัยเชียงใหม่", defaultCount: 150 },
-  { abbr: "PSU", key: "uni.psu", dbName: "มหาวิทยาลัยสงขลานครินทร์", defaultCount: 140 },
-  { abbr: "KKU", key: "uni.kku", dbName: "มหาวิทยาลัยขอนแก่น", defaultCount: 135 },
-  { abbr: "SU", key: "uni.su", dbName: "มหาวิทยาลัยศิลปากร", defaultCount: 120 },
-  { abbr: "SWU", key: "uni.swu", dbName: "มหาวิทยาลัยศรีนครินทรวิโรฒ", defaultCount: 115 },
-  { abbr: "NU", key: "uni.nu", dbName: "มหาวิทยาลัยนเรศวร", defaultCount: 110 },
-  { abbr: "MSU", key: "uni.msu", dbName: "มหาวิทยาลัยมหาสารคาม", defaultCount: 105 },
-  { abbr: "UBU", key: "uni.ubu", dbName: "มหาวิทยาลัยอุบลราชธานี", defaultCount: 100 },
-  { abbr: "UP", key: "uni.up", dbName: "มหาวิทยาลัยพะเยา", defaultCount: 95 },
-  { abbr: "WU", key: "uni.wu", dbName: "มหาวิทยาลัยวลัยลักษณ์", defaultCount: 90 },
-  { abbr: "BUU", key: "uni.buu", dbName: "มหาวิทยาลัยบูรพา", defaultCount: 85 },
-  { abbr: "TU", key: "uni.tu", dbName: "มหาวิทยาลัยธรรมศาสตร์", defaultCount: 80 },
-  { abbr: "RSU", key: "uni.rsu", dbName: "มหาวิทยาลัยรังสิต", defaultCount: 110 },
-  { abbr: "HCU", key: "uni.hcu", dbName: "มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ", defaultCount: 105 },
-  { abbr: "SIAM", key: "uni.siam", dbName: "มหาวิทยาลัยสยาม", defaultCount: 70 },
-  { abbr: "EAU", key: "uni.eau", dbName: "มหาวิทยาลัยอีสเทิร์นเอเชีย", defaultCount: 65 },
-  { abbr: "PYU", key: "uni.pyu", dbName: "มหาวิทยาลัยพายัพ", defaultCount: 60 },
-  { abbr: "CTU", key: "uni.ctu", dbName: "วิทยาลัยนครราชสีมา", defaultCount: 55 }, // Changed CTU to matching DB option? Register page had "วิทยาลัยนครราชสีมา" instead of "มหาวิทยาลัยคริสเตียน", wait let me check the DB options... wait, Christian wasn't in the register list but we'll use DB options anyway
-  { abbr: "WTU", key: "uni.wtu", dbName: "มหาวิทยาลัยเวสเทิร์น", defaultCount: 50 },
-  { abbr: "UDRU", key: "uni.udru", dbName: "สถาบันวิทยาการประกอบการแห่งอโยธยา", defaultCount: 45 }, // Replacing names from config with DB matching
-  { abbr: "SRU", key: "uni.sru", dbName: "สถาบันพระบรมราชชนก", defaultCount: 40 },
-  { abbr: "BSRU", key: "uni.bsru", dbName: "มหาวิทยาลัยเกษตรศาสตร์", defaultCount: 35 },
-  { abbr: "CRRU", key: "uni.crru", dbName: "มหาวิทยาลัยปทุมธานี", defaultCount: 30 },
+  { abbr: "CU", key: "uni.cu", dbName: "จุฬาลงกรณ์มหาวิทยาลัย", logoUrl: "/Logo/Cu.png", defaultCount: 180 },
+  { abbr: "MU", key: "uni.mu", dbName: "มหาวิทยาลัยมหิดล", logoUrl: "/Logo/mu.png", defaultCount: 165 },
+  { abbr: "CMU", key: "uni.cmu", dbName: "มหาวิทยาลัยเชียงใหม่", logoUrl: "/Logo/cmu.png", defaultCount: 150 },
+  { abbr: "PSU", key: "uni.psu", dbName: "มหาวิทยาลัยสงขลานครินทร์", logoUrl: "/Logo/psu.png", defaultCount: 140 },
+  { abbr: "KKU", key: "uni.kku", dbName: "มหาวิทยาลัยขอนแก่น", logoUrl: "/Logo/kku.png", defaultCount: 135 },
+  { abbr: "SU", key: "uni.su", dbName: "มหาวิทยาลัยศิลปากร", logoUrl: "/Logo/su.png", defaultCount: 120 },
+  { abbr: "NU", key: "uni.nu", dbName: "มหาวิทยาลัยนเรศวร", logoUrl: "/Logo/nu.png", defaultCount: 110 },
+  { abbr: "SWU", key: "uni.swu", dbName: "มหาวิทยาลัยศรีนครินทรวิโรฒ", logoUrl: "/Logo/swu.png", defaultCount: 115 },
+  { abbr: "MSU", key: "uni.msu", dbName: "มหาวิทยาลัยมหาสารคาม", logoUrl: "/Logo/msu.png", defaultCount: 105 },
+  { abbr: "UBU", key: "uni.ubu", dbName: "มหาวิทยาลัยอุบลราชธานี", logoUrl: "/Logo/Ubu.png", defaultCount: 100 },
+  { abbr: "UP", key: "uni.up", dbName: "มหาวิทยาลัยพะเยา", logoUrl: "/Logo/up.png", defaultCount: 95 },
+  { abbr: "RSU", key: "uni.rsu", dbName: "มหาวิทยาลัยรังสิต", logoUrl: "/Logo/rsu.png", defaultCount: 110 },
+  { abbr: "HCU", key: "uni.hcu", dbName: "มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ", logoUrl: "/Logo/hcu.png", defaultCount: 105 },
+  { abbr: "SIAM", key: "uni.siam", dbName: "มหาวิทยาลัยสยาม", logoUrl: "/Logo/siam.jpg", defaultCount: 70 },
+  { abbr: "PYU", key: "uni.pyu", dbName: "มหาวิทยาลัยพายัพ", logoUrl: "/Logo/pyu.png", defaultCount: 60 },
+  { abbr: "WU", key: "uni.wu", dbName: "มหาวิทยาลัยวลัยลักษณ์", logoUrl: "/Logo/wu.png", defaultCount: 90 },
+  { abbr: "BUU", key: "uni.buu", dbName: "มหาวิทยาลัยบูรพา", logoUrl: "/Logo/buu.jpg", defaultCount: 85 },
+  { abbr: "EAU", key: "uni.eau", dbName: "มหาวิทยาลัยอีสเทิร์นเอเชีย", logoUrl: "/Logo/eau.png", defaultCount: 65 },
+  { abbr: "TU", key: "uni.tu", dbName: "มหาวิทยาลัยธรรมศาสตร์", logoUrl: "/Logo/tu.png", defaultCount: 80 },
+  { abbr: "WTU", key: "uni.wtu", dbName: "มหาวิทยาลัยเวสเทิร์น", logoUrl: "/Logo/WTU.png", defaultCount: 50 },
+  { abbr: "IESA", key: "uni.iesa", dbName: "สถาบันวิทยาการประกอบการแห่งอโยธยา", logoUrl: "/Logo/iesa.jpg", defaultCount: 45 },
+  { abbr: "PI", key: "uni.pi", dbName: "สถาบันพระบรมราชชนก", logoUrl: "/Logo/pi.png", defaultCount: 40 },
+  { abbr: "NMC", key: "uni.nmc", dbName: "วิทยาลัยนครราชสีมา", logoUrl: "/Logo/nmc.png", defaultCount: 55 },
+  { abbr: "KU", key: "uni.ku", dbName: "มหาวิทยาลัยเกษตรศาสตร์", logoUrl: "/Logo/ku.png", defaultCount: 35 },
+  { abbr: "PTU", key: "uni.ptu", dbName: "มหาวิทยาลัยปทุมธานี", logoUrl: "/Logo/ptu.jpg", defaultCount: 30 },
 ];
+
 
 export default function UniversityStatsSection() {
   const { t } = useLang();
-  const [chartType, setChartType] = useState<"line" | "bar">("line");
   const [countsMap, setCountsMap] = useState<Record<string, number>>({});
   
   useEffect(() => {
@@ -64,11 +65,13 @@ export default function UniversityStatsSection() {
   
   const hasRealData = Object.keys(countsMap).length > 0;
   
-  const uniData = uniDataConfig.map(uni => ({
-    ...uni,
-    name: t(uni.key),
-    count: hasRealData ? (countsMap[uni.dbName] || 0) : uni.defaultCount
-  }));
+  const uniData = [...uniDataConfig]
+    .map(uni => ({
+      ...uni,
+      name: t(uni.key),
+      count: hasRealData ? (countsMap[uni.dbName] || 0) : uni.defaultCount
+    }))
+    .sort((a, b) => b.count - a.count); // ยอดเยอะสุดขึ้นก่อน
   
   const maxCount = Math.max(...uniData.map(d => d.count), 1);
 
@@ -127,20 +130,12 @@ export default function UniversityStatsSection() {
               {t("stats.title1")}<span className="gradient-text-anim">{t("stats.title2")}</span>{t("stats.title3")}
             </h2>
             
-            {/* Toggle Switch */}
-            <div className="inline-flex p-1 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
-               <button 
-                 onClick={() => setChartType("line")}
-                 className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${chartType === "line" ? "bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-400" : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"}`}
-               >
-                 {t("stats.line")}
-               </button>
-               <button 
-                 onClick={() => setChartType("bar")}
-                 className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${chartType === "bar" ? "bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-400" : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"}`}
-               >
-                 {t("stats.bar")}
-               </button>
+            {/* Sort note */}
+            <div className="inline-flex items-center gap-2 mt-3 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+              </svg>
+              เรียงจากมากไปน้อย
             </div>
           </div>
         </ScrollReveal>
@@ -151,10 +146,9 @@ export default function UniversityStatsSection() {
             
             <div className="w-full overflow-x-auto pb-8 pt-16 scrollbar-thin scrollbar-thumb-violet-500 scrollbar-track-slate-100 dark:scrollbar-track-slate-800 relative z-20">
                
-               <div className="relative h-[500px]" style={{ width: chartType === "line" ? containerWidth : "auto" }}>
+               <div className="relative h-[500px]" style={{ width: containerWidth }}>
                  
                  {/* กราฟเส้น (Line Chart) */}
-                 {chartType === "line" && (
                    <>
                      <svg className="absolute inset-0 w-full h-full pointer-events-none animate-fade-in-up" style={{ overflow: "visible" }}>
                        <defs>
@@ -219,9 +213,29 @@ export default function UniversityStatsSection() {
                          />
 
                          <div 
-                           className="absolute w-4 h-4 bg-white dark:bg-slate-950 border-4 border-violet-500 rounded-full shadow-lg group-hover:scale-[1.5] group-hover:bg-violet-500 transition-all duration-300 z-10"
+                           className="absolute w-8 h-8 rounded-full shadow-md group-hover:scale-125 transition-all duration-300 z-10 overflow-hidden bg-white border border-slate-200 dark:border-slate-700 flex items-center justify-center"
                            style={{ top: p.y, left: "50%", transform: "translate(-50%, -50%)" }}
-                         />
+                         >
+                            {p.logoUrl ? (
+                              <img 
+                                src={p.logoUrl}
+                                alt={p.abbr}
+                                className="w-full h-full object-contain p-[2px]"
+                                loading="lazy"
+                                onError={(e) => {
+                                  const target = e.currentTarget;
+                                  target.style.display = 'none';
+                                  const parent = target.parentElement;
+                                  if (parent) {
+                                    parent.classList.add('bg-violet-100', 'dark:bg-violet-900');
+                                    parent.innerHTML = `<span class="text-[7px] font-black text-violet-600 dark:text-violet-300 text-center leading-tight">${p.abbr}</span>`;
+                                  }
+                                }}
+                              />
+                            ) : (
+                              <span className="text-[7px] font-black text-violet-600 dark:text-violet-300 text-center leading-tight">{p.abbr}</span>
+                            )}
+                         </div>
                          
                          <span className="absolute bottom-0 text-xs font-bold text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
                            {p.abbr}
@@ -229,43 +243,7 @@ export default function UniversityStatsSection() {
                        </div>
                      ))}
                    </>
-                 )}
 
-                 {/* กราฟแท่ง (Bar Chart) */}
-                 {chartType === "bar" && (
-                    <div className="flex items-end gap-3 min-w-[max-content] h-full px-4 animate-fade-in-up">
-                      {uniData.map((uni, index) => {
-                        const heightPercent = (uni.count / maxCount) * 100;
-                        return (
-                          <div key={uni.abbr} className="flex flex-col items-center justify-end h-full group relative w-12 sm:w-16">
-                              <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:-translate-y-2 text-center z-50 pointer-events-none w-[150px]">
-                                 <div className="bg-slate-800 dark:bg-white text-white dark:text-slate-900 text-xs py-1.5 px-3 rounded-lg shadow-xl inline-block relative font-medium font-bold">
-                                    {uni.name}
-                                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 dark:bg-white rotate-45" />
-                                 </div>
-                              </div>
-     
-                              <span className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 transition-all group-hover:text-violet-600 dark:group-hover:text-violet-400">
-                                 {uni.count}
-                              </span>
-                              
-                               <div className="w-full bg-slate-100 dark:bg-slate-800/50 rounded-t-lg relative flex flex-col justify-end mb-2" style={{ height: "100%" }}>
-                                 <div 
-                                   className={`w-full bg-gradient-to-t ${getGradient(index)} rounded-t-xl transition-all duration-700 ease-out shadow-[inset_0_-4px_8px_rgba(0,0,0,0.2)] group-hover:brightness-110`}
-                                   style={{ height: `${heightPercent}%` }}
-                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                 </div>
-                              </div>
-                              
-                              <span className="text-xs font-bold text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors h-[20px] flex items-center">
-                                {uni.abbr}
-                              </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                 )}
                </div>
             </div>
             
@@ -276,6 +254,41 @@ export default function UniversityStatsSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                </svg>
             </div>
+
+            {/* Summary Box */}
+            {(() => {
+              const totalCount = uniData.reduce((sum, u) => sum + u.count, 0);
+              const top3 = uniData.slice(0, 3);
+              const rankColors = [
+                "bg-amber-400 text-white",
+                "bg-slate-400 text-white",
+                "bg-orange-400 text-white",
+              ];
+              return (
+                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fade-in">
+                  {/* Total */}
+                  <div className="col-span-2 sm:col-span-1 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/30 dark:to-purple-900/20 rounded-2xl p-5 border border-violet-100 dark:border-violet-800 flex flex-col gap-1">
+                    <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-widest">ผู้ลงทะเบียนทั้งหมด</span>
+                    <span className="text-4xl font-black text-violet-700 dark:text-violet-300">{totalCount.toLocaleString()}</span>
+                  </div>
+
+                  {/* Top 3 */}
+                  {top3.map((u, i) => (
+                    <div key={u.abbr} className="bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-slate-100 dark:border-slate-700 flex flex-col gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black flex-shrink-0 ${rankColors[i]}`}>{i + 1}</span>
+                        {u.logoUrl && (
+                          <img src={u.logoUrl} alt={u.abbr} className="w-6 h-6 object-contain rounded-full bg-white border border-slate-100" loading="lazy" />
+                        )}
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-300 truncate">{u.abbr}</span>
+                      </div>
+                      <span className="text-3xl font-black text-slate-800 dark:text-white">{u.count.toLocaleString()}</span>
+                      <span className="text-[11px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2">{u.name}</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
 
           </div>
         </ScrollReveal>
