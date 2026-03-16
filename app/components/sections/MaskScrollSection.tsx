@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 declare global {
   interface Window {
-    YT: typeof YT;
+    YT: any;
     onYouTubeIframeAPIReady: () => void;
   }
 }
@@ -20,7 +20,7 @@ export default function MaskScrollSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
   const iframeContainerRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<YT.Player | null>(null);
+  const playerRef = useRef<any>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isSoundOn, setIsSoundOn] = useState(false);
 
@@ -47,12 +47,12 @@ export default function MaskScrollSection() {
           playsinline: 1,
         },
         events: {
-          onReady: (event) => {
+          onReady: (event: any) => {
             event.target.mute();
             event.target.playVideo();
             setIsPlaying(true);
           },
-          onStateChange: (event) => {
+          onStateChange: (event: any) => {
             if (event.data === window.YT.PlayerState.PLAYING) {
               setIsPlaying(true);
             } else if (event.data === window.YT.PlayerState.PAUSED) {
