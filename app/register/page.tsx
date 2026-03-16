@@ -124,7 +124,7 @@ export default function RegisterPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("nav.license")} <span className="text-slate-400 font-normal">{t("register.licenseOptional")}</span></label>
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("nav.license")}</label>
                 <input name="licenseId" value={formData.licenseId} onChange={handleChange} placeholder={t("nav.licenseId")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
               </div>
               <div>

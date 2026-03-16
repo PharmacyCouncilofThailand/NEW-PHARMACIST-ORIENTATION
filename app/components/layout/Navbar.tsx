@@ -14,7 +14,7 @@ const navLinks = [
   { href: "#agenda", key: "nav.agenda" },
   { href: "#memories", key: "nav.gallery" },
   { href: "#job-posters", key: "nav.career" },
-  { href: "#sponsors", key: "nav.sponsors" },
+
 ] as const;
 
 // Extract section IDs once (never changes)
@@ -241,6 +241,30 @@ export default function Navbar() {
 
                     <div className="h-px bg-slate-100 dark:bg-slate-700 my-1" />
 
+                    {/* My Ticket */}
+                    <Link
+                      href="/my-ticket"
+                      className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4 text-violet-600 dark:text-violet-400 shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                      </svg>
+                      {t("nav.myTicket")}
+                    </Link>
+
+                    {/* Watch Live */}
+                    <Link
+                      href="/live"
+                      className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4 text-rose-600 dark:text-rose-400 shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                      {t("nav.live")}
+                    </Link>
+
+                    <div className="h-px bg-slate-100 dark:bg-slate-700 my-1" />
+
                     {/* Logout */}
                     <button
                       onClick={logout}
@@ -343,6 +367,29 @@ export default function Navbar() {
                   {user?.name ?? user?.email}
                 </span>
               </div>
+              
+              <Link
+                href="/my-ticket"
+                onClick={closeMenu}
+                className="w-full py-3 rounded-xl text-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-all flex items-center justify-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                </svg>
+                {t("nav.myTicket")}
+              </Link>
+              
+              <Link
+                href="/live"
+                onClick={closeMenu}
+                className="w-full py-3 rounded-xl text-center text-sm font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-all flex items-center justify-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                {t("nav.live")}
+              </Link>
+
               <button
                 onClick={() => { closeMenu(); logout(); }}
                 className="w-full py-3 rounded-xl text-center text-sm font-bold text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"

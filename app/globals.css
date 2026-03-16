@@ -86,12 +86,7 @@ html.dark ::-webkit-scrollbar-track {
   background: #1e293b;
 }
 
-/* Hide cursor only on desktop where custom cursor is visible */
-@media (pointer: fine) {
-  body, a, button, [role="button"] {
-    cursor: none;
-  }
-}
+
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

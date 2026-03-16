@@ -32,9 +32,6 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400 max-w-xs">
-              {t("footer.tagline")}
-            </p>
 
             {/* Socials */}
             <div className="flex gap-3 pt-1">
@@ -134,7 +131,6 @@ export default function Footer() {
               { label: t("nav.agenda"), href: "#agenda" },
               { label: t("nav.gallery"), href: "#memories" },
               { label: t("nav.career"), href: "#job-posters" },
-              { label: t("nav.sponsors"), href: "#sponsors" },
             ].map((item) => (
               <a key={item.label} href={item.href} className="px-3 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
                 {item.label}

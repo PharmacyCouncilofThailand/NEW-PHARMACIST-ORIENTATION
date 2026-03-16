@@ -16,6 +16,7 @@ interface TimelineEvent {
   titleKey: string;
   descKey: string;
   metaKey?: string;
+  speakerImage?: string;
   nestedEvents?: TimelineEvent[];
 }
 
@@ -55,12 +56,12 @@ const days: DayData[] = [
         descKey: "agenda.group.opening.desc",
         nestedEvents: [
           { id: "d1e2", time: "12:30", durationKey: "agenda.dur.5min", durationMin: 5, badgeKey: "agenda.badge.registration", badgeColor: "register", icon: "🎁", titleKey: "agenda.d1e2.title", descKey: "agenda.d1e2.desc", metaKey: "agenda.d1e2.meta" },
-          { id: "d1e3", time: "12:35", durationKey: "agenda.dur.5min", durationMin: 5, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🎙️", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta" },
-          { id: "d1e4", time: "12:40", durationKey: "agenda.dur.40min", durationMin: 40, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🗣️", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc", metaKey: "agenda.d1e4.meta" },
+          { id: "d1e3", time: "12:35", durationKey: "agenda.dur.5min", durationMin: 5, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🎙️", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta", speakerImage: "/sp.jpg" },
+          { id: "d1e4", time: "12:40", durationKey: "agenda.dur.40min", durationMin: 40, badgeKey: "agenda.badge.ceremony", badgeColor: "ceremony", icon: "🗣️", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc", metaKey: "agenda.d1e4.meta", speakerImage: "/President.jpg" },
         ]
       },
       { id: "d1e5", time: "13:20", durationKey: "agenda.dur.130min", durationMin: 130, badgeKey: "agenda.badge.ceremony", badgeColor: "lecture", icon: "📜", titleKey: "agenda.d1e5.title", descKey: "agenda.d1e5.desc", metaKey: "agenda.d1e5.meta" },
-      { id: "d1e6", time: "15:30", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.lecture", badgeColor: "lecture", icon: "💡", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc", metaKey: "agenda.d1e6.meta" },
+      { id: "d1e6", time: "15:30", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.lecture", badgeColor: "lecture", icon: "💡", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc", metaKey: "agenda.d1e6.meta", speakerImage: "/President.jpg" },
       { id: "d1e7", time: "16:00", durationKey: "agenda.dur.30min", durationMin: 30, badgeKey: "agenda.badge.summary", badgeColor: "summary", icon: "🏁", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc", metaKey: "agenda.d1e7.meta" },
     ],
   },
@@ -280,15 +281,26 @@ const AgendaContent = memo(({
              <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
                   <div className={`pt-6 border-t ${isFirst || isLast ? "border-white/20" : "border-slate-200/60 dark:border-slate-700/60"}`}>
-                     <p className={`text-base leading-relaxed mb-6 ${isFirst || isLast ? "text-white/90" : "text-slate-600 dark:text-slate-300"}`}>
-                       {t(event.descKey)}
-                     </p>
-                     <div className="flex flex-wrap gap-3">
-                        {event.metaKey && (
-                          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${isFirst || isLast ? "bg-white/20 text-white backdrop-blur-sm" : "bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400"}`}>
-                            📍 {t(event.metaKey)}
+                     <div className="flex flex-col md:flex-row gap-6 items-start justify-between">
+                       <div className="flex-1">
+                         <p className={`text-base leading-relaxed mb-6 ${isFirst || isLast ? "text-white/90" : "text-slate-600 dark:text-slate-300"}`}>
+                           {t(event.descKey)}
+                         </p>
+                         <div className="flex flex-wrap gap-3 mt-4">
+                            {event.metaKey && (
+                              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${isFirst || isLast ? "bg-white/20 text-white backdrop-blur-sm" : "bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400"}`}>
+                                <span>📍</span>
+                                <span>{t(event.metaKey)}</span>
+                              </div>
+                            )}
+                         </div>
+                       </div>
+                       
+                       {event.speakerImage && (
+                          <div className="shrink-0 hidden sm:block">
+                            <img src={event.speakerImage} alt="Speaker" className="w-20 h-20 md:w-24 md:h-24 rounded-2xl object-cover shadow-sm border-2 border-white dark:border-slate-800" />
                           </div>
-                        )}
+                       )}
                      </div>
                   </div>
                 </div>
@@ -302,22 +314,33 @@ const AgendaContent = memo(({
             {event.nestedEvents.map((subEvent, subIndex) => (
               <div key={subEvent.id} className={`relative flex gap-4 ${subIndex !== event.nestedEvents!.length - 1 ? "pb-6 border-b border-slate-100 dark:border-slate-700/30" : ""}`}>
                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className={`text-[0.6rem] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border ${
-                         badgeStyles[subEvent.badgeColor]?.text || "text-slate-500"
-                      } border-current/20 bg-current/5`}>
-                         {t(subEvent.badgeKey)}
-                      </span>
-                    </div>
-                    <h4 className={`text-lg font-bold ${titleColor}`}>{t(subEvent.titleKey)}</h4>
-                    <p className={`text-sm mt-1 ${descColor}`}>{t(subEvent.descKey)}</p>
-                    {subEvent.metaKey && (
-                        <div className={`mt-2 inline-flex items-center gap-2 px-2 py-1 rounded-md text-[0.65rem] font-medium border border-current/10 w-fit ${
-                           isFirst || isLast ? "bg-white/10 text-white/90" : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"
-                        }`}>
-                           👤 {t(subEvent.metaKey)}
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`text-[0.6rem] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border ${
+                             badgeStyles[subEvent.badgeColor]?.text || "text-slate-500"
+                          } border-current/20 bg-current/5`}>
+                             {t(subEvent.badgeKey)}
+                          </span>
                         </div>
-                    )}
+                        <h4 className={`text-lg font-bold ${titleColor}`}>{t(subEvent.titleKey)}</h4>
+                        <p className={`text-sm mt-1 ${descColor}`}>{t(subEvent.descKey)}</p>
+                        {subEvent.metaKey && (
+                            <div className={`mt-2 inline-flex items-center gap-2 px-2 py-1.5 rounded-full text-[0.65rem] font-medium border border-current/10 w-fit ${
+                               isFirst || isLast ? "bg-white/10 text-white/90" : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"
+                            }`}>
+                               <span>👤</span>
+                               <span>{t(subEvent.metaKey)}</span>
+                            </div>
+                        )}
+                      </div>
+                      
+                      {subEvent.speakerImage && (
+                          <div className="shrink-0 hidden sm:block">
+                            <img src={subEvent.speakerImage} alt="Speaker" className="w-16 h-16 rounded-xl object-cover shadow-sm border-2 border-slate-200 dark:border-slate-700" />
+                          </div>
+                      )}
+                    </div>
                  </div>
               </div>
             ))}
@@ -533,15 +556,8 @@ export default function AgendaSection() {
               <p className="text-slate-400 dark:text-slate-500 text-sm">No events match this filter</p>
             </div>
         )}
-        <ScrollReveal variant="blur" delay={600}>
-          <div className="text-center mt-14">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/30 dark:bg-slate-800/30 backdrop-blur-xl border border-slate-200/20 dark:border-slate-700/20">
-              <span className="text-[0.65rem] text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] font-semibold">{t("agenda.clickHint")}</span>
-              <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
-              <span className="text-[0.65rem] text-slate-400 dark:text-slate-500 font-mono">↑↓ Enter</span>
-            </div>
-          </div>
-        </ScrollReveal>
+
+
       </div>
     </section>
   );

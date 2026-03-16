@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai, Inter, Kanit } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "./components/effects/CustomCursor";
+
 
 import ScrollProgress from "./components/scroll/ScrollProgress";
 import { Providers } from "./providers";
@@ -67,7 +67,7 @@ export default function RootLayout({
         className={`${notoSansThai.variable} ${inter.variable} ${kanit.variable} font-sans antialiased text-slate-900 dark:text-slate-100 overflow-x-hidden selection:bg-violet-200 selection:text-violet-900`}
       >
         <Providers>
-          <CustomCursor />
+
           <ScrollProgress />
           
 

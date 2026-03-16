@@ -5,6 +5,13 @@ import Image from "next/image";
 import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
 interface Speaker {
   id: string;
   nameKey: string;
@@ -55,6 +62,78 @@ const speakers: Speaker[] = [
     tags: ["speaker.tag.expert", "speaker.tag.insight"],
     image: "/President.jpg",
   },
+  {
+    id: "s4",
+    nameKey: "speaker.s4.name",
+    positionKey: "speaker.s4.position",
+    topicKey: "speaker.s4.topic",
+    descKey: "speaker.s4.desc",
+    emoji: "🔬",
+    gradient: "from-blue-600 to-cyan-700",
+    badgeColor: "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-800",
+    tags: ["speaker.tag.expert"],
+    image: "/President.jpg",
+  },
+  {
+    id: "s5",
+    nameKey: "speaker.s5.name",
+    positionKey: "speaker.s5.position",
+    topicKey: "speaker.s5.topic",
+    descKey: "speaker.s5.desc",
+    emoji: "🏥",
+    gradient: "from-teal-500 to-emerald-600",
+    badgeColor: "bg-teal-500/10 text-teal-600 border-teal-200 dark:border-teal-800",
+    tags: ["speaker.tag.expert"],
+    image: "/President.jpg",
+  },
+  {
+    id: "s6",
+    nameKey: "speaker.s6.name",
+    positionKey: "speaker.s6.position",
+    topicKey: "speaker.s6.topic",
+    descKey: "speaker.s6.desc",
+    emoji: "🏢",
+    gradient: "from-sky-500 to-blue-600",
+    badgeColor: "bg-sky-500/10 text-sky-600 border-sky-200 dark:border-sky-800",
+    tags: ["speaker.tag.expert"],
+    image: "/President.jpg",
+  },
+  {
+    id: "s7",
+    nameKey: "speaker.s7.name",
+    positionKey: "speaker.s7.position",
+    topicKey: "speaker.s7.topic",
+    descKey: "speaker.s7.desc",
+    emoji: "📋",
+    gradient: "from-rose-500 to-pink-600",
+    badgeColor: "bg-rose-500/10 text-rose-600 border-rose-200 dark:border-rose-800",
+    tags: ["speaker.tag.expert"],
+    image: "/President.jpg",
+  },
+  {
+    id: "s8",
+    nameKey: "speaker.s8.name",
+    positionKey: "speaker.s8.position",
+    topicKey: "speaker.s8.topic",
+    descKey: "speaker.s8.desc",
+    emoji: "💻",
+    gradient: "from-fuchsia-500 to-purple-600",
+    badgeColor: "bg-fuchsia-500/10 text-fuchsia-600 border-fuchsia-200 dark:border-fuchsia-800",
+    tags: ["speaker.tag.expert"],
+    image: "/President.jpg",
+  },
+  {
+    id: "s9",
+    nameKey: "speaker.s9.name",
+    positionKey: "speaker.s9.position",
+    topicKey: "speaker.s9.topic",
+    descKey: "speaker.s9.desc",
+    emoji: "🏭",
+    gradient: "from-amber-500 to-orange-600",
+    badgeColor: "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-800",
+    tags: ["speaker.tag.expert"],
+    image: "/President.jpg",
+  },
 ];
 
 const SpeakerCard = memo(function SpeakerCard({
@@ -93,13 +172,16 @@ const SpeakerCard = memo(function SpeakerCard({
       )}
 
       {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
 
-      {/* Name */}
+      {/* Name and Position */}
       <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col items-center justify-end text-center h-1/2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-        <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-md leading-snug">
+        <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-md leading-snug mb-2">
           {t(speaker.nameKey)}
         </h3>
+        <p className="text-sm sm:text-base font-medium text-white/80 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+          {t(speaker.positionKey)}
+        </p>
       </div>
     </div>
   );
@@ -121,9 +203,21 @@ export default function SpeakerSection() {
 
   return (
     <section id="speakers" ref={ref} className="py-24 sm:py-32 relative overflow-hidden">
-      {/* BG */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-indigo-50/30 to-slate-50 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950 pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent" />
+      {/* BG Video */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <video
+          src="/BgSp.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        {/* Optional overlay to darken/tint the video to ensure text readability */}
+        <div className="absolute inset-0 bg-slate-900/60 mix-blend-multiply" />
+      </div>
+      
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <ScrollReveal variant="blur">
@@ -135,11 +229,70 @@ export default function SpeakerSection() {
           </div>
         </ScrollReveal>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {speakers.map((s, i) => (
-            <SpeakerCard key={s.id} speaker={s} index={i} visible={visible} />
-          ))}
+        {/* Swiper Slider */}
+        <div className="w-full pb-12 relative max-w-7xl mx-auto md:px-20">
+          {/* Custom Navigation Buttons (Desktop Only) */}
+          <button className="speaker-nav-prev hidden md:flex absolute lg:-left-4 md:-left-2 left-0 top-[40%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <button className="speaker-nav-next hidden md:flex absolute lg:-right-4 md:-right-2 right-0 top-[40%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2.5,
+              slideShadows: true,
+            }}
+            pagination={{ clickable: true }}
+            navigation={{
+              nextEl: '.speaker-nav-next',
+              prevEl: '.speaker-nav-prev',
+            }}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+            className="w-full max-w-[1000px] !pb-16"
+          >
+            {speakers.map((s, i) => (
+              <SwiperSlide key={s.id} className="max-w-[320px] sm:max-w-[400px]">
+                <SpeakerCard speaker={s} index={i} visible={visible} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          
+          <style jsx global>{`
+            .swiper-pagination {
+              bottom: 0 !important;
+            }
+            .swiper-pagination-bullet {
+              background-color: #8b5cf6 !important;
+              opacity: 0.5;
+            }
+            .swiper-pagination-bullet-active {
+              opacity: 1;
+            }
+            .swiper-button-disabled {
+              opacity: 0.3 !important;
+              cursor: not-allowed !important;
+              pointer-events: none;
+            }
+          `}</style>
         </div>
 
         {/* Bottom note */}
