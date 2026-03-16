@@ -64,11 +64,11 @@ const translations: Record<string, Record<Lang, string>> = {
 
   "welcome.p2Name": { TH: "รศ.ภญ.สุณี เลิศสินอุดม", EN: "Associate Professor Sunee Lertsinudom" },
   "welcome.p2Position": { TH: "เลขาธิการสภาเภสัชกรรม", EN: "Secretary-General of the Pharmacy Council" },
-  "welcome.p2Message": { TH: "รอเพิ่มข้อความสารจากผู้บริหารท่านที่ 2...", EN: "Welcome message from the 2nd executive..." },
+  "welcome.p2Message": { TH: "สภาเภสัชกรรมขอแสดงความยินดีกับเภสัชกรใหม่ทุกท่านที่สอบผ่าน และกำลังก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ เส้นทางวิชาชีพนี้เป็นการเรียนรู้และพัฒนาตนเองอย่างต่อเนื่อง เพื่อสร้างความเข้มแข็งให้กับทั้งตัวท่านและวิชาชีพเภสัชกรรม ขอเชิญชวนเภสัชกรใหม่ทุกท่านมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้", EN: "The Pharmacy Council congratulates all new pharmacists who have passed their exams and are proudly stepping into the pharmacy profession. This career path is about continuous learning and self-development, building strength for both yourself and the pharmacy profession. We invite all new pharmacists to come share experiences and inspiration at this New Pharmacist Orientation 2026." },
 
   "welcome.p3Name": { TH: "ดร.ภก.นพดล อัจจิมาธีระ", EN: "Executive Name 3" },
   "welcome.p3Position": { TH: "อุปนายกสภาเภสัชกรรม", EN: "Vice President" },
-  "welcome.p3Message": { TH: "รอเพิ่มข้อความสารจากผู้บริหารท่านที่ 3...", EN: "Welcome message from the 3rd executive..." },
+  "welcome.p3Message": { TH: "ขอแสดงความยินดีกับเภสัชกรใหม่ทุกท่านที่ก้าวผ่านอีกหนึ่งก้าวสำคัญของชีวิต และกำลังก้าวเข้าสู่เส้นทางวิชาชีพเภสัชกรรม ซึ่งเป็นวิชาชีพที่มีบทบาทสำคัญต่อสุขภาพของประชาชนและระบบสาธารณสุขของประเทศ ขอให้ทุกท่านใช้ความรู้ ความสามารถ และจิตวิญญาณของความเป็นเภสัชกรในการพัฒนาตนเองและวิชาชีพ พร้อมทั้งร่วมพบปะแลกเปลี่ยนประสบการณ์กันในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้", EN: "Congratulations to all new pharmacists who have crossed another major milestone and are entering the pharmacy profession, which plays a critical role in public health and the national healthcare system. I encourage all of you to use your knowledge, abilities, and the spirit of a pharmacist to develop yourselves and the profession, and to exchange experiences at this New Pharmacist Orientation 2026." },
 
   // Welcome Cards
 
@@ -458,25 +458,25 @@ const translations: Record<string, Record<Lang, string>> = {
   "uni.psu": { TH: "มหาวิทยาลัยสงขลานครินทร์", EN: "Prince of Songkla University" },
   "uni.kku": { TH: "มหาวิทยาลัยขอนแก่น", EN: "Khon Kaen University" },
   "uni.su": { TH: "มหาวิทยาลัยศิลปากร", EN: "Silpakorn University" },
-  "uni.swu": { TH: "มหาวิทยาลัยศรีนครินทรวิโรฒ", EN: "Srinakharinwirot University" },
   "uni.nu": { TH: "มหาวิทยาลัยนเรศวร", EN: "Naresuan University" },
+  "uni.swu": { TH: "มหาวิทยาลัยศรีนครินทรวิโรฒ", EN: "Srinakharinwirot University" },
   "uni.msu": { TH: "มหาวิทยาลัยมหาสารคาม", EN: "Mahasarakham University" },
   "uni.ubu": { TH: "มหาวิทยาลัยอุบลราชธานี", EN: "Ubon Ratchathani University" },
   "uni.up": { TH: "มหาวิทยาลัยพะเยา", EN: "University of Phayao" },
-  "uni.wu": { TH: "มหาวิทยาลัยวลัยลักษณ์", EN: "Walailak University" },
-  "uni.buu": { TH: "มหาวิทยาลัยบูรพา", EN: "Burapha University" },
-  "uni.tu": { TH: "มหาวิทยาลัยธรรมศาสตร์", EN: "Thammasat University" },
   "uni.rsu": { TH: "มหาวิทยาลัยรังสิต", EN: "Rangsit University" },
   "uni.hcu": { TH: "มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ", EN: "Huachiew Chalermprakiet University" },
   "uni.siam": { TH: "มหาวิทยาลัยสยาม", EN: "Siam University" },
-  "uni.eau": { TH: "มหาวิทยาลัยอีสเทิร์นเอเชีย", EN: "Eastern Asia University" },
   "uni.pyu": { TH: "มหาวิทยาลัยพายัพ", EN: "Payap University" },
-  "uni.ctu": { TH: "มหาวิทยาลัยคริสเตียน", EN: "Christian University of Thailand" },
+  "uni.wu": { TH: "มหาวิทยาลัยวลัยลักษณ์", EN: "Walailak University" },
+  "uni.buu": { TH: "มหาวิทยาลัยบูรพา", EN: "Burapha University" },
+  "uni.eau": { TH: "มหาวิทยาลัยอีสเทิร์นเอเชีย", EN: "Eastern Asia University" },
+  "uni.tu": { TH: "มหาวิทยาลัยธรรมศาสตร์", EN: "Thammasat University" },
   "uni.wtu": { TH: "มหาวิทยาลัยเวสเทิร์น", EN: "Western University" },
-  "uni.udru": { TH: "มหาวิทยาลัยราชภัฏอุดรธานี", EN: "Udon Thani Rajabhat University" },
-  "uni.sru": { TH: "มหาวิทยาลัยราชภัฏสุราษฎร์ธานี", EN: "Suratthani Rajabhat University" },
-  "uni.bsru": { TH: "มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา", EN: "Bansomdejchaopraya Rajabhat University" },
-  "uni.crru": { TH: "มหาวิทยาลัยราชภัฏเชียงราย", EN: "Chiang Rai Rajabhat University" },
+  "uni.iesa": { TH: "สถาบันวิทยาการประกอบการแห่งอโยธยา", EN: "Institute of Entrepreneurial Science Ayothaya" },
+  "uni.pi": { TH: "สถาบันพระบรมราชชนก", EN: "Praboromarajchanok Institute" },
+  "uni.nmc": { TH: "วิทยาลัยนครราชสีมา", EN: "Nakhon Ratchasima College" },
+  "uni.ku": { TH: "มหาวิทยาลัยเกษตรศาสตร์", EN: "Kasetsart University" },
+  "uni.ptu": { TH: "มหาวิทยาลัยปทุมธานี", EN: "Pathumthani University" },
 };
 
 interface LangContextType {

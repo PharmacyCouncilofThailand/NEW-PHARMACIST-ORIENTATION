@@ -30,7 +30,7 @@ export default function WelcomeSection() {
       nameKey: "welcome.p3Name",
       posKey: "welcome.p3Position",
       msgKey: "welcome.p3Message",
-      image: "/1.png"
+      image: "/4.png"
     }
   ];
 
@@ -86,7 +86,7 @@ export default function WelcomeSection() {
   return (
     <section id="welcome" ref={containerRef} className="relative h-[500vh] z-20 mb-32 md:mb-64">
       {/* Sticky Area */}
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col items-center justify-center">
+      <div className="sticky top-0 h-[100dvh] overflow-hidden flex flex-col items-center justify-start pt-[100px] md:pt-[140px]">
         {/* Dynamic Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 pointer-events-none" />
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none" />
@@ -113,7 +113,7 @@ export default function WelcomeSection() {
           </div>
 
           {/* Book Layout */}
-          <div className="relative w-full max-w-5xl mx-auto min-h-[400px] md:h-[500px] mt-8 md:mt-12 perspective-[2000px]">
+          <div className="relative w-full max-w-6xl mx-auto min-h-[750px] sm:min-h-[800px] md:min-h-0 md:h-[600px] lg:h-[650px] mt-8 md:mt-12 perspective-[2000px]">
              {/* Book Shadow */}
              <div className="absolute top-10 inset-x-4 md:inset-x-10 bottom-0 bg-slate-900/20 dark:bg-black/60 blur-2xl rounded-3xl -z-10" />
              
@@ -131,17 +131,14 @@ export default function WelcomeSection() {
                 <div className="hidden md:block absolute top-3 bottom-3 -left-2 w-4 bg-slate-200 dark:bg-slate-800 rounded-l shadow-[-2px_0_5px_rgba(0,0,0,0.1)] -z-10" />
 
                 {/* Left Page (Image) */}
-                <div className="w-full md:w-1/2 h-64 md:h-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-t-2xl md:rounded-none md:rounded-l-[2rem]">
+                <div className="w-full md:w-1/2 h-[350px] sm:h-[400px] md:h-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-t-2xl md:rounded-none md:rounded-l-[2rem]">
                    {/* We can use standard mapping or just animate the key change. We'll use React Key to force re-render animation. */}
                    <div key={`img-${activeIndex}`} className="absolute inset-0 animate-fade-in">
                        <Image 
                          src={activePerson.image}
                          alt={t(activePerson.nameKey)}
                          fill
-                         className="object-cover" 
-                         style={activeIndex === 0 
-                           ? { objectPosition: "50% 90%", transform: "scale(1.00)", transformOrigin: "center" } 
-                           : { objectPosition: "center", transform: "none" }}
+                         className="object-cover object-top" 
                          priority
                        />
                        <div className="absolute bottom-6 left-6 right-6 z-20 text-white" style={{textShadow: '0 2px 8px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)'}}>
@@ -159,7 +156,7 @@ export default function WelcomeSection() {
                         <div className="absolute -top-2 -left-2 md:-top-4 md:-left-4 text-5xl md:text-8xl text-violet-300/40 dark:text-violet-900/40 font-serif leading-none">“</div>
                         
                         <div className="flex-1 mt-4 md:mt-8 relative z-10">
-                            <p className="text-base md:text-lg lg:text-xl text-slate-700 dark:text-slate-300 leading-[1.8] font-light text-justify">
+                            <p className="text-base md:text-lg lg:text-xl text-slate-700 dark:text-slate-300 leading-[1.8] font-light">
                                {t(activePerson.msgKey)}
                             </p>
                         </div>

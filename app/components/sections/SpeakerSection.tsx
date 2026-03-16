@@ -36,7 +36,7 @@ const speakers: Speaker[] = [
     gradient: "from-violet-600 to-purple-700",
     badgeColor: "bg-violet-500/10 text-violet-600 border-violet-200 dark:border-violet-800",
     tags: ["speaker.tag.president", "speaker.tag.pharmacy"],
-    image: "/President.jpg",
+    image: "/2.png",
   },
   {
     id: "s2",
@@ -48,7 +48,7 @@ const speakers: Speaker[] = [
     gradient: "from-blue-500 to-indigo-600",
     badgeColor: "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-800",
     tags: ["speaker.tag.ceremony", "speaker.tag.pr"],
-    image: "/President.jpg",
+    image: "/1.png",
   },
   {
     id: "s3",
@@ -60,7 +60,7 @@ const speakers: Speaker[] = [
     gradient: "from-indigo-500 to-violet-600",
     badgeColor: "bg-indigo-500/10 text-indigo-600 border-indigo-200 dark:border-indigo-800",
     tags: ["speaker.tag.expert", "speaker.tag.insight"],
-    image: "/President.jpg",
+    image: "/2.png",
   },
   {
     id: "s4",
@@ -72,7 +72,7 @@ const speakers: Speaker[] = [
     gradient: "from-blue-600 to-cyan-700",
     badgeColor: "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-800",
     tags: ["speaker.tag.expert"],
-    image: "/President.jpg",
+    image: "/1.png",
   },
   {
     id: "s5",
@@ -84,7 +84,7 @@ const speakers: Speaker[] = [
     gradient: "from-teal-500 to-emerald-600",
     badgeColor: "bg-teal-500/10 text-teal-600 border-teal-200 dark:border-teal-800",
     tags: ["speaker.tag.expert"],
-    image: "/President.jpg",
+    image: "/2.png",
   },
   {
     id: "s6",
@@ -96,7 +96,7 @@ const speakers: Speaker[] = [
     gradient: "from-sky-500 to-blue-600",
     badgeColor: "bg-sky-500/10 text-sky-600 border-sky-200 dark:border-sky-800",
     tags: ["speaker.tag.expert"],
-    image: "/President.jpg",
+    image: "/1.png",
   },
   {
     id: "s7",
@@ -108,7 +108,7 @@ const speakers: Speaker[] = [
     gradient: "from-rose-500 to-pink-600",
     badgeColor: "bg-rose-500/10 text-rose-600 border-rose-200 dark:border-rose-800",
     tags: ["speaker.tag.expert"],
-    image: "/President.jpg",
+    image: "/2.png",
   },
   {
     id: "s8",
@@ -120,7 +120,7 @@ const speakers: Speaker[] = [
     gradient: "from-fuchsia-500 to-purple-600",
     badgeColor: "bg-fuchsia-500/10 text-fuchsia-600 border-fuchsia-200 dark:border-fuchsia-800",
     tags: ["speaker.tag.expert"],
-    image: "/President.jpg",
+    image: "/1.png",
   },
   {
     id: "s9",
@@ -132,7 +132,7 @@ const speakers: Speaker[] = [
     gradient: "from-amber-500 to-orange-600",
     badgeColor: "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-800",
     tags: ["speaker.tag.expert"],
-    image: "/President.jpg",
+    image: "/2.png",
   },
 ];
 
@@ -154,7 +154,7 @@ const SpeakerCard = memo(function SpeakerCard({
         transform: visible ? "translateY(0)" : "translateY(40px)",
         transition: `all 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
       }}
-      className="group relative overflow-hidden rounded-3xl aspect-[3/4] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+      className="group relative overflow-hidden rounded-none aspect-[3/4] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
     >
       {/* Picture */}
       {speaker.image ? (
@@ -276,7 +276,7 @@ export default function SpeakerSection() {
             ))}
           </Swiper>
           
-          <style jsx global>{`
+          <style>{`
             .swiper-pagination {
               bottom: 0 !important;
             }

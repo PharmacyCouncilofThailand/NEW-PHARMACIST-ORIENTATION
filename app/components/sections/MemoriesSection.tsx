@@ -46,7 +46,7 @@ const MarqueeColumn = ({ items, direction = "up", speed = "40s" }: { items: Memo
                   alt={mem.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-110 filter grayscale group-hover/card:grayscale-0 will-change-transform"
+                  className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-110 will-change-transform"
                   loading="lazy"
                 />
               </div>
