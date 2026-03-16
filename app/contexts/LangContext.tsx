@@ -29,6 +29,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.license": { TH: "ใบอนุญาต", EN: "License" },
   "nav.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License No." },
   "nav.phone": { TH: "เบอร์โทร", EN: "Phone" },
+  "nav.myTicket": { TH: "My ticket", EN: "My Ticket" },
+  "nav.live": { TH: "ดูไลฟ์สดงาน", EN: "Watch Live Event" },
 
   // Hero
   "hero.subtitle1": { TH: "ยินดีต้อนรับ เภสัชกรใหม่ สู่", EN: "Warmly welcoming new pharmacists to the" },
@@ -45,20 +47,28 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.subtitle4": { TH: "เพื่อเริ่มต้นการเดินทางไปด้วยกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเลย", EN: "Register Now" },
   "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
-  "hero.year": { TH: "2026 · กรุงเทพมหานคร", EN: "2026 · Bangkok, Thailand" },
+  "hero.year": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitsalathibet Bldg, MOPH" },
 
   // Welcome Section
   "welcome.badge": { TH: "✨ สารจากนายกสภาเภสัชกรรม", EN: "✨ Message from the President" },
-  "welcome.title1": { TH: "งานปฐมนิเทศ", EN: "New Pharmacist" },
-  "welcome.title2": { TH: "เภสัชกรใหม่ ปี 2569", EN: "Orientation 2026" },
+  "welcome.title1": { TH: "สารจาก", EN: "Message from" },
+  "welcome.title2": { TH: "คณะผู้บริหาร", EN: "the Executives" },
   "welcome.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569 เวลา 10.00 - 16.00 น.", EN: "Saturday, May 17, 2026 | 10:00 AM - 4:00 PM" },
   "welcome.location": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitsalathibet Bldg, MOPH" },
   "welcome.message": {
     TH: "สภาเภสัชกรรม ยินดีกับเภสัชกรใหม่ที่สอบผ่าน และขอต้อนรับเภสัชกรใหม่ทุกท่าน ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ การเดินในสายงานอาชีพเพิ่งเริ่มต้น องค์ความรู้จะเกิดขึ้นใหม่ตลอดเวลา การศึกษาอย่างต่อเนื่อง เพื่อช่วยสั่งสมประสบการณ์ สร้างทักษะเพิ่มความแข็งแกร่งให้ทุกท่านและวิชาชีพพวกเรา มาร่วมแบ่งปัน บอกเล่าเรื่องราวดี ๆ ให้กันฟัง ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้กันนะครับ",
     EN: "The Pharmacy Council congratulates all new pharmacists who have passed their exams and warmly welcomes you to the profession with pride. Your professional journey has just begun. New knowledge emerges constantly; continuous education will help accumulate experience and strengthen skills for both you and our profession. Let's join, share, and tell good stories to each other at this New Pharmacist Orientation 2026."
   },
-  "welcome.presidentName": { TH: "(เภสัชกรปรีชา พันธุ์ติเวช)", EN: "(Pharmacist Preecha Bhandtivej)" },
+  "welcome.presidentName": { TH: "ภก.ปรีชา พันธุ์ติเวช", EN: "Pharmacist Preecha Bhandtivej" },
   "welcome.presidentPosition": { TH: "นายกสภาเภสัชกรรม", EN: "President of the Pharmacy Council" },
+
+  "welcome.p2Name": { TH: "รศ.ภญ.สุณี เลิศสินอุดม", EN: "Associate Professor Sunee Lertsinudom" },
+  "welcome.p2Position": { TH: "เลขาธิการสภาเภสัชกรรม", EN: "Secretary-General of the Pharmacy Council" },
+  "welcome.p2Message": { TH: "รอเพิ่มข้อความสารจากผู้บริหารท่านที่ 2...", EN: "Welcome message from the 2nd executive..." },
+
+  "welcome.p3Name": { TH: "ดร.ภก.นพดล อัจจิมาธีระ", EN: "Executive Name 3" },
+  "welcome.p3Position": { TH: "อุปนายกสภาเภสัชกรรม", EN: "Vice President" },
+  "welcome.p3Message": { TH: "รอเพิ่มข้อความสารจากผู้บริหารท่านที่ 3...", EN: "Welcome message from the 3rd executive..." },
 
   // Welcome Cards
 
@@ -76,7 +86,7 @@ const translations: Record<string, Record<Lang, string>> = {
   // Speaker Section
   "speaker.badge": { TH: "🎤 วิทยากร", EN: "🎤 Speakers" },
   "speaker.title1": { TH: "", EN: "" },
-  "speaker.title2": { TH: "วิทยากร", EN: "Speakers" },
+  "speaker.title2": { TH: "วิทยากรรับเชิญทั้ง 9 ท่าน", EN: "All 9 Guest Speakers" },
   "speaker.subtitle": { TH: "ผู้ทรงคุณวุฒิที่จะมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ", EN: "Experts who will share their experiences and inspiration." },
   "speaker.clickHint": { TH: "คลิกเพื่ออ่านข้อมูล", EN: "Click to flip" },
   "speaker.back": { TH: "กลับหน้าบัตร", EN: "Back" },
@@ -92,10 +102,40 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.s2.topic": { TH: "ต้อนรับและภาพรวม", EN: "Welcome & Overview" },
   "speaker.s2.desc": { TH: "กล่าวต้อนรับและให้ข้อมูลภาพรวมกิจกรรมตลอดทั้งวันของการปฐมนิเทศ", EN: "Welcoming remarks and providing an overview of the orientation's activities." },
   
-  "speaker.s3.name": { TH: "วิทยากรรับเชิญพิเศษ", EN: "Special Guest Speaker" },
-  "speaker.s3.position": { TH: "ผู้เชี่ยวชาญ", EN: "Expert" },
+  "speaker.s3.name": { TH: "วิทยากรรับเชิญพิเศษ 1", EN: "Special Guest Speaker 1" },
+  "speaker.s3.position": { TH: "ผู้เชี่ยวชาญด้านเภสัชกรรม", EN: "Pharmacy Expert" },
   "speaker.s3.topic": { TH: "Expert Insight", EN: "Expert Insight" },
   "speaker.s3.desc": { TH: "แบ่งปันประสบการณ์และมุมมองเพื่อสร้างแรงบันดาลใจในการทำงาน", EN: "Sharing experiences and perspectives to inspire you in your career." },
+
+  "speaker.s4.name": { TH: "วิทยากรรับเชิญพิเศษ 2", EN: "Special Guest Speaker 2" },
+  "speaker.s4.position": { TH: "นักวิจัยอาวุโส", EN: "Senior Researcher" },
+  "speaker.s4.topic": { TH: "การวิจัยสมัยใหม่", EN: "Modern Research" },
+  "speaker.s4.desc": { TH: "เรื่องราวจากการวิจัยสู่การปฏิบัติจริง", EN: "Stories from research to actual practice." },
+
+  "speaker.s5.name": { TH: "วิทยากรรับเชิญพิเศษ 3", EN: "Special Guest Speaker 3" },
+  "speaker.s5.position": { TH: "เภสัชกรชุมชน", EN: "Community Pharmacist" },
+  "speaker.s5.topic": { TH: "การดูแลผู้ป่วยในชุมชน", EN: "Community Patient Care" },
+  "speaker.s5.desc": { TH: "บทบาทของเภสัชกรในการสร้างเสริมสุขภาพระบบปฐมภูมิ", EN: "The role of pharmacists in primary care health promotion." },
+
+  "speaker.s6.name": { TH: "วิทยากรรับเชิญพิเศษ 4", EN: "Special Guest Speaker 4" },
+  "speaker.s6.position": { TH: "ผู้บริหารโรงพยาบาล", EN: "Hospital Administrator" },
+  "speaker.s6.topic": { TH: "การบริหารจัดการ", EN: "Management" },
+  "speaker.s6.desc": { TH: "เส้นทางการเติบโตในสายบริหาร", EN: "Growth paths in the administrative track." },
+
+  "speaker.s7.name": { TH: "วิทยากรรับเชิญพิเศษ 5", EN: "Special Guest Speaker 5" },
+  "speaker.s7.position": { TH: "ผู้อำนวยการด้านคุณภาพ", EN: "Quality Director" },
+  "speaker.s7.topic": { TH: "คุณภาพและความปลอดภัย", EN: "Quality & Safety" },
+  "speaker.s7.desc": { TH: "การคงมาตรฐานคุณภาพในการผลิตและจ่ายยา", EN: "Maintaining quality standards in manufacturing and dispensing." },
+
+  "speaker.s8.name": { TH: "วิทยากรรับเชิญพิเศษ 6", EN: "Special Guest Speaker 6" },
+  "speaker.s8.position": { TH: "ผู้เชี่ยวชาญเทคโนโลยีสุขภาพ", EN: "Health Tech Expert" },
+  "speaker.s8.topic": { TH: "เทคโนโลยีกับเภสัชกรรม", EN: "Tech & Pharmacy" },
+  "speaker.s8.desc": { TH: "แนวโน้มและโอกาสของเทคโนโลยีในวงการเภสัชกรรม", EN: "Trends and opportunities of tech in the pharmacy industry." },
+
+  "speaker.s9.name": { TH: "วิทยากรรับเชิญพิเศษ 7", EN: "Special Guest Speaker 7" },
+  "speaker.s9.position": { TH: "เภสัชกรอุตสาหการ", EN: "Industrial Pharmacist" },
+  "speaker.s9.topic": { TH: "อุตสาหกรรมยา", EN: "Pharmaceutical Industry" },
+  "speaker.s9.desc": { TH: "การทำงานในสายอุตสาหกรรมยาระดับนานาชาติ", EN: "Working in the international pharmaceutical industry." },
   
   "speaker.tag.president": { TH: "นายกสภาฯ", EN: "President" },
   "speaker.tag.pharmacy": { TH: "วิชาชีพเภสัชกรรม", EN: "Pharmacy" },
@@ -175,15 +215,15 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Memories Section
   "memories.badge": { TH: " ภาพบรรยากาศ", EN: "Gallery" },
-  "memories.title1": { TH: "ภาพ", EN: "Cherished " },
-  "memories.title2": { TH: "ความทรงจำ", EN: "Memories" },
+  "memories.title1": { TH: "ภาพแห่ง", EN: "Event " },
+  "memories.title2": { TH: "ความประทับใจ", EN: "Gallery" },
 
   // Job Posters Section
   "jobPosters.badge": { TH: "โปสเตอร์สมัครงาน", EN: "Job Fair Posters" },
   "jobPosters.title1": { TH: "โปสเตอร์", EN: "Career " },
   "jobPosters.title2": { TH: "สมัครงาน", EN: "Opportunities" },
   "jobPosters.subtitle": { TH: "รวมโปสเตอร์รับสมัครงานจากหน่วยงานและองค์กรชั้นนำ คลิกที่โปสเตอร์เพื่อดูรายละเอียดแบบเต็ม", EN: "Job openings from leading organizations. Click any poster to view full details." },
-  "jobPosters.count": { TH: "บูธ", EN: "Booths" },
+  "jobPosters.count": { TH: "งาน", EN: "Works" },
   "jobPosters.hint": { TH: "คลิกที่โปสเตอร์เพื่อดูขนาดเต็ม", EN: "Click any poster to view full size" },
   "jobPosters.openDrive": { TH: "เปิดใน Drive", EN: "Open in Drive" },
   "jobPosters.close": { TH: "ปิด", EN: "Close" },
@@ -275,7 +315,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
 
   // Branding
-  "nav.brand": { TH: "ปฐมนิเทศเภสัชกรใหม่", EN: "New Pharmacist Orientation" },
+  "nav.brand": { TH: "สภาเภสัชกรรม", EN: "Pharmacy Council" },
   "hero.mainTitle1": { TH: "ปฐมนิเทศ", EN: "NEW PHARMACIST" },
   "hero.mainTitle2": { TH: "เภสัชกรใหม่", EN: "ORIENTATION" },
   "footer.brandName": { TH: "ปฐมนิเทศเภสัชกรใหม่", EN: "New Pharmacist Orientation" },
@@ -345,6 +385,98 @@ const translations: Record<string, Record<Lang, string>> = {
     EN: "Whichever path you choose, you are a vital force in Thailand's public health system." 
   },
   "scroll.cta.scrollHint": { TH: "เลื่อนลงต่อ", EN: "Keep Scrolling" },
+
+  // My Ticket Page
+  "ticket.loading": { TH: "กำลังโหลดตั๋วของคุณ...", EN: "Loading your ticket..." },
+  "ticket.title": { TH: "ตั๋วอิเล็กทรอนิกส์", EN: "My E-Ticket" },
+  "ticket.subtitle": { TH: "โปรดแสดงตั๋วนี้ที่จุดลงทะเบียน", EN: "Please show this digital ticket at the registration desk." },
+  "ticket.eventName": { TH: "งานปฐมนิเทศเภสัชกรใหม่ ปี 2569", EN: "New Pharmacist Orientation 2026" },
+  "ticket.confirmed": { TH: "ยืนยันการเข้าร่วม", EN: "Confirmed Guest" },
+  "ticket.attendee": { TH: "ชื่อผู้เข้าร่วม", EN: "Attendee Name" },
+  "ticket.passType": { TH: "ประเภทบัตร", EN: "Pass Type" },
+  "ticket.generalAccess": { TH: "ผู้เข้าร่วมงานทั่วไป", EN: "General Access" },
+  "ticket.date": { TH: "วันที่", EN: "Date" },
+  "ticket.eventDate": { TH: "17 พ.ค. 2569", EN: "17 May 2026" },
+  "ticket.time": { TH: "เวลา", EN: "Time" },
+  "ticket.eventTime": { TH: "10:00 - 16:00 น.", EN: "10:00 - 16:00" },
+  "ticket.scanMe": { TH: "สแกน QR Code", EN: "Scan Me" },
+  "ticket.id": { TH: "รหัส:", EN: "ID:" },
+  "ticket.valid": { TH: "ใช้สำหรับเข้างาน", EN: "Valid for Entry" },
+  "ticket.moph": { TH: "กระทรวงสาธารณสุข", EN: "Ministry of Public Health" },
+  "ticket.download": { TH: "ดาวน์โหลด PDF", EN: "Download PDF" },
+  "ticket.appleWallet": { TH: "เพิ่มลงใน Apple Wallet", EN: "Add to Apple Wallet" },
+  "ticket.notProvided": { TH: "ไม่ระบุ", EN: "Not Provided" },
+
+  // Live Stream Page
+  "live.connecting": { TH: "กำลังเชื่อมต่อสตรีม...", EN: "Connecting to stream..." },
+  "live.secureConn": { TH: "กรุณารอสักครู่ขณะเราสร้างการเชื่อมต่อที่ปลอดภัย", EN: "Please wait while we establish a secure connection" },
+  "live.badge": { TH: "ไลฟ์สด", EN: "Live" },
+  "live.status": { TH: "เวทีหลัก • กำลังรับชม 1,245 คน", EN: "Main Stage • 1,245 watching" },
+  "live.back": { TH: "กลับไปหน้างาน", EN: "Back to Event" },
+  "live.startingSoon": { TH: "สตรีมกำลังจะเริ่มเร็วๆ นี้", EN: "STREAM STARTING SOON" },
+  "live.datetime": { TH: "17 พ.ค. 2569 • 10:00 น. (เวลาไทย)", EN: "17 May 2026 • 10:00 AM BKK" },
+  "live.tabChat": { TH: "แชทสด", EN: "Live Chat" },
+  "live.tabQa": { TH: "คำถาม-คำตอบ", EN: "Q & A" },
+  "live.tabPolls": { TH: "โพลล์", EN: "Polls" },
+  "live.chatStart": { TH: "สตรีมเริ่มเวลา 10:00 น.", EN: "Stream starts at 10:00 AM" },
+  "live.mod": { TH: "ผู้ดูแลระบบ", EN: "System Mod" },
+  "live.admin": { TH: "แอดมิน", EN: "Admin" },
+  "live.welcomeChat": { TH: "ยินดีต้อนรับสู่งานปฐมนิเทศเภสัชกรใหม่ ปี 2569! โปรดสุภาพในการแชท", EN: "Welcome to the New Pharmacist Orientation 2026! Please be respectful in the chat." },
+  "live.pharmacist": { TH: "เภสัชกร", EN: "Pharmacist" },
+  
+  "live.chatMsg1": { TH: "รอไม่ไหวแล้ว!", EN: "Can't wait!" },
+  "live.chatMsg2": { TH: "มีสไลด์ให้ดาวน์โหลดไหมคะ?", EN: "Is the slide deck available?" },
+  "live.chatMsg3": { TH: "สวัสดีจากเชียงใหม่ครับ", EN: "Hello from Chiang Mai" },
+  "live.chatMsg4": { TH: "ตื่นเต้นกับกิจกรรมมาก!", EN: "Excited for the sessions!" },
+
+  "live.noQuestions": { TH: "ยังไม่มีคำถาม", EN: "No questions asked yet" },
+  "live.askQuestionInfo": { TH: "ส่งคำถามถึงวิทยากร คำถามที่ได้รับการโหวตสูงสุดจะถูกนำไปตอบในไลฟ์สด", EN: "Ask the speakers a question. Top voted questions will be answered live." },
+  "live.active": { TH: "กำลังเปิดโหวต", EN: "Active" },
+  "live.votes": { TH: "142 โหวต", EN: "142 votes" },
+  
+  "live.pollQ1": { TH: "คุณสนใจสายงานไหนเป็นพิเศษ?", EN: "What field are you most interested in pursuing?" },
+  "live.pollOpt1": { TH: "ร้านยาชุมชน", EN: "Community Pharmacy" },
+  "live.pollOpt2": { TH: "เภสัชกรโรงพยาบาล", EN: "Hospital Pharmacy" },
+  "live.pollOpt3": { TH: "เภสัชกรรมอุตสาหการ", EN: "Industrial Pharmacy" },
+  "live.pollOpt4": { TH: "การคุ้มครองผู้บริโภค / อย.", EN: "Regulatory Affairs" },
+  
+  "live.inputQA": { TH: "พิมพ์คำถามของคุณ...", EN: "Ask a question..." },
+  "live.inputChat": { TH: "พิมพ์ข้อความของคุณ...", EN: "Say something..." },
+  "live.viewOnly": { TH: "โหมดดูเท่านั้น (ไม่สามารถส่งข้อความได้)", EN: "View Only Mode (Chat disabled)" },
+
+  // University Stats
+  "stats.title1": { TH: "จำนวน", EN: "Amount of " },
+  "stats.title2": { TH: "เภสัชกรใหม่", EN: "New Pharmacists" },
+  "stats.title3": { TH: " (25 สถาบัน)", EN: " (25 Institutions)" },
+  "stats.line": { TH: "กราฟเส้น", EN: "Line Chart" },
+  "stats.bar": { TH: "กราฟแท่ง", EN: "Bar Chart" },
+  "stats.scrollHint": { TH: "เลื่อนขวาเพื่อดูเพิ่มเติม", EN: "Scroll right for more" },
+
+  "uni.cu": { TH: "จุฬาลงกรณ์มหาวิทยาลัย", EN: "Chulalongkorn University" },
+  "uni.mu": { TH: "มหาวิทยาลัยมหิดล", EN: "Mahidol University" },
+  "uni.cmu": { TH: "มหาวิทยาลัยเชียงใหม่", EN: "Chiang Mai University" },
+  "uni.psu": { TH: "มหาวิทยาลัยสงขลานครินทร์", EN: "Prince of Songkla University" },
+  "uni.kku": { TH: "มหาวิทยาลัยขอนแก่น", EN: "Khon Kaen University" },
+  "uni.su": { TH: "มหาวิทยาลัยศิลปากร", EN: "Silpakorn University" },
+  "uni.swu": { TH: "มหาวิทยาลัยศรีนครินทรวิโรฒ", EN: "Srinakharinwirot University" },
+  "uni.nu": { TH: "มหาวิทยาลัยนเรศวร", EN: "Naresuan University" },
+  "uni.msu": { TH: "มหาวิทยาลัยมหาสารคาม", EN: "Mahasarakham University" },
+  "uni.ubu": { TH: "มหาวิทยาลัยอุบลราชธานี", EN: "Ubon Ratchathani University" },
+  "uni.up": { TH: "มหาวิทยาลัยพะเยา", EN: "University of Phayao" },
+  "uni.wu": { TH: "มหาวิทยาลัยวลัยลักษณ์", EN: "Walailak University" },
+  "uni.buu": { TH: "มหาวิทยาลัยบูรพา", EN: "Burapha University" },
+  "uni.tu": { TH: "มหาวิทยาลัยธรรมศาสตร์", EN: "Thammasat University" },
+  "uni.rsu": { TH: "มหาวิทยาลัยรังสิต", EN: "Rangsit University" },
+  "uni.hcu": { TH: "มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ", EN: "Huachiew Chalermprakiet University" },
+  "uni.siam": { TH: "มหาวิทยาลัยสยาม", EN: "Siam University" },
+  "uni.eau": { TH: "มหาวิทยาลัยอีสเทิร์นเอเชีย", EN: "Eastern Asia University" },
+  "uni.pyu": { TH: "มหาวิทยาลัยพายัพ", EN: "Payap University" },
+  "uni.ctu": { TH: "มหาวิทยาลัยคริสเตียน", EN: "Christian University of Thailand" },
+  "uni.wtu": { TH: "มหาวิทยาลัยเวสเทิร์น", EN: "Western University" },
+  "uni.udru": { TH: "มหาวิทยาลัยราชภัฏอุดรธานี", EN: "Udon Thani Rajabhat University" },
+  "uni.sru": { TH: "มหาวิทยาลัยราชภัฏสุราษฎร์ธานี", EN: "Suratthani Rajabhat University" },
+  "uni.bsru": { TH: "มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา", EN: "Bansomdejchaopraya Rajabhat University" },
+  "uni.crru": { TH: "มหาวิทยาลัยราชภัฏเชียงราย", EN: "Chiang Rai Rajabhat University" },
 };
 
 interface LangContextType {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
@@ -8,8 +8,33 @@ import { useLang } from "../../contexts/LangContext";
 
 
 export default function WelcomeSection() {
+  const containerRef = useRef<HTMLElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const { t } = useLang();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const people = [
+    {
+      nameKey: "welcome.presidentName",
+      posKey: "welcome.presidentPosition",
+      msgKey: "welcome.message",
+      image: "/2.png"
+    },
+    {
+      nameKey: "welcome.p2Name",
+      posKey: "welcome.p2Position",
+      msgKey: "welcome.p2Message",
+      image: "/1.png"
+    },
+    {
+      nameKey: "welcome.p3Name",
+      posKey: "welcome.p3Position",
+      msgKey: "welcome.p3Message",
+      image: "/1.png"
+    }
+  ];
+
+  const activePerson = people[activeIndex];
 
   useEffect(() => {
     let ticking = false;
@@ -30,100 +55,136 @@ export default function WelcomeSection() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  return (
-    <section id="welcome" className="relative py-32 overflow-hidden z-20">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none" />
+  // Track scroll progress to flip book pages
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const { top, height } = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
       
-      {/* Spotlight Effect */}
-      <div
-        ref={spotlightRef}
-        className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(800px_circle_at_var(--x,50%)_var(--y,50%),rgba(139,92,246,0.08),transparent_50%)]"
-      />
+      const scrollableDistance = height - windowHeight;
+      if (scrollableDistance <= 0) return;
+      
+      // Calculate scroll progress from 0.0 to 1.0 within this section
+      let progress = -top / scrollableDistance;
+      progress = Math.max(0, Math.min(1, progress));
+      
+      // Determine the active person (each person gets an equal fraction of the progress)
+      // Multiply by people.length + 0.5 so we have a small "dead zone" at the very end 
+      // where index stops at 2, creating a delay before unlocking the section
+      const activeCalc = Math.floor(progress * (people.length + 0.5));
+      const newIndex = Math.min(people.length - 1, activeCalc);
+      
+      setActiveIndex(newIndex);
+    };
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Check on mount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [people.length]);
+
+  return (
+    <section id="welcome" ref={containerRef} className="relative h-[500vh] z-20 mb-32 md:mb-64">
+      {/* Sticky Area */}
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col items-center justify-center">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none" />
+        
+        {/* Spotlight Effect */}
+        <div
+          ref={spotlightRef}
+          className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(800px_circle_at_var(--x,50%)_var(--y,50%),rgba(139,92,246,0.08),transparent_50%)]"
+        />
+
+        <div className="max-w-7xl w-full mx-auto px-6 relative z-10 pt-16 md:pt-0">
         {/* Section Header */}
         <ScrollReveal variant="blur">
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-24 max-w-6xl mx-auto relative">
-             {/* Left: Text Content */}
-             <div className="flex-1 text-center lg:text-left z-10 w-full">
-                 {/* Badge */}
-                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200/60 dark:border-slate-700/60 shadow-sm mb-6">
-                    <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
-                    <span className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-slate-500 dark:text-slate-400">
-                      {t("welcome.badge")}
-                    </span>
-                 </span>
+          <div className="max-w-6xl mx-auto relative mb-8">
+            {/* Title */}
+            <div className="text-center">
+              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
+                {t("welcome.title1")} <br className="hidden md:block" />
+                <span key={`title-${activeIndex}`} className="bg-gradient-to-r from-violet-600 via-blue-600 to-purple-600 bg-clip-text text-transparent inline-block animate-fade-in">
+                  {t(activePerson.posKey)}
+                </span>
+              </h2>
+            </div>
+          </div>
 
-                 {/* Title */}
-                 <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[1.1] mb-6 text-slate-900 dark:text-white tracking-tighter">
-                   {t("welcome.title1")}
-                   <br />
-                   <span className="bg-gradient-to-r from-violet-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                     {t("welcome.title2")}
-                   </span>
-                 </h2>
-
-                 {/* Date & Location */}
-                 <div className="flex flex-col gap-3 mb-8 text-sm  font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl w-full lg:w-fit border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <div className="flex items-center gap-3 justify-center lg:justify-start">
-                        <span className="text-xl">🗓️</span> <span className="text-base">{t("welcome.eventDate")}</span>
-                    </div>
-                    <div className="flex items-center gap-3 justify-center lg:justify-start text-left">
-                        <span className="text-xl shrink-0">📍</span> <span className="text-base leading-snug">{t("welcome.location")}</span>
-                    </div>
-                 </div>
+          {/* Book Layout */}
+          <div className="relative w-full max-w-5xl mx-auto min-h-[400px] md:h-[500px] mt-8 md:mt-12 perspective-[2000px]">
+             {/* Book Shadow */}
+             <div className="absolute top-10 inset-x-4 md:inset-x-10 bottom-0 bg-slate-900/20 dark:bg-black/60 blur-2xl rounded-3xl -z-10" />
+             
+             {/* Book Container */}
+             <div className="relative w-full h-full bg-[#fdfcfb] dark:bg-slate-900/90 backdrop-blur-sm rounded-2xl md:rounded-[2rem] flex flex-col md:flex-row border border-slate-200 dark:border-slate-800 shadow-xl overflow-visible">
                 
-                {/* Message */}
-                <div className="relative bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm p-6 md:p-8 rounded-3xl border border-violet-100 dark:border-violet-900/30 shadow-xl shadow-violet-100/40 dark:shadow-none text-left">
-                    <div className="absolute -top-4 -left-2 text-6xl text-violet-200 dark:text-violet-900 opacity-50 font-serif">“</div>
-                    <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed font-light mb-8 relative z-10">
-                      {t("welcome.message")}
-                    </p>
-                    <div className="flex items-center gap-4 border-t border-slate-100 dark:border-slate-800 pt-6">
-                        <div className="bg-gradient-to-br from-violet-500 to-blue-600 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
-                           P
+                {/* Book Spine (Desktop only) */}
+                <div className="hidden md:block absolute inset-y-0 left-1/2 w-16 -ml-8 bg-gradient-to-r from-transparent via-slate-300/40 dark:via-black/50 to-transparent z-20 pointer-events-none" />
+                <div className="hidden md:block absolute inset-y-0 left-1/2 w-[1px] bg-slate-300/50 dark:bg-slate-800 z-20" />
+                
+                {/* Page Stacks (simulating thick pages on edges) */}
+                <div className="hidden md:block absolute top-3 bottom-3 -right-2 w-4 bg-slate-200 dark:bg-slate-800 rounded-r shadow-[2px_0_5px_rgba(0,0,0,0.1)] -z-10" />
+                <div className="hidden md:block absolute top-5 bottom-5 -right-4 w-4 bg-slate-300/50 dark:bg-slate-900 rounded-r shadow-[2px_0_5px_rgba(0,0,0,0.05)] -z-20" />
+
+                <div className="hidden md:block absolute top-3 bottom-3 -left-2 w-4 bg-slate-200 dark:bg-slate-800 rounded-l shadow-[-2px_0_5px_rgba(0,0,0,0.1)] -z-10" />
+
+                {/* Left Page (Image) */}
+                <div className="w-full md:w-1/2 h-64 md:h-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-t-2xl md:rounded-none md:rounded-l-[2rem]">
+                   {/* We can use standard mapping or just animate the key change. We'll use React Key to force re-render animation. */}
+                   <div key={`img-${activeIndex}`} className="absolute inset-0 animate-fade-in">
+                       <Image 
+                         src={activePerson.image}
+                         alt={t(activePerson.nameKey)}
+                         fill
+                         className="object-cover" 
+                         style={activeIndex === 0 
+                           ? { objectPosition: "50% 90%", transform: "scale(1.00)", transformOrigin: "center" } 
+                           : { objectPosition: "center", transform: "none" }}
+                         priority
+                       />
+                       <div className="absolute bottom-6 left-6 right-6 z-20 text-white" style={{textShadow: '0 2px 8px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)'}}>
+                           <p className="font-bold text-2xl md:text-3xl mb-1">{t(activePerson.nameKey)}</p>
+                           <p className="text-sm md:text-base font-medium opacity-90 uppercase tracking-widest text-violet-300">
+                             {t(activePerson.posKey)}
+                           </p>
+                       </div>
+                   </div>
+                </div>
+
+                {/* Right Page (Text) */}
+                <div className="w-full md:w-1/2 flex flex-col justify-between p-6 md:p-10 lg:p-14 relative z-10">
+                    <div key={`msg-${activeIndex}`} className="relative z-10 animate-fade-in-up flex-1 flex flex-col">
+                        <div className="absolute -top-2 -left-2 md:-top-4 md:-left-4 text-5xl md:text-8xl text-violet-300/40 dark:text-violet-900/40 font-serif leading-none">“</div>
+                        
+                        <div className="flex-1 mt-4 md:mt-8 relative z-10">
+                            <p className="text-base md:text-lg lg:text-xl text-slate-700 dark:text-slate-300 leading-[1.8] font-light text-justify">
+                               {t(activePerson.msgKey)}
+                            </p>
                         </div>
-                        <div className="text-left">
-                            <p className="font-bold text-slate-900 dark:text-white text-base">{t("welcome.presidentName")}</p>
-                            <p className="text-xs text-violet-600 dark:text-violet-400 font-bold uppercase tracking-wide mt-0.5">{t("welcome.presidentPosition")}</p>
+                    </div>
+
+                    {/* Pagination & Indicators */}
+                    <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/50 flex items-center justify-between">
+                        <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 font-mono text-sm">
+                           <span className="font-bold text-violet-600 dark:text-violet-400">0{activeIndex + 1} <span className="text-slate-400 font-normal">/ 0{people.length}</span></span>
+                        </div>
+                        
+                        <div className="flex gap-2 items-center text-slate-400 dark:text-slate-500 font-medium text-[10px] md:text-sm uppercase tracking-widest animate-pulse">
+                           <span className="hidden md:inline">Scroll</span>
+                           <span className="inline md:hidden">Swipe</span>
+                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
                         </div>
                     </div>
                 </div>
              </div>
 
-             {/* Right: President Image (Placeholder) */}
-              <div className="w-full max-w-sm lg:w-[400px] mx-auto relative group perspective-1000 mt-12 lg:mt-0">
-                  <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl shadow-violet-500/20 border-4 border-white dark:border-slate-800 -rotate-2 group-hover:rotate-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]">
-                      {/* Placeholder Gradient */}
-                      {/* President Image */}
-                      <div className="absolute inset-0 bg-slate-200 dark:bg-slate-800">
-                        <Image
-                          src="/President.jpg"
-                          alt={t("welcome.presidentName")}
-                          fill
-                          className="object-cover object-top"
-                          priority
-                        />
-                      </div>
-                      
-                      {/* Overlay Gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-                      
-                      <div className="absolute bottom-6 left-6 text-white text-left pr-4">
-                          <p className="font-bold text-xl mb-1">{t("welcome.presidentName")}</p>
-                          <p className="text-xs font-medium opacity-80 uppercase tracking-wider">{t("welcome.presidentPosition")}</p>
-                      </div>
-                  </div>
-                  
-                  {/* Decorative blob behind */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-violet-600/20 blur-[60px] -z-10 rounded-full pointer-events-none" />
-              </div>
-
+             {/* Animated Flip Overlay (Decorative) */}
+             <div className="hidden md:block absolute inset-y-0 right-0 w-1/2 bg-white/5 dark:bg-white/5 pointer-events-none rounded-r-[2rem] mix-blend-overlay"></div>
           </div>
         </ScrollReveal>
+      </div>
 
 
       </div>

@@ -1,64 +1,187 @@
 "use client";
 
-
 import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
 
-// ข้อมูลจำลองสำหรับ Sponsor (สามารถเปลี่ยนเป็นโลโก้จริงได้ในภายหลัง)
+// ข้อมูลสปอนเซอร์ — เพิ่ม image path เมื่อมีโลโก้จริง
 const sponsors = [
-  { id: 1, name: "สภาเภสัชกรรม", image: "/logo สภาเภสัชกรรม.jpg" },
-  { id: 2, name: "Sponsor 2" },
-  { id: 3, name: "Sponsor 3" },
-  { id: 4, name: "Sponsor 4" },
-  { id: 5, name: "Sponsor 5" },
-  { id: 6, name: "Sponsor 6" },
-  { id: 7, name: "Sponsor 7" },
-  { id: 8, name: "Sponsor 8" },
+  { id: 1, name: "สภาเภสัชกรรม", image: "/logo สภาเภสัชกรรม.jpg", tier: "platinum" },
+  { id: 2, name: "Sponsor 2",    image: null, tier: "gold" },
+  { id: 3, name: "Sponsor 3",    image: null, tier: "gold" },
+  { id: 4, name: "Sponsor 4",    image: null, tier: "gold" },
+  { id: 5, name: "Sponsor 5",    image: null, tier: "silver" },
+  { id: 6, name: "Sponsor 6",    image: null, tier: "silver" },
+  { id: 7, name: "Sponsor 7",    image: null, tier: "silver" },
+  { id: 8, name: "Sponsor 8",    image: null, tier: "silver" },
 ];
+
+// ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม
+const marqueeItems = [...sponsors, ...sponsors, ...sponsors];
+// แถวที่ 2 — ลำดับสลับกัน
+const marqueeItemsReverse = [...sponsors].reverse();
+const marqueeItemsRow2 = [...marqueeItemsReverse, ...marqueeItemsReverse, ...marqueeItemsReverse];
+
+
+
+
+
 
 export default function SponsorSection() {
   const { t } = useLang();
 
   return (
-    <section id="sponsors" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-slate-950">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
-      
+    <section
+      id="sponsors"
+      className="relative py-10 sm:py-14 z-10 overflow-hidden"
+    >
+      {/* Aurora background — same as other sections */}
+      <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />
+
+      {/* Top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/40 to-transparent" />
+
+      {/* Floating decorations */}
+      <div className="absolute top-10 right-10 w-48 h-48 rounded-full bg-gradient-to-br from-violet-200/20 to-blue-200/20 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-blue-200/20 to-purple-200/20 blur-3xl pointer-events-none" />
+
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+        {/* ─── Heading ─── */}
         <ScrollReveal variant="blur">
-          <div className="text-center mb-16">
-            <h2 className="text-[clamp(2rem,4vw,3rem)] font-black leading-tight tracking-tight text-slate-900 dark:text-white">
-              {t("sponsor.title1")} <span className="bg-gradient-to-r from-slate-600 to-slate-400 bg-clip-text text-transparent">{t("sponsor.title2")}</span>
+          <div className="text-center mb-8">
+
+            <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-tight tracking-tight text-slate-900 dark:text-white mb-12">
+              {t("sponsor.title1")}{" "}
+              <span className="gradient-text-anim">
+                {t("sponsor.title2")}
+              </span>
             </h2>
-            <p className="mt-4 text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-              {t("sponsor.subtitle")}
-            </p>
           </div>
         </ScrollReveal>
 
-        {/* Sponsor Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-10 items-center justify-items-center max-w-6xl mx-auto">
-          {sponsors.map((s, i) => (
-            <ScrollReveal key={s.id} variant="fade-up" delay={i * 50} className="w-full flex justify-center">
-              <div 
-                className="relative w-full max-w-[240px] aspect-[2/1] xl:aspect-[16/9] rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-md hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden p-3 sm:p-5"
-              >
-                {s.image ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img 
-                    src={encodeURI(s.image)} 
-                    alt={s.name} 
-                    className="w-full h-full object-contain" 
-                    loading="lazy"
+        {/* ─── Marquee Track ─── */}
+        <div className="relative">
+          {/* Scrolling strip */}
+          <div
+            className="overflow-hidden"
+            style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}
+          >
+            <div
+              className="flex gap-6 w-max"
+              style={{
+                animation: "sponsor-scroll 40s linear infinite",
+              }}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.animationPlayState =
+                  "paused")
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.animationPlayState =
+                  "running")
+              }
+            >
+              {marqueeItems.map((s, i) => (
+                <div
+                  key={`${s.id}-${i}`}
+                  className="flex-shrink-0 flex items-center gap-10 group cursor-default select-none"
+                >
+                  <div className="flex items-center gap-3">
+
+                    {s.image ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={encodeURI(s.image)}
+                        alt={s.name}
+                        className="h-24 sm:h-28 w-auto object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span
+                        className="text-2xl sm:text-3xl font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap"
+                      >
+                        {s.name}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Divider */}
+                  <span
+                    aria-hidden
+                    className="w-px h-6 bg-gradient-to-b from-transparent via-violet-300/40 dark:via-violet-700/30 to-transparent flex-shrink-0"
                   />
-                ) : (
-                  <span className="font-bold text-slate-300 dark:text-slate-700 text-sm sm:text-base">{s.name}</span>
-                )}
-              </div>
-            </ScrollReveal>
-          ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Marquee Track Row 2 (reverse) ─── */}
+        <div className="relative mt-6">
+          {/* Scrolling strip */}
+          <div
+            className="overflow-hidden"
+            style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}
+          >
+            <div
+              className="flex gap-6 w-max"
+              style={{
+                animation: "sponsor-scroll-reverse 45s linear infinite",
+              }}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.animationPlayState =
+                  "paused")
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.animationPlayState =
+                  "running")
+              }
+            >
+              {marqueeItemsRow2.map((s, i) => (
+                <div
+                  key={`r2-${s.id}-${i}`}
+                  className="flex-shrink-0 flex items-center gap-10 cursor-default select-none"
+                >
+                  <div className="flex items-center gap-3">
+                    {s.image ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={encodeURI(s.image)}
+                        alt={s.name}
+                        className="h-24 sm:h-28 w-auto object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="text-2xl sm:text-3xl font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap">
+                        {s.name}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Divider */}
+                  <span
+                    aria-hidden
+                    className="w-px h-6 bg-gradient-to-b from-transparent via-violet-300/40 dark:via-violet-700/30 to-transparent flex-shrink-0"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Bottom border */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/40 to-transparent" />
+
+      {/* Keyframe for marquee */}
+      <style>{`
+        @keyframes sponsor-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-33.333%); }
+        }
+        @keyframes sponsor-scroll-reverse {
+          from { transform: translateX(-33.333%); }
+          to   { transform: translateX(0); }
+        }
+      `}</style>
     </section>
   );
 }
