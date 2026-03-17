@@ -60,7 +60,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black/30 pointer-events-none" style={{ zIndex: 1 }} />
 
       {/* CONTENT */}
-      <div ref={contentRef} className="relative text-center px-6 pt-36 pb-8 w-full max-w-[1400px] will-change-transform" style={{ zIndex: 2 }}>
+      <div ref={contentRef} className="relative text-center px-4 sm:px-6 pt-28 md:pt-36 pb-8 w-full max-w-[1400px] will-change-transform flex flex-col items-center justify-center min-h-screen" style={{ zIndex: 2 }}>
 
         {/* Logo */}
         <div className="flex justify-center mb-3 hero-entrance">

@@ -32,7 +32,7 @@ export default function SponsorSection() {
   return (
     <section
       id="sponsors"
-      className="relative py-10 sm:py-14 z-10 overflow-hidden"
+      className="min-h-[60vh] flex flex-col justify-center relative py-10 sm:py-14 z-10 overflow-hidden"
     >
       {/* Aurora background — same as other sections */}
       <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />

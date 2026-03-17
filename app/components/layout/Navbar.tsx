@@ -391,19 +391,19 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-3xl transition-all duration-500 flex flex-col items-center justify-center gap-8
+        className={`fixed inset-0 z-40 bg-white/95 dark:bg-[#111424]/98 backdrop-blur-3xl transition-all duration-500 flex flex-col items-center justify-center gap-6
           ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
         `}
       >
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-5 sm:gap-6 mb-2">
           {navLinks.map((link, i) => (
             <button
               key={link.href}
               onClick={() => handleAnchorClick(link.href)}
-              className={`text-3xl font-bold text-slate-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-all duration-300 transform
+              className={`text-2xl sm:text-3xl font-bold text-slate-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-all duration-300 transform
                 ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}
               `}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              style={{ transitionDelay: `${i * 50}ms` }}
             >
               {t(link.key)}
             </button>
@@ -413,15 +413,15 @@ export default function Navbar() {
         {/* Mobile Auth Buttons */}
         <div 
           className={`flex flex-col items-center gap-3 w-64 transition-all duration-300 ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-          style={{ transitionDelay: `${navLinks.length * 100}ms` }}
+          style={{ transitionDelay: `${navLinks.length * 50}ms` }}
         >
           {isLoggedIn ? (
             <>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/10 w-full justify-center">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-r from-violet-600 to-blue-600 flex items-center justify-center text-white text-xs font-bold uppercase">
+              <div className="flex items-center gap-3 px-4 py-3.5 rounded-[1.125rem] bg-slate-100 dark:bg-white/10 w-full justify-center shadow-inner">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 flex items-center justify-center text-white text-[11px] font-black uppercase shadow-md">
                   {user?.name?.[0] ?? user?.email?.[0] ?? "U"}
                 </div>
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 truncate">
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">
                   {user?.name ?? user?.email}
                 </span>
               </div>
@@ -429,10 +429,10 @@ export default function Navbar() {
               <Link
                 href="/my-ticket"
                 onClick={closeMenu}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-[#20183e] hover:bg-violet-200 dark:hover:bg-[#281e4d] transition-all flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                 </svg>
                 {t("nav.myTicket")}
               </Link>
@@ -440,10 +440,10 @@ export default function Navbar() {
               <Link
                 href="/live"
                 onClick={closeMenu}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-[#311a25] hover:bg-rose-100 dark:hover:bg-[#3d202e] transition-all flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 {t("nav.live")}
               </Link>
@@ -451,7 +451,7 @@ export default function Navbar() {
               {/* Highlight Video */}
               <button
                 onClick={() => { closeMenu(); setShowVideoModal(true); }}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-[#1a1c3d] hover:bg-indigo-100 dark:hover:bg-[#21244d] transition-all flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
@@ -461,7 +461,7 @@ export default function Navbar() {
 
               <button
                 onClick={() => { closeMenu(); logout(); }}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-red-600 dark:text-rose-400 border border-slate-200 dark:border-rose-900/30 hover:bg-red-50 dark:hover:bg-rose-900/10 transition-all mt-1"
               >
                 {t("nav.signOut")}
               </button>
@@ -471,14 +471,14 @@ export default function Navbar() {
               <Link
                 href="/login"
                 onClick={closeMenu}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
+                className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
               >
                 {t("nav.signIn")}
               </Link>
               <Link
                 href="/register"
                 onClick={closeMenu}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/25 transition-all"
+                className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/25 transition-all"
               >
                 {t("nav.signUp")}
               </Link>

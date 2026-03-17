@@ -116,7 +116,7 @@ export default function UniversityStatsSection() {
   const containerWidth = points.length > 0 ? points[points.length - 1].x + paddingLeft : 800;
 
   return (
-    <section className="py-24 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section id="stats" className="min-h-screen flex flex-col justify-center py-20 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
       
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-500/10 dark:bg-violet-600/10 blur-[100px] rounded-full pointer-events-none translate-x-1/2 -translate-y-1/2" />
@@ -142,9 +142,10 @@ export default function UniversityStatsSection() {
 
         {/* กราฟพื้นที่ทำงาน */}
         <ScrollReveal variant="fade-up" delay={200}>
-          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-200 dark:border-slate-800 backdrop-blur-sm relative min-h-[600px] flex flex-col justify-center">
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] p-5 sm:p-8 md:p-12 shadow-xl border border-slate-200 dark:border-slate-800 backdrop-blur-sm relative min-h-[400px] md:min-h-[600px] flex flex-col justify-center">
             
-            <div className="w-full overflow-x-auto pb-8 pt-16 scrollbar-thin scrollbar-thumb-violet-500 scrollbar-track-slate-100 dark:scrollbar-track-slate-800 relative z-20">
+            {/* Desktop Chart */}
+            <div className="hidden md:block w-full overflow-x-auto pb-8 pt-16 scrollbar-thin scrollbar-thumb-violet-500 scrollbar-track-slate-100 dark:scrollbar-track-slate-800 relative z-20">
                
                <div className="relative h-[500px]" style={{ width: containerWidth }}>
                  
@@ -247,6 +248,43 @@ export default function UniversityStatsSection() {
                </div>
             </div>
             
+            {/* Mobile Vertical List */}
+            <div className="md:hidden w-full flex flex-col gap-3 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar mt-2 relative z-20">
+              {uniData.map((uni, idx) => {
+                const percent = (uni.count / maxCount) * 100;
+                return (
+                  <div key={uni.abbr} className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-3 flex items-center gap-3 border border-slate-100 dark:border-slate-800">
+                    <div className="relative w-12 h-12 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0">
+                      {uni.logoUrl ? (
+                         <img src={uni.logoUrl} alt={uni.abbr} className="w-8 h-8 object-contain" loading="lazy" />
+                      ) : (
+                         <span className="text-[10px] font-black text-violet-600 dark:text-violet-300">{uni.abbr}</span>
+                      )}
+                      
+                      {idx < 3 && (
+                        <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-[10px] font-black flex items-center justify-center border-2 border-white dark:border-slate-900 shadow-sm ${idx === 0 ? 'bg-amber-400' : idx === 1 ? 'bg-slate-400' : 'bg-orange-400'}`}>
+                          {idx + 1}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0 flex flex-col justify-center">
+                      <div className="flex justify-between items-end mb-1.5">
+                        <span className="font-bold text-slate-800 dark:text-slate-200 truncate text-[13px]">{uni.name}</span>
+                        <span className="font-black text-violet-600 dark:text-violet-400 text-sm ml-2">{uni.count}</span>
+                      </div>
+                      <div className="h-2 w-full bg-slate-200 dark:bg-slate-700/50 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-violet-500 to-purple-500 rounded-full transition-all duration-1000 ease-out"
+                          style={{ width: `${percent}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            
             {/* Scroll Indicator hint */}
             <div className="absolute right-8 top-8 hidden sm:flex items-center gap-2 text-slate-400 text-xs font-medium animate-pulse">
                <span>{t("stats.scrollHint")}</span>
@@ -265,16 +303,16 @@ export default function UniversityStatsSection() {
                 "bg-orange-400 text-white",
               ];
               return (
-                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fade-in">
+                <div className="mt-6 md:mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-4 gap-4 animate-fade-in">
                   {/* Total */}
-                  <div className="col-span-2 sm:col-span-1 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/30 dark:to-purple-900/20 rounded-2xl p-5 border border-violet-100 dark:border-violet-800 flex flex-col gap-1">
-                    <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-widest">ผู้ลงทะเบียนทั้งหมด</span>
+                  <div className="col-span-1 sm:col-span-1 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/30 dark:to-purple-900/20 rounded-2xl p-5 border border-violet-100 dark:border-violet-800 flex flex-col gap-1 items-center sm:items-start">
+                    <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-widest text-center sm:text-left">ผู้ลงทะเบียนทั้งหมด</span>
                     <span className="text-4xl font-black text-violet-700 dark:text-violet-300">{totalCount.toLocaleString()}</span>
                   </div>
 
                   {/* Top 3 */}
                   {top3.map((u, i) => (
-                    <div key={u.abbr} className="bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-slate-100 dark:border-slate-700 flex flex-col gap-2">
+                    <div key={u.abbr} className="hidden sm:flex bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-slate-100 dark:border-slate-700 flex-col gap-2">
                       <div className="flex items-center gap-2">
                         <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black flex-shrink-0 ${rankColors[i]}`}>{i + 1}</span>
                         {u.logoUrl && (
