@@ -107,6 +107,8 @@ export default function MaskScrollSection() {
 
   // GSAP scroll animation
   useEffect(() => {
+    ScrollTrigger.config({ ignoreMobileResize: true }); // Prevent jumping on mobile when toolbar hides
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -146,6 +148,12 @@ export default function MaskScrollSection() {
         duration: 0.3,
       }, "-=0.3");
       tl.to({}, { duration: 2.5 });
+
+      // Refresh ScrollTrigger after a slight delay to ensure all DOM elements and images are settled
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
+      
     }, containerRef);
 
     return () => ctx.revert();

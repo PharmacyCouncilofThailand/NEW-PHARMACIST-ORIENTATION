@@ -513,7 +513,7 @@ export default function AgendaSection() {
   }, [activeCardIdx, filteredEvents.length, toggleExpand]);
 
   return (
-    <section id="agenda" className="py-32 relative z-10 overflow-hidden">
+    <section id="agenda" className="min-h-screen flex flex-col justify-center py-20 relative z-10 overflow-hidden">
       <div className="absolute inset-0 aurora-bg opacity-20 pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/40 to-transparent" />
       <div className="max-w-[1240px] mx-auto px-6 relative z-10">
