@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useLang } from "../../contexts/LangContext";
 
 export default function CookieConsent() {
@@ -55,8 +57,8 @@ export default function CookieConsent() {
           <div className="p-5 sm:p-7">
             {/* Header */}
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-xl">🍪</span>
+              <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-900/20 flex items-center justify-center shrink-0 mt-0.5 p-1 border border-violet-100 dark:border-violet-800">
+                <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council Logo" width={40} height={40} className="object-contain" />
               </div>
               <div className="flex-1">
                 <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
@@ -146,9 +148,9 @@ export default function CookieConsent() {
             {/* Policy link */}
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
               {isEN ? "Learn more in our " : "อ่านข้อมูลเพิ่มเติมใน "}
-              <a href="#" className="underline hover:text-violet-500 transition-colors">
+              <Link href="/privacy-policy" className="underline hover:text-violet-500 transition-colors">
                 {isEN ? "Privacy Policy" : "นโยบายความเป็นส่วนตัว"}
-              </a>
+              </Link>
             </p>
           </div>
         </div>

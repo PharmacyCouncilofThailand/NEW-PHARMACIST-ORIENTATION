@@ -23,7 +23,8 @@ export default function RegisterPage() {
     university: "",
     phone: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    consent: false
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -42,13 +43,20 @@ export default function RegisterPage() {
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: type === 'checkbox' ? checked : value 
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match"); return;
+    }
+    if (!formData.consent) {
+      setError("Please accept the terms and conditions"); return;
     }
     setLoading(true); setError("");
     try {
@@ -225,6 +233,27 @@ export default function RegisterPage() {
                 <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.confirmPassword")} <span className="text-red-500">*</span></label>
                 <input name="confirmPassword" type="password" required value={formData.confirmPassword} onChange={handleChange} placeholder="••••••••" className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
               </div>
+            </div>
+
+            <div className="pt-2">
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <div className="relative flex items-center justify-center mt-0.5">
+                  <input 
+                    type="checkbox" 
+                    name="consent" 
+                    required
+                    checked={formData.consent} 
+                    onChange={handleChange} 
+                    className="appearance-none w-5 h-5 border-2 border-slate-300 rounded-[6px] bg-slate-50/50 checked:bg-violet-500 checked:border-violet-500 transition-all cursor-pointer peer" 
+                  />
+                  <svg className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 peer-checked:scale-100 scale-50 transition-all duration-200 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-[13.5px] font-medium text-slate-600 leading-snug group-hover:text-slate-800 transition-colors">
+                  {t("register.consent")} <span className="text-red-500">*</span>
+                </span>
+              </label>
             </div>
 
             <div className="pt-4 relative">
