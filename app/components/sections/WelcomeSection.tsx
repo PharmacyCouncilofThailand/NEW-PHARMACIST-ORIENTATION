@@ -1,30 +1,42 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import Image from "next/image";
 import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
+
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
+interface Person {
+  id: string;
+  nameKey: string;
+  posKey: string;
+  msgKey: string;
+  image: string;
+}
 
-
-const people = [
+const people: Person[] = [
   {
+    id: "p1",
     nameKey: "welcome.presidentName",
     posKey: "welcome.presidentPosition",
     msgKey: "welcome.message",
     image: "/2.png"
   },
   {
+    id: "p2",
     nameKey: "welcome.p2Name",
     posKey: "welcome.p2Position",
     msgKey: "welcome.p2Message",
     image: "/1.png"
   },
   {
+    id: "p3",
     nameKey: "welcome.p3Name",
     posKey: "welcome.p3Position",
     msgKey: "welcome.p3Message",
@@ -32,14 +44,71 @@ const people = [
   }
 ];
 
-export default function WelcomeSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const spotlightRef = useRef<HTMLDivElement>(null);
+const WelcomeCard = memo(function WelcomeCard({
+  person,
+  index,
+  visible,
+}: {
+  person: Person;
+  index: number;
+  visible: boolean;
+}) {
   const { t } = useLang();
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const activePerson = people[activeIndex];
+  return (
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(40px)",
+        transition: `all 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
+      }}
+      className="group relative overflow-hidden rounded-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col md:flex-row h-[550px] md:h-[450px] lg:h-[500px] w-full transform hover:-translate-y-2"
+    >
+      {/* Picture Half (Top on mobile, Left on desktop) */}
+      <div className="relative h-1/2 md:h-full w-full md:w-[45%] shrink-0 overflow-hidden">
+        <Image 
+          src={person.image} 
+          alt={t(person.nameKey)} 
+          fill 
+          className={`object-cover transition-transform duration-700 group-hover:scale-105 ${person.image === '/4.png' ? 'object-[center_45%]' : 'object-top'}`} 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent z-10" />
+        
+        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 lg:p-8 flex flex-col text-left z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white drop-shadow-md leading-snug mb-2" style={{textShadow: '0 2px 8px rgba(0,0,0,0.5)'}}>
+            {t(person.nameKey)}
+          </h3>
+          <p className="text-[10px] md:text-sm font-medium text-white/80 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm inline-block w-fit opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            {t(person.posKey)}
+          </p>
+        </div>
+      </div>
 
+      {/* Text Half (Bottom on mobile, Right on desktop) */}
+      <div className="p-6 md:p-8 lg:p-12 relative flex-1 flex flex-col bg-white dark:bg-slate-900">
+        <div className="relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-2 md:pr-4">
+          <div className="text-5xl md:text-7xl lg:text-8xl text-violet-400/20 dark:text-violet-500/20 font-serif leading-none absolute -top-4 -left-2 md:-left-4 lg:-left-6">“</div>
+          <p className="text-[14px] md:text-base lg:text-lg leading-[1.7] md:leading-[1.8] text-slate-600 dark:text-slate-300 font-light mt-4 md:mt-2 relative z-10 text-left">
+            {t(person.msgKey)}
+          </p>
+        </div>
+        
+        <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 font-mono flex-shrink-0">
+           <span className="font-bold text-violet-600 dark:text-violet-400">0{index + 1} / 0{people.length}</span>
+           <span className="hidden md:inline uppercase text-slate-400 dark:text-slate-500 tracking-wider">{t("welcome.swipeHint")}</span>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+export default function WelcomeSection() {
+  const { t } = useLang();
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+
+  // Spotlight effect
   useEffect(() => {
     let ticking = false;
     const handleMouseMove = (e: MouseEvent) => {
@@ -59,211 +128,123 @@ export default function WelcomeSection() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Track scroll progress to flip book pages
+  // Intersection Observer for scroll reveal
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const { top, height } = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      const scrollableDistance = height - windowHeight;
-      if (scrollableDistance <= 0) return;
-      
-      // Calculate scroll progress from 0.0 to 1.0 within this section
-      let progress = -top / scrollableDistance;
-      progress = Math.max(0, Math.min(1, progress));
-      
-      // Determine the active person (each person gets an equal fraction of the progress)
-      // Multiply by people.length + 0.5 so we have a small "dead zone" at the very end 
-      // where index stops at 2, creating a delay before unlocking the section
-      const activeCalc = Math.floor(progress * (people.length + 0.5));
-      const newIndex = Math.min(people.length - 1, activeCalc);
-      
-      setActiveIndex(newIndex);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Check on mount
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [people.length]);
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <section id="welcome" ref={containerRef} className="relative h-auto md:h-[350vh] z-20 mb-20 md:mb-64">
-      {/* Sticky Area */}
-      <div className="md:sticky md:top-0 md:h-[100dvh] flex flex-col items-center justify-start md:justify-center pt-20 md:pt-28 pb-4 relative z-10 w-full overflow-hidden">
-        {/* Dynamic Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 pointer-events-none" />
-        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none" />
-        
-        {/* Spotlight Effect */}
-        <div
-          ref={spotlightRef}
-          className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(800px_circle_at_var(--x,50%)_var(--y,50%),rgba(139,92,246,0.08),transparent_50%)]"
-        />
+    <section id="welcome" ref={ref} className="scroll-mt-40 py-24 sm:py-32 short:py-12 relative overflow-hidden z-20">
+      
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none" />
 
-        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center justify-center h-full">
-        {/* Section Header */}
-        <div className="max-w-6xl mx-auto relative mb-8 w-full z-20">
-          <ScrollReveal variant="fade-up">
-            {/* Title */}
-            <div className="text-center">
-              <h2 className="text-[clamp(2.3rem,4vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
-                {t("welcome.title1")} 
-                <span className="md:hidden block mt-1 text-[min(8vw,2.5rem)] bg-gradient-to-r from-violet-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  {t("welcome.title2")}
-                </span>
-                <br className="hidden md:block" />
-                <span key={`title-${activeIndex}`} className="hidden md:inline-block bg-gradient-to-r from-violet-600 via-blue-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
-                  {t(activePerson.posKey)}
-                </span>
-              </h2>
-            </div>
-          </ScrollReveal>
-        </div>
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent z-0" />
+      
+      {/* Spotlight Effect */}
+      <div
+        ref={spotlightRef}
+        className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(800px_circle_at_var(--x,50%)_var(--y,50%),rgba(139,92,246,0.12),transparent_50%)] z-0"
+      />
 
-        <ScrollReveal variant="fade-up" className="w-full">
-          {/* Book Layout (Desktop Only) */}
-          <div className="hidden md:flex relative w-full max-w-5xl mx-auto md:h-[65vh] md:min-h-[550px] md:max-h-[700px] perspective-[2000px] shrink-0 mt-4 md:mt-10">
-             {/* Book Shadow */}
-             <div className="absolute top-10 inset-x-4 md:inset-x-10 bottom-0 bg-slate-900/20 dark:bg-black/60 blur-2xl rounded-3xl -z-10" />
-             
-             {/* Book Container */}
-             <div className="relative w-full h-full bg-[#fdfcfb] dark:bg-slate-900/90 backdrop-blur-sm rounded-2xl md:rounded-[2rem] flex flex-col md:flex-row border border-slate-200 dark:border-slate-800 shadow-xl overflow-visible">
-                
-                {/* Book Spine (Desktop only) */}
-                <div className="hidden md:block absolute inset-y-0 left-1/2 w-16 -ml-8 bg-gradient-to-r from-transparent via-slate-300/40 dark:via-black/50 to-transparent z-20 pointer-events-none" />
-                <div className="hidden md:block absolute inset-y-0 left-1/2 w-[1px] bg-slate-300/50 dark:bg-slate-800 z-20" />
-                
-                {/* Page Stacks (simulating thick pages on edges) */}
-                <div className="hidden md:block absolute top-3 bottom-3 -right-2 w-4 bg-slate-200 dark:bg-slate-800 rounded-r shadow-[2px_0_5px_rgba(0,0,0,0.1)] -z-10" />
-                <div className="hidden md:block absolute top-5 bottom-5 -right-4 w-4 bg-slate-300/50 dark:bg-slate-900 rounded-r shadow-[2px_0_5px_rgba(0,0,0,0.05)] -z-20" />
-
-                <div className="hidden md:block absolute top-3 bottom-3 -left-2 w-4 bg-slate-200 dark:bg-slate-800 rounded-l shadow-[-2px_0_5px_rgba(0,0,0,0.1)] -z-10" />
-
-                {/* Left Page (Image) */}
-                <div className="w-full md:w-1/2 h-[45%] md:h-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-t-2xl md:rounded-none md:rounded-l-[2rem]">
-                   <div key={`img-${activeIndex}`} className="absolute inset-0 animate-fade-in">
-                       <Image 
-                         src={activePerson.image}
-                         alt={t(activePerson.nameKey)}
-                         fill
-                         className="object-cover object-top" 
-                         priority
-                       />
-                       <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6 z-20 text-white" style={{textShadow: '0 2px 8px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)'}}>
-                           <p className="font-bold text-lg md:text-2xl mb-1">{t(activePerson.nameKey)}</p>
-                           <p className="text-[10px] md:text-sm font-medium opacity-90 uppercase tracking-widest text-violet-300">
-                             {t(activePerson.posKey)}
-                           </p>
-                       </div>
-                   </div>
-                </div>
-
-                {/* Right Page (Text) */}
-                <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-between p-5 md:p-8 lg:p-12 relative z-10 overflow-y-auto">
-                    <div key={`msg-${activeIndex}`} className="relative z-10 animate-fade-in-up flex-1 flex flex-col">
-                        <div className="absolute -top-2 -left-2 md:-top-4 md:-left-4 text-5xl md:text-8xl text-violet-300/40 dark:text-violet-900/40 font-serif leading-none">“</div>
-                        
-                        <div className="flex-1 mt-2 md:mt-6 relative z-10 overflow-y-auto pr-2 custom-scrollbar">
-                            <p className="text-xs md:text-base lg:text-lg text-slate-700 dark:text-slate-300 leading-[1.6] md:leading-[1.8] font-light">
-                               {t(activePerson.msgKey)}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Pagination & Indicators */}
-                    <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800/50 flex items-center justify-between flex-shrink-0">
-                        <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 font-mono text-sm">
-                           <span className="font-bold text-violet-600 dark:text-violet-400">0{activeIndex + 1} <span className="text-slate-400 font-normal">/ 0{people.length}</span></span>
-                        </div>
-                        
-                        <div className="flex gap-2 items-center text-slate-400 dark:text-slate-500 font-medium text-[10px] md:text-sm uppercase tracking-widest animate-pulse">
-                           <span className="hidden md:inline">Scroll</span>
-                           <span className="inline md:hidden">Swipe</span>
-                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-                        </div>
-                    </div>
-                </div>
-             </div>
-
-             {/* Animated Flip Overlay (Decorative) */}
-             <div className="hidden md:block absolute inset-y-0 right-0 w-1/2 bg-white/5 dark:bg-white/5 pointer-events-none rounded-r-[2rem] mix-blend-overlay"></div>
-          </div>
-
-          {/* Mobile Layout (Like SpeakerCard) */}
-          <div className="w-full md:hidden mt-2 relative z-20">
-            <Swiper
-              modules={[Pagination]}
-              pagination={{ clickable: true }}
-              spaceBetween={20}
-              slidesPerView={1.05}
-              centeredSlides={true}
-              className="w-full h-auto pb-12"
-            >
-              {people.map((person, idx) => (
-                <SwiperSlide key={idx} className="h-auto pb-8">
-                  <div className="bg-[#121826] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl relative flex flex-col h-[550px] max-h-[70vh]">
-                    
-                    {/* Picture Half */}
-                    <div className="relative h-1/2 w-full shrink-0">
-                      <Image 
-                        src={person.image} 
-                        alt={t(person.nameKey)} 
-                        fill 
-                        className={`object-cover ${person.image === '/4.png' ? 'object-[center_45%]' : 'object-top'}`} 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#121826] via-[#121826]/40 to-transparent z-10" />
-                      
-                      <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col text-left z-20">
-                        <h3 className="text-[1.35rem] leading-[1.2] font-black text-white drop-shadow-md mb-1">
-                          {t(person.nameKey)}
-                        </h3>
-                        <p className="text-[10px] font-bold text-violet-300 uppercase tracking-widest drop-shadow break-words opacity-90">
-                          {t(person.posKey)}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Text Half */}
-                    <div className="p-5 pt-2 relative flex-1 bg-[#121826] flex flex-col justify-between">
-                      <div className="relative z-10 flex-1 overflow-y-auto pr-1">
-                        <div className="text-4xl text-violet-500/30 font-serif leading-none absolute -top-1 -left-1">“</div>
-                        <p className="text-[13px] leading-[1.65] text-slate-300 font-light mt-3 px-2">
-                          {t(person.msgKey)}
-                        </p>
-                      </div>
-
-                      <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500 font-mono">
-                         <span className="font-bold text-violet-400">0{idx + 1} / 0{people.length}</span>
-                      </div>
-                    </div>
-
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <style>{`
-              #welcome .swiper-pagination {
-                bottom: 0px !important;
-              }
-              #welcome .swiper-pagination-bullet {
-                background-color: #8b5cf6 !important;
-                opacity: 0.3;
-                width: 6px;
-                height: 6px;
-                transition: all 0.3s;
-              }
-              #welcome .swiper-pagination-bullet-active {
-                opacity: 1;
-                width: 20px;
-                border-radius: 4px;
-              }
-            `}</style>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <ScrollReveal variant="blur">
+          <div className="text-center mb-12 lg:mb-16 short:mb-6 flex flex-col items-center justify-center">
+            <h2 className="text-[clamp(1.8rem,3.5vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
+              {t("welcome.title1")}{" "}
+              <span className="gradient-text-anim block sm:inline mt-1 sm:mt-0">{t("welcome.title2")}</span>
+            </h2>
           </div>
         </ScrollReveal>
-      </div>
 
+        {/* Swiper Slider with Coverflow (Movement like Speaker Section) */}
+        <div className="w-full pb-12 relative max-w-7xl mx-auto md:px-20 z-20">
+          
+          {/* Custom Navigation Buttons (Desktop Only) */}
+          <button className="welcome-nav-prev hidden md:flex absolute lg:-left-2 md:-left-2 left-0 top-[45%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <button className="welcome-nav-next hidden md:flex absolute lg:-right-2 md:-right-2 right-0 top-[45%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
 
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2.5,
+              slideShadows: true,
+            }}
+            pagination={{ clickable: true }}
+            navigation={{
+              nextEl: '.welcome-nav-next',
+              prevEl: '.welcome-nav-prev',
+            }}
+            loop={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+            className="w-full max-w-[1100px] !pb-16 pt-4"
+          >
+            {people.map((p, i) => (
+              /* The slide is very wide for desktop, turning it into a horizontal card */
+              <SwiperSlide key={p.id} className="max-w-[340px] sm:max-w-[450px] md:max-w-[750px] lg:max-w-[900px] xl:max-w-[950px]">
+                <WelcomeCard person={p} index={i} visible={visible} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          
+          <style>{`
+            #welcome .swiper-pagination {
+              bottom: 0 !important;
+            }
+            #welcome .swiper-pagination-bullet {
+              background-color: #8b5cf6 !important;
+              opacity: 0.4;
+              width: 8px;
+              height: 8px;
+              transition: all 0.3s;
+            }
+            #welcome .swiper-pagination-bullet-active {
+              opacity: 1;
+              width: 24px;
+              border-radius: 4px;
+            }
+            #welcome .swiper-button-disabled {
+              opacity: 0.3 !important;
+              cursor: not-allowed !important;
+              pointer-events: none;
+            }
+            .custom-scrollbar::-webkit-scrollbar {
+              width: 4px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+              background: transparent;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+              background-color: rgba(139, 92, 246, 0.4);
+              border-radius: 20px;
+            }
+          `}</style>
+        </div>
       </div>
     </section>
   );

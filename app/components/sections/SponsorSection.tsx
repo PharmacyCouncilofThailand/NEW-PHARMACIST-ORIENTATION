@@ -6,20 +6,12 @@ import { useLang } from "../../contexts/LangContext";
 // ข้อมูลสปอนเซอร์ — เพิ่ม image path เมื่อมีโลโก้จริง
 const sponsors = [
   { id: 1, name: "สภาเภสัชกรรม", image: "/logo สภาเภสัชกรรม.jpg", tier: "platinum" },
-  { id: 2, name: "Sponsor 2",    image: null, tier: "gold" },
-  { id: 3, name: "Sponsor 3",    image: null, tier: "gold" },
-  { id: 4, name: "Sponsor 4",    image: null, tier: "gold" },
-  { id: 5, name: "Sponsor 5",    image: null, tier: "silver" },
-  { id: 6, name: "Sponsor 6",    image: null, tier: "silver" },
-  { id: 7, name: "Sponsor 7",    image: null, tier: "silver" },
-  { id: 8, name: "Sponsor 8",    image: null, tier: "silver" },
 ];
 
-// ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม
-const marqueeItems = [...sponsors, ...sponsors, ...sponsors];
+// ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม (ยิ่งมีสปอนเซอร์น้อย ยิ่งต้องทำซ้ำเยอะเพื่อให้พอเต็มหน้าจอ)
+const marqueeItems = Array(12).fill(sponsors).flat();
 // แถวที่ 2 — ลำดับสลับกัน
-const marqueeItemsReverse = [...sponsors].reverse();
-const marqueeItemsRow2 = [...marqueeItemsReverse, ...marqueeItemsReverse, ...marqueeItemsReverse];
+const marqueeItemsRow2 = [...marqueeItems].reverse();
 
 
 
@@ -38,11 +30,11 @@ export default function SponsorSection() {
       <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />
 
       {/* Top border */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/40 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/40 to-transparent z-10" />
 
       {/* Floating decorations */}
-      <div className="absolute top-10 right-10 w-48 h-48 rounded-full bg-gradient-to-br from-violet-200/20 to-blue-200/20 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-blue-200/20 to-purple-200/20 blur-3xl pointer-events-none" />
+      <div className="absolute top-10 right-10 w-48 h-48 rounded-full bg-gradient-to-br from-violet-200/20 to-blue-200/20 blur-3xl pointer-events-none z-10" />
+      <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-blue-200/20 to-purple-200/20 blur-3xl pointer-events-none z-10" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         {/* ─── Heading ─── */}

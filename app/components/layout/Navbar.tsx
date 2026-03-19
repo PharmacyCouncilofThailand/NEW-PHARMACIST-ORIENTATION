@@ -129,7 +129,14 @@ export default function Navbar() {
     const id = href.replace("#", "");
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      // Measure actual fixed navbar height dynamically
+      const navbarContainer = document.querySelector("[data-navbar-container]") as HTMLElement;
+      const navbarHeight = navbarContainer ? navbarContainer.getBoundingClientRect().height : 110;
+      // Get section's computed padding-top so we scroll to actual content, not empty padding
+      const sectionPaddingTop = parseInt(window.getComputedStyle(el).paddingTop || "0", 10);
+      const targetOffset = navbarHeight - sectionPaddingTop + 24;
+      const top = el.getBoundingClientRect().top + window.scrollY - targetOffset;
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     }
   }, []);
 
@@ -139,22 +146,21 @@ export default function Navbar() {
   return (
     <>
       {/* Fixed Header Container */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-all duration-500">
+      <div data-navbar-container className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-all duration-500">
         
         {/* Ad / Announcement Banner */}
         <div className="w-full overflow-hidden transition-all duration-500 ease-in-out cursor-pointer z-50 max-h-12 opacity-100 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800" 
-          onClick={() => handleAnchorClick("#agenda")}
+          onClick={() => handleAnchorClick("#hero")}
         >
           <div className="animate-marquee-left flex items-center gap-[50vw] py-2.5 px-4 whitespace-nowrap">
             {[0, 1].map((i) => (
               <div key={i} className="flex items-center gap-4 shrink-0">
-                <span className="flex items-center justify-center h-5 px-2 rounded-full bg-gradient-to-r from-violet-600 to-blue-600 text-[10px] font-bold text-white tracking-wider uppercase shadow-md shadow-violet-200 dark:shadow-violet-900/50">
+                <span className="flex items-center justify-center h-5 px-2 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] font-bold text-white tracking-wider uppercase shadow-md shadow-pink-200 dark:shadow-pink-900/50">
                   {t("banner.new")}
                 </span>
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300 tracking-wide">
-                  {t("banner.text")} <span className="text-violet-700 dark:text-violet-400 font-bold">{t("banner.event")}</span> {t("banner.open")}
+                  {t("hero.loginHintPrefix")} <span className="text-pink-500 dark:text-pink-400 font-bold">{t("hero.loginHintLive")}</span> {t("hero.loginHintAnd")} <span className="text-violet-600 dark:text-violet-400 font-bold">{t("hero.loginHintVideo")}</span>
                 </span>
-
               </div>
             ))}
           </div>
@@ -318,7 +324,7 @@ export default function Navbar() {
                       <svg className="w-4 h-4 text-violet-500 dark:text-violet-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
                       </svg>
-                      ดูวิดีโอไฮไลท์
+                      {t("nav.watchHighlight")}
                     </button>
 
                     <div className="h-px bg-slate-100 dark:bg-slate-700 my-1" />
@@ -456,7 +462,7 @@ export default function Navbar() {
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
                 </svg>
-                ดูวิดีโอไฮไลท์
+                {t("nav.watchHighlight")}
               </button>
 
               <button

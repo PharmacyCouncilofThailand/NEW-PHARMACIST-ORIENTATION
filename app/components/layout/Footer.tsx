@@ -80,7 +80,9 @@ export default function Footer() {
               </div>
               <div className="flex gap-3 items-center">
                 <span className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 text-sm shrink-0">📞</span>
-                <span className="text-sm font-medium">0 2591 9992</span>
+                <a href="tel:025919992" className="text-sm font-medium hover:text-violet-600 transition-colors">
+                  0 2591 9992
+                </a>
               </div>
               <div className="flex gap-3 items-center">
                 <span className="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/40 flex items-center justify-center text-pink-600 text-sm shrink-0">✉️</span>

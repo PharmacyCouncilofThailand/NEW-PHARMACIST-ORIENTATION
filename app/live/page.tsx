@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import FloatingLangToggle from "../components/ui/FloatingLangToggle";
 
 export default function LiveStreamingPage() {
   const { user, isLoggedIn } = useAuth();
@@ -42,7 +43,7 @@ export default function LiveStreamingPage() {
 
   return (
     <div className="min-h-[100dvh] lg:h-screen w-full bg-slate-950 pt-[72px] flex flex-col lg:overflow-hidden">
-      
+      <FloatingLangToggle />
       {/* Streaming Header */}
       <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md z-30 px-3 py-2 md:px-6 md:py-3 shrink-0 flex items-center justify-between">
         <div className="flex items-center gap-4">

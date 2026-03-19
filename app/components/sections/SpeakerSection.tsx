@@ -202,7 +202,7 @@ export default function SpeakerSection() {
   }, []);
 
   return (
-    <section id="speakers" ref={ref} className="py-24 sm:py-32 relative overflow-hidden">
+    <section id="speakers" ref={ref} className="scroll-mt-40 py-24 sm:py-32 short:py-12 relative overflow-hidden">
       {/* BG Video */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <video
@@ -221,8 +221,8 @@ export default function SpeakerSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <ScrollReveal variant="blur">
-          <div className="text-center mb-16">
-            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
+          <div className="text-center mb-16 short:mb-6">
+            <h2 className="text-[clamp(1.6rem,4vw,3.5rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
               <span className="gradient-text-anim">{t("speaker.title2")}</span>
             </h2>
 

@@ -34,10 +34,55 @@ const uniDataConfig = [
   { abbr: "PTU", key: "uni.ptu", dbName: "มหาวิทยาลัยปทุมธานี", logoUrl: "/Logo/ptu.jpg", defaultCount: 30 },
 ];
 
+const UniLogo = ({
+  src,
+  abbr,
+  width,
+  height,
+  imgClass,
+  textClass,
+}: {
+  src?: string;
+  abbr: string;
+  width: number;
+  height: number;
+  imgClass: string;
+  textClass: string;
+}) => {
+  const [error, setError] = useState(!src);
+  if (error) {
+    return (
+      <div className="w-full h-full bg-violet-100 dark:bg-violet-900 flex items-center justify-center rounded-full overflow-hidden">
+        <span className={`font-black text-violet-600 dark:text-violet-300 text-center leading-tight ${textClass}`}>
+          {abbr}
+        </span>
+      </div>
+    );
+  }
+  return (
+    <Image
+      src={src!}
+      alt={abbr}
+      width={width}
+      height={height}
+      className={imgClass}
+      onError={() => setError(true)}
+    />
+  );
+};
 
 export default function UniversityStatsSection() {
   const { t } = useLang();
   const [countsMap, setCountsMap] = useState<Record<string, number>>({});
+  const [isShortScreen, setIsShortScreen] = useState(false);
+
+  // Detect Nest Hub short viewport
+  useEffect(() => {
+    const checkHeight = () => setIsShortScreen(window.innerHeight <= 680);
+    checkHeight();
+    window.addEventListener("resize", checkHeight);
+    return () => window.removeEventListener("resize", checkHeight);
+  }, []);
   
   useEffect(() => {
     async function fetchStats() {
@@ -75,10 +120,10 @@ export default function UniversityStatsSection() {
   
   const maxCount = Math.max(...uniData.map(d => d.count), 1);
 
-  const chartHeight = 400; // ปรับความสูงกราฟให้พอดีกับกล่อง
-  const pointSpacing = 80; 
+  const chartHeight = isShortScreen ? 220 : 400;
+  const pointSpacing = isShortScreen ? 72 : 80;
   const paddingLeft = 40;  
-  const paddingY = 80; // เพิ่ม padding บน/ล่างให้ตัวเลขหรือชื่อไม่โดนตัด
+  const paddingY = isShortScreen ? 50 : 80;
 
   const points = uniData.map((uni, index) => {
     const x = paddingLeft + index * pointSpacing;
@@ -116,7 +161,7 @@ export default function UniversityStatsSection() {
   const containerWidth = points.length > 0 ? points[points.length - 1].x + paddingLeft : 800;
 
   return (
-    <section id="stats" className="min-h-screen flex flex-col justify-center py-20 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section id="stats" className="scroll-mt-40 min-h-screen short:min-h-0 flex flex-col justify-center py-20 short:py-10 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
       
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-500/10 dark:bg-violet-600/10 blur-[100px] rounded-full pointer-events-none translate-x-1/2 -translate-y-1/2" />
@@ -125,29 +170,40 @@ export default function UniversityStatsSection() {
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
         
         <ScrollReveal variant="blur">
-          <div className="text-center mb-10">
-            <h2 className="text-[clamp(1.75rem,4vw,3rem)] font-black tracking-tight text-slate-900 dark:text-white mb-6">
-              {t("stats.title1")}<span className="gradient-text-anim">{t("stats.title2")}</span>{t("stats.title3")}
+          <div className="text-center mb-10 short:mb-4">
+            <h2 className="text-[clamp(1.75rem,4vw,3rem)] font-black tracking-tight text-slate-900 dark:text-white mb-3 short:mb-2 text-center">
+              {t("stats.title1")}<span className="gradient-text-anim">{t("stats.title2")}</span>
             </h2>
-            
-            {/* Sort note */}
-            <div className="inline-flex items-center gap-2 mt-3 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-              </svg>
-              เรียงจากมากไปน้อย
+
+            {/* Badges row */}
+            <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
+              {/* Institution count badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                {t("stats.institutions")}
+              </div>
+
+              {/* Sort note badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                </svg>
+                {t("stats.sortDesc")}
+              </div>
             </div>
           </div>
         </ScrollReveal>
 
         {/* กราฟพื้นที่ทำงาน */}
         <ScrollReveal variant="fade-up" delay={200}>
-          <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] p-5 sm:p-8 md:p-12 shadow-xl border border-slate-200 dark:border-slate-800 backdrop-blur-sm relative min-h-[400px] md:min-h-[600px] flex flex-col justify-center">
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] p-5 sm:p-8 md:p-10 short:md:p-5 shadow-xl border border-slate-200 dark:border-slate-800 backdrop-blur-sm relative min-h-[400px] md:min-h-[600px] short:md:min-h-[300px] flex flex-col justify-center">
             
             {/* Desktop Chart */}
-            <div className="hidden md:block w-full overflow-x-auto pb-8 pt-16 scrollbar-thin scrollbar-thumb-violet-500 scrollbar-track-slate-100 dark:scrollbar-track-slate-800 relative z-20">
+            <div className="hidden md:block w-full overflow-x-auto pb-6 pt-10 short:pb-2 short:pt-4 scrollbar-thin scrollbar-thumb-violet-500 scrollbar-track-slate-100 dark:scrollbar-track-slate-800 relative z-20">
                
-               <div className="relative h-[500px]" style={{ width: containerWidth }}>
+               <div className="relative" style={{ width: containerWidth, height: chartHeight }}>
                  
                  {/* กราฟเส้น (Line Chart) */}
                    <>
@@ -217,25 +273,14 @@ export default function UniversityStatsSection() {
                            className="absolute w-8 h-8 rounded-full shadow-md group-hover:scale-125 transition-all duration-300 z-10 overflow-hidden bg-white border border-slate-200 dark:border-slate-700 flex items-center justify-center"
                            style={{ top: p.y, left: "50%", transform: "translate(-50%, -50%)" }}
                          >
-                            {p.logoUrl ? (
-                              <img 
-                                src={p.logoUrl}
-                                alt={p.abbr}
-                                className="w-full h-full object-contain p-[2px]"
-                                loading="lazy"
-                                onError={(e) => {
-                                  const target = e.currentTarget;
-                                  target.style.display = 'none';
-                                  const parent = target.parentElement;
-                                  if (parent) {
-                                    parent.classList.add('bg-violet-100', 'dark:bg-violet-900');
-                                    parent.innerHTML = `<span class="text-[7px] font-black text-violet-600 dark:text-violet-300 text-center leading-tight">${p.abbr}</span>`;
-                                  }
-                                }}
-                              />
-                            ) : (
-                              <span className="text-[7px] font-black text-violet-600 dark:text-violet-300 text-center leading-tight">{p.abbr}</span>
-                            )}
+                            <UniLogo 
+                              src={p.logoUrl} 
+                              abbr={p.abbr} 
+                              width={32} 
+                              height={32} 
+                              imgClass="w-full h-full object-contain p-[2px]" 
+                              textClass="text-[7px]" 
+                            />
                          </div>
                          
                          <span className="absolute bottom-0 text-xs font-bold text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
@@ -254,12 +299,15 @@ export default function UniversityStatsSection() {
                 const percent = (uni.count / maxCount) * 100;
                 return (
                   <div key={uni.abbr} className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-3 flex items-center gap-3 border border-slate-100 dark:border-slate-800">
-                    <div className="relative w-12 h-12 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0">
-                      {uni.logoUrl ? (
-                         <img src={uni.logoUrl} alt={uni.abbr} className="w-8 h-8 object-contain" loading="lazy" />
-                      ) : (
-                         <span className="text-[10px] font-black text-violet-600 dark:text-violet-300">{uni.abbr}</span>
-                      )}
+                    <div className="relative w-12 h-12 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 overflow-hidden">
+                      <UniLogo 
+                        src={uni.logoUrl} 
+                        abbr={uni.abbr} 
+                        width={48} 
+                        height={48} 
+                        imgClass="w-8 h-8 object-contain" 
+                        textClass="text-[10px]" 
+                      />
                       
                       {idx < 3 && (
                         <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-[10px] font-black flex items-center justify-center border-2 border-white dark:border-slate-900 shadow-sm ${idx === 0 ? 'bg-amber-400' : idx === 1 ? 'bg-slate-400' : 'bg-orange-400'}`}>
@@ -286,7 +334,7 @@ export default function UniversityStatsSection() {
             </div>
             
             {/* Scroll Indicator hint */}
-            <div className="absolute right-8 top-8 hidden sm:flex items-center gap-2 text-slate-400 text-xs font-medium animate-pulse">
+            <div className="absolute right-8 top-8 short:top-4 short:right-4 hidden sm:flex items-center gap-2 text-slate-400 text-xs font-medium animate-pulse">
                <span>{t("stats.scrollHint")}</span>
                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -303,27 +351,41 @@ export default function UniversityStatsSection() {
                 "bg-orange-400 text-white",
               ];
               return (
-                <div className="mt-6 md:mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-4 gap-4 animate-fade-in">
+                <div className="mt-6 md:mt-8 short:mt-3 pt-6 short:pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-4 gap-4 short:gap-2 animate-fade-in">
                   {/* Total */}
-                  <div className="col-span-1 sm:col-span-1 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/30 dark:to-purple-900/20 rounded-2xl p-5 border border-violet-100 dark:border-violet-800 flex flex-col gap-1 items-center sm:items-start">
-                    <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-widest text-center sm:text-left">ผู้ลงทะเบียนทั้งหมด</span>
-                    <span className="text-4xl font-black text-violet-700 dark:text-violet-300">{totalCount.toLocaleString()}</span>
+                  <div className="col-span-1 sm:col-span-1 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/30 dark:to-purple-900/20 rounded-2xl p-5 short:p-3 border border-violet-100 dark:border-violet-800 flex flex-col gap-1 items-center sm:items-start">
+                    <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-widest text-center sm:text-left">{t("stats.totalRegistered")}</span>
+                    <span className="text-4xl short:text-2xl font-black text-violet-700 dark:text-violet-300">{totalCount.toLocaleString()}</span>
                   </div>
 
-                  {/* Top 3 */}
-                  {top3.map((u, i) => (
-                    <div key={u.abbr} className="hidden sm:flex bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-slate-100 dark:border-slate-700 flex-col gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black flex-shrink-0 ${rankColors[i]}`}>{i + 1}</span>
-                        {u.logoUrl && (
-                          <img src={u.logoUrl} alt={u.abbr} className="w-6 h-6 object-contain rounded-full bg-white border border-slate-100" loading="lazy" />
-                        )}
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-300 truncate">{u.abbr}</span>
-                      </div>
-                      <span className="text-3xl font-black text-slate-800 dark:text-white">{u.count.toLocaleString()}</span>
-                      <span className="text-[11px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2">{u.name}</span>
-                    </div>
-                  ))}
+                   {/* Top 3 - big logo redesign */}
+                   {top3.map((u, i) => {
+                     const medalBg = i === 0 ? "from-amber-400 to-yellow-500" : i === 1 ? "from-slate-300 to-slate-400" : "from-orange-400 to-amber-500";
+                     return (
+                       <div key={u.abbr} className="hidden sm:flex bg-white dark:bg-slate-800/60 rounded-2xl px-4 py-3 border border-slate-100 dark:border-slate-700 flex-row items-center gap-4 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
+                         {/* rank badge */}
+                         <div className={`absolute top-2 right-2 w-6 h-6 rounded-full bg-gradient-to-br ${medalBg} flex items-center justify-center text-white text-[11px] font-black shadow-md`}>
+                           {i + 1}
+                         </div>
+                         {/* logo */}
+                         <div className="w-20 h-20 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 shadow-md flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-300">
+                           <UniLogo 
+                             src={u.logoUrl} 
+                             abbr={u.abbr} 
+                             width={80} 
+                             height={80} 
+                             imgClass="w-16 h-16 object-contain p-1" 
+                             textClass="text-xs" 
+                           />
+                         </div>
+                         {/* text */}
+                         <div className="flex flex-col min-w-0 pr-6">
+                           <span className="text-2xl font-black text-slate-800 dark:text-white leading-none">{u.count.toLocaleString()}</span>
+                           <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-2 mt-0.5">{u.name}</span>
+                         </div>
+                       </div>
+                     );
+                   })}
                 </div>
               );
             })()}

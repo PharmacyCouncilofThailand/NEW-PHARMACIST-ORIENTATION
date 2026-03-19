@@ -5,6 +5,7 @@ import "./globals.css";
 
 import ScrollProgress from "./components/scroll/ScrollProgress";
 import { Providers } from "./providers";
+import CookieConsent from "./components/ui/CookieConsent";
 
 const notoSansThai = Noto_Sans_Thai({
   variable: "--font-noto-thai",
@@ -25,6 +26,7 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pharmacy-council.or.th"),
   title: "New Pharmacist Orientation | ปฐมนิเทศเภสัชกรใหม่",
   description: "Welcome to the Pharmacy Family — Your first step into the profession. งานปฐมนิเทศเภสัชกรใหม่ ก้าวแรกสู่วิชาชีพ",
   keywords: [
@@ -69,8 +71,7 @@ export default function RootLayout({
         <Providers>
 
           <ScrollProgress />
-          
-
+          <CookieConsent />
 
           {children}
         </Providers>

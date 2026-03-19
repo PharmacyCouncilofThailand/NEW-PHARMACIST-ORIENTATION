@@ -5,6 +5,7 @@ import { useLang } from "../contexts/LangContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import FloatingLangToggle from "../components/ui/FloatingLangToggle";
 
 export default function MyTicketPage() {
   const { user, isLoggedIn } = useAuth();
@@ -45,6 +46,7 @@ export default function MyTicketPage() {
   // Generate a pseudo-QR code or placeholder data for demonstration
   return (
     <div className="min-h-[100dvh] w-full overflow-y-auto flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 pt-24 pb-12 md:pt-16 md:pb-0">
+      <FloatingLangToggle />
       <div className="w-full max-w-2xl px-4 md:px-8">
         <div className="mb-4 text-center animate-fade-in-up md:mt-0 mt-8">
           <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-1">

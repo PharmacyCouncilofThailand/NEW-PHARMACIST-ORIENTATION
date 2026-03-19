@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "../contexts/LangContext";
 import { useAuth } from "../contexts/AuthContext";
+import FloatingLangToggle from "../components/ui/FloatingLangToggle";
 import s from "./login.module.css";
 
 /* ═══════════════════════════════════════════
@@ -53,6 +54,7 @@ IconArrowRight.displayName = "IconArrowRight";
 export default function LoginPage() {
   return (
     <Suspense fallback={<div className={s.root}><div className={s.bg} /></div>}>
+      <FloatingLangToggle />
       <LoginContent />
     </Suspense>
   );
@@ -235,23 +237,6 @@ function LoginContent() {
           <Link href="/register">{t("login.createAccount")}</Link>
         </div>
 
-        {/* ── Admin link ── */}
-        <div style={{ textAlign: "center", marginTop: "12px" }}>
-          <Link
-            href="/admin/login"
-            style={{
-              fontSize: "11px",
-              color: "rgba(100,116,139,0.5)",
-              textDecoration: "none",
-              letterSpacing: "0.05em",
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = "rgba(167,139,250,0.8)")}
-            onMouseLeave={e => (e.currentTarget.style.color = "rgba(100,116,139,0.5)")}
-          >
-            ⚙ {t("login.adminDash")}
-          </Link>
-        </div>
       </div>
     </div>
   );
