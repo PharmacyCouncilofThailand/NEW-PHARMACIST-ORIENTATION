@@ -46,7 +46,12 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.journey": { TH: "งานปฐมนิเทศเภสัชกรใหม่ปี 2569", EN: "New Pharmacist Orientation 2026" },
   "hero.subtitle4": { TH: "เพื่อเริ่มต้นการเดินทางไปด้วยกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเลย", EN: "Register Now" },
+  "hero.loginHintPrefix": { TH: "💡 สมัครสมาชิกและเข้าสู่ระบบ เพื่อรับชม", EN: "💡 Register & Login to watch" },
+  "hero.loginHintLive": { TH: "Live สด", EN: "Live Stream" },
+  "hero.loginHintAnd": { TH: " และ ", EN: " & " },
+  "hero.loginHintVideo": { TH: "วิดีโอไฮไลท์", EN: "Highlight Videos" },
   "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
+  "hero.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569", EN: "Saturday, May 17, 2026" },
   "hero.year": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitsalathibet Bldg, MOPH" },
 
   // Welcome Section
@@ -176,6 +181,12 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.badge.summary": { TH: "สรุป", EN: "Summary" },
   "agenda.badge.activity": { TH: "กิจกรรม", EN: "Activity" },
 
+  // Agenda - grouped session labels
+  "agenda.group.opening.title": { TH: "พิธีเปิดและกล่าวต้อนรับ", EN: "Opening Ceremony & Welcome" },
+  "agenda.group.opening.desc": { TH: "พิธีกรรมเปิดงาน รับของที่ระลึก กล่าวต้อนรับ และกล่าวโอวาทจากนายกสภาเภสัชกรรม", EN: "Event opening ceremony, welcome gifts, opening address, and remarks from the President of the Pharmacy Council." },
+  "agenda.specialSession": { TH: "เซสชั่นพิเศษ", EN: "Special Session" },
+  "agenda.scheduleLabel": { TH: "กำหนดการ", EN: "Schedule" },
+
   // Agenda Duration labels
   "agenda.dur.5min": { TH: "5 นาที", EN: " min" },
   "agenda.dur.30min": { TH: "30 นาที", EN: "30 min" },
@@ -217,6 +228,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "memories.badge": { TH: " ภาพบรรยากาศ", EN: "Gallery" },
   "memories.title1": { TH: "ภาพแห่ง", EN: "Event " },
   "memories.title2": { TH: "ความประทับใจ", EN: "Gallery" },
+  "memories.photo.title": { TH: "งานปฐมนิเทศเภสัชกรใหม่", EN: "New Pharmacist Orientation" },
+  "memories.photo.desc": { TH: "ช่วงเวลาแห่งความทรงจำร่วมกัน", EN: "Memorable moments together" },
 
   // Job Posters Section
   "jobPosters.badge": { TH: "โปสเตอร์สมัครงาน", EN: "Job Fair Posters" },
@@ -303,6 +316,12 @@ const translations: Record<string, Record<Lang, string>> = {
   "register.university": { TH: "มหาวิทยาลัย / สถาบัน", EN: "University / Institution" },
   "register.selectUniversity": { TH: "เลือกสถาบัน", EN: "Select a university" },
   "register.alreadyAccount": { TH: "มีบัญชีอยู่แล้ว?", EN: "Already have an account?" },
+
+  // Navbar extras
+  "nav.watchHighlight": { TH: "ดูวิดีโอไฮไลท์", EN: "Watch Highlights" },
+
+  // Welcome Section extras
+  "welcome.swipeHint": { TH: "เลื่อนดูรายถัดไป", EN: "Swipe to navigate" },
 
   // Banner
   "banner.new": { TH: "ใหม่", EN: "New" },
@@ -444,13 +463,24 @@ const translations: Record<string, Record<Lang, string>> = {
   "live.inputChat": { TH: "พิมพ์ข้อความของคุณ...", EN: "Say something..." },
   "live.viewOnly": { TH: "โหมดดูเท่านั้น (ไม่สามารถส่งข้อความได้)", EN: "View Only Mode (Chat disabled)" },
 
+  // Mask Scroll
+  "mask.line1": { TH: "แนะนำอาชีพ", EN: "Career Orientation" },
+  "mask.line2": { TH: "เภสัชกรใหม่", EN: "New Pharmacists" },
+  "mask.line3": { TH: "2569", EN: "2026" },
+  "mask.mute": { TH: "ปิดเสียง", EN: "Mute" },
+  "mask.unmute": { TH: "เปิดเสียง", EN: "Unmute" },
+  "mask.pause": { TH: "หยุด", EN: "Pause" },
+  "mask.play": { TH: "เล่น", EN: "Play" },
+
   // University Stats
   "stats.title1": { TH: "จำนวน", EN: "Amount of " },
   "stats.title2": { TH: "เภสัชกรใหม่", EN: "New Pharmacists" },
-  "stats.title3": { TH: " (25 สถาบัน)", EN: " (25 Institutions)" },
   "stats.line": { TH: "กราฟเส้น", EN: "Line Chart" },
   "stats.bar": { TH: "กราฟแท่ง", EN: "Bar Chart" },
   "stats.scrollHint": { TH: "เลื่อนขวาเพื่อดูเพิ่มเติม", EN: "Scroll right for more" },
+  "stats.institutions": { TH: "25 สถาบัน", EN: "25 Institutions" },
+  "stats.sortDesc": { TH: "เรียงจากมากไปน้อย", EN: "High to Low" },
+  "stats.totalRegistered": { TH: "ผู้ลงทะเบียนทั้งหมด", EN: "Total Registered" },
 
   "uni.cu": { TH: "จุฬาลงกรณ์มหาวิทยาลัย", EN: "Chulalongkorn University" },
   "uni.mu": { TH: "มหาวิทยาลัยมหิดล", EN: "Mahidol University" },

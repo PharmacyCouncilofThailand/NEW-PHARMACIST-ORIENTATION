@@ -20,9 +20,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <StatsSection />
-        <div id="welcome">
-          <WelcomeSection />
-        </div>
+        <WelcomeSection />
         <SpeakerSection />
         <UniversityStatsSection />
         <MaskScrollSection />

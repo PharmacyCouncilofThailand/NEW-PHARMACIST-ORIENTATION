@@ -60,11 +60,11 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black/30 pointer-events-none" style={{ zIndex: 1 }} />
 
       {/* CONTENT */}
-      <div ref={contentRef} className="relative text-center px-4 sm:px-6 pt-28 md:pt-36 pb-8 w-full max-w-[1400px] will-change-transform flex flex-col items-center justify-center min-h-screen" style={{ zIndex: 2 }}>
+      <div ref={contentRef} className="relative text-center px-4 sm:px-6 pt-28 md:pt-36 short:pt-24 pb-8 w-full max-w-[1400px] will-change-transform flex flex-col items-center justify-center min-h-screen" style={{ zIndex: 2 }}>
 
         {/* Logo */}
         <div className="flex justify-center mb-3 hero-entrance">
-          <div className="w-28 h-28 flex items-center justify-center animate-float drop-shadow-2xl">
+          <div className="w-28 h-28 short:w-20 short:h-20 flex items-center justify-center animate-float drop-shadow-2xl">
             <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={112} height={112} className="object-contain w-full h-full rounded-2xl" quality={100} />
           </div>
         </div>
@@ -75,9 +75,19 @@ export default function HeroSection() {
           <span suppressHydrationWarning className="block text-[clamp(2rem,6.5vw,5rem)] text-white hero-entrance-delay-2 drop-shadow-lg">{t("hero.mainTitle2")}</span>
         </h1>
 
-        {/* Year badge */}
-        <div className="flex justify-center mb-4 hero-entrance-delay-2">
-          <span suppressHydrationWarning className="px-5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-semibold tracking-wider backdrop-blur-sm">
+        {/* Event Date & Venue badges */}
+        <div className="flex flex-col items-center gap-2 mb-4 hero-entrance-delay-2">
+          <span suppressHydrationWarning className="flex items-center gap-2 px-5 py-1.5 rounded-full bg-violet-500/20 border border-violet-400/30 text-white text-sm font-bold tracking-wider backdrop-blur-sm">
+            <svg className="w-4 h-4 text-violet-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            {t("hero.eventDate")}
+          </span>
+          <span suppressHydrationWarning className="flex items-center gap-2 px-5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-semibold tracking-wider backdrop-blur-sm">
+            <svg className="w-4 h-4 text-white/60 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
             {t("hero.year")}
           </span>
         </div>

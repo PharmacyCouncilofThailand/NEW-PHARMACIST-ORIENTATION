@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "../contexts/AuthContext";
 import { useLang } from "../contexts/LangContext";
+import FloatingLangToggle from "../components/ui/FloatingLangToggle";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -66,6 +67,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-[100svh] relative flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#fdfdfd] overflow-x-hidden">
+      <FloatingLangToggle />
       
       {/* Decorative Ambient Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -81,8 +83,10 @@ export default function RegisterPage() {
         {/* Main Card */}
         <div className="bg-white/80 backdrop-blur-xl border border-white/60 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] rounded-[2rem] p-5 sm:p-8 relative">
           
-          {/* Card Top Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-blue-500 to-indigo-500 opacity-80 rounded-t-[2rem]" />
+          {/* Card Top Glow - Wrapped and clipped accurately */}
+          <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-violet-500 via-blue-500 to-indigo-500 opacity-80" />
+          </div>
 
           <div className="mb-5 flex flex-col items-center relative">
             <Link href="/" className="absolute left-0 top-1 text-slate-400 hover:text-violet-600 transition-colors group flex items-center justify-center w-8 h-8 rounded-full hover:bg-violet-50">

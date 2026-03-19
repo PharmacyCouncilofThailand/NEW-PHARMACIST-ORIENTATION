@@ -4,11 +4,13 @@ import PharmacyScrollSequence from "../components/scroll/PharmacyScrollSequence"
 import Link from "next/link";
 
 import { useLang } from "../contexts/LangContext";
+import FloatingLangToggle from "../components/ui/FloatingLangToggle";
 
 export default function ScrollPage() {
   const { t } = useLang();
   return (
     <main className="relative min-h-screen bg-slate-950">
+      <FloatingLangToggle />
       {/* Back Button */}
       <div className="fixed top-6 left-6 z-50">
         <Link 

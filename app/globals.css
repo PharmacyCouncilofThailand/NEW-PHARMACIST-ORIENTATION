@@ -28,6 +28,7 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant short (@media (max-height: 680px));
 
 @theme inline {
   --font-sans: var(--font-noto-thai), var(--font-inter), sans-serif;
@@ -589,4 +590,31 @@ html.dark .sticky-subnav {
 
 .animate-modal-in {
   animation: modal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ===== NEST HUB RESPONSIVE (1024x600) ===== */
+/* Target screens at 1024px wide with short height (≤680px) */
+@media (min-width: 1024px) and (max-height: 680px) {
+  /* WelcomeSection book layout compact */
+  #welcome .book-container {
+    min-height: 320px !important;
+    max-height: 400px !important;
+  }
+
+  /* SpeakerSection - reduce top/bottom padding */
+  #speakers {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  #speakers .text-center.mb-16 {
+    margin-bottom: 1.5rem !important;
+  }
+  #speakers h2 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+  }
+
+  /* StatsSection - reduce bottom margin */
+  section.-mt-16 {
+    margin-bottom: 1rem;
+  }
 }

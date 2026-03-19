@@ -208,7 +208,7 @@ export default function JobPostersSection() {
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           {/* Section header */}
           <ScrollReveal variant="blur">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8 text-center md:text-left">
               <div className="max-w-xl">
                 <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
                   {t("jobPosters.title1")}
