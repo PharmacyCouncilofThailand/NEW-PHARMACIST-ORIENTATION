@@ -316,6 +316,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "register.university": { TH: "มหาวิทยาลัย / สถาบัน", EN: "University / Institution" },
   "register.selectUniversity": { TH: "เลือกสถาบัน", EN: "Select a university" },
   "register.alreadyAccount": { TH: "มีบัญชีอยู่แล้ว?", EN: "Already have an account?" },
+  "register.consent": { TH: "ข้าพเจ้ายอมรับข้อตกลงและเงื่อนไข และยินยอมให้ประมวลผลข้อมูล", EN: "I agree to the terms and conditions and consent to data processing" },
 
   // Navbar extras
   "nav.watchHighlight": { TH: "ดูวิดีโอไฮไลท์", EN: "Watch Highlights" },

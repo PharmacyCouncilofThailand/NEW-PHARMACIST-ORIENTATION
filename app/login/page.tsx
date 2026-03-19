@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, Suspense, memo } from "react";
+import { useState, useCallback, Suspense, memo, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import ReCAPTCHA from "react-google-recaptcha";
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "../contexts/LangContext";
@@ -76,6 +77,8 @@ function LoginContent() {
   const [focused, setFocused]   = useState<string | null>(null);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   /* ── Handlers ── */
   const handleFocus = useCallback((name: string) => setFocused(name), []);
@@ -83,6 +86,11 @@ function LoginContent() {
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaToken) {
+      setError(lang === "TH" ? "กรุณายืนยันว่าคุณไม่ใช่บอท" : "Please verify that you are not a robot");
+      return;
+    }
+
     setError("");
     setLoading(true);
     const ok = await login(email, password);
@@ -92,8 +100,11 @@ function LoginContent() {
     } else {
       setError(t("login.error"));
       setLoading(false);
+      // Reset reCAPTCHA on failure
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
     }
-  }, [email, password, login, searchParams, router, lang]);
+  }, [email, password, login, searchParams, router, lang, recaptchaToken, t]);
 
   /* ═════════════════════════════════
      RENDER
@@ -207,6 +218,18 @@ function LoginContent() {
               </div>
             </div>
 
+          </div>
+
+          <div className={`${s.field} mt-6 mb-4 flex justify-center w-full`}>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // using a dummy key if not provided for dev
+              onChange={(token) => {
+                setRecaptchaToken(token);
+                if (token) setError("");
+              }}
+              theme="light"
+            />
           </div>
 
           {/* ── Submit button ── */}
