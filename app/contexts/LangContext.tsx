@@ -52,14 +52,14 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.loginHintVideo": { TH: "วิดีโอไฮไลท์", EN: "Highlight Videos" },
   "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
   "hero.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569", EN: "Saturday, May 17, 2026" },
-  "hero.year": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitsalathibet Bldg, MOPH" },
+  "hero.year": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
 
   // Welcome Section
   "welcome.badge": { TH: "✨ สารจากนายกสภาเภสัชกรรม", EN: "✨ Message from the President" },
   "welcome.title1": { TH: "สารจาก", EN: "Message from" },
   "welcome.title2": { TH: "คณะผู้บริหาร", EN: "the Executives" },
   "welcome.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569 เวลา 10.00 - 16.00 น.", EN: "Saturday, May 17, 2026 | 10:00 AM - 4:00 PM" },
-  "welcome.location": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitsalathibet Bldg, MOPH" },
+  "welcome.location": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
   "welcome.message": {
     TH: "สภาเภสัชกรรม ยินดีกับเภสัชกรใหม่ที่สอบผ่าน และขอต้อนรับเภสัชกรใหม่ทุกท่าน ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ การเดินในสายงานอาชีพเพิ่งเริ่มต้น องค์ความรู้จะเกิดขึ้นใหม่ตลอดเวลา การศึกษาอย่างต่อเนื่อง เพื่อช่วยสั่งสมประสบการณ์ สร้างทักษะเพิ่มความแข็งแกร่งให้ทุกท่านและวิชาชีพพวกเรา มาร่วมแบ่งปัน บอกเล่าเรื่องราวดี ๆ ให้กันฟัง ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้กันนะครับ",
     EN: "The Pharmacy Council congratulates all new pharmacists who have passed their exams and warmly welcomes you to the profession with pride. Your professional journey has just begun. New knowledge emerges constantly; continuous education will help accumulate experience and strengthen skills for both you and our profession. Let's join, share, and tell good stories to each other at this New Pharmacist Orientation 2026."
@@ -341,7 +341,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "footer.brandName": { TH: "ปฐมนิเทศเภสัชกรใหม่", EN: "New Pharmacist Orientation" },
   "footer.address": {
     TH: "สำนักงานเลขาธิการสภาเภสัชกรรม อาคารมหิตลาธิเบศร ชั้น 8 กระทรวงสาธารณสุข เลขที่ 88/19 หมู่ 4 ถนนติวานนท์ ตำบลตลาดขวัญ อำเภอเมือง จังหวัดนนทบุรี 11000",
-    EN: "The Pharmacy Council of Thailand, Mahitsalathibet Building, 8th Floor, Ministry of Public Health, 88/19 Moo 4, Tiwanon Road, Talat Khwan, Mueang Nonthaburi, Nonthaburi 11000"
+    EN: "The Pharmacy Council of Thailand, Mahitalathibet Building, 8th Floor, Ministry of Public Health, 88/19 Moo 4, Tiwanon Road, Talat Khwan, Mueang Nonthaburi, Nonthaburi 11000"
   },
 
 

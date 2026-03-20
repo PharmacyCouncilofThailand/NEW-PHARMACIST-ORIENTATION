@@ -27,7 +27,7 @@ const uniDataConfig = [
   { abbr: "EAU", key: "uni.eau", dbName: "มหาวิทยาลัยอีสเทิร์นเอเชีย", logoUrl: "/Logo/eau.png", defaultCount: 65 },
   { abbr: "TU", key: "uni.tu", dbName: "มหาวิทยาลัยธรรมศาสตร์", logoUrl: "/Logo/tu.png", defaultCount: 80 },
   { abbr: "WTU", key: "uni.wtu", dbName: "มหาวิทยาลัยเวสเทิร์น", logoUrl: "/Logo/WTU.png", defaultCount: 50 },
-  { abbr: "IESA", key: "uni.iesa", dbName: "สถาบันวิทยาการประกอบการแห่งอโยธยา", logoUrl: "/Logo/iesa.jpg", defaultCount: 45 },
+  { abbr: "IESA", key: "uni.iesa", dbName: "สถาบันวิทยาการประกอบการแห่งอโยธยา", logoUrl: "/Logo/iesa.png", defaultCount: 45 },
   { abbr: "PI", key: "uni.pi", dbName: "สถาบันพระบรมราชชนก", logoUrl: "/Logo/pi.png", defaultCount: 40 },
   { abbr: "NMC", key: "uni.nmc", dbName: "วิทยาลัยนครราชสีมา", logoUrl: "/Logo/nmc.png", defaultCount: 55 },
   { abbr: "KU", key: "uni.ku", dbName: "มหาวิทยาลัยเกษตรศาสตร์", logoUrl: "/Logo/ku.png", defaultCount: 35 },
@@ -374,7 +374,7 @@ export default function UniversityStatsSection() {
                              abbr={u.abbr} 
                              width={80} 
                              height={80} 
-                             imgClass="w-16 h-16 object-contain p-1" 
+                             imgClass="w-full h-full object-contain p-2" 
                              textClass="text-xs" 
                            />
                          </div>

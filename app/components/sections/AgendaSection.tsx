@@ -19,6 +19,7 @@ interface TimelineEvent {
   metaKey?: string;
   speakerImage?: string;
   nestedEvents?: TimelineEvent[];
+  isHighlight?: boolean;
 }
 
 interface DayData {
@@ -44,7 +45,7 @@ const days: DayData[] = [
   {
     num: 1, dateKey: "agenda.day1.date", themeKey: "agenda.day1.theme", themeDescKey: "agenda.day1.themeDesc",
     events: [
-      { id: "d1e1", time: "10:00", durationKey: "agenda.dur.150min", durationMin: 150, badgeKey: "agenda.badge.activity", badgeColor: "workshop", icon: "💼", titleKey: "agenda.d1e1.title", descKey: "agenda.d1e1.desc", metaKey: "agenda.d1e1.meta" },
+      { id: "d1e1", time: "10:00", durationKey: "agenda.dur.150min", durationMin: 150, badgeKey: "agenda.badge.activity", badgeColor: "workshop", icon: "💼", titleKey: "agenda.d1e1.title", descKey: "agenda.d1e1.desc", metaKey: "agenda.d1e1.meta", isHighlight: true },
       { 
         id: "d1e_group_opening", 
         time: "12:30 - 12:40", 
@@ -216,7 +217,7 @@ const AgendaItem = memo(({
       <div className={`flex-1 flex md:items-center pl-16 md:pl-0 ${isEven ? 'md:pr-16 md:justify-end' : 'md:pl-16 md:justify-start'}`}>
           <div className="flex flex-col items-start md:items-center">
              <div className="flex items-center gap-3">
-               <span className={`text-4xl md:text-5xl font-black tracking-tighter transition-all duration-500 font-mono ${isHovered ? style.text + " scale-105" : 'text-slate-300 dark:text-slate-600'}`}>
+               <span className={`text-4xl md:text-5xl font-black tracking-tighter transition-all duration-500 font-mono ${style.text} ${isHovered ? "scale-105" : ""}`}>
                  {event.time.split(" - ")[0]}
                </span>
              </div>
@@ -230,7 +231,7 @@ const AgendaItem = memo(({
 
       {/* Content Card */}
       <div className={`flex-1 pl-16 md:pl-0 mt-6 md:mt-0 ${isEven ? 'md:pl-16' : 'md:pr-16'} relative z-10`}>
-          <div className={`relative p-6 md:p-8 rounded-3xl backdrop-blur-xl bg-white/70 dark:bg-slate-900/70 border border-white/40 dark:border-slate-700/50 shadow-xl transition-all duration-500 cursor-pointer overflow-hidden ${isHovered ? `shadow-2xl -translate-y-2 ${style.glow}` : 'hover:bg-white'} ${isExpanded ? 'ring-2 ring-violet-500/50' : ''}`}>
+          <div className={`relative p-6 md:p-8 rounded-3xl backdrop-blur-xl ${event.isHighlight ? 'bg-purple-50/80 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 shadow-[0_8px_30px_rgba(168,85,247,0.2)]' : 'bg-white/70 dark:bg-slate-900/70 border border-white/40 dark:border-slate-700/50 shadow-xl'} transition-all duration-500 cursor-pointer overflow-hidden ${isHovered ? `shadow-2xl -translate-y-2 ${style.glow}` : event.isHighlight ? 'hover:bg-purple-100/80 dark:hover:bg-purple-900/40' : 'hover:bg-white'} ${isExpanded ? 'ring-2 ring-violet-500/50' : ''}`}>
              
              {/* Gradient Shine Effect */}
              <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/0 dark:from-white/5 dark:to-transparent pointer-events-none" />
