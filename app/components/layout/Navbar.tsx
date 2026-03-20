@@ -132,9 +132,10 @@ export default function Navbar() {
       // Measure actual fixed navbar height dynamically
       const navbarContainer = document.querySelector("[data-navbar-container]") as HTMLElement;
       const navbarHeight = navbarContainer ? navbarContainer.getBoundingClientRect().height : 110;
-      // Get section's computed padding-top so we scroll to actual content, not empty padding
-      const sectionPaddingTop = parseInt(window.getComputedStyle(el).paddingTop || "0", 10);
-      const targetOffset = navbarHeight - sectionPaddingTop + 24;
+      // Adjust targetOffset so we partially overlap the section's padding (tucking 56px under the navbar)
+      // This leaves a 40px visual gap (96 - 56) without pushing the content too close to the navbar
+      // and guarantees we scroll past the pin-spacer of the previous section.
+      const targetOffset = navbarHeight - 56;
       const top = el.getBoundingClientRect().top + window.scrollY - targetOffset;
       window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     }
