@@ -111,17 +111,23 @@
 .logoText {
   font-size: .8rem;
   font-weight: 700;
-  color: #6d28d9;
+  color: #000;
   line-height: 1.2;
 }
 .logoSub {
   font-size: .68rem;
-  color: #94a3b8;
+  color: #000;
   font-weight: 500;
 }
 
 /* ── Section header ── */
-.head   { margin-bottom: 1.5rem; }
+.head {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .eyebrow {
   display: inline-flex;
   align-items: center;

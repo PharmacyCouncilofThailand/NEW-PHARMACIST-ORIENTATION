@@ -217,7 +217,7 @@ export default function MaskScrollSection() {
           </div>
         </div>
 
-        {/* Black mask layer with blended text */}
+        {/* White mask layer with blended text */}
         <div
           ref={maskRef}
           style={{
@@ -225,11 +225,11 @@ export default function MaskScrollSection() {
             zIndex: 1,
             height: "100vh",
             width: "100%",
-            background: "#000",
+            background: "#fff",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            mixBlendMode: "multiply",
+            mixBlendMode: "screen",
           }}
         >
           <h2
@@ -240,7 +240,7 @@ export default function MaskScrollSection() {
               fontWeight: 900,
               textAlign: "center",
               lineHeight: 1.2,
-              color: "#fff",
+              color: "#000",
             }}
           >
             {t("mask.line1")}

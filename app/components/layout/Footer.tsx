@@ -25,10 +25,13 @@ export default function Footer() {
               <div className="w-16 h-16 flex items-center justify-center p-1 shrink-0">
                 <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={60} height={60} className="rounded-xl object-cover" />
               </div>
-              <div>
-                <h3 className="text-base font-black tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent leading-tight">
-                  {t("footer.officialEN")}
+              <div className="flex flex-col items-start justify-center">
+                <h3 className="text-base font-black tracking-tight text-black dark:text-white leading-tight">
+                  สภาเภสัชกรรม
                 </h3>
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">
+                  The Pharmacy Council of Thailand
+                </span>
               </div>
             </div>
 

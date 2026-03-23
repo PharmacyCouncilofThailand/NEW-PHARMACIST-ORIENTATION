@@ -122,12 +122,12 @@ function LoginContent() {
         <div className={s.top}>
           <Link href="/" className={s.logoWrap}>
             <Image src="/logo สภาเภสัชกรรม.jpg" alt="Logo" width={40} height={40} className={s.logoImg} quality={100} />
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div className={s.logoText}>
-                {t("logo.council")}
+                {t("nav.brand")}
               </div>
               <div className={s.logoSub}>
-                {t("logo.thailand")}
+                The Pharmacy Council of Thailand
               </div>
             </div>
           </Link>

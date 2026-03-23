@@ -278,10 +278,6 @@ export default function AgendaSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <ScrollReveal variant="blur">
           <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm mb-6">
-               <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
-               <span className="text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-300">{t("agenda.scheduleLabel")}</span>
-            </div>
             <h2 className="text-[clamp(3rem,6vw,5rem)] font-black mb-6 tracking-tighter text-slate-900 dark:text-white leading-[1.1]">
               {t("agenda.title1")}<br/>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400">

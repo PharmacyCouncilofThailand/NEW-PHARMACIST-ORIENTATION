@@ -6,6 +6,12 @@ import Link from "next/link";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useLang } from "../../contexts/LangContext";
 import { useAuth } from "../../contexts/AuthContext";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "../ui/SmoothScroll";
+
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 const navLinks = [
   { href: "#hero", key: "nav.home" },
@@ -93,6 +99,7 @@ export default function Navbar() {
   const { toggleTheme, isDark } = useTheme();
   const { lang, toggleLang, t } = useLang();
   const { user, isLoggedIn, logout } = useAuth();
+  const lenis = useLenis();
 
   useEffect(() => {
     let ticking = false;
@@ -132,14 +139,20 @@ export default function Navbar() {
       // Measure actual fixed navbar height dynamically
       const navbarContainer = document.querySelector("[data-navbar-container]") as HTMLElement;
       const navbarHeight = navbarContainer ? navbarContainer.getBoundingClientRect().height : 110;
-      // Adjust targetOffset so we partially overlap the section's padding (tucking 56px under the navbar)
-      // This leaves a 40px visual gap (96 - 56) without pushing the content too close to the navbar
-      // and guarantees we scroll past the pin-spacer of the previous section.
-      const targetOffset = navbarHeight - 56;
-      const top = el.getBoundingClientRect().top + window.scrollY - targetOffset;
-      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      // Offset configuration: we subtract from navbarHeight to allow the scroll 
+      // to "overshoot" the exact top border slightly. This hides the noisy gap
+      // from the previous section and nestles the top padding under the navbar.
+      const offsetToScroll = navbarHeight - 40;
+
+      if (lenis) {
+         // Using Lenis handles GSAP pinned sections naturally via DOM element targeting
+         lenis.scrollTo(el, { offset: -offsetToScroll, duration: 1.5 });
+      } else {
+         const top = el.getBoundingClientRect().top + window.scrollY - offsetToScroll;
+         window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
     }
-  }, []);
+  }, [lenis]);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   const toggleMenu = useCallback(() => setMenuOpen(prev => !prev), []);
@@ -184,9 +197,14 @@ export default function Navbar() {
                 className="rounded-full object-cover"
                 quality={100}
               />
-              <span className="font-bold text-lg md:text-xl tracking-tight hidden sm:block bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
-                {t("nav.brand")}
-              </span>
+              <div className="hidden sm:flex flex-col items-start justify-center">
+                <span className="font-bold text-lg md:text-xl tracking-tight text-black dark:text-white leading-tight">
+                  {t("nav.brand")}
+                </span>
+                <span className="text-[10px] md:text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">
+                  The Pharmacy Council of Thailand
+                </span>
+              </div>
             </button>
 
             {/* Desktop Links */}
