@@ -28,37 +28,37 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.signOut": { TH: "ออกจากระบบ", EN: "Sign Out" },
   "nav.license": { TH: "ใบอนุญาต", EN: "License" },
   "nav.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License No." },
-  "nav.phone": { TH: "เบอร์โทร", EN: "Phone" },
-  "nav.myTicket": { TH: "My ticket", EN: "My Ticket" },
-  "nav.live": { TH: "ดูไลฟ์สดงาน", EN: "Watch Live Event" },
+  "nav.phone": { TH: "เบอร์โทรศัพท์", EN: "Phone" },
+  "nav.myTicket": { TH: "บัตรเข้างาน", EN: "My Ticket" },
+  "nav.live": { TH: "รับชมไลฟ์สด", EN: "Watch Live Event" },
 
   // Hero
-  "hero.subtitle1": { TH: "ยินดีต้อนรับ เภสัชกรใหม่ สู่", EN: "Warmly welcoming new pharmacists to the" },
-  "hero.future": { TH: "โลกวิชาชีพ", EN: "professional world" },
+  "hero.subtitle1": { TH: "ขอต้อนรับเภสัชกรใหม่เข้าสู่", EN: "Warmly welcoming new pharmacists to the" },
+  "hero.future": { TH: "เส้นทางวิชาชีพ", EN: "professional world" },
   "hero.subtitle2": {
-    TH: "อย่างเต็มตัว",
+    TH: "อย่างเต็มภาคภูมิ",
     EN: "fully.",
   },
   "hero.subtitle3": {
-    TH: "แล้วมาพบกันใน",
+    TH: "แล้วพบกันใน",
     EN: "See you at the",
   },
-  "hero.journey": { TH: "งานปฐมนิเทศเภสัชกรใหม่ปี 2569", EN: "New Pharmacist Orientation 2026" },
-  "hero.subtitle4": { TH: "เพื่อเริ่มต้นการเดินทางไปด้วยกัน", EN: "to start our journey together." },
-  "hero.register": { TH: "ลงทะเบียนเลย", EN: "Register Now" },
+  "hero.journey": { TH: "งานปฐมนิเทศเภสัชกรใหม่ ประจำปี 2569", EN: "New Pharmacist Orientation 2026" },
+  "hero.subtitle4": { TH: "เพื่อเริ่มต้นเส้นทางสายวิชาชีพร่วมกัน", EN: "to start our journey together." },
+  "hero.register": { TH: "ลงทะเบียนเข้าร่วมงาน", EN: "Register Now" },
   "hero.loginHintPrefix": { TH: "💡 สมัครสมาชิกและเข้าสู่ระบบ เพื่อรับชม", EN: "💡 Register & Login to watch" },
-  "hero.loginHintLive": { TH: "Live สด", EN: "Live Stream" },
+  "hero.loginHintLive": { TH: "ไลฟ์สด", EN: "Live Stream" },
   "hero.loginHintAnd": { TH: " และ ", EN: " & " },
   "hero.loginHintVideo": { TH: "วิดีโอไฮไลท์", EN: "Highlight Videos" },
   "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
-  "hero.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569", EN: "Saturday, May 17, 2026" },
+  "hero.eventDate": { TH: "วันอาทิตย์ที่ 17 พฤษภาคม 2569", EN: "Sunday, May 17, 2026" },
   "hero.year": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
 
   // Welcome Section
-  "welcome.badge": { TH: "✨ สารจากนายกสภาเภสัชกรรม", EN: "✨ Message from the President" },
-  "welcome.title1": { TH: "สารจาก", EN: "Message from" },
+  "welcome.badge": { TH: "สารจากนายกสภาเภสัชกรรม", EN: "Welcome message from the Executives" },
+  "welcome.title1": { TH: "สารจาก", EN: "Welcome message from" },
   "welcome.title2": { TH: "คณะผู้บริหาร", EN: "the Executives" },
-  "welcome.eventDate": { TH: "วันเสาร์ที่ 17 พฤษภาคม 2569 เวลา 10.00 - 16.00 น.", EN: "Saturday, May 17, 2026 | 10:00 AM - 4:00 PM" },
+  "welcome.eventDate": { TH: "วันอาทิตย์ที่ 17 พฤษภาคม 2569 เวลา 10.00 - 16.00 น.", EN: "Sunday, May 17, 2026 | 10:00 AM - 4:00 PM" },
   "welcome.location": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
   "welcome.message": {
     TH: "สภาเภสัชกรรม ยินดีกับเภสัชกรใหม่ที่สอบผ่าน และขอต้อนรับเภสัชกรใหม่ทุกท่าน ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ การเดินในสายงานอาชีพเพิ่งเริ่มต้น องค์ความรู้จะเกิดขึ้นใหม่ตลอดเวลา การศึกษาอย่างต่อเนื่อง เพื่อช่วยสั่งสมประสบการณ์ สร้างทักษะเพิ่มความแข็งแกร่งให้ทุกท่านและวิชาชีพพวกเรา มาร่วมแบ่งปัน บอกเล่าเรื่องราวดี ๆ ให้กันฟัง ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้กันนะครับ",
@@ -71,8 +71,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "welcome.p2Position": { TH: "เลขาธิการสภาเภสัชกรรม", EN: "Secretary-General of the Pharmacy Council" },
   "welcome.p2Message": { TH: "สภาเภสัชกรรมขอแสดงความยินดีกับเภสัชกรใหม่ทุกท่านที่สอบผ่าน และกำลังก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ เส้นทางวิชาชีพนี้เป็นการเรียนรู้และพัฒนาตนเองอย่างต่อเนื่อง เพื่อสร้างความเข้มแข็งให้กับทั้งตัวท่านและวิชาชีพเภสัชกรรม ขอเชิญชวนเภสัชกรใหม่ทุกท่านมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้", EN: "The Pharmacy Council congratulates all new pharmacists who have passed their exams and are proudly stepping into the pharmacy profession. This career path is about continuous learning and self-development, building strength for both yourself and the pharmacy profession. We invite all new pharmacists to come share experiences and inspiration at this New Pharmacist Orientation 2026." },
 
-  "welcome.p3Name": { TH: "ดร.ภก.นพดล อัจจิมาธีระ", EN: "Executive Name 3" },
-  "welcome.p3Position": { TH: "อุปนายกสภาเภสัชกรรม", EN: "Vice President" },
+  "welcome.p3Name": { TH: "ดร.ภก.นพดล อัจจิมาธีระ", EN: "Pharm. Dr. Noppadon Adjimatera" },
+  "welcome.p3Position": { TH: "อุปนายกสภาเภสัชกรรม คนที่2", EN: "Second Vice President" },
   "welcome.p3Message": { TH: "ขอแสดงความยินดีกับเภสัชกรใหม่ทุกท่านที่ก้าวผ่านอีกหนึ่งก้าวสำคัญของชีวิต และกำลังก้าวเข้าสู่เส้นทางวิชาชีพเภสัชกรรม ซึ่งเป็นวิชาชีพที่มีบทบาทสำคัญต่อสุขภาพของประชาชนและระบบสาธารณสุขของประเทศ ขอให้ทุกท่านใช้ความรู้ ความสามารถ และจิตวิญญาณของความเป็นเภสัชกรในการพัฒนาตนเองและวิชาชีพ พร้อมทั้งร่วมพบปะแลกเปลี่ยนประสบการณ์กันในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้", EN: "Congratulations to all new pharmacists who have crossed another major milestone and are entering the pharmacy profession, which plays a critical role in public health and the national healthcare system. I encourage all of you to use your knowledge, abilities, and the spirit of a pharmacist to develop yourselves and the profession, and to exchange experiences at this New Pharmacist Orientation 2026." },
 
   // Welcome Cards
@@ -91,11 +91,11 @@ const translations: Record<string, Record<Lang, string>> = {
   // Speaker Section
   "speaker.badge": { TH: "🎤 วิทยากร", EN: "🎤 Speakers" },
   "speaker.title1": { TH: "", EN: "" },
-  "speaker.title2": { TH: "วิทยากรรับเชิญทั้ง 9 ท่าน", EN: "All 9 Guest Speakers" },
+  "speaker.title2": { TH: "รายชื่อวิทยากรรับเชิญทั้ง 9 ท่าน", EN: "All 9 Guest Speakers" },
   "speaker.subtitle": { TH: "ผู้ทรงคุณวุฒิที่จะมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ", EN: "Experts who will share their experiences and inspiration." },
-  "speaker.clickHint": { TH: "คลิกเพื่ออ่านข้อมูล", EN: "Click to flip" },
+  "speaker.clickHint": { TH: "คลิกเพื่อดูข้อมูล", EN: "Click to flip" },
   "speaker.back": { TH: "กลับหน้าบัตร", EN: "Back" },
-  "speaker.note": { TH: "*รายชื่อวิทยากรอาจมีการเปลี่ยนแปลง", EN: "*Speaker list is subject to change" },
+  "speaker.note": { TH: "*รายนามวิทยากรอาจมีการเปลี่ยนแปลง", EN: "*Speaker list is subject to change" },
   
   "speaker.s1.name": { TH: "ภก. ปรีชา พันธุ์ติเวช", EN: "Pharm. Preecha Bhandtivej" },
   "speaker.s1.position": { TH: "นายกสภาเภสัชกรรม", EN: "President of the Pharmacy Council" },
@@ -153,9 +153,9 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.badge": { TH: " กำหนดการ", EN: " Schedule" },
   "agenda.title1": { TH: "กำหนดการ", EN: "Event " },
   "agenda.title2": { TH: "กิจกรรม", EN: "Agenda" },
-  "agenda.subtitle1": { TH: "รายละเอียดกิจกรรมตลอด 1 วัน", EN: "Detailed activities throughout the 1-day orientation" },
+  "agenda.subtitle1": { TH: "รายละเอียดกำหนดการตลอดกิจกรรม", EN: "Detailed activities throughout the 1-day orientation" },
   "agenda.subtitle2": { TH: "เพื่อเตรียมพร้อมสู่การปฏิบัติงานจริง", EN: "to prepare you for real-world practice." },
-  "agenda.clickHint": { TH: "คลิกที่แต่ละกิจกรรมเพื่อดูรายละเอียด", EN: "Click each event to expand" },
+  "agenda.clickHint": { TH: "คลิกที่แต่ละรายการเพื่อดูรายละเอียด", EN: "Click each event to expand" },
   "agenda.sessions": { TH: "กิจกรรม", EN: "sessions" },
   "agenda.onDay": { TH: "ในวันที่", EN: "on Day" },
   "agenda.lectures": { TH: "บรรยาย", EN: "Lectures" },
@@ -233,19 +233,19 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Job Posters Section
   "jobPosters.badge": { TH: "โปสเตอร์สมัครงาน", EN: "Job Fair Posters" },
-  "jobPosters.title1": { TH: "โปสเตอร์", EN: "Career " },
-  "jobPosters.title2": { TH: "สมัครงาน", EN: "Opportunities" },
-  "jobPosters.subtitle": { TH: "รวมโปสเตอร์รับสมัครงานจากหน่วยงานและองค์กรชั้นนำ คลิกที่โปสเตอร์เพื่อดูรายละเอียดแบบเต็ม", EN: "Job openings from leading organizations. Click any poster to view full details." },
-  "jobPosters.count": { TH: "งาน", EN: "Works" },
-  "jobPosters.hint": { TH: "คลิกที่โปสเตอร์เพื่อดูขนาดเต็ม", EN: "Click any poster to view full size" },
-  "jobPosters.openDrive": { TH: "เปิดใน Drive", EN: "Open in Drive" },
+  "jobPosters.title1": { TH: "โอกาส", EN: "Career " },
+  "jobPosters.title2": { TH: "ทางวิชาชีพ", EN: "Opportunities" },
+  "jobPosters.subtitle": { TH: "รวมโปสเตอร์รับสมัครงานจากหน่วยงานชั้นนำ คลิกที่ภาพเพื่อดูรายละเอียด", EN: "Job openings from leading organizations. Click any poster to view full details." },
+  "jobPosters.count": { TH: "ตำแหน่งงาน", EN: "Works" },
+  "jobPosters.hint": { TH: "คลิกที่ภาพเพื่อดูขนาดเต็ม", EN: "Click any poster to view full size" },
+  "jobPosters.openDrive": { TH: "เปิดใน Google Drive", EN: "Open in Drive" },
   "jobPosters.close": { TH: "ปิด", EN: "Close" },
 
   // Sponsors
   "sponsor.title1": { TH: "ผู้สนับสนุน", EN: " " },
-  "sponsor.title2": { TH: "อย่างเป็นทางการ", EN: "Sponsors" },
+  "sponsor.title2": { TH: "การจัดงานอย่างเป็นทางการ", EN: "Sponsors" },
   "sponsor.subtitle": { 
-    TH: "ขอขอบคุณผู้สนับสนุนที่ร่วมสนับสนุนให้งานปฐมนิเทศเภสัชกรใหม่ ปี 2569 ", 
+    TH: "ขอขอบพระคุณผู้สนับสนุนทุกท่านที่ร่วมสนับสนุนการจัดงานปฐมนิเทศเภสัชกรใหม่ ประจำปี 2569 ", 
     EN: "Thank you to our sponsors for making the New Pharmacist Orientation 2026 possible." 
   },
 
@@ -293,7 +293,7 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   "register.firstName": { TH: "ชื่อ", EN: "First Name" },
   "register.lastName": { TH: "นามสกุล", EN: "Last Name" },
-  "register.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License Number" },
+  "register.licenseId": { TH: "เลขที่ใบอนุญาตประกอบวิชาชีพ", EN: "License Number" },
   "register.phone": { TH: "เบอร์โทรศัพท์", EN: "Phone Number" },
   "register.email": { TH: "อีเมล", EN: "Email Address" },
   "register.password": { TH: "รหัสผ่าน", EN: "Password" },
@@ -428,29 +428,29 @@ const translations: Record<string, Record<Lang, string>> = {
   "ticket.notProvided": { TH: "ไม่ระบุ", EN: "Not Provided" },
 
   // Live Stream Page
-  "live.connecting": { TH: "กำลังเชื่อมต่อสตรีม...", EN: "Connecting to stream..." },
-  "live.secureConn": { TH: "กรุณารอสักครู่ขณะเราสร้างการเชื่อมต่อที่ปลอดภัย", EN: "Please wait while we establish a secure connection" },
+  "live.connecting": { TH: "กำลังเชื่อมต่อไลฟ์สด...", EN: "Connecting to stream..." },
+  "live.secureConn": { TH: "กรุณารอสักครู่ ระบบกำลังทำการเชื่อมต่อ", EN: "Please wait while we establish a secure connection" },
   "live.badge": { TH: "ไลฟ์สด", EN: "Live" },
   "live.status": { TH: "เวทีหลัก • กำลังรับชม 1,245 คน", EN: "Main Stage • 1,245 watching" },
-  "live.back": { TH: "กลับไปหน้างาน", EN: "Back to Event" },
-  "live.startingSoon": { TH: "สตรีมกำลังจะเริ่มเร็วๆ นี้", EN: "STREAM STARTING SOON" },
-  "live.datetime": { TH: "17 พ.ค. 2569 • 10:00 น. (เวลาไทย)", EN: "17 May 2026 • 10:00 AM BKK" },
+  "live.back": { TH: "กลับไปหน้าแรก", EN: "Back to Event" },
+  "live.startingSoon": { TH: "ไลฟ์สดกำลังจะเริ่มเร็วๆ นี้", EN: "STREAM STARTING SOON" },
+  "live.datetime": { TH: "17 พ.ค. 2569 • 10:00 น.", EN: "17 May 2026 • 10:00 AM BKK" },
   "live.tabChat": { TH: "แชทสด", EN: "Live Chat" },
-  "live.tabQa": { TH: "คำถาม-คำตอบ", EN: "Q & A" },
+  "live.tabQa": { TH: "ถาม-ตอบ", EN: "Q & A" },
   "live.tabPolls": { TH: "โพลล์", EN: "Polls" },
-  "live.chatStart": { TH: "สตรีมเริ่มเวลา 10:00 น.", EN: "Stream starts at 10:00 AM" },
+  "live.chatStart": { TH: "ไลฟ์เริ่มเวลา 10:00 น.", EN: "Stream starts at 10:00 AM" },
   "live.mod": { TH: "ผู้ดูแลระบบ", EN: "System Mod" },
   "live.admin": { TH: "แอดมิน", EN: "Admin" },
-  "live.welcomeChat": { TH: "ยินดีต้อนรับสู่งานปฐมนิเทศเภสัชกรใหม่ ปี 2569! โปรดสุภาพในการแชท", EN: "Welcome to the New Pharmacist Orientation 2026! Please be respectful in the chat." },
+  "live.welcomeChat": { TH: "ยินดีต้อนรับสู่งานปฐมนิเทศเภสัชกรใหม่ 2569! โปรดสุภาพในการแชท", EN: "Welcome to the New Pharmacist Orientation 2026! Please be respectful in the chat." },
   "live.pharmacist": { TH: "เภสัชกร", EN: "Pharmacist" },
   
-  "live.chatMsg1": { TH: "รอไม่ไหวแล้ว!", EN: "Can't wait!" },
+  "live.chatMsg1": { TH: "รอติดตามครับ/ค่ะ!", EN: "Can't wait!" },
   "live.chatMsg2": { TH: "มีสไลด์ให้ดาวน์โหลดไหมคะ?", EN: "Is the slide deck available?" },
   "live.chatMsg3": { TH: "สวัสดีจากเชียงใหม่ครับ", EN: "Hello from Chiang Mai" },
-  "live.chatMsg4": { TH: "ตื่นเต้นกับกิจกรรมมาก!", EN: "Excited for the sessions!" },
+  "live.chatMsg4": { TH: "ตื่นเต้นกับกิจกรรมในงานมากครับ/ค่ะ!", EN: "Excited for the sessions!" },
 
   "live.noQuestions": { TH: "ยังไม่มีคำถาม", EN: "No questions asked yet" },
-  "live.askQuestionInfo": { TH: "ส่งคำถามถึงวิทยากร คำถามที่ได้รับการโหวตสูงสุดจะถูกนำไปตอบในไลฟ์สด", EN: "Ask the speakers a question. Top voted questions will be answered live." },
+  "live.askQuestionInfo": { TH: "ส่งคำถามถึงวิทยากร คำถามโหวตสูงสุดจะถูกนำไปตอบในไลฟ์", EN: "Ask the speakers a question. Top voted questions will be answered live." },
   "live.active": { TH: "กำลังเปิดโหวต", EN: "Active" },
   "live.votes": { TH: "142 โหวต", EN: "142 votes" },
   
@@ -462,7 +462,7 @@ const translations: Record<string, Record<Lang, string>> = {
   
   "live.inputQA": { TH: "พิมพ์คำถามของคุณ...", EN: "Ask a question..." },
   "live.inputChat": { TH: "พิมพ์ข้อความของคุณ...", EN: "Say something..." },
-  "live.viewOnly": { TH: "โหมดดูเท่านั้น (ไม่สามารถส่งข้อความได้)", EN: "View Only Mode (Chat disabled)" },
+  "live.viewOnly": { TH: "โหมดผู้ชม (ไม่สามารถส่งข้อความได้)", EN: "View Only Mode (Chat disabled)" },
 
   // Mask Scroll
   "mask.line1": { TH: "แนะนำอาชีพ", EN: "Career Orientation" },

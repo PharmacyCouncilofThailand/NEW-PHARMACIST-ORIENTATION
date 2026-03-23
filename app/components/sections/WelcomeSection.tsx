@@ -26,21 +26,21 @@ const people: Person[] = [
     nameKey: "welcome.presidentName",
     posKey: "welcome.presidentPosition",
     msgKey: "welcome.message",
-    image: "/2.png"
+    image: "/welcome-pre.png"
   },
   {
     id: "p2",
     nameKey: "welcome.p2Name",
     posKey: "welcome.p2Position",
     msgKey: "welcome.p2Message",
-    image: "/1.png"
+    image: "/welcome-se.png"
   },
   {
     id: "p3",
     nameKey: "welcome.p3Name",
     posKey: "welcome.p3Position",
     msgKey: "welcome.p3Message",
-    image: "/4.png"
+    image: "/welcome-p3.png"
   }
 ];
 
@@ -70,7 +70,7 @@ const WelcomeCard = memo(function WelcomeCard({
           src={person.image} 
           alt={t(person.nameKey)} 
           fill 
-          className={`object-cover transition-transform duration-700 group-hover:scale-105 ${person.image === '/4.png' ? 'object-[center_45%]' : 'object-top'}`} 
+          className={`object-cover transition-transform duration-700 group-hover:scale-105 ${person.id === 'p3' ? 'object-[center_45%]' : 'object-top'}`} 
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent z-10" />
         
@@ -87,7 +87,6 @@ const WelcomeCard = memo(function WelcomeCard({
       {/* Text Half (Bottom on mobile, Right on desktop) */}
       <div className="p-6 md:p-8 lg:p-12 relative flex-1 flex flex-col bg-white dark:bg-slate-900">
         <div className="relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-2 md:pr-4">
-          <div className="text-5xl md:text-7xl lg:text-8xl text-violet-400/20 dark:text-violet-500/20 font-serif leading-none absolute -top-4 -left-2 md:-left-4 lg:-left-6">“</div>
           <p className="text-[14px] md:text-base lg:text-lg leading-[1.7] md:leading-[1.8] text-slate-600 dark:text-slate-300 font-light mt-4 md:mt-2 relative z-10 text-left">
             {t(person.msgKey)}
           </p>
