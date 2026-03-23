@@ -202,7 +202,7 @@ export default function SpeakerSection() {
   }, []);
 
   return (
-    <section id="speakers" ref={ref} className="scroll-mt-40 py-24 sm:py-32 short:py-12 relative overflow-hidden">
+    <section id="speakers" ref={ref} className="scroll-mt-40 py-16 sm:py-20 relative overflow-hidden">
       {/* BG Video */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <video
@@ -221,7 +221,7 @@ export default function SpeakerSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <ScrollReveal variant="blur">
-          <div className="text-center mb-16 short:mb-6">
+          <div className="text-center mb-10">
             <h2 className="text-[clamp(1.6rem,4vw,3.5rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
               <span className="gradient-text-anim">{t("speaker.title2")}</span>
             </h2>
@@ -253,7 +253,7 @@ export default function SpeakerSection() {
               rotate: 0,
               stretch: 0,
               depth: 100,
-              modifier: 2.5,
+              modifier: 1.5,
               slideShadows: true,
             }}
             pagination={{ clickable: true }}
@@ -267,10 +267,10 @@ export default function SpeakerSection() {
               disableOnInteraction: false,
             }}
             modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-            className="w-full max-w-[1000px] !pb-16"
+            className="w-full max-w-[900px] !pb-12"
           >
             {speakers.map((s, i) => (
-              <SwiperSlide key={s.id} className="max-w-[320px] sm:max-w-[400px]">
+              <SwiperSlide key={s.id} className="max-w-[260px] sm:max-w-[320px]">
                 <SpeakerCard speaker={s} index={i} visible={visible} />
               </SwiperSlide>
             ))}
