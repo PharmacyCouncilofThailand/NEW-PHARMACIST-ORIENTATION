@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useAuth } from "../contexts/AuthContext";
 import { useLang } from "../contexts/LangContext";
 import FloatingLangToggle from "../components/ui/FloatingLangToggle";
+import ConsentModal from "../components/ui/ConsentModal";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isUniOpen, setIsUniOpen] = useState(false);
+  const [isConsentOpen, setIsConsentOpen] = useState(false);
 
   const UNI_OPTIONS = [
     "จุฬาลงกรณ์มหาวิทยาลัย", "มหาวิทยาลัยมหิดล", "มหาวิทยาลัยเชียงใหม่",
@@ -236,25 +238,50 @@ export default function RegisterPage() {
             </div>
 
             <div className="pt-2">
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <div className="relative flex items-center justify-center mt-0.5">
-                  <input 
-                    type="checkbox" 
-                    name="consent" 
-                    required
-                    checked={formData.consent} 
-                    onChange={handleChange} 
-                    className="appearance-none w-5 h-5 border-2 border-slate-300 rounded-[6px] bg-slate-50/50 checked:bg-violet-500 checked:border-violet-500 transition-all cursor-pointer peer" 
+              <div className="flex items-start gap-3">
+                {/* Checkbox toggle — clicking also opens modal if unchecked */}
+                <div
+                  className="relative flex items-center justify-center mt-0.5 shrink-0 cursor-pointer"
+                  onClick={() => {
+                    if (!formData.consent) setIsConsentOpen(true);
+                    else setFormData(prev => ({ ...prev, consent: false }));
+                  }}
+                >
+                  <div className={`w-5 h-5 border-2 rounded-[6px] transition-all
+                    ${formData.consent
+                      ? 'bg-violet-500 border-violet-500'
+                      : 'bg-slate-50 border-slate-300 hover:border-violet-400'
+                    }`}
                   />
-                  <svg className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 peer-checked:scale-100 scale-50 transition-all duration-200 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
+                  {formData.consent && (
+                    <svg className="absolute w-3.5 h-3.5 text-white pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
                 </div>
-                <span className="text-[13.5px] font-medium text-slate-600 leading-snug group-hover:text-slate-800 transition-colors">
-                  {t("register.consent")} <span className="text-red-500">*</span>
-                </span>
-              </label>
+                {/* Label — clicking opens the modal */}
+                <button
+                  type="button"
+                  onClick={() => setIsConsentOpen(true)}
+                  className="text-left text-[13.5px] font-medium leading-snug transition-colors"
+                >
+                  <span className={formData.consent ? 'text-slate-700' : 'text-slate-600 hover:text-violet-700'}>
+                    {t("register.consent")}{" "}
+                    <span className="underline underline-offset-2 text-violet-600 font-semibold">
+                      (คลิกอ่านข้อตกลง)
+                    </span>
+                  </span>{" "}
+                  <span className="text-red-500">*</span>
+                </button>
+              </div>
             </div>
+
+            {/* Consent Modal */}
+            <ConsentModal
+              isOpen={isConsentOpen}
+              onClose={() => setIsConsentOpen(false)}
+              onAccept={() => setFormData(prev => ({ ...prev, consent: true }))}
+            />
 
             <div className="pt-4 relative">
               <button type="submit" disabled={loading} className="group w-full flex justify-center py-3 px-4 rounded-xl text-[15px] font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 shadow-[0_4px_14px_0_rgba(124,58,237,0.39)] hover:shadow-[0_6px_20px_rgba(124,58,237,0.23)] hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden">
