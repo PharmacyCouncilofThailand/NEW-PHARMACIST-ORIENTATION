@@ -318,11 +318,11 @@ html.dark ::-webkit-scrollbar-track {
 
 .gradient-text-anim {
   background: linear-gradient(
-    300deg,
-    #7c3aed,
-    #2563eb,
-    #db2777,
-    #7c3aed
+    90deg,
+    #8b5cf6,
+    #c026d3,
+    #ec4899,
+    #8b5cf6
   );
   background-size: 300% 300%;
   animation: gradient-text 6s ease infinite;

@@ -52,10 +52,10 @@ export const StatItem = memo(function StatItem({ end, suffix, label, delay, icon
   return (
     <div 
       ref={ref}
-      className={`relative p-3 sm:p-4 rounded-2xl bg-white/5 dark:bg-slate-900/40 md:backdrop-blur-xl border border-white/40 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden group hover:-translate-y-1 transition-transform duration-300 ${delay}`}
+      className={`relative p-3 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 border border-white/50 dark:border-white/10 shadow-sm dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden group hover:-translate-y-1 transition-transform duration-300 ${delay}`}
     >
       {/* Subtle Glow behind the card on hover */}
-      <div className={`absolute -inset-1 opacity-0 group-hover:opacity-15 blur-2xl transition-opacity duration-500 bg-gradient-to-br ${gradient} pointer-events-none`} />
+      <div className={`absolute -inset-1 opacity-0 group-hover:opacity-15 blur-xl transition-opacity duration-500 bg-gradient-to-br ${gradient} pointer-events-none`} />
       
       {/* Card Content */}
       <div className="relative flex flex-col items-center justify-center text-center h-full gap-2">

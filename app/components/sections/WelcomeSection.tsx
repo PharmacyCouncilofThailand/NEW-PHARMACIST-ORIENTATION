@@ -6,9 +6,8 @@ import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
@@ -106,6 +105,7 @@ const WelcomeCard = memo(function WelcomeCard({
 export default function WelcomeSection() {
   const { t } = useLang();
   const [visible, setVisible] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef<HTMLElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
 
@@ -159,7 +159,7 @@ export default function WelcomeSection() {
           <div className="text-center mb-10 md:mb-16 flex flex-col items-center justify-center">
             <h2 className="text-[clamp(1.8rem,3.5vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
               {t("welcome.title1")}{" "}
-              <span className="gradient-text-anim block sm:inline mt-1 sm:mt-0">{t("welcome.title2")}</span>
+              <span className="gradient-text-anim block sm:inline mt-1 sm:mt-0">{t(people[activeIndex].posKey)}</span>
             </h2>
           </div>
         </ScrollReveal>
@@ -181,29 +181,23 @@ export default function WelcomeSection() {
           </button>
 
           <Swiper
-            effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={"auto"}
+            spaceBetween={40}
             roundLengths={true}
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 0,
-              depth: 100,
-              modifier: 2.5,
-              slideShadows: false,
-            }}
             pagination={{ clickable: true }}
             navigation={{
               nextEl: '.welcome-nav-next',
               prevEl: '.welcome-nav-prev',
             }}
             loop={true}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
-            modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+            modules={[Pagination, Navigation, Autoplay]}
             className="w-full max-w-[1100px] !pb-14 pt-2"
           >
             {people.map((p, i) => (
