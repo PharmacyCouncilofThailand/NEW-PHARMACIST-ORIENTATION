@@ -38,7 +38,7 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70 md:bg-black/50 md:backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />

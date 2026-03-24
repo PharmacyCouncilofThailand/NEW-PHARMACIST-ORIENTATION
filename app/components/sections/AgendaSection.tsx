@@ -71,14 +71,16 @@ const days: DayData[] = [
 
 /* ───────── Agenda Item Sub-Components ───────── */
 
-const TimelineNode = memo(({ style, isHovered }: { style: any, isHovered: boolean }) => (
+type BadgeStyle = { bg: string; text: string; dot: string; border: string; glow: string };
+
+const TimelineNode = memo(({ style, isHovered }: { style: BadgeStyle, isHovered: boolean }) => (
   <div
     suppressHydrationWarning
     className="absolute left-[28px] md:left-1/2 w-4 h-4 rounded-full border-4 border-white dark:border-slate-900 bg-white z-20 
                   -translate-x-1/2 transform transition-all duration-500 ease-out flex items-center justify-center shadow-lg"
     style={isHovered ? { transform: 'translateX(-50%) scale(1.6)', borderColor: '#f1f5f9' } : { transform: 'translateX(-50%) scale(1)' }}
   >
-    <div className={`w-2.5 h-2.5 rounded-full ${style.dot} ${isHovered ? 'animate-pulse' : ''} transition-all duration-300`} />
+    <div className={`w-2.5 h-2.5 rounded-full ${style.dot} ${isHovered ? 'animate-pulse' : ''} transition-colors duration-300`} />
   </div>
 ));
 
@@ -92,7 +94,7 @@ const AgendaContent = memo(({
   event: TimelineEvent; 
   isExpanded: boolean; 
   isGrouped: boolean;
-  style: any;
+  style: BadgeStyle;
   t: (k: string) => string 
 }) => {
   return (
@@ -116,7 +118,7 @@ const AgendaContent = memo(({
                 </div>
              </div>
              
-             <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isExpanded ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`}>
+             <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isExpanded ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`}>
                 <div className="overflow-hidden">
                   <div className={`pt-4 border-t border-slate-100 dark:border-slate-800`}>
                      <div className="flex flex-col sm:flex-row gap-6 items-start justify-between">
@@ -231,7 +233,7 @@ const AgendaItem = memo(({
 
       {/* Content Card */}
       <div className={`flex-1 pl-16 md:pl-0 mt-6 md:mt-0 ${isEven ? 'md:pl-16' : 'md:pr-16'} relative z-10`}>
-          <div className={`relative p-6 md:p-8 rounded-3xl backdrop-blur-xl ${event.isHighlight ? 'bg-purple-50/80 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 shadow-[0_8px_30px_rgba(168,85,247,0.2)]' : 'bg-white/70 dark:bg-slate-900/70 border border-white/40 dark:border-slate-700/50 shadow-xl'} transition-all duration-500 cursor-pointer overflow-hidden ${isHovered ? `shadow-2xl -translate-y-2 ${style.glow}` : event.isHighlight ? 'hover:bg-purple-100/80 dark:hover:bg-purple-900/40' : 'hover:bg-white'} ${isExpanded ? 'ring-2 ring-violet-500/50' : ''}`}>
+          <div className={`relative p-6 md:p-8 rounded-3xl md:backdrop-blur-xl ${event.isHighlight ? 'bg-purple-50/80 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 shadow-[0_8px_30px_rgba(168,85,247,0.2)]' : 'bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700/50 shadow-xl'} transition-transform transition-shadow duration-500 cursor-pointer overflow-hidden ${isHovered ? `-translate-y-2 shadow-2xl ${style.glow}` : ''} ${isExpanded ? 'ring-2 ring-violet-500/50' : ''}`}>
              
              {/* Gradient Shine Effect */}
              <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/0 dark:from-white/5 dark:to-transparent pointer-events-none" />
@@ -270,15 +272,15 @@ export default function AgendaSection() {
   }, []);
 
   return (
-    <section id="agenda" className="scroll-mt-40 min-h-screen py-24 relative z-10 overflow-hidden bg-slate-50/50 dark:bg-[#0B0F19]">
+    <section id="agenda" className="scroll-mt-40 min-h-screen py-16 md:py-24 lg:py-32 relative z-10 overflow-hidden bg-slate-50/50 dark:bg-[#0B0F19]">
       {/* Premium Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-violet-100/40 via-transparent to-transparent dark:from-violet-900/20 pointer-events-none" />
       <div className="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <ScrollReveal variant="blur">
+        <ScrollReveal variant="fade-up">
           <div className="text-center mb-20">
-            <h2 className="text-[clamp(3rem,6vw,5rem)] font-black mb-6 tracking-tighter text-slate-900 dark:text-white leading-[1.1]">
+            <h2 className="text-[clamp(2.2rem,4.5vw,3.8rem)] font-black mb-6 tracking-tighter text-slate-900 dark:text-white leading-[1.1]">
               {t("agenda.title1")}<br/>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400">
                 {t("agenda.title2") || "Event Timeline"}

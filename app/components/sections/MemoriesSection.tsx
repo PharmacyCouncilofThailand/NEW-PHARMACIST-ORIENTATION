@@ -34,7 +34,7 @@ const MarqueeColumn = ({ items, direction = "up", speed = "40s", t }: { items: M
 
       {/* Moving Container */}
       <div
-        className={`flex flex-col gap-6 ${direction === "up" ? "animate-marquee-up" : "animate-marquee-down"} hover:[animation-play-state:paused] will-change-transform`}
+        className={`flex flex-col gap-6 ${direction === "up" ? "animate-marquee-up" : "animate-marquee-down"} hover:[animation-play-state:paused]`}
         style={{ animationDuration: speed, transform: "translateZ(0)" }}
       >
         {[...items, ...items].map((mem, i) => (
@@ -46,7 +46,7 @@ const MarqueeColumn = ({ items, direction = "up", speed = "40s", t }: { items: M
                   alt={mem.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-110 will-change-transform"
+                  className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-110"
                   loading="lazy"
                 />
               </div>
@@ -74,7 +74,7 @@ const MarqueeColumn = ({ items, direction = "up", speed = "40s", t }: { items: M
 export default function MemoriesSection() {
   const { t } = useLang();
   return (
-    <section id="memories" className="scroll-mt-40 relative py-32 z-10 overflow-hidden transform-gpu">
+    <section id="memories" className="scroll-mt-40 relative py-16 md:py-24 lg:py-32 z-10 overflow-hidden transform-gpu">
       {/* Background - using consistent aurora opacity */}
       <div className="absolute inset-0 aurora-bg opacity-20 pointer-events-none" />
 
@@ -82,10 +82,10 @@ export default function MemoriesSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 to-transparent" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        <ScrollReveal variant="blur">
+        <ScrollReveal variant="fade-up">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8 text-center md:text-left">
             <div className="max-w-xl">
-              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
+              <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
                  {t("memories.title1")}<br />
                  <span className="gradient-text-anim">{t("memories.title2")}</span>
               </h2>

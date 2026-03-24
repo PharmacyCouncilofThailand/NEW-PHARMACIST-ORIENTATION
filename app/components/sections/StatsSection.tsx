@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, memo } from "react";
 import { useLang } from "../../contexts/LangContext";
 
 // Hook นี้นับค่าจาก 0 ไปถึง end อย่างรวดเร็วแล้วค้างไว้
-function useCountUp(end: number, duration: number = 2000) {
+export function useCountUp(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -37,7 +37,7 @@ function useCountUp(end: number, duration: number = 2000) {
   return { count, ref };
 }
 
-interface StatItemProps {
+export interface StatItemProps {
   end: number;
   suffix: string;
   label: string;
@@ -46,13 +46,13 @@ interface StatItemProps {
   gradient: string;
 }
 
-const StatItem = memo(function StatItem({ end, suffix, label, delay, icon, gradient }: StatItemProps) {
+export const StatItem = memo(function StatItem({ end, suffix, label, delay, icon, gradient }: StatItemProps) {
   const { count, ref } = useCountUp(end, 2500);
 
   return (
     <div 
       ref={ref}
-      className={`relative p-3 sm:p-4 rounded-2xl bg-white/5 dark:bg-slate-900/40 backdrop-blur-xl border border-white/40 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden group hover:-translate-y-1 transition-all duration-300 will-change-transform ${delay}`}
+      className={`relative p-3 sm:p-4 rounded-2xl bg-white/5 dark:bg-slate-900/40 md:backdrop-blur-xl border border-white/40 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden group hover:-translate-y-1 transition-transform duration-300 ${delay}`}
     >
       {/* Subtle Glow behind the card on hover */}
       <div className={`absolute -inset-1 opacity-0 group-hover:opacity-15 blur-2xl transition-opacity duration-500 bg-gradient-to-br ${gradient} pointer-events-none`} />
@@ -85,10 +85,10 @@ const StatItem = memo(function StatItem({ end, suffix, label, delay, icon, gradi
   );
 });
 
-export default function StatsSection() {
+export function useStatsData() {
   const { lang } = useLang();
 
-  const stats = [
+  return [
     {
       end: 2000,
       suffix: "+",
@@ -163,9 +163,13 @@ export default function StatsSection() {
       )
     },
   ];
+}
+
+export default function StatsSection() {
+  const stats = useStatsData();
 
   return (
-    <section className="relative z-30 py-12 sm:py-16 px-4 sm:px-6 max-w-[1000px] mx-auto w-full">
+    <section className="relative z-30 py-12 md:py-16 lg:py-20 px-4 sm:px-6 max-w-[1000px] mx-auto w-full xl:hidden">
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {stats.map((stat, i) => (
           <StatItem key={i} {...stat} />

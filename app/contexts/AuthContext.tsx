@@ -16,11 +16,23 @@ interface AuthUser {
   name?: string;
 }
 
+interface RegisterData {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+  thaiId?: string;
+  licenseId?: string;
+  organization?: string;
+  university?: string;
+  phone?: string;
+}
+
 interface AuthContextType {
   user: AuthUser | null;
   isLoggedIn: boolean;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (data: any) => Promise<boolean>;
+  register: (data: RegisterData) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -73,7 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const register = useCallback(async (data: any): Promise<boolean> => {
+  const register = useCallback(async (data: RegisterData): Promise<boolean> => {
     const { email, password, firstName, lastName, thaiId, licenseId, organization, university, phone } = data;
     if (!email || !password) return false;
 

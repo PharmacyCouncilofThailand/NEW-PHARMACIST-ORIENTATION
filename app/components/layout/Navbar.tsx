@@ -208,7 +208,7 @@ export default function Navbar() {
             </button>
 
             {/* Desktop Links */}
-            <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+            <div className="hidden xl:flex items-center gap-0.5 xl:gap-1">
               {navLinks.map((link) => {
                 const sectionId = link.href.replace("#", "");
                 const isActive = activeSection === sectionId;
@@ -232,7 +232,7 @@ export default function Navbar() {
             </div>
 
             {/* Right Actions */}
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden xl:flex items-center gap-2">
 
               {/* Language Toggle */}
               <button
@@ -380,7 +380,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Toggle */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex xl:hidden items-center gap-2">
               {/* Mobile Language */}
               <button
                 onClick={toggleLang}
