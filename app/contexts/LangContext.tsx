@@ -91,57 +91,47 @@ const translations: Record<string, Record<Lang, string>> = {
   // Speaker Section
   "speaker.badge": { TH: "🎤 วิทยากร", EN: "🎤 Speakers" },
   "speaker.title1": { TH: "", EN: "" },
-  "speaker.title2": { TH: "รายชื่อวิทยากรรับเชิญทั้ง 9 ท่าน", EN: "All 9 Guest Speakers" },
+  "speaker.title2": { TH: "รายชื่อวิทยากรรับเชิญทั้ง 7 ท่าน", EN: "All 7 Guest Speakers" },
   "speaker.subtitle": { TH: "ผู้ทรงคุณวุฒิที่จะมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ", EN: "Experts who will share their experiences and inspiration." },
   "speaker.clickHint": { TH: "คลิกเพื่อดูข้อมูล", EN: "Click to flip" },
   "speaker.back": { TH: "กลับหน้าบัตร", EN: "Back" },
   "speaker.note": { TH: "*รายนามวิทยากรอาจมีการเปลี่ยนแปลง", EN: "*Speaker list is subject to change" },
+
+  "speaker.s1.name": { TH: "รศ.ภญ.สุณี เลิศสินอุดม", EN: "Assoc. Prof. Sunee Lertsinudom" },
+  "speaker.s1.position": { TH: "เลขาธิการสภาเภสัชกรรม", EN: "Secretary-General of the Pharmacy Council" },
+  "speaker.s1.topic": { TH: "สารจากเลขาธิการ", EN: "Message from Secretary-General" },
+  "speaker.s1.desc": { TH: "กล่าวให้โอวาทและชี้แนะแนวทางการประกอบวิชาชีพเภสัชกรรม", EN: "Delivering advice and guidance on practicing pharmacy." },
   
-  "speaker.s1.name": { TH: "ภก. ปรีชา พันธุ์ติเวช", EN: "Pharm. Preecha Bhandtivej" },
-  "speaker.s1.position": { TH: "นายกสภาเภสัชกรรม", EN: "President of the Pharmacy Council" },
-  "speaker.s1.topic": { TH: "เปิดมุมมองวิชาชีพ", EN: "Professional Perspective" },
-  "speaker.s1.desc": { TH: "กล่าวให้โอวาทและชี้แนะแนวทางการประกอบวิชาชีพเภสัชกรรมในยุคดิจิทัล", EN: "Delivering advice and guidance on practicing pharmacy in the digital age." },
-  
-  "speaker.s2.name": { TH: "ภญ. โฉมคนางค์ ภูมิสายดร", EN: "Pharm. Chomkhanang Phumsaidorn" },
-  "speaker.s2.position": { TH: "ประชาสัมพันธ์และโฆษกสภาฯ", EN: "PR & Spokesperson" },
-  "speaker.s2.topic": { TH: "ต้อนรับและภาพรวม", EN: "Welcome & Overview" },
-  "speaker.s2.desc": { TH: "กล่าวต้อนรับและให้ข้อมูลภาพรวมกิจกรรมตลอดทั้งวันของการปฐมนิเทศ", EN: "Welcoming remarks and providing an overview of the orientation's activities." },
-  
-  "speaker.s3.name": { TH: "วิทยากรรับเชิญพิเศษ 1", EN: "Special Guest Speaker 1" },
-  "speaker.s3.position": { TH: "ผู้เชี่ยวชาญด้านเภสัชกรรม", EN: "Pharmacy Expert" },
-  "speaker.s3.topic": { TH: "Expert Insight", EN: "Expert Insight" },
-  "speaker.s3.desc": { TH: "แบ่งปันประสบการณ์และมุมมองเพื่อสร้างแรงบันดาลใจในการทำงาน", EN: "Sharing experiences and perspectives to inspire you in your career." },
+  "speaker.s2.name": { TH: "ภญ.ชนากิต อิ่มบำรุง", EN: "Pharm. Chanakrit Imbamrung" },
+  "speaker.s2.position": { TH: "ร้านยาพรประสิทธิ์", EN: "Pornprasit Pharmacy" },
+  "speaker.s2.topic": { TH: "เภสัชกรชุมชน", EN: "Community Pharmacist" },
+  "speaker.s2.desc": { TH: "ประสบการณ์การทำงานในร้านยาชุมชน สู่การพัฒนาวิชาชีพอย่างต่อเนื่อง", EN: "Experience in community pharmacy practice and continuous professional development." },
 
-  "speaker.s4.name": { TH: "วิทยากรรับเชิญพิเศษ 2", EN: "Special Guest Speaker 2" },
-  "speaker.s4.position": { TH: "นักวิจัยอาวุโส", EN: "Senior Researcher" },
-  "speaker.s4.topic": { TH: "การวิจัยสมัยใหม่", EN: "Modern Research" },
-  "speaker.s4.desc": { TH: "เรื่องราวจากการวิจัยสู่การปฏิบัติจริง", EN: "Stories from research to actual practice." },
+  "speaker.s3.name": { TH: "ภญ.ชนิตรา อินทร์ศิริ", EN: "Pharm. Chanitra Insiri" },
+  "speaker.s3.position": { TH: "ศูนย์การแพทย์สมเด็จพระเทพฯ", EN: "HRH Princess Maha Chakri Sirindhorn Medical Center" },
+  "speaker.s3.topic": { TH: "เภสัชกรโรงพยาบาล", EN: "Hospital Pharmacist" },
+  "speaker.s3.desc": { TH: "บทบาทเภสัชกรในโรงพยาบาล สู่การดูแลผู้ป่วยอย่างครบวงจร", EN: "The role of hospital pharmacists in comprehensive patient care." },
 
-  "speaker.s5.name": { TH: "วิทยากรรับเชิญพิเศษ 3", EN: "Special Guest Speaker 3" },
-  "speaker.s5.position": { TH: "เภสัชกรชุมชน", EN: "Community Pharmacist" },
-  "speaker.s5.topic": { TH: "การดูแลผู้ป่วยในชุมชน", EN: "Community Patient Care" },
-  "speaker.s5.desc": { TH: "บทบาทของเภสัชกรในการสร้างเสริมสุขภาพระบบปฐมภูมิ", EN: "The role of pharmacists in primary care health promotion." },
+  "speaker.s4.name": { TH: "วิทยากรรับเชิญ", EN: "Guest Speaker" },
+  "speaker.s4.position": { TH: "ยังไม่ยืนยัน", EN: "TBC" },
+  "speaker.s4.topic": { TH: "TBC", EN: "TBC" },
+  "speaker.s4.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
 
-  "speaker.s6.name": { TH: "วิทยากรรับเชิญพิเศษ 4", EN: "Special Guest Speaker 4" },
-  "speaker.s6.position": { TH: "ผู้บริหารโรงพยาบาล", EN: "Hospital Administrator" },
-  "speaker.s6.topic": { TH: "การบริหารจัดการ", EN: "Management" },
-  "speaker.s6.desc": { TH: "เส้นทางการเติบโตในสายบริหาร", EN: "Growth paths in the administrative track." },
+  "speaker.s5.name": { TH: "วิทยากรรับเชิญ", EN: "Guest Speaker" },
+  "speaker.s5.position": { TH: "ยังไม่ยืนยัน", EN: "TBC" },
+  "speaker.s5.topic": { TH: "TBC", EN: "TBC" },
+  "speaker.s5.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
 
-  "speaker.s7.name": { TH: "วิทยากรรับเชิญพิเศษ 5", EN: "Special Guest Speaker 5" },
-  "speaker.s7.position": { TH: "ผู้อำนวยการด้านคุณภาพ", EN: "Quality Director" },
-  "speaker.s7.topic": { TH: "คุณภาพและความปลอดภัย", EN: "Quality & Safety" },
-  "speaker.s7.desc": { TH: "การคงมาตรฐานคุณภาพในการผลิตและจ่ายยา", EN: "Maintaining quality standards in manufacturing and dispensing." },
+  "speaker.s6.name": { TH: "ภก.นิชนนท์ ชาวเรา", EN: "Pharm. Nichanon Chaorao" },
+  "speaker.s6.position": { TH: "สสจ.สมุทรสงคราม", EN: "Samut Songkhram PHO" },
+  "speaker.s6.topic": { TH: "เภสัชกรภาครัฐ", EN: "Public Sector Pharmacist" },
+  "speaker.s6.desc": { TH: "ประสบการณ์การทำงานในสำนักงานสาธารณสุขจังหวัด", EN: "Experience working in the Provincial Health Office." },
 
-  "speaker.s8.name": { TH: "วิทยากรรับเชิญพิเศษ 6", EN: "Special Guest Speaker 6" },
-  "speaker.s8.position": { TH: "ผู้เชี่ยวชาญเทคโนโลยีสุขภาพ", EN: "Health Tech Expert" },
-  "speaker.s8.topic": { TH: "เทคโนโลยีกับเภสัชกรรม", EN: "Tech & Pharmacy" },
-  "speaker.s8.desc": { TH: "แนวโน้มและโอกาสของเทคโนโลยีในวงการเภสัชกรรม", EN: "Trends and opportunities of tech in the pharmacy industry." },
+  "speaker.s7.name": { TH: "วิทยากรรับเชิญ", EN: "Guest Speaker" },
+  "speaker.s7.position": { TH: "ยังไม่ยืนยัน", EN: "TBC" },
+  "speaker.s7.topic": { TH: "TBC", EN: "TBC" },
+  "speaker.s7.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
 
-  "speaker.s9.name": { TH: "วิทยากรรับเชิญพิเศษ 7", EN: "Special Guest Speaker 7" },
-  "speaker.s9.position": { TH: "เภสัชกรอุตสาหการ", EN: "Industrial Pharmacist" },
-  "speaker.s9.topic": { TH: "อุตสาหกรรมยา", EN: "Pharmaceutical Industry" },
-  "speaker.s9.desc": { TH: "การทำงานในสายอุตสาหกรรมยาระดับนานาชาติ", EN: "Working in the international pharmaceutical industry." },
-  
   "speaker.tag.president": { TH: "นายกสภาฯ", EN: "President" },
   "speaker.tag.pharmacy": { TH: "วิชาชีพเภสัชกรรม", EN: "Pharmacy" },
   "speaker.tag.ceremony": { TH: "พิธีการ", EN: "Ceremony" },
@@ -188,10 +178,10 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.scheduleLabel": { TH: "กำหนดการ", EN: "Schedule" },
 
   // Agenda Duration labels
-  "agenda.dur.5min": { TH: "5 นาที", EN: " min" },
+  "agenda.dur.5min": { TH: "5 นาที", EN: "5 min" },
   "agenda.dur.30min": { TH: "30 นาที", EN: "30 min" },
   "agenda.dur.40min": { TH: "40 นาที", EN: "40 min" },
-
+  "agenda.dur.60min": { TH: "60 นาที", EN: "60 min" },
   "agenda.dur.130min": { TH: "130 นาที", EN: "130 min" },
   "agenda.dur.150min": { TH: "150 นาที", EN: "2.5 hrs" },
 
@@ -205,24 +195,38 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.d1e2.meta": { TH: "ทีมงานสภาเภสัชกรรม", EN: "Pharmacy Council Team" },
 
   "agenda.d1e3.title": { TH: "กล่าวต้อนรับ", EN: "Opening Remarks" },
-  "agenda.d1e3.desc": { TH: "กล่าวต้อนรับผู้ร่วมงานและชี้แจงกำหนดการ", EN: "Welcome remarks and schedule explanation." },
+  "agenda.d1e3.desc": { TH: "พิธีกรกล่าวต้อนรับผู้ร่วมงาน และแจ้งกำหนดการ", EN: "Welcome remarks and schedule explanation." },
   "agenda.d1e3.meta": { TH: "ภญ.โฉมคนางค์ ภูมิสายดร (ประชาสัมพันธ์และโฆษกสภาฯ)", EN: "Pharm. Chomkhanang Phumsaidorn (PR & Spokesperson)" },
 
-  "agenda.d1e4.title": { TH: "กล่าวเปิดงานและให้โอวาท", EN: "Opening Ceremony & Advice" },
-  "agenda.d1e4.desc": { TH: "กล่าวให้โอวาทแก่น้องเภสัชกรใหม่ในการก้าวเข้าสู่วิชาชีพ", EN: "Address and advice for new pharmacists entering the profession." },
+  "agenda.d1e4.title": { TH: "พิธีเปิดและกล่าวให้โอวาท", EN: "Opening Ceremony & Address" },
+  "agenda.d1e4.desc": { TH: "พิธีเปิดและกล่าวให้โอวาทเภสัชกรใหม่ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรม", EN: "Opening ceremony and address for new pharmacists entering the profession." },
   "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช (นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej (President)" },
 
   "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
   "agenda.d1e5.desc": { TH: "พิธีมอบใบอนุญาตเป็นผู้ประกอบวิชาชีพเภสัชกรรม", EN: "Professional Pharmacy License Presentation Ceremony." },
   "agenda.d1e5.meta": { TH: "คณะผู้บริหารสภาเภสัชกรรม", EN: "Pharmacy Council Executives" },
 
-  "agenda.d1e6.title": { TH: "Expert Insight Session", EN: "Expert Insight Session" },
-  "agenda.d1e6.desc": { TH: "การบรรยายพิเศษจากผู้เชี่ยวชาญ", EN: "Special lecture from experts." },
-  "agenda.d1e6.meta": { TH: "วิทยากรรับเชิญพิเศษ", EN: "Special Guest Speaker" },
+  "agenda.d1evt.title": { TH: "VTR แนะนำกรรมการสภาเภสัชกรรม", EN: "VTR: Pharmacy Council Committee Introduction" },
+  "agenda.d1evt.desc": { TH: "แนะนำกรรมการสภาเภสัชกรรมและบทบาทของแต่ละท่าน", EN: "Introduction to the Pharmacy Council committee members and their roles." },
 
-  "agenda.d1e7.title": { TH: "ปิดงาน", EN: "Closing Session" },
-  "agenda.d1e7.desc": { TH: "สรุปภาพรวมกิจกรรมและปิดงาน", EN: "Event wrap-up and closing." },
-  "agenda.d1e7.meta": { TH: "ทีมงานสภาเภสัชกรรม", EN: "Pharmacy Council Team" },
+  "agenda.d1e6.title": { TH: "สิทธิหน้าที่สมาชิก & บริการสำนักงาน", EN: "Member Rights & Office Services" },
+  "agenda.d1e6.desc": { TH: "สิทธิหน้าที่ของสมาชิก การให้บริการสำนักงานเลขาฯ ระบบ E-service การศึกษาต่อเนื่อง ความก้าวหน้าสายงาน Telehealth และกฎหมายวิชาชีพ", EN: "Member rights and duties, secretariat services, E-service, continuing education, career progression, Telehealth, and professional law." },
+  "agenda.d1e6.meta": { TH: "รศ.ภญ.สุณี เลิศสินอุดม (เลขาธิการสภาเภสัชกรรม)", EN: "Assoc. Prof. Sunee Lertsinudom (Secretary-General)" },
+
+  "agenda.d1e7.title": { TH: "Panel Discussion: แลกเปลี่ยนประสบการณ์วิชาชีพ", EN: "Panel Discussion: Professional Experience Exchange" },
+  "agenda.d1e7.desc": { TH: "แลกเปลี่ยนประสบการณ์วิชาชีพจากเภสัชกรหลากหลายสาขา ร้านยา โรงพยาบาล อุตสาหกรรม การตลาด และภาครัฐ", EN: "Professional experience sharing from pharmacists across community pharmacy, hospital, industry, marketing, and public sectors." },
+  "agenda.d1e7.meta": { 
+    TH: "วิทยากร:\n- ภญ.ชนากิต อิ่มบำรุง (ร้านยาพรประสิทธิ์)\n- ภญ.ชนิตรา อินทร์ศิริ (ศูนย์การแพทย์สมเด็จพระเทพฯ)\n- ภก.นิชนนท์ ชาวเรา (สสจ.สมุทรสงคราม)\n\nพิธีกร:\n- ภก.พงษ์ศิวะ กู่นอก (ผู้ช่วยเลขาธิการสภาฯ)", 
+    EN: "Speakers:\n- Pharm. Chanakit Imbamrung\n- Pharm. Chanitra Insiri\n- Pharm. Nichanon Chaorao\n\nMC:\n- Pharm. Phongsiva Kunok" 
+  },
+
+  "agenda.d1e8.title": { TH: "ทำงานอย่างไรไม่ให้ Burn Out", EN: "How to Work Without Burning Out" },
+  "agenda.d1e8.desc": { TH: "เทคนิคการดูแลสุขภาพจิตและป้องกันภาวะ Burn Out สำหรับเภสัชกรใหม่", EN: "Mental health tips and Burn Out prevention techniques for new pharmacists." },
+  "agenda.d1e8.meta": { TH: "ภก.ณภัทร สัตยุตม์ (บีน Nudge Thailand)", EN: "Pharm. Napat Sattayut (Bean, Nudge Thailand)" },
+
+  "agenda.d1e9.title": { TH: "Closing Activity & ลุ้นรางวัล", EN: "Closing Activity & Lucky Draw" },
+  "agenda.d1e9.desc": { TH: "กิจกรรมร่วมสนุก ลุ้นรับของรางวัล และปิดงาน", EN: "Fun closing activities, lucky draw prizes, and event closing." },
+  "agenda.d1e9.meta": { TH: "ทีมงานสภาเภสัชกรรม", EN: "Pharmacy Council Team" },
 
   // Memories Section
   "memories.badge": { TH: " ภาพบรรยากาศ", EN: "Gallery" },
