@@ -298,12 +298,7 @@ export default function SpeakerSection() {
           `}</style>
         </div>
 
-        {/* Bottom note */}
-        <ScrollReveal variant="fade-up" delay={400}>
-          <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-10">
-            {t("speaker.note")}
-          </p>
-        </ScrollReveal>
+        {/* Bottom note removed as requested */}
       </div>
     </section>
   );

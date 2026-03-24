@@ -164,9 +164,6 @@ const AgendaContent = memo(({
                             } ${badgeStyles[subEvent.badgeColor]?.border || "border-current/20"} ${badgeStyles[subEvent.badgeColor]?.bg || "bg-current/5"}`}>
                                {t(subEvent.badgeKey)}
                             </span>
-                            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">
-                               {subEvent.time}
-                            </span>
                           </div>
                           <h4 className="text-lg font-bold text-slate-800 dark:text-slate-100">{t(subEvent.titleKey)}</h4>
                           <p className="text-sm mt-1 text-slate-500 dark:text-slate-400 leading-relaxed">{t(subEvent.descKey)}</p>
