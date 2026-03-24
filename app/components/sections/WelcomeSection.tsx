@@ -172,8 +172,8 @@ const GlassCardContent = ({ person }: { person: Person }) => {
         </motion.div>
         
         <motion.h2 variants={textItemVariants} className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-8 leading-[1.2] tracking-tight lg:text-left">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-blue-600 dark:from-violet-400 dark:to-blue-400 whitespace-nowrap lg:text-[clamp(1.5rem,5vw,3rem)] lg:text-5xl block">
-            {t(person.posKey)}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-blue-600 dark:from-violet-400 dark:to-blue-400 whitespace-nowrap lg:text-[clamp(1.5rem,5vw,3rem)] lg:text-5xl inline-block py-2 pr-4">
+            {t(person.posKey)}{"\u00A0"}
           </span>
           <span className="text-2xl sm:text-3xl lg:text-4xl text-slate-800 dark:text-slate-200 mt-3 block font-bold leading-snug">
             {t(person.nameKey)}
