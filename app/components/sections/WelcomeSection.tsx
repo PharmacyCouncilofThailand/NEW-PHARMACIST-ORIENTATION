@@ -336,7 +336,7 @@ export default function WelcomeSection() {
                 exit="exit"
                 className="relative flex flex-row items-center w-full"
               >
-                <GlassCardContent person={people[index]} />
+                <GlassCardContent person={people[index] || people[0]} />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -359,7 +359,7 @@ export default function WelcomeSection() {
         <div ref={headlineRefMobile} className="text-center mb-10 md:mb-16 flex flex-col items-center justify-center">
           <h2 className="text-[clamp(1.8rem,3.5vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
             {t("welcome.title1")}{" "}
-            <span className="gradient-text-anim whitespace-nowrap inline-block mt-1 sm:mt-0">{t(people[index].posKey)}</span>
+            <span className="gradient-text-anim whitespace-nowrap inline-block mt-1 sm:mt-0">{t((people[index] || people[0]).posKey)}</span>
           </h2>
         </div>
 
