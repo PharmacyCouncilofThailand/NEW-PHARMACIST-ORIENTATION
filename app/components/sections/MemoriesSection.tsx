@@ -1,8 +1,12 @@
 "use client";
 
-import ScrollReveal from "../scroll/ScrollReveal";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "../../contexts/LangContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Memory {
   img: string;
@@ -24,15 +28,11 @@ const rawMemories: Memory[] = [
   { img: "/recent-photos/FE540C7BDE9AEB1B564C7BD4961B4BEB964BDA37.jpeg", year: "2026", title: "memories.photo.title", desc: "memories.photo.desc" },
 ];
 
-// Pre-computed reversed array (avoids re-creating on every render)
 const reversedMemories = [...rawMemories].reverse();
 
 const MarqueeColumn = ({ items, direction = "up", speed = "40s", t }: { items: Memory[]; direction?: "up" | "down"; speed?: string; t: (key: string) => string }) => {
   return (
     <div className="relative h-[650px] overflow-hidden group [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]">
-
-
-      {/* Moving Container */}
       <div
         className={`flex flex-col gap-6 ${direction === "up" ? "animate-marquee-up" : "animate-marquee-down"} hover:[animation-play-state:paused]`}
         style={{ animationDuration: speed, transform: "translateZ(0)" }}
@@ -73,8 +73,28 @@ const MarqueeColumn = ({ items, direction = "up", speed = "40s", t }: { items: M
 
 export default function MemoriesSection() {
   const { t } = useLang();
+  const sectionRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(headlineRef.current, {
+        scrollTrigger: {
+          trigger: headlineRef.current,
+          start: "top 85%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="memories" className="scroll-mt-40 relative py-16 md:py-24 lg:py-32 z-10 overflow-hidden transform-gpu">
+    <section id="memories" ref={sectionRef} className="scroll-mt-40 relative py-16 md:py-24 lg:py-32 z-10 overflow-hidden transform-gpu">
       {/* Background - using consistent aurora opacity */}
       <div className="absolute inset-0 aurora-bg opacity-20 pointer-events-none" />
 
@@ -82,16 +102,14 @@ export default function MemoriesSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 to-transparent" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        <ScrollReveal variant="fade-up">
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8 text-center md:text-left">
-            <div className="max-w-xl">
-              <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
-                 {t("memories.title1")}<br />
-                 <span className="gradient-text-anim">{t("memories.title2")}</span>
-              </h2>
-            </div>
+        <div ref={headlineRef} className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8 text-center md:text-left">
+          <div className="max-w-xl">
+            <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
+               {t("memories.title1")}<br />
+               <span className="gradient-text-anim">{t("memories.title2")}</span>
+            </h2>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Gallery */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">

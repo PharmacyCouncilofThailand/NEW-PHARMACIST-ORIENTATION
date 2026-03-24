@@ -1,7 +1,11 @@
 "use client";
 
-import ScrollReveal from "../scroll/ScrollReveal";
+import { useRef, useEffect } from "react";
 import { useLang } from "../../contexts/LangContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ข้อมูลสปอนเซอร์
 const sponsors = [
@@ -17,17 +21,32 @@ const marqueeItems = Array(12).fill(sponsors).flat();
 // แถวที่ 2 — ลำดับสลับกัน
 const marqueeItemsRow2 = [...marqueeItems].reverse();
 
-
-
-
-
-
 export default function SponsorSection() {
   const { t } = useLang();
+  const sectionRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(headlineRef.current, {
+        scrollTrigger: {
+          trigger: headlineRef.current,
+          start: "top 85%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="sponsors"
+      ref={sectionRef}
       className="flex flex-col justify-center relative py-10 sm:py-14 z-10 overflow-hidden"
     >
       {/* Aurora background */}
@@ -38,19 +57,17 @@ export default function SponsorSection() {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 relative z-10 w-full">
         {/* Heading */}
-        <ScrollReveal variant="fade-up">
-          <div className="text-center mb-6 md:mb-10">
-            <h2 className="text-[clamp(1.5rem,3.5vw,3rem)] font-black leading-tight tracking-tight text-slate-900 dark:text-white mb-3 md:mb-8">
-              {t("sponsor.title1")}{" "}
-              <span className="gradient-text-anim">
-                {t("sponsor.title2")}
-              </span>
-            </h2>
-            <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 whitespace-nowrap mx-auto">
-              {t("sponsor.subtitle")}
-            </p>
-          </div>
-        </ScrollReveal>
+        <div ref={headlineRef} className="text-center mb-6 md:mb-10">
+          <h2 className="text-[clamp(1.5rem,3.5vw,3rem)] font-black leading-tight tracking-tight text-slate-900 dark:text-white mb-3 md:mb-8">
+            {t("sponsor.title1")}{" "}
+            <span className="gradient-text-anim">
+              {t("sponsor.title2")}
+            </span>
+          </h2>
+          <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 whitespace-nowrap mx-auto">
+            {t("sponsor.subtitle")}
+          </p>
+        </div>
 
         {/* Marquee Row 1 */}
         <div className="relative">
@@ -67,7 +84,7 @@ export default function SponsorSection() {
               {marqueeItems.map((s, i) => (
                 <div
                   key={`${s.id}-${i}`}
-                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none"
+                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
                 >
                   <div className="flex items-center justify-center">
                     {s.image ? (
@@ -106,7 +123,7 @@ export default function SponsorSection() {
               {marqueeItemsRow2.map((s, i) => (
                 <div
                   key={`r2-${s.id}-${i}`}
-                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none"
+                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
                 >
                   <div className="flex items-center justify-center">
                     {s.image ? (

@@ -2,8 +2,12 @@
 
 import { useState, useCallback, useRef, useEffect, memo } from "react";
 import Image from "next/image";
-import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /* ────────────────────── types ────────────────────── */
 interface TimelineEvent {
@@ -111,11 +115,15 @@ const AgendaContent = memo(({
                       {t(event.descKey)}
                     </p>
                 </div>
-                <div className={`transition-transform duration-500 mt-1 shrink-0 text-slate-400 bg-slate-100 dark:bg-slate-700 p-2 rounded-full ${isExpanded ? "rotate-180 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400" : ""}`}>
+                <motion.div 
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`transition-transform duration-500 mt-1 shrink-0 text-slate-400 bg-slate-100 dark:bg-slate-700 p-2 rounded-full ${isExpanded ? "rotate-180 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400" : ""}`}
+                >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
-                </div>
+                </motion.div>
              </div>
              
              <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isExpanded ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`}>
@@ -137,9 +145,9 @@ const AgendaContent = memo(({
                        </div>
                        
                        {event.speakerImage && (
-                          <div className="shrink-0 hidden sm:block relative group-hover:scale-105 transition-transform duration-500">
+                          <motion.div whileHover={{ scale: 1.05 }} className="shrink-0 hidden sm:block relative transition-transform duration-500">
                             <Image src={event.speakerImage} alt="Speaker" width={96} height={96} className="relative w-24 h-24 rounded-2xl object-cover shadow-xl border-2 border-white dark:border-slate-700" />
-                          </div>
+                          </motion.div>
                        )}
                      </div>
                   </div>
@@ -154,7 +162,11 @@ const AgendaContent = memo(({
 
             <div className="space-y-4">
               {event.nestedEvents.map((subEvent, subIndex) => (
-                <div key={subEvent.id} className={`group/sub relative flex gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 border border-transparent hover:border-slate-200 dark:hover:border-slate-700`}>
+                <motion.div 
+                  whileHover={{ scale: 1.01, x: 4 }}
+                  key={subEvent.id} 
+                  className={`group/sub relative flex gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 border border-transparent hover:border-slate-200 dark:hover:border-slate-700`}
+                >
                    <div className="flex-1">
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex-1">
@@ -182,7 +194,7 @@ const AgendaContent = memo(({
                         )}
                       </div>
                    </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -205,7 +217,7 @@ const AgendaItem = memo(({
 
   return (
     <div 
-      className={`relative flex w-full my-8 md:my-16 flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''}`}
+      className={`agenda-item-reveal relative flex w-full my-8 md:my-16 flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''}`}
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => toggleExpand(index)}
@@ -230,7 +242,10 @@ const AgendaItem = memo(({
 
       {/* Content Card */}
       <div className={`flex-1 pl-16 md:pl-0 mt-6 md:mt-0 ${isEven ? 'md:pl-16' : 'md:pr-16'} relative z-10`}>
-          <div className={`relative p-6 md:p-8 rounded-3xl md:backdrop-blur-xl ${event.isHighlight ? 'bg-purple-50/80 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 shadow-[0_8px_30px_rgba(168,85,247,0.2)]' : 'bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700/50 shadow-xl'} transition-transform transition-shadow duration-500 cursor-pointer overflow-hidden ${isHovered ? `-translate-y-2 shadow-2xl ${style.glow}` : ''} ${isExpanded ? 'ring-2 ring-violet-500/50' : ''}`}>
+          <motion.div 
+            whileHover={{ y: -8 }}
+            className={`relative p-6 md:p-8 rounded-3xl md:backdrop-blur-xl ${event.isHighlight ? 'bg-purple-50/80 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 shadow-[0_8px_30px_rgba(168,85,247,0.2)]' : 'bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700/50 shadow-xl'} transition-shadow duration-500 cursor-pointer overflow-hidden ${isHovered ? `shadow-2xl ${style.glow}` : ''} ${isExpanded ? 'ring-2 ring-violet-500/50' : ''}`}
+          >
              
              {/* Gradient Shine Effect */}
              <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/0 dark:from-white/5 dark:to-transparent pointer-events-none" />
@@ -252,7 +267,7 @@ const AgendaItem = memo(({
                  t={t}
                />
              </div>
-          </div>
+          </motion.div>
       </div>
     </div>
   );
@@ -263,46 +278,104 @@ export default function AgendaSection() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
   const currentDay = days[0];
   const { t } = useLang();
+  
+  const sectionRef = useRef<HTMLElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
 
   const toggleExpand = useCallback((idx: number) => {
     setExpandedIdx((prev) => (prev === idx ? null : idx));
   }, []);
 
+  // GSAP Scroll Animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Reveal Title
+      gsap.from(titleRef.current, {
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+
+      // 2. Timeline Line Growing
+      gsap.fromTo(lineRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 50%",
+            end: "bottom 80%",
+            scrub: 0.5,
+          }
+        }
+      );
+
+      // 3. Stagger individual items based on their scroll positions
+      const items = gsap.utils.toArray<HTMLElement>('.agenda-item-reveal');
+      items.forEach((item) => {
+        gsap.fromTo(item, 
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 80%",
+            }
+          }
+        );
+      });
+      
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="agenda" className="scroll-mt-40 min-h-screen py-16 md:py-24 lg:py-32 relative z-10 overflow-hidden bg-slate-50/50 dark:bg-[#0B0F19]">
+    <section id="agenda" ref={sectionRef} className="scroll-mt-40 min-h-screen py-16 md:py-24 lg:py-32 relative z-10 overflow-hidden bg-slate-50/50 dark:bg-[#0B0F19]">
       {/* Premium Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-violet-100/40 via-transparent to-transparent dark:from-violet-900/20 pointer-events-none" />
       <div className="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <ScrollReveal variant="fade-up">
-          <div className="text-center mb-20">
-            <h2 className="text-[clamp(2.2rem,4.5vw,3.8rem)] font-black mb-6 tracking-tighter text-slate-900 dark:text-white leading-[1.1]">
-              {t("agenda.title1")}<br/>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400">
-                {t("agenda.title2") || "Event Timeline"}
-              </span>
-            </h2>
-
-          </div>
-        </ScrollReveal>
+        <div ref={titleRef} className="text-center mb-20">
+          <h2 className="text-[clamp(2.2rem,4.5vw,3.8rem)] font-black mb-6 tracking-tighter text-slate-900 dark:text-white leading-[1.1]">
+            {t("agenda.title1")}<br/>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400">
+              {t("agenda.title2") || "Event Timeline"}
+            </span>
+          </h2>
+        </div>
 
         <div className="relative max-w-5xl mx-auto">
-            {/* The Vertical Timeline Line */}
-            <div className="absolute left-[35px] md:left-1/2 top-0 bottom-0 w-1.5 md:-translate-x-1/2 rounded-full bg-gradient-to-b from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
-            <div className="absolute left-[35px] md:left-1/2 top-0 bottom-0 w-1.5 md:-translate-x-1/2 rounded-full bg-gradient-to-b from-transparent via-violet-500/20 to-transparent blur-sm" />
+            {/* The Vertical Timeline Line Background */}
+            <div className="absolute left-[35px] md:left-1/2 top-0 bottom-0 w-1.5 md:-translate-x-1/2 rounded-full bg-slate-200/50 dark:bg-slate-800/50" />
+            
+            {/* GSAP Animated Growing Line */}
+            <div 
+              ref={lineRef}
+              className="absolute left-[35px] md:left-1/2 top-0 bottom-0 w-1.5 md:-translate-x-1/2 rounded-full bg-gradient-to-b from-violet-500 via-fuchsia-500 to-pink-500 origin-top shadow-[0_0_15px_rgba(139,92,246,0.5)] z-0" 
+            />
 
             <div className="space-y-4">
                 {currentDay.events.map((event, i) => (
-                  <ScrollReveal key={event.id} variant="fade-up" delay={i * 100}>
-                    <AgendaItem 
-                      event={event} 
-                      index={i} 
-                      expandedIdx={expandedIdx} 
-                      toggleExpand={toggleExpand} 
-                      t={t} 
-                    />
-                  </ScrollReveal>
+                  <AgendaItem 
+                    key={event.id}
+                    event={event} 
+                    index={i} 
+                    expandedIdx={expandedIdx} 
+                    toggleExpand={toggleExpand} 
+                    t={t} 
+                  />
                 ))}
             </div>
         </div>

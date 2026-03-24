@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLang } from "../../contexts/LangContext";
-import ScrollReveal from "../scroll/ScrollReveal";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // 25 Pharmacy Universities in Thailand
 const uniDataConfig = [
@@ -75,6 +78,39 @@ export default function UniversityStatsSection() {
   const { t } = useLang();
   const [countsMap, setCountsMap] = useState<Record<string, number>>({});
   const [isShortScreen, setIsShortScreen] = useState(false);
+  
+  const sectionRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const chartGroupRef = useRef<HTMLDivElement>(null);
+
+  // GSAP Animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(headlineRef.current, {
+        scrollTrigger: {
+          trigger: headlineRef.current,
+          start: "top 85%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+
+      gsap.from(chartGroupRef.current, {
+        scrollTrigger: {
+          trigger: chartGroupRef.current,
+          start: "top 80%",
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Detect Nest Hub short viewport
   useEffect(() => {
@@ -145,23 +181,10 @@ export default function UniversityStatsSection() {
     return d;
   };
 
-  const getGradient = (index: number) => {
-    const gradients = [
-      "from-violet-500 to-purple-600",
-      "from-blue-500 to-cyan-500",
-      "from-emerald-500 to-teal-500",
-      "from-rose-500 to-orange-500",
-      "from-amber-500 to-yellow-500",
-      "from-fuchsia-500 to-pink-500",
-      "from-indigo-500 to-blue-600",
-    ];
-    return gradients[index % gradients.length];
-  };
-
   const containerWidth = points.length > 0 ? points[points.length - 1].x + paddingLeft : 800;
 
   return (
-    <section id="stats" className="scroll-mt-40 min-h-screen short:min-h-0 flex flex-col justify-center py-12 md:py-20 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section id="stats" ref={sectionRef} className="scroll-mt-40 min-h-screen short:min-h-0 flex flex-col justify-center py-12 md:py-20 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
       
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-500/10 dark:bg-violet-600/10 blur-[100px] rounded-full pointer-events-none translate-x-1/2 -translate-y-1/2" />
@@ -169,35 +192,33 @@ export default function UniversityStatsSection() {
 
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
         
-        <ScrollReveal variant="fade-up">
-          <div className="text-center mb-10 short:mb-4">
-            <h2 className="text-[clamp(1.75rem,4vw,3rem)] font-black tracking-tight text-slate-900 dark:text-white mb-3 short:mb-2 text-center">
-              {t("stats.title1")}<span className="gradient-text-anim">{t("stats.title2")}</span>
-            </h2>
+        <div ref={headlineRef} className="text-center mb-10 short:mb-4">
+          <h2 className="text-[clamp(1.75rem,4vw,3rem)] font-black tracking-tight text-slate-900 dark:text-white mb-3 short:mb-2 text-center">
+            {t("stats.title1")}<span className="gradient-text-anim">{t("stats.title2")}</span>
+          </h2>
 
-            {/* Badges row */}
-            <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
-              {/* Institution count badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                {t("stats.institutions")}
-              </div>
+          {/* Badges row */}
+          <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
+            {/* Institution count badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              {t("stats.institutions")}
+            </div>
 
-              {/* Sort note badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                </svg>
-                {t("stats.sortDesc")}
-              </div>
+            {/* Sort note badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 text-violet-700 dark:text-violet-300 text-xs font-medium">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+              </svg>
+              {t("stats.sortDesc")}
             </div>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* กราฟพื้นที่ทำงาน */}
-        <ScrollReveal variant="fade-up" delay={200}>
+        <div ref={chartGroupRef}>
           <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] p-5 sm:p-8 md:p-10 short:md:p-5 shadow-xl border border-slate-200 dark:border-slate-800 md:backdrop-blur-sm relative min-h-[400px] md:min-h-[600px] short:md:min-h-[300px] flex flex-col justify-center">
             
             {/* Desktop Chart - xl screens only */}
@@ -298,7 +319,7 @@ export default function UniversityStatsSection() {
               {uniData.map((uni, idx) => {
                 const percent = (uni.count / maxCount) * 100;
                 return (
-                  <div key={uni.abbr} className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-3 md:p-4 flex items-center gap-3 border border-slate-100 dark:border-slate-800">
+                  <div key={uni.abbr} className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-3 md:p-4 flex items-center gap-3 border border-slate-100 dark:border-slate-800 hover:scale-[1.02] transition-transform cursor-default">
                     <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 overflow-hidden">
                       <UniLogo 
                         src={uni.logoUrl} 
@@ -345,11 +366,6 @@ export default function UniversityStatsSection() {
             {(() => {
               const totalCount = uniData.reduce((sum, u) => sum + u.count, 0);
               const top3 = uniData.slice(0, 3);
-              const rankColors = [
-                "bg-amber-400 text-white",
-                "bg-slate-400 text-white",
-                "bg-orange-400 text-white",
-              ];
               return (
                 <div className="mt-6 md:mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 animate-fade-in">
                   {/* Total */}
@@ -362,13 +378,13 @@ export default function UniversityStatsSection() {
                    {top3.map((u, i) => {
                      const medalBg = i === 0 ? "from-amber-400 to-yellow-500" : i === 1 ? "from-slate-300 to-slate-400" : "from-orange-400 to-amber-500";
                      return (
-                       <div key={u.abbr} className="flex bg-white dark:bg-slate-800/60 rounded-2xl px-3 md:px-4 py-3 border border-slate-100 dark:border-slate-700 flex-row items-center gap-3 md:gap-4 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
+                       <div key={u.abbr} className="flex bg-white dark:bg-slate-800/60 rounded-2xl px-3 md:px-2 lg:px-4 py-3 md:py-4 lg:py-3 border border-slate-100 dark:border-slate-700 flex-row items-center justify-center gap-3 lg:gap-4 relative overflow-hidden group hover:shadow-lg transition-all duration-300 md:h-full lg:h-auto">
                          {/* rank badge */}
-                         <div className={`absolute top-2 right-2 w-6 h-6 rounded-full bg-gradient-to-br ${medalBg} flex items-center justify-center text-white text-[11px] font-black shadow-md`}>
+                         <div className={`absolute top-2 right-2 md:top-2 md:right-2 w-6 h-6 rounded-full bg-gradient-to-br ${medalBg} flex items-center justify-center text-white text-[11px] font-black shadow-md z-10`}>
                            {i + 1}
                          </div>
                          {/* logo */}
-                         <div className="w-20 h-20 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 shadow-md flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-300">
+                         <div className="w-20 h-20 md:w-20 md:h-20 lg:w-20 lg:h-20 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 shadow-md flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-300 relative z-0">
                            <UniLogo 
                              src={u.logoUrl} 
                              abbr={u.abbr} 
@@ -379,9 +395,9 @@ export default function UniversityStatsSection() {
                            />
                          </div>
                          {/* text */}
-                         <div className="flex flex-col min-w-0 pr-6">
-                           <span className="text-2xl font-black text-slate-800 dark:text-white leading-none">{u.count.toLocaleString()}</span>
-                           <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-2 mt-0.5">{u.name}</span>
+                         <div className="flex-col min-w-0 pr-6 lg:pr-2 xl:pr-6 flex md:hidden lg:flex">
+                           <span className="text-xl xl:text-2xl font-black text-slate-800 dark:text-white leading-none">{u.count.toLocaleString()}</span>
+                           <span className="text-[10px] xl:text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-2 mt-0.5">{u.name}</span>
                          </div>
                        </div>
                      );
@@ -391,7 +407,7 @@ export default function UniversityStatsSection() {
             })()}
 
           </div>
-        </ScrollReveal>
+        </div>
 
       </div>
     </section>

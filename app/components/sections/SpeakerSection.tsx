@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect, memo } from "react";
+import { useRef, useEffect, memo } from "react";
 import Image from "next/image";
-import ScrollReveal from "../scroll/ScrollReveal";
 import { useLang } from "../../contexts/LangContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
@@ -11,6 +13,8 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Speaker {
   id: string;
@@ -138,23 +142,16 @@ const speakers: Speaker[] = [
 
 const SpeakerCard = memo(function SpeakerCard({
   speaker,
-  index,
-  visible,
 }: {
   speaker: Speaker;
-  index: number;
-  visible: boolean;
 }) {
   const { t } = useLang();
 
   return (
-    <div
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(40px)",
-        transition: `opacity 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s, transform 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
-      }}
-      className="antialiased group relative overflow-hidden rounded-none aspect-[3/4] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition duration-500 transform hover:-translate-y-2"
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="antialiased group relative overflow-hidden rounded-none aspect-[3/4] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg hover:shadow-2xl"
     >
       {/* Picture */}
       {speaker.image ? (
@@ -185,26 +182,47 @@ const SpeakerCard = memo(function SpeakerCard({
           {t(speaker.positionKey)}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 });
 
 export default function SpeakerSection() {
   const { t } = useLang();
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
+    const ctx = gsap.context(() => {
+      // Create a timeline for the entire section
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        }
+      });
+
+      tl.from(titleRef.current, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      })
+      .from(sliderRef.current, {
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out"
+      }, "-=0.4");
+      
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="speakers" ref={ref} className="scroll-mt-40 py-12 md:py-20 lg:py-24 relative overflow-hidden">
+    <section id="speakers" ref={sectionRef} className="scroll-mt-40 py-12 md:py-20 lg:py-24 relative overflow-hidden">
       {/* BG Video */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <video
@@ -222,29 +240,26 @@ export default function SpeakerSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <ScrollReveal variant="fade-up">
-          <div className="text-center mt-6 mb-8 md:mb-12">
-            <h2 className="text-[clamp(1.2rem,3vw,2.6rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
-              <span className="gradient-text-anim">{t("speaker.title2")}</span>
-            </h2>
-
-          </div>
-        </ScrollReveal>
+        <div ref={titleRef} className="text-center mt-6 mb-8 md:mb-12">
+          <h2 className="text-[clamp(1.2rem,3vw,2.6rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
+            <span className="gradient-text-anim">{t("speaker.title2")}</span>
+          </h2>
+        </div>
 
         {/* Swiper Slider */}
-        <div className="w-full pb-12 relative max-w-7xl mx-auto md:px-20">
+        <div ref={sliderRef} className="w-full pb-12 relative max-w-7xl mx-auto md:px-20">
           {/* Custom Navigation Buttons (Desktop Only) */}
-          <button className="speaker-nav-prev hidden md:flex absolute lg:-left-4 md:-left-2 left-0 top-[40%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
+          <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="speaker-nav-prev hidden md:flex absolute lg:-left-4 md:-left-2 left-0 top-[40%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-slate-700 transition-colors cursor-pointer">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
-          </button>
+          </motion.button>
           
-          <button className="speaker-nav-next hidden md:flex absolute lg:-right-4 md:-right-2 right-0 top-[40%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
+          <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="speaker-nav-next hidden md:flex absolute lg:-right-4 md:-right-2 right-0 top-[40%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-slate-700 transition-colors cursor-pointer">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
-          </button>
+          </motion.button>
 
           <Swiper
             effect={"coverflow"}
@@ -272,9 +287,9 @@ export default function SpeakerSection() {
             modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
             className="w-full max-w-[900px] !pb-12"
           >
-            {speakers.map((s, i) => (
+            {speakers.map((s) => (
               <SwiperSlide key={s.id} className="!w-[65vw] max-w-[280px] sm:!w-[320px] sm:max-w-none">
-                <SpeakerCard speaker={s} index={i} visible={visible} />
+                <SpeakerCard speaker={s} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -297,8 +312,6 @@ export default function SpeakerSection() {
             }
           `}</style>
         </div>
-
-        {/* Bottom note removed as requested */}
       </div>
     </section>
   );
