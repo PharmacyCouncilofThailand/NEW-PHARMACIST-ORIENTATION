@@ -25,6 +25,8 @@ export default function MaskScrollSection() {
   const isPlayerReady = useRef(false); // guard: true only after onReady fires
   const [isPlaying, setIsPlaying] = useState(true);
   const [isSoundOn, setIsSoundOn] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
   const { t } = useLang();
 
   // Safe wrappers — only call when player is fully ready
@@ -160,6 +162,32 @@ export default function MaskScrollSection() {
     return () => ctx.revert();
   }, []);
 
+  // Poll video time
+  useEffect(() => {
+    let interval: any;
+    if (isPlaying) {
+      interval = setInterval(() => {
+        if (isPlayerReady.current && typeof playerRef.current?.getCurrentTime === "function") {
+          const currentTime = playerRef.current.getCurrentTime();
+          const totalDuration = playerRef.current.getDuration();
+          if (totalDuration > 0) {
+            setProgress((currentTime / totalDuration) * 100);
+            setDuration(totalDuration);
+          }
+        }
+      }, 500);
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newProgress = parseFloat(e.target.value);
+    setProgress(newProgress);
+    if (isPlayerReady.current && typeof playerRef.current?.seekTo === "function" && duration > 0) {
+      playerRef.current.seekTo((newProgress / 100) * duration, true);
+    }
+  };
+
   const togglePlay = () => {
     if (!playerRef.current) return;
     if (isPlaying) {
@@ -260,8 +288,22 @@ export default function MaskScrollSection() {
             zIndex: 20,
             display: "flex",
             gap: "1rem",
+            alignItems: "center",
           }}
         >
+          {/* Custom Video Slider */}
+          <div className="hidden sm:flex items-center gap-3 px-4 py-3 bg-black/60 rounded-full border border-white/20 backdrop-blur-md shadow-lg mr-2">
+             <input
+               type="range"
+               min="0"
+               max="100"
+               step="0.1"
+               value={progress || 0}
+               onChange={handleSeek}
+               className="w-32 md:w-48 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-violet-500"
+             />
+          </div>
+
           <button
             onClick={toggleSound}
             className="px-6 py-3 bg-black/60 hover:bg-black/80 text-white rounded-full border border-white/20 backdrop-blur-md transition-all font-medium flex items-center gap-2 shadow-lg"
