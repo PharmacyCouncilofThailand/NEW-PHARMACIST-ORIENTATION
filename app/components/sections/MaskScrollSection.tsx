@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-const YOUTUBE_VIDEO_ID = "ua8DyttaTrc";
+const YOUTUBE_VIDEO_ID = "QXZLVLp3YFo";
 
 export default function MaskScrollSection() {
   const containerRef = useRef<HTMLDivElement>(null);
