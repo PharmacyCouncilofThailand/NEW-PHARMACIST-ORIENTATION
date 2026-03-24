@@ -152,9 +152,9 @@ const SpeakerCard = memo(function SpeakerCard({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(40px)",
-        transition: `all 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
+        transition: `opacity 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s, transform 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
       }}
-      className="group relative overflow-hidden rounded-none aspect-[3/4] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+      className="antialiased group relative overflow-hidden rounded-none aspect-[3/4] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition duration-500 transform hover:-translate-y-2"
     >
       {/* Picture */}
       {speaker.image ? (
@@ -162,6 +162,8 @@ const SpeakerCard = memo(function SpeakerCard({
           src={speaker.image}
           alt={t(speaker.nameKey)}
           fill
+          unoptimized={true}
+          priority
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
       ) : (
@@ -172,14 +174,14 @@ const SpeakerCard = memo(function SpeakerCard({
       )}
 
       {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent opacity-100 transition-opacity duration-500" />
 
       {/* Name and Position */}
       <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col items-center justify-end text-center h-1/2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-        <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-md leading-snug mb-2">
+        <h3 className="text-[20px] sm:text-2xl font-bold text-white mb-2 shadow-black drop-shadow-lg leading-tight" style={{ textRendering: "optimizeLegibility" }}>
           {t(speaker.nameKey)}
         </h3>
-        <p className="text-sm sm:text-base font-medium text-white/80 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="text-[13px] sm:text-base font-medium text-white bg-black/60 md:bg-black/20 md:backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm opacity-100 transition-opacity duration-300">
           {t(speaker.positionKey)}
         </p>
       </div>
@@ -202,7 +204,7 @@ export default function SpeakerSection() {
   }, []);
 
   return (
-    <section id="speakers" ref={ref} className="scroll-mt-40 py-16 sm:py-20 relative overflow-hidden">
+    <section id="speakers" ref={ref} className="scroll-mt-40 py-12 md:py-20 lg:py-24 relative overflow-hidden">
       {/* BG Video */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <video
@@ -220,9 +222,9 @@ export default function SpeakerSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <ScrollReveal variant="blur">
-          <div className="text-center mb-10">
-            <h2 className="text-[clamp(1.6rem,4vw,3.5rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
+        <ScrollReveal variant="fade-up">
+          <div className="text-center mt-6 mb-8 md:mb-12">
+            <h2 className="text-[clamp(1.2rem,3vw,2.6rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
               <span className="gradient-text-anim">{t("speaker.title2")}</span>
             </h2>
 
@@ -249,12 +251,13 @@ export default function SpeakerSection() {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={"auto"}
+            roundLengths={true}
             coverflowEffect={{
               rotate: 0,
               stretch: 0,
               depth: 100,
               modifier: 1.5,
-              slideShadows: true,
+              slideShadows: false,
             }}
             pagination={{ clickable: true }}
             navigation={{
@@ -270,7 +273,7 @@ export default function SpeakerSection() {
             className="w-full max-w-[900px] !pb-12"
           >
             {speakers.map((s, i) => (
-              <SwiperSlide key={s.id} className="max-w-[260px] sm:max-w-[320px]">
+              <SwiperSlide key={s.id} className="!w-[65vw] max-w-[280px] sm:!w-[320px] sm:max-w-none">
                 <SpeakerCard speaker={s} index={i} visible={visible} />
               </SwiperSlide>
             ))}

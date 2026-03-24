@@ -60,7 +60,7 @@ function PosterCard({ poster, onOpen, index }: PosterCardProps) {
         {/* ไอคอนแว่นขยาย */}
         {!imgError && (
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100">
-            <div className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-md border border-white/50 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-white/30 md:backdrop-blur-md border border-white/50 flex items-center justify-center">
               <svg className="w-5 h-5 text-white drop-shadow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
               </svg>
@@ -90,7 +90,7 @@ function Lightbox({ poster, onClose }: LightboxProps) {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        className="absolute inset-0 bg-black/95 md:bg-black/80 md:backdrop-blur-md"
         onClick={onClose}
       />
 
@@ -195,7 +195,7 @@ export default function JobPostersSection() {
     <>
       <section
         id="job-posters"
-        className="relative py-32 z-10 overflow-hidden"
+        className="relative py-16 md:py-24 lg:py-32 z-10 overflow-hidden"
       >
         {/* Background */}
         <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />
@@ -207,10 +207,10 @@ export default function JobPostersSection() {
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           {/* Section header */}
-          <ScrollReveal variant="blur">
+          <ScrollReveal variant="fade-up">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8 text-center md:text-left">
               <div className="max-w-xl">
-                <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
+                <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
                   {t("jobPosters.title1")}
                   <br />
                   <span className="gradient-text-anim">{t("jobPosters.title2")}</span>
@@ -256,7 +256,7 @@ export default function JobPostersSection() {
 
           {/* Hint text */}
           {!loading && !error && posters.length > 0 && (
-            <ScrollReveal variant="blur" delay={400}>
+            <ScrollReveal variant="fade-up" delay={400}>
               <p className="text-center text-slate-400 text-sm mt-10 flex items-center justify-center gap-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

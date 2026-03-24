@@ -91,7 +91,7 @@ export default function RegisterPage() {
       <div className="max-w-2xl w-full relative z-10">
         
         {/* Main Card */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/60 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] rounded-[2rem] p-5 sm:p-8 relative">
+        <div className="bg-white/80 md:backdrop-blur-xl border border-white/60 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] rounded-[2rem] p-5 sm:p-8 relative">
           
           {/* Card Top Glow - Wrapped and clipped accurately */}
           <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">

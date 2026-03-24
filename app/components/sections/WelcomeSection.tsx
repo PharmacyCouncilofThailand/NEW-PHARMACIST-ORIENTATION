@@ -60,41 +60,43 @@ const WelcomeCard = memo(function WelcomeCard({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(40px)",
-        transition: `all 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
+        transition: `opacity 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s, transform 0.7s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
       }}
-      className="group relative overflow-hidden rounded-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col md:flex-row h-[550px] md:h-[450px] lg:h-[500px] w-full transform hover:-translate-y-2"
+      className="antialiased group relative overflow-hidden rounded-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition duration-500 flex flex-col md:flex-row h-auto min-h-[500px] md:h-[450px] lg:h-[500px] w-full transform hover:-translate-y-2"
     >
       {/* Picture Half (Top on mobile, Left on desktop) */}
-      <div className="relative h-1/2 md:h-full w-full md:w-[45%] shrink-0 overflow-hidden">
+      <div className="relative h-[280px] md:h-full w-full md:w-[45%] shrink-0 overflow-hidden">
         <Image 
           src={person.image} 
           alt={t(person.nameKey)} 
           fill 
-          className={`object-cover transition-transform duration-700 group-hover:scale-105 ${person.id === 'p3' ? 'object-[center_45%]' : 'object-top'}`} 
+          unoptimized={true}
+          priority
+          className={`object-cover transition-transform duration-700 group-hover:scale-105 object-[center_45%]`} 
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent z-10" />
         
-        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 lg:p-8 flex flex-col text-left z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white drop-shadow-md leading-snug mb-2" style={{textShadow: '0 2px 8px rgba(0,0,0,0.5)'}}>
+        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 lg:p-8 flex flex-col text-left z-20 transition-transform duration-500">
+          <h3 className="text-[20px] md:text-2xl lg:text-3xl font-bold text-white mb-2 shadow-black drop-shadow-lg leading-tight">
             {t(person.nameKey)}
           </h3>
-          <p className="text-[10px] md:text-sm font-medium text-white/80 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm inline-block w-fit opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+          <p className="text-xs md:text-sm font-medium text-white bg-black/60 md:bg-black/30 md:backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm inline-block w-fit opacity-100 transition-opacity duration-300">
             {t(person.posKey)}
           </p>
         </div>
       </div>
 
       {/* Text Half (Bottom on mobile, Right on desktop) */}
-      <div className="p-6 md:p-8 lg:p-12 relative flex-1 flex flex-col bg-white dark:bg-slate-900">
-        <div className="relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-2 md:pr-4">
-          <p className="text-[14px] md:text-base lg:text-lg leading-[1.7] md:leading-[1.8] text-slate-600 dark:text-slate-300 font-light mt-4 md:mt-2 relative z-10 text-left">
+      <div className="p-6 md:p-8 lg:p-12 relative flex-1 flex flex-col bg-white dark:bg-slate-900 justify-center">
+        <div className="relative z-10 flex-1 flex flex-col justify-center">
+          <p className="text-[15px] md:text-base lg:text-lg leading-[1.65] md:leading-[1.8] text-slate-700 dark:text-slate-200 font-normal m-0 relative z-10 text-left" style={{ textRendering: "optimizeLegibility" }}>
             {t(person.msgKey)}
           </p>
         </div>
         
-        <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 font-mono flex-shrink-0">
+        <div className="mt-8 pt-5 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-[11px] md:text-xs text-slate-400 dark:text-slate-500 font-mono flex-shrink-0">
            <span className="font-bold text-violet-600 dark:text-violet-400">0{index + 1} / 0{people.length}</span>
-           <span className="hidden md:inline uppercase text-slate-400 dark:text-slate-500 tracking-wider">{t("welcome.swipeHint")}</span>
+           <span className="md:inline uppercase text-slate-400 dark:text-slate-500 tracking-wider font-medium">{t("welcome.swipeHint")}</span>
         </div>
       </div>
     </div>
@@ -138,7 +140,7 @@ export default function WelcomeSection() {
   }, []);
 
   return (
-    <section id="welcome" ref={ref} className="scroll-mt-40 py-24 sm:py-32 short:py-12 relative overflow-hidden z-20">
+    <section id="welcome" ref={ref} className="scroll-mt-40 py-16 md:py-24 lg:py-32 relative overflow-hidden z-20">
       
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 pointer-events-none" />
@@ -153,8 +155,8 @@ export default function WelcomeSection() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <ScrollReveal variant="blur">
-          <div className="text-center mb-12 lg:mb-16 short:mb-6 flex flex-col items-center justify-center">
+        <ScrollReveal variant="fade-up">
+          <div className="text-center mb-10 md:mb-16 flex flex-col items-center justify-center">
             <h2 className="text-[clamp(1.8rem,3.5vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
               {t("welcome.title1")}{" "}
               <span className="gradient-text-anim block sm:inline mt-1 sm:mt-0">{t("welcome.title2")}</span>
@@ -162,8 +164,8 @@ export default function WelcomeSection() {
           </div>
         </ScrollReveal>
 
-        {/* Swiper Slider with Coverflow (Movement like Speaker Section) */}
-        <div className="w-full pb-12 relative max-w-7xl mx-auto md:px-20 z-20">
+        {/* Swiper Slider with Coverflow */}
+        <div className="w-full pb-10 relative max-w-7xl mx-auto md:px-20 z-20">
           
           {/* Custom Navigation Buttons (Desktop Only) */}
           <button className="welcome-nav-prev hidden md:flex absolute lg:-left-2 md:-left-2 left-0 top-[45%] -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200 dark:border-slate-700 items-center justify-center text-violet-600 dark:text-violet-400 hover:scale-110 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all cursor-pointer">
@@ -183,12 +185,13 @@ export default function WelcomeSection() {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={"auto"}
+            roundLengths={true}
             coverflowEffect={{
               rotate: 0,
               stretch: 0,
               depth: 100,
               modifier: 2.5,
-              slideShadows: true,
+              slideShadows: false,
             }}
             pagination={{ clickable: true }}
             navigation={{
@@ -201,11 +204,11 @@ export default function WelcomeSection() {
               disableOnInteraction: false,
             }}
             modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-            className="w-full max-w-[1100px] !pb-16 pt-4"
+            className="w-full max-w-[1100px] !pb-14 pt-2"
           >
             {people.map((p, i) => (
               /* The slide is very wide for desktop, turning it into a horizontal card */
-              <SwiperSlide key={p.id} className="max-w-[340px] sm:max-w-[450px] md:max-w-[750px] lg:max-w-[900px] xl:max-w-[950px]">
+              <SwiperSlide key={p.id} className="!w-[85vw] max-w-[360px] sm:!w-[450px] md:!w-[650px] lg:!w-[850px] sm:max-w-none h-auto">
                 <WelcomeCard person={p} index={i} visible={visible} />
               </SwiperSlide>
             ))}

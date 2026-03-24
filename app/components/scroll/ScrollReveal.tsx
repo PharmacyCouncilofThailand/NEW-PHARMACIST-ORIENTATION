@@ -44,8 +44,8 @@ const variantStyles: Record<AnimationVariant, { hidden: string; visible: string 
     visible: "opacity-100 translate-y-0",
   },
   blur: {
-    hidden: "opacity-0 translate-y-6 blur-[12px] scale-[0.96]",
-    visible: "opacity-100 translate-y-0 blur-0 scale-100",
+    hidden: "opacity-0 translate-y-6",
+    visible: "opacity-100 translate-y-0",
   },
   scale: {
     hidden: "opacity-0 scale-[0.9]",
@@ -90,7 +90,7 @@ export default function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={`transition-all ease-out ${className} ${
+      className={`transition-[opacity,transform] ease-out ${className} ${
         visible ? styles.visible : styles.hidden
       }`}
       style={{

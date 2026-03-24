@@ -133,7 +133,7 @@ export default function CountdownSection() {
             <div key={i} className="flex items-start gap-3 sm:gap-6">
               <FlipUnit value={u.value} label={u.label} accent={u.accent} />
               {i < units.length - 1 && (
-                <span className="text-3xl sm:text-5xl font-black text-slate-300 dark:text-slate-600 mt-4 sm:mt-6 select-none">:</span>
+                <span className="text-3xl sm:text-5xl font-black text-slate-400 dark:text-slate-600 mt-4 sm:mt-6 select-none">:</span>
               )}
             </div>
           ))}

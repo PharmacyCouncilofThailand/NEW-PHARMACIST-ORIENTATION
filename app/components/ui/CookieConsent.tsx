@@ -49,7 +49,7 @@ export default function CookieConsent() {
         className="fixed bottom-0 left-0 right-0 z-[999] p-4 sm:p-6"
         style={{ animation: "slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) both" }}
       >
-        <div className="max-w-4xl mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-700/80 overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-white/95 dark:bg-slate-900/95 md:backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-700/80 overflow-hidden">
           
           {/* Top gradient line */}
           <div className="h-1 w-full bg-gradient-to-r from-violet-500 via-pink-500 to-blue-500" />
@@ -58,7 +58,7 @@ export default function CookieConsent() {
             {/* Header */}
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-900/20 flex items-center justify-center shrink-0 mt-0.5 p-1 border border-violet-100 dark:border-violet-800">
-                <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council Logo" width={40} height={40} className="object-contain" />
+                <Image src="/logo.jpg" alt="Pharmacy Council Logo" width={40} height={40} className="object-contain" />
               </div>
               <div className="flex-1">
                 <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
