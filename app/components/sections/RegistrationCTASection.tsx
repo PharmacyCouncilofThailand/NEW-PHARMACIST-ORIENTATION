@@ -1,15 +1,30 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useLang } from "../../contexts/LangContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { ssoRedirectToConferenceWeb } from "../../../lib/sso";
+import { useRegistrationStatus } from "../../hooks/useRegistrationStatus";
+
+const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
 
 export default function RegistrationCTASection() {
   const { t } = useLang();
   const router = useRouter();
+  const { isLoggedIn, token } = useAuth();
+  const { isRegistered } = useRegistrationStatus();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const handleRegisterClick = useCallback(() => {
+    if (!isLoggedIn || !token) {
+      router.push("/login?from=/");
+      return;
+    }
+    ssoRedirectToConferenceWeb(token, `/events/${EVENT_CODE}`);
+  }, [isLoggedIn, token, router]);
 
   const pills = [
     { icon: "✅", label: t("regcta.info1") },
@@ -50,25 +65,36 @@ export default function RegistrationCTASection() {
 
           {/* Right: CTA */}
           <div className="flex flex-col items-center md:items-start gap-3 shrink-0">
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => router.push("/register")}
-              className="group relative px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold text-xs shadow-[0_6px_20px_-4px_rgba(124,58,237,0.45)] overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-1.5">
-                {t("regcta.btn")}
-                <svg
-                  className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-              <div className="absolute inset-0 animate-shimmer pointer-events-none" />
-            </motion.button>
+            {isRegistered ? (
+              <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold text-xs shadow-[0_6px_20px_-4px_rgba(16,185,129,0.35)]">
+                <span className="flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  {t("regcta.registered")}
+                </span>
+              </div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={handleRegisterClick}
+                className="group relative px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold text-xs shadow-[0_6px_20px_-4px_rgba(124,58,237,0.45)] overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-1.5">
+                  {t("regcta.btn")}
+                  <svg
+                    className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 animate-shimmer pointer-events-none" />
+              </motion.button>
+            )}
 
             {/* Info pills */}
             <div className="flex flex-wrap justify-center md:justify-start gap-2">

@@ -210,7 +210,7 @@ export default function MaskScrollSection() {
 
   return (
     <section
-      className="hidden md:block relative w-full bg-white z-50 overflow-hidden"
+      className="hidden md:block relative w-full bg-white z-10 overflow-hidden"
       style={{ isolation: "isolate" }}
     >
       <div

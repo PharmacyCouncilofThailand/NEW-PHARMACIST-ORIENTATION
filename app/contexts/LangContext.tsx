@@ -46,6 +46,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.journey": { TH: "งานปฐมนิเทศเภสัชกรใหม่ ประจำปี 2569", EN: "New Pharmacist Orientation 2026" },
   "hero.subtitle4": { TH: "เพื่อเริ่มต้นเส้นทางสายวิชาชีพร่วมกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเข้าร่วมงาน", EN: "Register Now" },
+  "hero.registered": { TH: "คุณลงทะเบียนเข้าร่วมงานแล้ว", EN: "You are registered" },
   "hero.loginHintPrefix": { TH: "💡 สมัครสมาชิกและเข้าสู่ระบบ เพื่อรับชม", EN: "💡 Register & Login to watch" },
   "hero.loginHintLive": { TH: "ไลฟ์สด", EN: "Live Stream" },
   "hero.loginHintAnd": { TH: " และ ", EN: " & " },
@@ -358,6 +359,7 @@ const translations: Record<string, Record<Lang, string>> = {
     EN: "Register for the New Pharmacist Orientation 2026 to receive your license, join activities, and network with fellow professionals."
   },
   "regcta.btn": { TH: "ลงทะเบียนเข้าร่วมงาน", EN: "Register for Orientation" },
+  "regcta.registered": { TH: "คุณลงทะเบียนเข้าร่วมงานแล้ว", EN: "You are registered" },
   "regcta.info1": { TH: "ฟรีสำหรับเภสัชกรใหม่", EN: "Free for New Pharmacists" },
   "regcta.info2": { TH: "ไม่มีค่าใช้จ่าย", EN: "No Registration Fee" },
   "regcta.info4": { TH: "17 พ.ค. 2569", EN: "May 17, 2026" },

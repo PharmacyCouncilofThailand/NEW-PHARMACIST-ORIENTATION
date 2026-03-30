@@ -93,7 +93,7 @@ function LoginContent() {
 
     setError("");
     setLoading(true);
-    const ok = await login(email, password);
+    const ok = await login(email, password, recaptchaToken);
     if (ok) {
       const from = searchParams.get("from") || "/";
       router.push(from);
@@ -229,6 +229,7 @@ function LoginContent() {
                 if (token) setError("");
               }}
               theme="light"
+              hl="en"
             />
           </div>
 

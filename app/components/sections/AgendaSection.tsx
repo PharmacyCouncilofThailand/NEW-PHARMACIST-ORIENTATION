@@ -73,7 +73,7 @@ export default function AgendaSection() {
   }, []);
 
   return (
-    <section id="agenda" ref={sectionRef} className="scroll-mt-40 min-h-screen py-24 lg:py-32 relative z-10 overflow-hidden bg-[#FAFAFA] dark:bg-[#050505]">
+    <section id="agenda" ref={sectionRef} className="scroll-mt-40 min-h-screen py-24 lg:py-32 relative z-20 overflow-hidden bg-[#FAFAFA] dark:bg-[#050505]">
       {/* Background Ambience */}
       <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-violet-100/50 via-transparent to-transparent dark:from-violet-900/10 pointer-events-none" />
       <div className="absolute top-[20%] left-[-10%] w-[30%] h-[50%] bg-fuchsia-400/10 dark:bg-fuchsia-600/10 blur-[150px] rounded-full mix-blend-multiply dark:mix-blend-screen pointer-events-none" />

@@ -121,36 +121,33 @@ export default function UniversityStatsSection() {
   }, []);
   
   useEffect(() => {
+    const ACCP_API_URL = process.env.NEXT_PUBLIC_ACCP_API_URL || "http://localhost:3002";
+    const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
+
     async function fetchStats() {
       try {
-        const res = await fetch("/api/stats/universities");
+        const res = await fetch(`${ACCP_API_URL}/api/events/${EVENT_CODE}/university-stats`);
+        if (!res.ok) return;
         const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
+        if (Array.isArray(json.universities)) {
           const map: Record<string, number> = {};
-          let totalUsers = 0;
-          json.data.forEach((item: { university: string; count: number }) => {
-            map[item.university] = item.count;
-            totalUsers += item.count;
+          json.universities.forEach((item: { name: string; count: number }) => {
+            if (item.name) map[item.name] = item.count;
           });
-          // If we have at least 1 real user, show 0 for missing. Otherwise use mock data.
-          if (totalUsers > 0) {
-             setCountsMap(map);
-          }
+          setCountsMap(map);
         }
       } catch (err) {
-        console.error(err);
+        console.error("[UniversityStats]", err);
       }
     }
     fetchStats();
   }, []);
-  
-  const hasRealData = Object.keys(countsMap).length > 0;
-  
+
   const uniData = [...uniDataConfig]
     .map(uni => ({
       ...uni,
       name: t(uni.key),
-      count: hasRealData ? (countsMap[uni.dbName] || 0) : uni.defaultCount
+      count: countsMap[uni.dbName] || 0,
     }))
     .sort((a, b) => b.count - a.count); // ยอดเยอะสุดขึ้นก่อน
   
@@ -268,15 +265,28 @@ export default function UniversityStatsSection() {
                          className="absolute flex flex-col items-center group cursor-pointer animate-fade-in-up"
                          style={{ left: p.x, bottom: 0, transform: "translateX(-50%)", height: "100%" }}
                        >
-                         <div 
-                           className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:-translate-y-2 text-center z-50 pointer-events-none min-w-[150px] whitespace-nowrap"
-                           style={{ bottom: "100%", marginBottom: "15px" }}
-                         >
-                            <div className="bg-slate-800 dark:bg-white text-white dark:text-slate-900 text-xs py-1.5 px-3 rounded-lg shadow-xl inline-block relative font-bold">
+                         {/* Tooltip — shows below dot when near top edge, above otherwise */}
+                         {p.y < 80 ? (
+                           <div
+                             className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 text-center z-50 pointer-events-none min-w-[150px] whitespace-nowrap"
+                             style={{ top: p.y + 24, left: "50%", transform: "translateX(-50%)" }}
+                           >
+                             <div className="bg-slate-800 dark:bg-white text-white dark:text-slate-900 text-xs py-1.5 px-3 rounded-lg shadow-xl inline-block relative font-bold">
+                               <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 dark:bg-white rotate-45" />
+                               {p.name}
+                             </div>
+                           </div>
+                         ) : (
+                           <div
+                             className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 text-center z-50 pointer-events-none min-w-[150px] whitespace-nowrap"
+                             style={{ top: p.y - 52, left: "50%", transform: "translateX(-50%)" }}
+                           >
+                             <div className="bg-slate-800 dark:bg-white text-white dark:text-slate-900 text-xs py-1.5 px-3 rounded-lg shadow-xl inline-block relative font-bold">
                                {p.name}
                                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 dark:bg-white rotate-45" />
-                            </div>
-                         </div>
+                             </div>
+                           </div>
+                         )}
 
                          <span 
                            className="absolute font-black text-slate-700 dark:text-slate-200 transition-all group-hover:scale-125 group-hover:text-violet-600 dark:group-hover:text-violet-400"

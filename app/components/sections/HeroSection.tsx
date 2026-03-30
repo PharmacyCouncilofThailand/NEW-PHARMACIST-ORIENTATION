@@ -1,12 +1,15 @@
 "use client";
 
-import { useRef, memo } from "react";
+import { useRef, memo, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import CountdownSection from "./CountdownSection";
 import { useStatsData, StatItem } from "./StatsSection";
 import { useLang } from "../../contexts/LangContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { ssoRedirectToConferenceWeb } from "../../../lib/sso";
+import { useRegistrationStatus } from "../../hooks/useRegistrationStatus";
 
 const ArrowIcon = memo(function ArrowIcon() {
   return (
@@ -42,11 +45,23 @@ const fadeSlideUp: Variants = {
   }
 };
 
+const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
+
 export default function HeroSection() {
   const router = useRouter();
   const { t, lang } = useLang();
+  const { isLoggedIn, token } = useAuth();
+  const { isRegistered } = useRegistrationStatus();
   const stats = useStatsData();
   const sectionRef = useRef<HTMLElement>(null);
+
+  const handleRegisterClick = useCallback(() => {
+    if (!isLoggedIn || !token) {
+      router.push("/login?from=/");
+      return;
+    }
+    ssoRedirectToConferenceWeb(token, `/events/${EVENT_CODE}`);
+  }, [isLoggedIn, token, router]);
 
   // Framer Motion hook to track scroll progress within this section for parallax effect
   const { scrollY } = useScroll();
@@ -127,21 +142,34 @@ export default function HeroSection() {
 
           {/* CTA using Framer Motion specifically for hover per prompt requirements */}
           <motion.div variants={fadeSlideUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-20">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              id="hero-register-btn"
-              onClick={() => router.push("/register")}
-              className="group relative px-10 py-4 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 text-white font-bold text-lg shadow-[0_10px_40px_-10px_rgba(168,85,247,0.7)] overflow-hidden"
-            >
-              <span suppressHydrationWarning className="relative z-10 flex items-center gap-2">
-                {t("hero.register")}
-                <motion.div className="inline-block" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                  <ArrowIcon />
-                </motion.div>
-              </span>
-              <div className="absolute inset-0 animate-shimmer pointer-events-none" />
-            </motion.button>
+            {isRegistered ? (
+              <motion.div
+                className="px-10 py-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-lg shadow-[0_10px_40px_-10px_rgba(16,185,129,0.5)]"
+              >
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  {t("hero.registered")}
+                </span>
+              </motion.div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                id="hero-register-btn"
+                onClick={handleRegisterClick}
+                className="group relative px-10 py-4 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 text-white font-bold text-lg shadow-[0_10px_40px_-10px_rgba(168,85,247,0.7)] overflow-hidden"
+              >
+                <span suppressHydrationWarning className="relative z-10 flex items-center gap-2">
+                  {t("hero.register")}
+                  <motion.div className="inline-block" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                    <ArrowIcon />
+                  </motion.div>
+                </span>
+                <div className="absolute inset-0 animate-shimmer pointer-events-none" />
+              </motion.button>
+            )}
           </motion.div>
 
           {/* Countdown */}

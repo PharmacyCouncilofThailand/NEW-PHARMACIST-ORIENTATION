@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from "../contexts/AuthContext";
 import { useLang } from "../contexts/LangContext";
 import FloatingLangToggle from "../components/ui/FloatingLangToggle";
@@ -12,15 +13,13 @@ import ConsentModal from "../components/ui/ConsentModal";
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
-  const { t } = useLang();
+  const { t, lang } = useLang();
   
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    thaiId: "",
     licenseId: "",
     email: "",
-    organization: "",
     university: "",
     phone: "",
     password: "",
@@ -31,6 +30,8 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [isUniOpen, setIsUniOpen] = useState(false);
   const [isConsentOpen, setIsConsentOpen] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const UNI_OPTIONS = [
     "จุฬาลงกรณ์มหาวิทยาลัย", "มหาวิทยาลัยมหิดล", "มหาวิทยาลัยเชียงใหม่",
@@ -60,18 +61,26 @@ export default function RegisterPage() {
     if (!formData.consent) {
       setError("Please accept the terms and conditions"); return;
     }
+    if (!recaptchaToken) {
+      setError(lang === "TH" ? "กรุณายืนยันว่าคุณไม่ใช่บอท" : "Please verify that you are not a robot"); return;
+    }
     setLoading(true); setError("");
     try {
-      const ok = await register(formData);
+      const eventCode = process.env.NEXT_PUBLIC_EVENT_CODE || "";
+      const ok = await register({ ...formData, recaptchaToken, ...(eventCode && { eventCode }) });
       if (ok) {
         router.push("/");
       } else {
         setError("Registration failed");
         setLoading(false);
+        recaptchaRef.current?.reset();
+        setRecaptchaToken(null);
       }
     } catch (err: any) {
       setError(err.message || "An error occurred");
       setLoading(false);
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
     }
   };
 
@@ -131,15 +140,10 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.thaiId")} <span className="text-red-500">*</span></label>
-              <input name="thaiId" required value={formData.thaiId} onChange={handleChange} placeholder={t("register.thaiIdPlaceholder")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("nav.license")}</label>
-                <input name="licenseId" value={formData.licenseId} onChange={handleChange} placeholder={t("nav.licenseId")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("nav.license")} <span className="text-red-500">*</span></label>
+                <input name="licenseId" required value={formData.licenseId} onChange={handleChange} placeholder={t("nav.licenseId")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
               </div>
               <div>
                 <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.phone")}</label>
@@ -152,11 +156,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.organization")}</label>
-                <input name="organization" value={formData.organization} onChange={handleChange} placeholder={t("register.organizationPlaceholder")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
-              </div>
+            <div>
               <div className="relative z-[100]">
                 <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.university")} <span className="text-red-500">*</span></label>
                 
@@ -282,6 +282,16 @@ export default function RegisterPage() {
               onClose={() => setIsConsentOpen(false)}
               onAccept={() => setFormData(prev => ({ ...prev, consent: true }))}
             />
+
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+                onChange={(token) => { setRecaptchaToken(token); if (token) setError(""); }}
+                theme="light"
+                hl="en"
+              />
+            </div>
 
             <div className="pt-4 relative">
               <button type="submit" disabled={loading} className="group w-full flex justify-center py-3 px-4 rounded-xl text-[15px] font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 shadow-[0_4px_14px_0_rgba(124,58,237,0.39)] hover:shadow-[0_6px_20px_rgba(124,58,237,0.23)] hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden">

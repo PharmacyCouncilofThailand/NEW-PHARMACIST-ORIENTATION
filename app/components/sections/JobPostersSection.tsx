@@ -8,15 +8,18 @@ import { motion, AnimatePresence } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const ACCP_API_URL = process.env.NEXT_PUBLIC_ACCP_API_URL || "http://localhost:3002";
+const DRIVE_FOLDER_ID = process.env.NEXT_PUBLIC_DRIVE_FOLDER_ID || "";
+
 interface JobPoster {
   id: string;
   title: string;
   driveFileId: string;
 }
 
-// Proxy through our API route to bypass Google Drive cross-origin restrictions
+// Proxy through accp-api to reliably serve public Drive images
 function getDriveThumbnail(fileId: string): string {
-  return `/api/drive-image?id=${fileId}`;
+  return `${ACCP_API_URL}/api/drive-image/${fileId}`;
 }
 
 interface PosterCardProps {
@@ -164,6 +167,7 @@ function Lightbox({ poster, onClose }: LightboxProps) {
             alt={poster.title}
             className="w-auto h-auto max-w-full max-h-[70vh] object-contain rounded-lg drop-shadow-xl"
             loading="lazy"
+            onError={() => {}}
           />
         </div>
       </motion.div>
@@ -192,7 +196,12 @@ export default function JobPostersSection() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch("/api/drive-folder")
+    if (!DRIVE_FOLDER_ID) {
+      setError("NEXT_PUBLIC_DRIVE_FOLDER_ID not configured");
+      setLoading(false);
+      return;
+    }
+    fetch(`${ACCP_API_URL}/api/drive-folder/${DRIVE_FOLDER_ID}`)
       .then((r) => r.json())
       .then((data) => {
         if (data.error) {
