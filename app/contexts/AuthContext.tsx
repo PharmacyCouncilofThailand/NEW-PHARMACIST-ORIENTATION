@@ -14,6 +14,8 @@ interface AuthUser {
   university?: string;
   phone?: string;
   name?: string;
+  role?: string;
+  delegateType?: string;
 }
 
 interface RegisterData {
@@ -26,12 +28,16 @@ interface RegisterData {
   organization?: string;
   university?: string;
   phone?: string;
+  recaptchaToken?: string;
+  eventCode?: string;
 }
 
 interface AuthContextType {
   user: AuthUser | null;
+  token: string | null;
   isLoggedIn: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string, recaptchaToken?: string) => Promise<boolean>;
+  loginWithToken: (user: AuthUser, token: string) => void;
   register: (data: RegisterData) => Promise<boolean>;
   logout: () => void;
 }
@@ -39,45 +45,57 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const SESSION_KEY = "pharma-session";
+const TOKEN_KEY = "pharma-token";
+const ACCP_API_URL = process.env.NEXT_PUBLIC_ACCP_API_URL || "http://localhost:3002";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
   // Restore session from localStorage on mount
   useEffect(() => {
     try {
       const raw = localStorage.getItem(SESSION_KEY);
+      const savedToken = localStorage.getItem(TOKEN_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as AuthUser;
         setUser(parsed);
       }
+      if (savedToken) {
+        setToken(savedToken);
+      }
     } catch {
       localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(TOKEN_KEY);
     }
   }, []);
 
-  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+  const login = useCallback(async (email: string, password: string, recaptchaToken?: string): Promise<boolean> => {
     if (!email || !password) return false;
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch(`${ACCP_API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, recaptchaToken }),
       });
 
-      if (!res.ok) return false;
+      const data = await res.json();
 
-      const { user: dbUser } = await res.json();
+      if (!res.ok || !data.success) return false;
+
       const sessionUser: AuthUser = {
-        ...dbUser,
-        name: `${dbUser.firstName} ${dbUser.lastName}`,
+        ...data.user,
+        name: data.user.name || `${data.user.firstName || ""} ${data.user.lastName || ""}`.trim() || data.user.email,
+        licenseId: data.user.pharmacyLicenseId || data.user.licenseId,
       };
 
       localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
+      localStorage.setItem(TOKEN_KEY, data.token);
       document.cookie = `pharma-session=1; path=/; max-age=${60 * 60 * 24 * 7}`;
       setUser(sessionUser);
+      setToken(data.token);
       return true;
     } catch (err) {
       console.error("[login]", err);
@@ -85,48 +103,89 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // SSO login: receive user + JWT from accp-api via SSO verify
+  const loginWithToken = useCallback((ssoUser: AuthUser, jwtToken: string) => {
+    const sessionUser: AuthUser = {
+      ...ssoUser,
+      name: ssoUser.name || `${ssoUser.firstName || ""} ${ssoUser.lastName || ""}`.trim() || ssoUser.email,
+      licenseId: (ssoUser as any).pharmacyLicenseId || ssoUser.licenseId,
+    };
+
+    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
+    localStorage.setItem(TOKEN_KEY, jwtToken);
+    document.cookie = `pharma-session=1; path=/; max-age=${60 * 60 * 24 * 7}`;
+    setUser(sessionUser);
+    setToken(jwtToken);
+  }, []);
+
   const register = useCallback(async (data: RegisterData): Promise<boolean> => {
-    const { email, password, firstName, lastName, thaiId, licenseId, organization, university, phone } = data;
+    const { email, password, firstName, lastName, thaiId, licenseId, organization, university, phone, recaptchaToken, eventCode } = data;
     if (!email || !password) return false;
 
     try {
-      const res = await fetch("/api/auth/register", {
+      // Build multipart form data for accp-api /auth/register
+      const fd = new FormData();
+      fd.append("email", email);
+      fd.append("password", password);
+      fd.append("firstName", firstName || "");
+      fd.append("lastName", lastName || "");
+      fd.append("accountType", "thaiProfessional");
+      fd.append("source", "newpharmacist");
+      fd.append("country", "Thailand");
+      if (thaiId) fd.append("idCard", thaiId);
+      if (licenseId) fd.append("pharmacyLicenseId", licenseId);
+      if (organization) fd.append("organization", organization);
+      if (university) fd.append("university", university);
+      if (phone) fd.append("phone", phone);
+      if (recaptchaToken) fd.append("recaptchaToken", recaptchaToken);
+      if (eventCode) fd.append("eventCode", eventCode);
+
+      const res = await fetch(`${ACCP_API_URL}/auth/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, firstName, lastName, thaiId, licenseId, organization, university, phone }),
+        body: fd,
       });
 
-      if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error);
+      const resData = await res.json();
+
+      if (!res.ok || !resData.success) {
+        throw new Error(resData.error || "Registration failed");
       }
 
-      const { user: dbUser } = await res.json();
-      const sessionUser: AuthUser = {
-        ...dbUser,
-        name: `${dbUser.firstName} ${dbUser.lastName}`,
-      };
+      // Use token returned directly from register (no separate login call needed)
+      if (resData.token && resData.user) {
+        const sessionUser: AuthUser = {
+          ...resData.user,
+          name: `${resData.user.firstName || ""} ${resData.user.lastName || ""}`.trim() || resData.user.email,
+          licenseId: resData.user.pharmacyLicenseId || resData.user.licenseId,
+        };
+        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
+        localStorage.setItem(TOKEN_KEY, resData.token);
+        document.cookie = `pharma-session=1; path=/; max-age=${60 * 60 * 24 * 7}`;
+        setUser(sessionUser);
+        setToken(resData.token);
+        return true;
+      }
 
-      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
-      document.cookie = `pharma-session=1; path=/; max-age=${60 * 60 * 24 * 7}`;
-      setUser(sessionUser);
-      return true;
+      // Fallback: auto-login if API didn't return token
+      const loginOk = await login(email, password);
+      return loginOk;
     } catch (err) {
       console.error("[register]", err);
-      // Re-throw so the register page can display the exact error message
       throw err;
     }
-  }, []);
+  }, [login]);
 
   const logout = useCallback(() => {
     localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(TOKEN_KEY);
     document.cookie = "pharma-session=; path=/; max-age=0";
     setUser(null);
+    setToken(null);
     router.refresh();
   }, [router]);
 
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn: !!user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, isLoggedIn: !!user, login, loginWithToken, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
