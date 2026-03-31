@@ -33,15 +33,16 @@ const badgeStyles: Record<string, { bg: string; text: string; border: string }> 
 const events: TimelineEvent[] = [
   { id: "e1", time: "10.00 - 16.00 น.", badgeColor: "activity", badgeKey: "agenda.badge.activity", titleKey: "agenda.d1e1.title", descKey: "agenda.d1e1.desc", metaKey: "agenda.d1e1.meta", isHighlight: true },
   { id: "e2", time: "10.00 - 12.30 น.", badgeColor: "register", badgeKey: "agenda.badge.registration", titleKey: "agenda.d1e2.title", descKey: "agenda.d1e2.desc", metaKey: "agenda.d1e2.meta" },
-  { id: "e3", time: "12.30 - 12.35 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta", speakerImage: "/speaker/1.png" },
+  { id: "e3", time: "12.30 - 12.35 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta" },
   { id: "e4", time: "12.35 - 12.40 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc", metaKey: "agenda.d1e4.meta", speakerImage: "/welcome message/Pre.png" },
   { id: "e5", time: "12.40 - 13.20 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e5.title", descKey: "agenda.d1e5.desc", metaKey: "agenda.d1e5.meta" },
   { id: "e6", time: "13.20 น.", badgeColor: "activity", badgeKey: "agenda.badge.activity", titleKey: "agenda.d1evt.title", descKey: "agenda.d1evt.desc" },
   { id: "e7", time: "13.20 - 14.00 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc", metaKey: "agenda.d1e6.meta", speakerImage: "/welcome message/Se.png" },
-  { id: "e8", time: "14.00 - 15.00 น.", badgeColor: "workshop", badgeKey: "agenda.badge.workshop", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc", metaKey: "agenda.d1e7.meta", speakerImages: ["/speaker/1.png", "/speaker/4.png", "/speaker/3.png"] },
-  { id: "e9", time: "15.00 - 15.30 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e8.title", descKey: "agenda.d1e8.desc", metaKey: "agenda.d1e8.meta", speakerImage: "/speaker/2.png" },
+  { id: "e8", time: "14.00 - 15.00 น.", badgeColor: "workshop", badgeKey: "agenda.badge.workshop", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc", metaKey: "agenda.d1e7.meta", speakerImages: ["/speaker/1.png", "/speaker/4.png", "/speaker/5.png", "/speaker/3.png", "/speaker/6.png"] },
+  { id: "e9", time: "15.00 - 15.30 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e8.title", descKey: "agenda.d1e8.desc", metaKey: "agenda.d1e8.meta", speakerImage: "/speaker/7.png" },
   { id: "e10", time: "15.30 - 16.00 น.", badgeColor: "summary", badgeKey: "agenda.badge.summary", titleKey: "agenda.d1e9.title", descKey: "agenda.d1e9.desc", metaKey: "agenda.d1e9.meta" }
 ];
+
 
 export default function AgendaSection() {
   const { t } = useLang();
@@ -85,9 +86,9 @@ export default function AgendaSection() {
             <span className="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-400 animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-widest">{t("agenda.scheduleLabel")}</span>
           </div>
-          <h2 className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
+          <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
             {t("agenda.title1")}<br/>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500 dark:from-violet-400 dark:via-fuchsia-400 dark:to-orange-400">
+            <span className="bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
               {t("agenda.title2") || "Event Timeline"}
             </span>
           </h2>

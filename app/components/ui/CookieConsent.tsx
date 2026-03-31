@@ -57,7 +57,7 @@ export default function CookieConsent() {
           <div className="p-5 sm:p-7">
             {/* Header */}
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-900/20 flex items-center justify-center shrink-0 mt-0.5 p-1 border border-violet-100 dark:border-violet-800">
+              <div className="w-12 h-12 flex items-center justify-center shrink-0 mt-0.5">
                 <Image src="/logo.jpg" alt="Pharmacy Council Logo" width={40} height={40} className="object-contain" />
               </div>
               <div className="flex-1">

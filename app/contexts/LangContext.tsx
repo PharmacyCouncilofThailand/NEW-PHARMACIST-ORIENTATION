@@ -118,20 +118,25 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.s4.topic": { TH: "TBC", EN: "TBC" },
   "speaker.s4.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
 
-  "speaker.s5.name": { TH: "วิทยากรรับเชิญ", EN: "Guest Speaker" },
-  "speaker.s5.position": { TH: "ยังไม่ยืนยัน", EN: "TBC" },
-  "speaker.s5.topic": { TH: "TBC", EN: "TBC" },
-  "speaker.s5.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
+  "speaker.s5.name": { TH: "ภก.อาทิตย์ สอดแสงอรุณงาม", EN: "Pharm. Athit Sotsaengarunngam" },
+  "speaker.s5.position": { TH: "ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม", EN: "Director of Registration Operations Division, GPO" },
+  "speaker.s5.topic": { TH: "เภสัชกรอุตสาหการ", EN: "Industrial Pharmacist" },
+  "speaker.s5.desc": { TH: "ประสบการณ์การทำงานในองค์การเภสัชกรรมและงานขึ้นทะเบียน", EN: "Experience working in the Government Pharmaceutical Organization and drug registration." },
 
   "speaker.s6.name": { TH: "ภก.นิชนนท์ ชาวเรา", EN: "Pharm. Nichanon Chaorao" },
   "speaker.s6.position": { TH: "สสจ.สมุทรสงคราม", EN: "Samut Songkhram PHO" },
   "speaker.s6.topic": { TH: "เภสัชกรภาครัฐ", EN: "Public Sector Pharmacist" },
   "speaker.s6.desc": { TH: "ประสบการณ์การทำงานในสำนักงานสาธารณสุขจังหวัด", EN: "Experience working in the Provincial Health Office." },
 
-  "speaker.s7.name": { TH: "วิทยากรรับเชิญ", EN: "Guest Speaker" },
-  "speaker.s7.position": { TH: "ยังไม่ยืนยัน", EN: "TBC" },
-  "speaker.s7.topic": { TH: "TBC", EN: "TBC" },
-  "speaker.s7.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
+  "speaker.s7.name": { TH: "ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ", EN: "Pharm. Pinyapat Sukmankongsamun" },
+  "speaker.s7.position": { TH: "Associated Product Manager Abbott Laboratories", EN: "Associated Product Manager, Abbott Laboratories" },
+  "speaker.s7.topic": { TH: "เภสัชกรการตลาด", EN: "Pharmaceutical Marketing" },
+  "speaker.s7.desc": { TH: "ประสบการณ์ด้านการตลาดและ Product Manager ในบริษัทยาชั้นนำ", EN: "Experience as an Associated Product Manager in a multinational pharmaceutical company." },
+
+  "speaker.s8.name": { TH: "ภก.ณภัทร สัตยุตม์", EN: "Pharm. Napat Sattayut" },
+  "speaker.s8.position": { TH: "บีน Nudge Thailand", EN: "Bean, Nudge Thailand" },
+  "speaker.s8.topic": { TH: "การดูแลจิตใจ", EN: "Mental Health & Well-being" },
+  "speaker.s8.desc": { TH: "เทคนิคการดูแลสุขภาพจิตและป้องกันภาวะ Burn Out สำหรับเภสัชกร", EN: "Mental health tips and Burn Out prevention techniques for pharmacists." },
 
   "speaker.tag.president": { TH: "นายกสภาฯ", EN: "President" },
   "speaker.tag.pharmacy": { TH: "วิชาชีพเภสัชกรรม", EN: "Pharmacy" },
@@ -217,8 +222,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.d1e7.title": { TH: "Panel Discussion: แลกเปลี่ยนประสบการณ์วิชาชีพ", EN: "Panel Discussion: Professional Experience Exchange" },
   "agenda.d1e7.desc": { TH: "แลกเปลี่ยนประสบการณ์วิชาชีพจากเภสัชกรหลากหลายสาขา ร้านยา โรงพยาบาล อุตสาหกรรม การตลาด และภาครัฐ", EN: "Professional experience sharing from pharmacists across community pharmacy, hospital, industry, marketing, and public sectors." },
   "agenda.d1e7.meta": { 
-    TH: "วิทยากร:\n- ภญ.ชนากิต อิ่มบำรุง (ร้านยาพรประสิทธิ์)\n- ภญ.ชนิตรา อินทร์ศิริ (ศูนย์การแพทย์สมเด็จพระเทพฯ)\n- ภก.นิชนนท์ ชาวเรา (สสจ.สมุทรสงคราม)\n\nพิธีกร:\n- ภก.พงษ์ศิวะ กู่นอก (ผู้ช่วยเลขาธิการสภาฯ)", 
-    EN: "Speakers:\n- Pharm. Chanakit Imbamrung\n- Pharm. Chanitra Insiri\n- Pharm. Nichanon Chaorao\n\nMC:\n- Pharm. Phongsiva Kunok" 
+    TH: "วิทยากร:\n- ภญ.ชนากิต อิ่มบำรุง (ร้านยาพรประสิทธิ์)\n- ภญ.ชนิตรา อินทร์ศิริ (ศูนย์การแพทย์สมเด็จพระเทพฯ)\n- ภก.อาทิตย์ สอดแสงอรุณงาม (ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม)\n- ภก.นิชนนท์ ชาวเรา (สสจ.สมุทรสงคราม)\n- ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ (Associated Product Manager, Abbott Laboratories)\n\nพิธีกร:\n- ภก.พงษ์ศิวะ กู่นอก (ผู้ช่วยเลขาธิการสภาเภสัชกรรม)", 
+    EN: "Speakers:\n- Pharm. Chanakit Imbamrung (Pornprasit Pharmacy)\n- Pharm. Chanitra Insiri (HRH Princess Medical Center)\n- Pharm. Athit Sotsaengarunngam (Director of Registration Ops, GPO)\n- Pharm. Nichanon Chaorao (Samut Songkhram PHO)\n- Pharm. Pinyapat Sukmankongsamun (Associated Product Manager, Abbott)\n\nMC:\n- Pharm. Phongsiva Kunok (Asst. Secretary-General)" 
   },
 
   "agenda.d1e8.title": { TH: "ทำงานอย่างไรไม่ให้ Burn Out", EN: "How to Work Without Burning Out" },

@@ -66,17 +66,7 @@ const speakers: Speaker[] = [
     tags: ["speaker.tag.expert"],
     image: "/speaker/4.png",
   },
-  {
-    id: "s4",
-    nameKey: "speaker.s4.name",
-    positionKey: "speaker.s4.position",
-    topicKey: "speaker.s4.topic",
-    descKey: "speaker.s4.desc",
-    emoji: "⏳",
-    gradient: "from-slate-500 to-slate-600",
-    badgeColor: "bg-slate-500/10 text-slate-600 border-slate-200 dark:border-slate-800",
-    tags: ["speaker.tag.expert"],
-  },
+
   {
     id: "s5",
     nameKey: "speaker.s5.name",
@@ -87,6 +77,7 @@ const speakers: Speaker[] = [
     gradient: "from-slate-500 to-slate-600",
     badgeColor: "bg-slate-500/10 text-slate-600 border-slate-200 dark:border-slate-800",
     tags: ["speaker.tag.expert"],
+    image: "/speaker/5.png",
   },
   {
     id: "s6",
@@ -110,6 +101,19 @@ const speakers: Speaker[] = [
     gradient: "from-slate-500 to-slate-600",
     badgeColor: "bg-slate-500/10 text-slate-600 border-slate-200 dark:border-slate-800",
     tags: ["speaker.tag.expert"],
+    image: "/speaker/6.png",
+  },
+  {
+    id: "s8",
+    nameKey: "speaker.s8.name",
+    positionKey: "speaker.s8.position",
+    topicKey: "speaker.s8.topic",
+    descKey: "speaker.s8.desc",
+    emoji: "⏳",
+    gradient: "from-slate-500 to-slate-600",
+    badgeColor: "bg-slate-500/10 text-slate-600 border-slate-200 dark:border-slate-800",
+    tags: ["speaker.tag.expert"],
+    image: "/speaker/7.png",
   },
 ];
 
@@ -214,7 +218,7 @@ export default function SpeakerSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div ref={titleRef} className="text-center mt-6 mb-8 md:mb-12">
-          <h2 className="text-[clamp(1.2rem,3vw,2.6rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
+          <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(1.2rem,3vw,2.6rem)] font-black tracking-tight text-slate-900 dark:text-white mb-4">
             <span className="gradient-text-anim">{t("speaker.title2")}</span>
           </h2>
         </div>

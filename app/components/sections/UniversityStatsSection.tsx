@@ -190,7 +190,7 @@ export default function UniversityStatsSection() {
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
         
         <div ref={headlineRef} className="text-center mb-10 short:mb-4">
-          <h2 className="text-[clamp(1.75rem,4vw,3rem)] font-black tracking-tight text-slate-900 dark:text-white mb-3 short:mb-2 text-center">
+          <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(1.75rem,4vw,3rem)] font-black tracking-tight text-slate-900 dark:text-white mb-3 short:mb-2 text-center">
             {t("stats.title1")}<span className="gradient-text-anim">{t("stats.title2")}</span>
           </h2>
 

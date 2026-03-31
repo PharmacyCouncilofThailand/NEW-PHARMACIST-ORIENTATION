@@ -171,8 +171,8 @@ const GlassCardContent = ({ person }: { person: Person }) => {
           </span>
         </motion.div>
         
-        <motion.h2 variants={textItemVariants} className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-8 leading-[1.2] tracking-tight lg:text-left">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-blue-600 dark:from-violet-400 dark:to-blue-400 text-[clamp(1.8rem,4vw,3.5rem)] lg:leading-[1.15] block pb-2 pr-2 overflow-visible">
+        <motion.h2 variants={textItemVariants} style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-8 leading-[1.2] tracking-tight lg:text-left">
+          <span className="bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm text-[clamp(1.8rem,4vw,3.5rem)] lg:leading-[1.15] block pb-2 pr-2 overflow-visible">
             {t(person.posKey)}
           </span>
           <span className="text-2xl sm:text-3xl lg:text-4xl text-slate-800 dark:text-slate-200 mt-3 block font-bold leading-snug">
@@ -357,7 +357,7 @@ export default function WelcomeSection() {
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none -z-10" />
 
         <div ref={headlineRefMobile} className="text-center mb-10 md:mb-16 flex flex-col items-center justify-center">
-          <h2 className="text-[clamp(1.8rem,3.5vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
+          <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(1.8rem,3.5vw,3.5rem)] font-black leading-[1.1] text-slate-900 dark:text-white tracking-tighter">
             {t("welcome.title1")}{" "}
             <span className="gradient-text-anim whitespace-nowrap inline-block mt-1 sm:mt-0">{t((people[index] || people[0]).posKey)}</span>
           </h2>
