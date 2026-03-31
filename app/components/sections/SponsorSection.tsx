@@ -58,7 +58,7 @@ export default function SponsorSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 relative z-10 w-full">
         {/* Heading */}
         <div ref={headlineRef} className="text-center mb-6 md:mb-10">
-          <h2 className="text-[clamp(1.5rem,3.5vw,3rem)] font-black leading-tight tracking-tight text-slate-900 dark:text-white mb-3 md:mb-8">
+          <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(1.5rem,3.5vw,3rem)] font-black leading-tight tracking-tight text-slate-900 dark:text-white mb-3 md:mb-8">
             {t("sponsor.title1")}{" "}
             <span className="gradient-text-anim">
               {t("sponsor.title2")}

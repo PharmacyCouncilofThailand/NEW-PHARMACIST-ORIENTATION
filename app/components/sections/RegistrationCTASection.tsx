@@ -48,9 +48,9 @@ export default function RegistrationCTASection() {
               {t("regcta.badge")}
             </span>
 
-            <h2 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white mb-2 leading-[1.15]">
+            <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white mb-2 leading-[1.15]">
               {t("regcta.title1")}{" "}
-              <span className="bg-gradient-to-r from-violet-600 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
                 {t("regcta.title2")}
               </span>
             </h2>

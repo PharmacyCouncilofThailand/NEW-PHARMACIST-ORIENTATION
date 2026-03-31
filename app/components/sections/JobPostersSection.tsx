@@ -290,7 +290,7 @@ export default function JobPostersSection() {
           {/* Section header */}
           <div ref={headerRef} className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8 text-center md:text-left">
             <div className="max-w-xl">
-              <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
+              <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(1.8rem,3.5vw,3rem)] font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white">
                 {t("jobPosters.title1")}
                 <br />
                 <span className="gradient-text-anim">{t("jobPosters.title2")}</span>
