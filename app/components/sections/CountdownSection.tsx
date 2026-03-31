@@ -116,6 +116,7 @@ export default function CountdownSection() {
     { value: timeLeft.days,    label: t("countdown.days"),    accent: "bg-violet-600" },
     { value: timeLeft.hours,   label: t("countdown.hours"),   accent: "bg-blue-600"   },
     { value: timeLeft.minutes, label: t("countdown.minutes"), accent: "bg-indigo-500" },
+    { value: timeLeft.seconds, label: t("countdown.seconds"), accent: "bg-fuchsia-500" },
   ];
 
   return (
