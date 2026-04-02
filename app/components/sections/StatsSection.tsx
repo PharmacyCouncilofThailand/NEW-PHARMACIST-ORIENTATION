@@ -75,7 +75,7 @@ export const StatItem = memo(function StatItem({ end, suffix, label, delay, icon
               {suffix}
             </span>
           </div>
-          <p className="text-[11px] sm:text-xs font-semibold text-white/70 tracking-wide line-clamp-2">
+          <p className="text-[11px] sm:text-xs font-semibold text-black/80 tracking-wide line-clamp-2">
             {label}
           </p>
         </div>
