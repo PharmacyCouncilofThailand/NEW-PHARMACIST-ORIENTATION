@@ -384,17 +384,17 @@ export default function UniversityStatsSection() {
                     <span className="text-4xl short:text-2xl font-black text-violet-700 dark:text-violet-300">{totalCount.toLocaleString()}</span>
                   </div>
 
-                   {/* Top 3 - big logo redesign */}
+                   {/* Top 3 - Logo Only */}
                    {top3.map((u, i) => {
                      const medalBg = i === 0 ? "from-amber-400 to-yellow-500" : i === 1 ? "from-slate-300 to-slate-400" : "from-orange-400 to-amber-500";
                      return (
-                       <div key={u.abbr} className="flex bg-white dark:bg-slate-800/60 rounded-2xl px-3 md:px-2 lg:px-4 py-3 md:py-4 lg:py-3 border border-slate-100 dark:border-slate-700 flex-row items-center justify-center gap-3 lg:gap-4 relative overflow-hidden group hover:shadow-lg transition-all duration-300 md:h-full lg:h-auto">
+                       <div key={u.abbr} className="flex flex-row bg-white dark:bg-slate-800/60 rounded-2xl px-4 py-3 border border-slate-100 dark:border-slate-700 items-center relative overflow-hidden group hover:shadow-lg transition-all duration-300 gap-4">
                          {/* rank badge */}
-                         <div className={`absolute top-2 right-2 md:top-2 md:right-2 w-6 h-6 rounded-full bg-gradient-to-br ${medalBg} flex items-center justify-center text-white text-[11px] font-black shadow-md z-10`}>
+                         <div className={`absolute top-2 right-2 w-6 h-6 rounded-full bg-gradient-to-br ${medalBg} flex items-center justify-center text-white text-[11px] font-black shadow-md z-10`}>
                            {i + 1}
                          </div>
                          {/* logo */}
-                         <div className="w-20 h-20 md:w-20 md:h-20 lg:w-20 lg:h-20 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 shadow-md flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-300 relative z-0">
+                         <div className="shrink-0 w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 shadow-md flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300 relative z-0">
                            <UniLogo 
                              src={u.logoUrl} 
                              abbr={u.abbr} 
@@ -404,11 +404,10 @@ export default function UniversityStatsSection() {
                              textClass="text-xs" 
                            />
                          </div>
-                         {/* text */}
-                         <div className="flex-col min-w-0 pr-6 lg:pr-2 xl:pr-6 flex md:hidden lg:flex">
-                           <span className="text-xl xl:text-2xl font-black text-slate-800 dark:text-white leading-none">{u.count.toLocaleString()}</span>
-                           <span className="text-[10px] xl:text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-2 mt-0.5">{u.name}</span>
-                         </div>
+                         {/* university name — desktop only */}
+                         <span className="hidden xl:block text-left text-sm font-semibold text-slate-700 dark:text-slate-200 leading-snug line-clamp-2 pr-6">
+                           {u.name}
+                         </span>
                        </div>
                      );
                    })}

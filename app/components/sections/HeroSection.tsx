@@ -79,7 +79,7 @@ export default function HeroSection() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
-        <source src="/test.mp4" type="video/mp4" />
+        <source src="/BGn.mp4" type="video/mp4" />
       </video>
 
       {/* CONTENT WITH FRAMER MOTION PARALLAX */}
@@ -134,7 +134,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Subtitle */}
-          <motion.p variants={fadeSlideUp} suppressHydrationWarning className="text-[clamp(1rem,2.5vw,1.2rem)] text-slate-700 max-w-2xl mx-auto mb-8 leading-relaxed font-semibold drop-shadow-sm bg-white/40 md:bg-transparent px-4 py-2 rounded-2xl md:p-0 backdrop-blur-sm md:backdrop-blur-none border border-white/50 md:border-transparent">
+          <motion.p variants={fadeSlideUp} suppressHydrationWarning className="text-[clamp(1rem,2.5vw,1.2rem)] text-white max-w-2xl mx-auto mb-8 leading-relaxed font-semibold drop-shadow-md bg-black/40 md:bg-transparent px-4 py-2 rounded-2xl md:p-0 backdrop-blur-sm md:backdrop-blur-none border border-white/10 md:border-transparent">
             {t("hero.subtitle1")} <span suppressHydrationWarning className="text-pink-600 font-bold">{t("hero.future")}</span> {t("hero.subtitle2")}
             <br className="hidden md:block" />
             {t("hero.subtitle3")} <span suppressHydrationWarning className="text-violet-600 font-bold">{t("hero.journey")}</span> <span className="whitespace-nowrap">{t("hero.subtitle4")}</span>

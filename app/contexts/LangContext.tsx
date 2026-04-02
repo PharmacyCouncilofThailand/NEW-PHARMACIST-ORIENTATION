@@ -303,7 +303,7 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   "register.firstName": { TH: "ชื่อ", EN: "First Name" },
   "register.lastName": { TH: "นามสกุล", EN: "Last Name" },
-  "register.licenseId": { TH: "เลขที่ใบอนุญาตประกอบวิชาชีพ", EN: "License Number" },
+  "register.licenseId": { TH: "เลขใบอนุญาตประกอบวิชาชีพ", EN: "License Number" },
   "register.phone": { TH: "เบอร์โทรศัพท์", EN: "Phone Number" },
   "register.email": { TH: "อีเมล", EN: "Email Address" },
   "register.password": { TH: "รหัสผ่าน", EN: "Password" },

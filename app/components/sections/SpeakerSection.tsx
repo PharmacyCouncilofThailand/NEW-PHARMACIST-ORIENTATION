@@ -151,11 +151,11 @@ const SpeakerCard = memo(function SpeakerCard({
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-100 transition-opacity duration-500" />
 
       {/* Name and Position */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col items-center justify-end text-center h-1/2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-        <h3 className="text-[20px] sm:text-2xl font-bold text-white mb-2 shadow-black drop-shadow-lg leading-tight" style={{ textRendering: "optimizeLegibility" }}>
+      <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col items-center justify-end text-center h-1/2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+        <h3 className="text-[18px] sm:text-xl font-bold text-white mb-1.5 shadow-black drop-shadow-lg leading-snug" style={{ textRendering: "optimizeLegibility" }}>
           {t(speaker.nameKey)}
         </h3>
-        <p className="text-[13px] sm:text-base font-medium text-white bg-black/60 md:bg-black/20 md:backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm opacity-100 transition-opacity duration-300">
+        <p className="text-[12px] sm:text-sm font-medium text-white bg-black/60 md:bg-black/20 md:backdrop-blur-md px-3 py-1 rounded-full shadow-sm opacity-100 transition-opacity duration-300">
           {t(speaker.positionKey)}
         </p>
       </div>
