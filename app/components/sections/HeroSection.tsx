@@ -134,7 +134,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Subtitle */}
-          <motion.p variants={fadeSlideUp} suppressHydrationWarning className="text-[clamp(1rem,2.5vw,1.2rem)] text-black max-w-2xl mx-auto mb-8 leading-relaxed font-semibold drop-shadow-md bg-black/40 md:bg-transparent px-4 py-2 rounded-2xl md:p-0 backdrop-blur-sm md:backdrop-blur-none border border-white/10 md:border-transparent">
+          <motion.p variants={fadeSlideUp} suppressHydrationWarning className="text-[clamp(1rem,2.5vw,1.2rem)] text-black max-w-2xl mx-auto mb-8 leading-relaxed font-semibold drop-shadow-md">
             {t("hero.subtitle1")} <span suppressHydrationWarning className="text-pink-600 font-bold">{t("hero.future")}</span> {t("hero.subtitle2")}
             <br className="hidden md:block" />
             {t("hero.subtitle3")} <span suppressHydrationWarning className="text-violet-600 font-bold">{t("hero.journey")}</span> <span className="whitespace-nowrap">{t("hero.subtitle4")}</span>
