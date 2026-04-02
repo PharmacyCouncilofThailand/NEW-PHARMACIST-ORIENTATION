@@ -52,10 +52,10 @@ export const StatItem = memo(function StatItem({ end, suffix, label, delay, icon
   return (
     <div 
       ref={ref}
-      className={`relative p-3 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 border border-white/50 dark:border-white/10 shadow-sm dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden group hover:-translate-y-1 transition-transform duration-300 ${delay}`}
+      className={`relative p-3 sm:p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden group hover:-translate-y-1 transition-transform duration-300 ${delay}`}
     >
-      {/* Subtle Glow behind the card on hover */}
-      <div className={`absolute -inset-1 opacity-0 group-hover:opacity-15 blur-xl transition-opacity duration-500 bg-gradient-to-br ${gradient} pointer-events-none`} />
+      {/* Glow behind the card on hover */}
+      <div className={`absolute -inset-1 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 bg-gradient-to-br ${gradient} pointer-events-none`} />
       
       {/* Card Content */}
       <div className="relative flex flex-col items-center justify-center text-center h-full gap-2">
@@ -75,7 +75,7 @@ export const StatItem = memo(function StatItem({ end, suffix, label, delay, icon
               {suffix}
             </span>
           </div>
-          <p className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide line-clamp-2">
+          <p className="text-[11px] sm:text-xs font-semibold text-white/70 tracking-wide line-clamp-2">
             {label}
           </p>
         </div>
