@@ -14,6 +14,31 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
   const progressRef = useRef<HTMLDivElement>(null);
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
 
+  // Lock body scroll while modal is open so the page behind cannot steal wheel events
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
+  // Manually handle wheel events on the scroll container so framer-motion transforms
+  // cannot intercept them (non-passive so we can preventDefault to stop propagation)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || !isOpen) return;
+    const onWheel = (e: WheelEvent) => {
+      const maxScroll = el.scrollHeight - el.clientHeight;
+      if (maxScroll <= 0) return;
+      el.scrollTop += e.deltaY;
+      e.preventDefault();
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen) {
       setHasScrolledToBottom(false);
@@ -58,7 +83,7 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 pb-12 sm:pb-6">
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 pb-12 sm:pb-6 overflow-hidden">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -76,7 +101,7 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative z-10 w-full max-w-[540px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-3xl rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)] border border-white/60 dark:border-slate-700/50 overflow-hidden flex flex-col max-h-[85svh]"
+            className="relative z-10 w-full max-w-[540px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-3xl rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)] border border-white/60 dark:border-slate-700/50 overflow-clip flex flex-col max-h-[85svh]"
           >
             {/* Header Area */}
             <div className="shrink-0 px-6 sm:px-8 pt-6 sm:pt-8 pb-4 border-b border-slate-100 dark:border-slate-800/60 relative overflow-hidden">
