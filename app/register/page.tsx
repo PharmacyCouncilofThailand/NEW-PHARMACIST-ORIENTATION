@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useAuth } from "../contexts/AuthContext";
 import { useLang } from "../contexts/LangContext";
 import FloatingLangToggle from "../components/ui/FloatingLangToggle";
@@ -31,7 +31,8 @@ export default function RegisterPage() {
   const [isUniOpen, setIsUniOpen] = useState(false);
   const [isConsentOpen, setIsConsentOpen] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
 
   const UNI_OPTIONS = [
     "จุฬาลงกรณ์มหาวิทยาลัย", "มหาวิทยาลัยมหิดล", "มหาวิทยาลัยเชียงใหม่",
@@ -61,25 +62,25 @@ export default function RegisterPage() {
     if (!formData.consent) {
       setError("Please accept the terms and conditions"); return;
     }
-    if (!recaptchaToken) {
+    if (turnstileSiteKey && !recaptchaToken) {
       setError(lang === "TH" ? "กรุณายืนยันว่าคุณไม่ใช่บอท" : "Please verify that you are not a robot"); return;
     }
     setLoading(true); setError("");
     try {
       const eventCode = process.env.NEXT_PUBLIC_EVENT_CODE || "";
-      const ok = await register({ ...formData, recaptchaToken, ...(eventCode && { eventCode }) });
+      const ok = await register({ ...formData, recaptchaToken: recaptchaToken || undefined, ...(eventCode && { eventCode }) });
       if (ok) {
         router.push("/");
       } else {
         setError("Registration failed");
         setLoading(false);
-        recaptchaRef.current?.reset();
+        turnstileRef.current?.reset();
         setRecaptchaToken(null);
       }
     } catch (err: any) {
       setError(err.message || "An error occurred");
       setLoading(false);
-      recaptchaRef.current?.reset();
+      turnstileRef.current?.reset();
       setRecaptchaToken(null);
     }
   };
@@ -283,15 +284,17 @@ export default function RegisterPage() {
               onAccept={() => setFormData(prev => ({ ...prev, consent: true }))}
             />
 
+            {turnstileSiteKey && (
             <div className="flex justify-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
-                onChange={(token) => { setRecaptchaToken(token); if (token) setError(""); }}
-                theme="light"
-                hl="en"
+              <Turnstile
+                ref={turnstileRef}
+                siteKey={turnstileSiteKey}
+                onSuccess={(token) => { setRecaptchaToken(token); setError(""); }}
+                onExpire={() => setRecaptchaToken(null)}
+                onError={() => setRecaptchaToken(null)}
               />
             </div>
+            )}
 
             <div className="pt-4 relative">
               <button type="submit" disabled={loading} className="group w-full flex justify-center py-3 px-4 rounded-xl text-[15px] font-bold text-white bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 shadow-[0_4px_14px_0_rgba(124,58,237,0.39)] hover:shadow-[0_6px_20px_rgba(124,58,237,0.23)] hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden">
