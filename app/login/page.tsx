@@ -2,7 +2,7 @@
 
 import { useState, useCallback, Suspense, memo, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "../contexts/LangContext";
@@ -78,7 +78,8 @@ function LoginContent() {
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState("");
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
 
   /* ── Handlers ── */
   const handleFocus = useCallback((name: string) => setFocused(name), []);
@@ -86,25 +87,25 @@ function LoginContent() {
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!recaptchaToken) {
+    if (turnstileSiteKey && !recaptchaToken) {
       setError(lang === "TH" ? "กรุณายืนยันว่าคุณไม่ใช่บอท" : "Please verify that you are not a robot");
       return;
     }
 
     setError("");
     setLoading(true);
-    const ok = await login(email, password, recaptchaToken);
+    const ok = await login(email, password, recaptchaToken || undefined);
     if (ok) {
       const from = searchParams.get("from") || "/";
       router.push(from);
     } else {
       setError(t("login.error"));
       setLoading(false);
-      // Reset reCAPTCHA on failure
-      recaptchaRef.current?.reset();
+      // Reset Turnstile on failure
+      turnstileRef.current?.reset();
       setRecaptchaToken(null);
     }
-  }, [email, password, login, searchParams, router, lang, recaptchaToken, t]);
+  }, [email, password, login, searchParams, router, lang, recaptchaToken, t, turnstileSiteKey]);
 
   /* ═════════════════════════════════
      RENDER
@@ -220,18 +221,17 @@ function LoginContent() {
 
           </div>
 
+          {turnstileSiteKey && (
           <div className={`${s.field} mt-6 mb-4 flex justify-center w-full`}>
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // using a dummy key if not provided for dev
-              onChange={(token) => {
-                setRecaptchaToken(token);
-                if (token) setError("");
-              }}
-              theme="light"
-              hl="en"
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={turnstileSiteKey}
+              onSuccess={(token) => { setRecaptchaToken(token); setError(""); }}
+              onExpire={() => setRecaptchaToken(null)}
+              onError={() => setRecaptchaToken(null)}
             />
           </div>
+          )}
 
           {/* ── Submit button ── */}
           <button type="submit" disabled={loading} className={s.btn}>
