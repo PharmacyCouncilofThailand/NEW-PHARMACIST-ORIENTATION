@@ -129,7 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       fd.append("password", password);
       fd.append("firstName", firstName || "");
       fd.append("lastName", lastName || "");
-      fd.append("accountType", "thaiProfessional");
+      fd.append("accountType", "pharmacist");
       fd.append("source", "newpharmacist");
       fd.append("country", "Thailand");
       if (thaiId) fd.append("idCard", thaiId);
