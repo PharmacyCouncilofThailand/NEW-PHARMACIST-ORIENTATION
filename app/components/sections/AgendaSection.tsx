@@ -111,7 +111,7 @@ export default function AgendaSection() {
 
         <div ref={containerRef} className="relative before:absolute before:inset-0 before:left-[1rem] md:before:left-[30%] before:-translate-x-px md:before:-translate-x-px before:h-full before:w-[2px] before:bg-gradient-to-b before:from-violet-600 before:via-fuchsia-500 before:to-transparent before:opacity-20 dark:before:opacity-30">
           
-          <div className="flex flex-col gap-16 md:gap-24">
+          <div className="flex flex-col gap-10 md:gap-12">
             {events.map((event, i) => {
               
               return (
@@ -201,20 +201,20 @@ export default function AgendaSection() {
                       {/* Meta + Speaker Image (single speaker style) */}
                       {!event.speakers && (
                         <div className="relative">
-                          {event.metaKey && (
-                            <div className="relative pl-5 pr-36 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:rounded-full before:bg-gradient-to-b before:from-violet-500 before:to-fuchsia-500 before:opacity-40">
-                              <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 whitespace-pre-line leading-loose tracking-wide">
-                                {t(event.metaKey)}
-                              </span>
+                          <div className={event.metaKey ? "relative pl-5 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:rounded-full before:bg-gradient-to-b before:from-violet-500 before:to-fuchsia-500 before:opacity-40" : ""}>
+                            <div className="flex items-center gap-4">
+                              {event.speakerImage && (
+                                <div className="relative shrink-0 rounded-2xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-16 h-16 md:w-20 md:h-20 ring-1 ring-slate-900/5 dark:ring-white/10 group-hover:scale-105 transition-transform duration-500">
+                                  <Image src={event.speakerImage} alt="Speaker" fill unoptimized className="object-cover object-top" />
+                                </div>
+                              )}
+                              {event.metaKey && (
+                                <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 whitespace-pre-line leading-loose tracking-wide">
+                                  {t(event.metaKey)}
+                                </span>
+                              )}
                             </div>
-                          )}
-                          {event.speakerImage && (
-                            <div className="flex absolute right-0 top-1/2 -translate-y-1/2 items-center">
-                              <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-white/50 dark:border-white/10 w-24 h-24 md:w-28 md:h-28 ring-1 ring-slate-900/5 dark:ring-white/10 group-hover:scale-105 transition-transform duration-500">
-                                <Image src={event.speakerImage} alt="Speaker" fill unoptimized className="object-cover object-top" />
-                              </div>
-                            </div>
-                          )}
+                          </div>
                         </div>
                       )}
 
