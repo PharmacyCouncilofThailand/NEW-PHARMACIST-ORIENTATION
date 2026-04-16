@@ -24,7 +24,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.career": { TH: "โอกาสทางวิชาชีพ", EN: "Career" },
   "nav.sponsors": { TH: "ผู้สนับสนุน", EN: "Sponsors" },
   "nav.signIn": { TH: "เข้าสู่ระบบ", EN: "Sign In" },
-  "nav.signUp": { TH: "สมัครสมาชิก", EN: "Sign Up" },
+  "nav.signUp": { TH: "ลงทะเบียน", EN: "Register" },
   "nav.signOut": { TH: "ออกจากระบบ", EN: "Sign Out" },
   "nav.license": { TH: "ใบอนุญาต", EN: "License" },
   "nav.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License No." },
@@ -47,10 +47,10 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.subtitle4": { TH: "เพื่อเริ่มต้นเส้นทางสายวิชาชีพร่วมกัน", EN: "to start our journey together." },
   "hero.register": { TH: "ลงทะเบียนเข้าร่วมงาน", EN: "Register Now" },
   "hero.registered": { TH: "คุณลงทะเบียนเข้าร่วมงานแล้ว", EN: "You are registered" },
-  "hero.loginHintPrefix": { TH: "💡 สมัครสมาชิกและเข้าสู่ระบบ เพื่อรับชม", EN: "💡 Register & Login to watch" },
+  "hero.loginHintPrefix": { TH: "🎉 เปิดลงทะเบียนแล้ววันนี้! ลงทะเบียนเพื่อรับชม", EN: "🎉 Registration is now OPEN! Sign up to watch" },
   "hero.loginHintLive": { TH: "ไลฟ์สด", EN: "Live Stream" },
   "hero.loginHintAnd": { TH: " และ ", EN: " & " },
-  "hero.loginHintVideo": { TH: "วิดีโอไฮไลท์", EN: "Highlight Videos" },
+  "hero.loginHintVideo": { TH: "วิดีโอไฮไลท์ย้อนหลัง", EN: "On-demand Highlights" },
   "hero.explore": { TH: "สำรวจเส้นทาง", EN: "Explore Path" },
   "hero.eventDate": { TH: "วันอาทิตย์ที่ 17 พฤษภาคม 2569", EN: "Sunday, May 17, 2026" },
   "hero.year": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
@@ -134,7 +134,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.s7.desc": { TH: "ประสบการณ์ด้านการตลาดและ Product Manager ในบริษัทยาชั้นนำ", EN: "Experience as an Associated Product Manager in a multinational pharmaceutical company." },
 
   "speaker.s8.name": { TH: "ภก.ณภัทร สัตยุตม์", EN: "Pharm. Napat Sattayut" },
-  "speaker.s8.position": { TH: "บีน Nudge Thailand", EN: "Bean, Nudge Thailand" },
+  "speaker.s8.position": { TH: "Nudge Thailand", EN: "Bean, Nudge Thailand" },
   "speaker.s8.topic": { TH: "การดูแลจิตใจ", EN: "Mental Health & Well-being" },
   "speaker.s8.desc": { TH: "เทคนิคการดูแลสุขภาพจิตและป้องกันภาวะ Burn Out สำหรับเภสัชกร", EN: "Mental health tips and Burn Out prevention techniques for pharmacists." },
 
@@ -146,7 +146,6 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.tag.insight": { TH: "ประสบการณ์", EN: "Experience" },
 
   // Agenda Section
-  "agenda.badge": { TH: " กำหนดการ", EN: " Schedule" },
   "agenda.title1": { TH: "กำหนดการ", EN: "Event " },
   "agenda.title2": { TH: "กิจกรรม", EN: "Agenda" },
   "agenda.subtitle1": { TH: "รายละเอียดกำหนดการตลอดกิจกรรม", EN: "Detailed activities throughout the 1-day orientation" },
@@ -162,7 +161,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Agenda Day themes
   "agenda.day1.theme": { TH: "ก้าวแรกสู่วิชาชีพ", EN: "First Step" },
-  "agenda.day1.themeDesc": { TH: "เริ่มต้นเส้นทางเภสัชกรอย่างมั่นใจ", EN: "Start your journey with confidence" },
+  "agenda.day1.themeDesc": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
 
   // Agenda Day dates
   "agenda.day1.date": { TH: "17 พ.ค. 2569", EN: "May 17, 2026" },
@@ -171,7 +170,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.badge.registration": { TH: "ลงทะเบียน", EN: "Registration" },
   "agenda.badge.ceremony": { TH: "พิธีการ", EN: "Ceremony" },
   "agenda.badge.lecture": { TH: "บรรยาย", EN: "Lecture" },
-  "agenda.badge.workshop": { TH: "เวิร์กช็อป", EN: "Workshop" },
+  "agenda.badge.workshop": { TH: "Panel Discussion", EN: "Panel Discussion" },
   "agenda.badge.break": { TH: "พัก", EN: "Break" },
 
   "agenda.badge.summary": { TH: "สรุป", EN: "Summary" },
@@ -209,7 +208,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช (นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej (President)" },
 
   "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
-  "agenda.d1e5.desc": { TH: "พิธีมอบใบอนุญาตเป็นผู้ประกอบวิชาชีพเภสัชกรรม", EN: "Professional Pharmacy License Presentation Ceremony." },
+
+"agenda.d1e5.desc": { TH: "การมอบเอกสารรับรองสิทธิ์ประกอบวิชาชีพให้แก่เภสัชกรผู้สำเร็จการศึกษา", EN: "A formal conferral of pharmacy practice credentials to newly qualified pharmacists." },
   "agenda.d1e5.meta": { TH: "คณะผู้บริหารสภาเภสัชกรรม", EN: "Pharmacy Council Executives" },
 
   "agenda.d1evt.title": { TH: "VTR แนะนำกรรมการสภาเภสัชกรรม", EN: "VTR: Pharmacy Council Committee Introduction" },
@@ -221,14 +221,18 @@ const translations: Record<string, Record<Lang, string>> = {
 
   "agenda.d1e7.title": { TH: "Panel Discussion: แลกเปลี่ยนประสบการณ์วิชาชีพ", EN: "Panel Discussion: Professional Experience Exchange" },
   "agenda.d1e7.desc": { TH: "แลกเปลี่ยนประสบการณ์วิชาชีพจากเภสัชกรหลากหลายสาขา ร้านยา โรงพยาบาล อุตสาหกรรม การตลาด และภาครัฐ", EN: "Professional experience sharing from pharmacists across community pharmacy, hospital, industry, marketing, and public sectors." },
-  "agenda.d1e7.meta": { 
-    TH: "วิทยากร:\n- ภญ.ชนากิต อิ่มบำรุง (ร้านยาพรประสิทธิ์)\n- ภญ.ชนิตรา อินทร์ศิริ (ศูนย์การแพทย์สมเด็จพระเทพฯ)\n- ภก.อาทิตย์ สอดแสงอรุณงาม (ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม)\n- ภก.นิชนนท์ ชาวเรา (สสจ.สมุทรสงคราม)\n- ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ (Associated Product Manager, Abbott Laboratories)\n\nพิธีกร:\n- ภก.พงษ์ศิวะ กู่นอก (ผู้ช่วยเลขาธิการสภาเภสัชกรรม)", 
-    EN: "Speakers:\n- Pharm. Chanakit Imbamrung (Pornprasit Pharmacy)\n- Pharm. Chanitra Insiri (HRH Princess Medical Center)\n- Pharm. Athit Sotsaengarunngam (Director of Registration Ops, GPO)\n- Pharm. Nichanon Chaorao (Samut Songkhram PHO)\n- Pharm. Pinyapat Sukmankongsamun (Associated Product Manager, Abbott)\n\nMC:\n- Pharm. Phongsiva Kunok (Asst. Secretary-General)" 
-  },
+  "agenda.d1e7.speakerLabel": { TH: "วิทยากร", EN: "Speakers" },
+  "agenda.d1e7.speaker1": { TH: "ภญ.ชนากิต อิ่มบำรุง (ร้านยาพรประสิทธิ์)", EN: "Pharm. Chanakit Imbamrung (Pornprasit Pharmacy)" },
+  "agenda.d1e7.speaker2": { TH: "ภญ.ชนิตรา อินทร์ศิริ (ศูนย์การแพทย์สมเด็จพระเทพฯ)", EN: "Pharm. Chanitra Insiri (HRH Princess Medical Center)" },
+  "agenda.d1e7.speaker3": { TH: "ภก.อาทิตย์ สอดแสงอรุณงาม (ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม)", EN: "Pharm. Athit Sotsaengarunngam (Director of Registration Ops, GPO)" },
+  "agenda.d1e7.speaker4": { TH: "ภก.นิชนนท์ ชาวเรา (สสจ.สมุทรสงคราม)", EN: "Pharm. Nichanon Chaorao (Samut Songkhram PHO)" },
+  "agenda.d1e7.speaker5": { TH: "ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ (Associated Product Manager, Abbott Laboratories)", EN: "Pharm. Pinyapat Sukmankongsamun (Associated Product Manager, Abbott)" },
+  "agenda.d1e7.mcLabel": { TH: "พิธีกร", EN: "MC" },
+  "agenda.d1e7.mc": { TH: "ภก.พงษ์ศิวะ กู่นอก (ผู้ช่วยเลขาธิการสภาเภสัชกรรม)", EN: "Pharm. Phongsiva Kunok (Asst. Secretary-General)" },
 
   "agenda.d1e8.title": { TH: "ทำงานอย่างไรไม่ให้ Burn Out", EN: "How to Work Without Burning Out" },
   "agenda.d1e8.desc": { TH: "เทคนิคการดูแลสุขภาพจิตและป้องกันภาวะ Burn Out สำหรับเภสัชกรใหม่", EN: "Mental health tips and Burn Out prevention techniques for new pharmacists." },
-  "agenda.d1e8.meta": { TH: "ภก.ณภัทร สัตยุตม์ (บีน Nudge Thailand)", EN: "Pharm. Napat Sattayut (Bean, Nudge Thailand)" },
+  "agenda.d1e8.meta": { TH: "ภก.ณภัทร สัตยุตม์ (Nudge Thailand)", EN: "Pharm. Napat Sattayut (Bean, Nudge Thailand)" },
 
   "agenda.d1e9.title": { TH: "Closing Activity & ลุ้นรางวัล", EN: "Closing Activity & Lucky Draw" },
   "agenda.d1e9.desc": { TH: "กิจกรรมร่วมสนุก ลุ้นรับของรางวัล และปิดงาน", EN: "Fun closing activities, lucky draw prizes, and event closing." },
@@ -245,15 +249,15 @@ const translations: Record<string, Record<Lang, string>> = {
   "jobPosters.badge": { TH: "โปสเตอร์สมัครงาน", EN: "Job Fair Posters" },
   "jobPosters.title1": { TH: "โอกาส", EN: "Career " },
   "jobPosters.title2": { TH: "ทางวิชาชีพ", EN: "Opportunities" },
+  "jobPosters.titleFull": { TH: "โอกาสทางวิชาชีพ", EN: "Career Opportunities" },
   "jobPosters.subtitle": { TH: "รวมโปสเตอร์รับสมัครงานจากหน่วยงานชั้นนำ คลิกที่ภาพเพื่อดูรายละเอียด", EN: "Job openings from leading organizations. Click any poster to view full details." },
-  "jobPosters.count": { TH: "ตำแหน่งงาน", EN: "Works" },
+  "jobPosters.count": { TH: "ประกาศ", EN: "Postings" },
   "jobPosters.hint": { TH: "คลิกที่ภาพเพื่อดูขนาดเต็ม", EN: "Click any poster to view full size" },
   "jobPosters.openDrive": { TH: "เปิดใน Google Drive", EN: "Open in Drive" },
   "jobPosters.close": { TH: "ปิด", EN: "Close" },
 
   // Sponsors
   "sponsor.title1": { TH: "ผู้สนับสนุน", EN: " " },
-  "sponsor.title2": { TH: "การจัดงานอย่างเป็นทางการ", EN: "Sponsors" },
   "sponsor.subtitle": { 
     TH: "ขอขอบพระคุณผู้สนับสนุนทุกท่านที่ร่วมสนับสนุนการจัดงานปฐมนิเทศเภสัชกรใหม่ ประจำปี 2569 ", 
     EN: "Thank you to our sponsors for making the New Pharmacist Orientation 2026 possible." 
@@ -281,17 +285,17 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   "login.email": { TH: "อีเมล", EN: "Email Address" },
   "login.password": { TH: "รหัสผ่าน", EN: "Password" },
-  "login.forgot": { TH: "ลืม?", EN: "Forgot?" },
+  "login.forgot": { TH: "ลืมรหัสผ่าน?", EN: "Forgot Password?" },
   "login.signingIn": { TH: "กำลังเข้าสู่ระบบ...", EN: "Signing in..." },
   "login.signIn": { TH: "เข้าสู่ระบบ", EN: "Sign In" },
   "login.or": { TH: "หรือ", EN: "or" },
 
-  "login.createAccount": { TH: "สร้างบัญชีใหม่ →", EN: "Create an account →" },
+  "login.createAccount": { TH: "ลงทะเบียนใหม่ →", EN: "Register now →" },
 
   // Register
   "register.step.personal": { TH: "ข้อมูลส่วนตัว", EN: "Personal" },
   "register.step.credentials": { TH: "ข้อมูลเข้าระบบ", EN: "Credentials" },
-  "register.createAccount": { TH: "สร้างบัญชี", EN: "Create Account" },
+  "register.createAccount": { TH: "ลงทะเบียน", EN: "Register" },
   "register.secureAccount": { TH: "ตั้งค่าบัญชี", EN: "Secure Your Account" },
   "register.personalInfo": {
     TH: "เริ่มต้นด้วยข้อมูลส่วนตัวของคุณ",
@@ -310,8 +314,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "register.confirmPassword": { TH: "ยืนยันรหัสผ่าน", EN: "Confirm Password" },
   "register.continue": { TH: "ถัดไป", EN: "Continue" },
   "register.creating": {
-    TH: "กำลังสร้างบัญชี...",
-    EN: "Creating account...",
+    TH: "กำลังลงทะเบียน...",
+    EN: "Registering...",
   },
   "register.hasAccount": {
     TH: "มีบัญชีอยู่แล้ว?",
@@ -323,7 +327,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "register.licenseOptional": { TH: "(ไม่บังคับ)", EN: "(Optional)" },
   "register.organization": { TH: "องค์กร / สถานที่ทำงาน", EN: "Organization / Affiliation" },
   "register.organizationPlaceholder": { TH: "สถานที่ทำงานของคุณ", EN: "Your workplace" },
-  "register.university": { TH: "มหาวิทยาลัย / สถาบัน", EN: "University / Institution" },
+  "register.university": { TH: "มหาวิทยาลัย", EN: "University" },
   "register.selectUniversity": { TH: "เลือกสถาบัน", EN: "Select a university" },
   "register.alreadyAccount": { TH: "มีบัญชีอยู่แล้ว?", EN: "Already have an account?" },
   "register.consent": { TH: "ข้าพเจ้ายอมรับข้อตกลงและเงื่อนไข และยินยอมให้ประมวลผลข้อมูล", EN: "I agree to the terms and conditions and consent to data processing" },
@@ -335,7 +339,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "welcome.swipeHint": { TH: "เลื่อนดูรายถัดไป", EN: "Swipe to navigate" },
 
   // Banner
-  "banner.new": { TH: "ใหม่", EN: "New" },
+  "banner.new": { TH: "เปิดแล้ว", EN: "OPEN" },
   "banner.text": { TH: "เปิดรับลงทะเบียน", EN: "Registration for" },
   "banner.event": {
     TH: "ปฐมนิเทศเภสัชกร 2026",
@@ -433,7 +437,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "ticket.scanMe": { TH: "สแกน QR Code", EN: "Scan Me" },
   "ticket.id": { TH: "รหัส:", EN: "ID:" },
   "ticket.valid": { TH: "ใช้สำหรับเข้างาน", EN: "Valid for Entry" },
-  "ticket.moph": { TH: "กระทรวงสาธารณสุข", EN: "Ministry of Public Health" },
+  "ticket.moph": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 อาคารมหิตลาธิเบศร กระทรวงสาธารณสุข", EN: "Siriwattana Phakdee Room, 3rd Fl, Mahitalathibet Building, Ministry of Public Health" },
   "ticket.download": { TH: "ดาวน์โหลด PDF", EN: "Download PDF" },
   "ticket.appleWallet": { TH: "เพิ่มลงใน Apple Wallet", EN: "Add to Apple Wallet" },
   "ticket.notProvided": { TH: "ไม่ระบุ", EN: "Not Provided" },
@@ -485,8 +489,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "mask.play": { TH: "เล่น", EN: "Play" },
 
   // University Stats
-  "stats.title1": { TH: "จำนวน", EN: "Amount of " },
-  "stats.title2": { TH: "เภสัชกรใหม่", EN: "New Pharmacists" },
+  "stats.title1": { TH: "จำนวน", EN: "Number of " },
+  "stats.title2": { TH: "คนที่ลงทะเบียน", EN: "Registrants" },
   "stats.line": { TH: "กราฟเส้น", EN: "Line Chart" },
   "stats.bar": { TH: "กราฟแท่ง", EN: "Bar Chart" },
   "stats.scrollHint": { TH: "เลื่อนขวาเพื่อดูเพิ่มเติม", EN: "Scroll right for more" },

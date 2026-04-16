@@ -166,9 +166,9 @@ export default function Navbar() {
         <div className="w-full overflow-hidden transition-all duration-500 ease-in-out cursor-pointer z-50 max-h-12 opacity-100 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800" 
           onClick={() => handleAnchorClick("#hero")}
         >
-          <div className="animate-marquee-left flex items-center gap-[50vw] py-2.5 px-4 whitespace-nowrap">
-            {[0, 1].map((i) => (
-              <div key={i} className="flex items-center gap-4 shrink-0">
+          <div className="marquee-track flex items-center py-2.5 whitespace-nowrap">
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+              <div key={i} className="flex items-center gap-4 shrink-0 px-20">
                 <span className="flex items-center justify-center h-5 px-2 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] font-bold text-white tracking-wider uppercase shadow-md shadow-pink-200 dark:shadow-pink-900/50">
                   {t("banner.new")}
                 </span>
@@ -190,21 +190,13 @@ export default function Navbar() {
               className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
             >
               <Image 
-                src="/logo สภาเภสัชกรรม.jpg" 
-                alt="Logo" 
-                width={40} 
-                height={40} 
-                className="rounded-full object-cover"
+                src="/logo-pharmacy.png" 
+                alt="สภาเภสัชกรรม - The Pharmacy Council of Thailand" 
+                width={200} 
+                height={48} 
+                className="h-12 md:h-14 w-auto object-contain"
                 quality={100}
               />
-              <div className="hidden sm:flex flex-col items-start justify-center">
-                <span className="font-bold text-lg md:text-xl tracking-tight text-black dark:text-white leading-tight">
-                  {t("nav.brand")}
-                </span>
-                <span className="text-[10px] md:text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">
-                  The Pharmacy Council of Thailand
-                </span>
-              </div>
             </button>
 
             {/* Desktop Links */}

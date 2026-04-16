@@ -21,18 +21,8 @@ export default function Footer() {
           {/* Col 1: Brand */}
           <div className="space-y-6">
             {/* Logo + org name */}
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 flex items-center justify-center p-1 shrink-0">
-                <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={60} height={60} className="rounded-xl object-cover" />
-              </div>
-              <div className="flex flex-col items-start justify-center">
-                <h3 className="text-base font-black tracking-tight text-black dark:text-white leading-tight">
-                  สภาเภสัชกรรม
-                </h3>
-                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">
-                  The Pharmacy Council of Thailand
-                </span>
-              </div>
+            <div className="flex items-center">
+              <Image src="/logo-pharmacy.png" alt="สภาเภสัชกรรม - The Pharmacy Council of Thailand" width={220} height={52} className="h-18 w-auto object-contain" />
             </div>
 
 

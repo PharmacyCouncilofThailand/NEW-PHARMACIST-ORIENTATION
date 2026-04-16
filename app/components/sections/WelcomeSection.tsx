@@ -279,6 +279,23 @@ export default function WelcomeSection() {
     }
   }, [nextSlide]);
 
+  // Reset to first person when section enters viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDirection(1);
+          setIndex(0);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Section Entrance Animation
   useEffect(() => {
     const ctx = gsap.context(() => {

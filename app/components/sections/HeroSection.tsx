@@ -105,7 +105,7 @@ export default function HeroSection() {
           
           {/* Logo */}
           <motion.div variants={fadeSlideUp} className="flex justify-center mb-3">
-            <div className="w-28 h-28 short:w-20 short:h-20 flex items-center justify-center drop-shadow-2xl">
+            <div className="w-28 h-28 short:w-20 short:h-20 flex items-center justify-center">
               <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={112} height={112} className="object-contain w-full h-full rounded-2xl" quality={100} />
             </div>
           </motion.div>
@@ -113,7 +113,7 @@ export default function HeroSection() {
           {/* Title */}
           <motion.h1 variants={fadeSlideUp} suppressHydrationWarning style={{ letterSpacing: 'inherit' }} className={`font-black tracking-tighter mb-2 ${lang === "TH" ? "leading-[1.2]" : "leading-[0.85]"}`}>
             <span suppressHydrationWarning style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="block text-[clamp(2rem,6.5vw,5.5rem)] bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">{t("hero.mainTitle1")}</span>
-            <span suppressHydrationWarning style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="block text-[clamp(2rem,6.5vw,5rem)] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.2)]">{t("hero.mainTitle2")}</span>
+            <span suppressHydrationWarning style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="block text-[clamp(2rem,6.5vw,5rem)] bg-gradient-to-r from-violet-600 via-purple-500 to-fuchsia-500 bg-clip-text text-transparent drop-shadow-sm">{t("hero.mainTitle2")}</span>
           </motion.h1>
 
           {/* Event Date & Venue badges */}
@@ -136,8 +136,6 @@ export default function HeroSection() {
           {/* Subtitle */}
           <motion.p variants={fadeSlideUp} suppressHydrationWarning className="text-[clamp(1rem,2.5vw,1.2rem)] text-black max-w-2xl mx-auto mb-8 leading-relaxed font-semibold drop-shadow-md">
             {t("hero.subtitle1")} <span suppressHydrationWarning className="text-pink-600 font-bold">{t("hero.future")}</span> {t("hero.subtitle2")}
-            <br className="hidden md:block" />
-            {t("hero.subtitle3")} <span suppressHydrationWarning className="text-violet-600 font-bold">{t("hero.journey")}</span> <span className="whitespace-nowrap">{t("hero.subtitle4")}</span>
           </motion.p>
 
           {/* CTA using Framer Motion specifically for hover per prompt requirements */}

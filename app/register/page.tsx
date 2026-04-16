@@ -33,6 +33,7 @@ export default function RegisterPage() {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const turnstileRef = useRef<TurnstileInstance>(null);
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const UNI_OPTIONS = [
     "จุฬาลงกรณ์มหาวิทยาลัย", "มหาวิทยาลัยมหิดล", "มหาวิทยาลัยเชียงใหม่",
@@ -48,11 +49,47 @@ export default function RegisterPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({ 
-      ...prev, 
-      [name]: type === 'checkbox' ? checked : value 
-    }));
+    if (type === 'checkbox') {
+      setFormData(prev => ({ ...prev, [name]: checked }));
+      return;
+    }
+    const filtered = (name === 'licenseId' || name === 'phone') ? value.replace(/\D/g, '') : value;
+    setFormData(prev => ({ ...prev, [name]: filtered }));
   };
+
+  const handleBlur = (name: string) => {
+    setTouched(prev => ({ ...prev, [name]: true }));
+  };
+
+  const getFieldError = (name: string): string | null => {
+    if (!touched[name]) return null;
+    const val = (formData as any)[name] as string;
+    switch (name) {
+      case 'firstName': return !val?.trim() ? (lang === 'TH' ? 'กรุณากรอกชื่อ' : 'Required') : null;
+      case 'lastName': return !val?.trim() ? (lang === 'TH' ? 'กรุณากรอกนามสกุล' : 'Required') : null;
+      case 'licenseId':
+        if (!val?.trim()) return lang === 'TH' ? 'กรุณากรอกเลขใบอนุญาต' : 'Required';
+        if (val.length !== 5) return lang === 'TH' ? 'ต้องเป็นตัวเลข 5 หลัก' : 'Must be 5 digits';
+        return null;
+      case 'phone':
+        if (val && val.length > 0 && val.length !== 10) return lang === 'TH' ? 'ต้องเป็นตัวเลข 10 หลัก' : 'Must be 10 digits';
+        return null;
+      case 'university': return !val ? (lang === 'TH' ? 'กรุณาเลือกมหาวิทยาลัย' : 'Required') : null;
+      case 'email':
+        if (!val?.trim()) return lang === 'TH' ? 'กรุณากรอกอีเมล' : 'Required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return lang === 'TH' ? 'รูปแบบอีเมลไม่ถูกต้อง' : 'Invalid email';
+        return null;
+      case 'password': return !val ? (lang === 'TH' ? 'กรุณากรอกรหัสผ่าน' : 'Required') : null;
+      case 'confirmPassword':
+        if (!val) return lang === 'TH' ? 'กรุณายืนยันรหัสผ่าน' : 'Required';
+        if (val !== formData.password) return lang === 'TH' ? 'รหัสผ่านไม่ตรงกัน' : 'Passwords do not match';
+        return null;
+      default: return null;
+    }
+  };
+
+  const errCls = (name: string) => getFieldError(name) ? 'border-red-400 bg-red-50/30' : 'border-slate-100 bg-slate-50/50';
+  const errLabel = (name: string) => { const e = getFieldError(name); return e ? <span className="text-red-500 font-medium ml-1.5 text-[11px]">({e})</span> : null; };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +100,7 @@ export default function RegisterPage() {
       setError("Please accept the terms and conditions"); return;
     }
     if (turnstileSiteKey && !recaptchaToken) {
-      setError(lang === "TH" ? "กรุณายืนยันว่าคุณไม่ใช่บอท" : "Please verify that you are not a robot"); return;
+      setError(lang === "TH" ? "กรุณายืนยันตัวตนก่อนดำเนินการ" : "Please complete the security verification"); return;
     }
     setLoading(true); setError("");
     try {
@@ -115,8 +152,8 @@ export default function RegisterPage() {
               </svg>
             </Link>
             
-            <div className="w-14 h-14 flex items-center justify-center mb-3 shrink-0">
-              <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council of Thailand" width={56} height={56} className="object-contain w-full h-full" />
+            <div className="flex items-center justify-center mb-3 shrink-0">
+              <Image src="/logo-pharmacy.png" alt="สภาเภสัชกรรม - The Pharmacy Council of Thailand" width={200} height={48} className="h-12 w-auto object-contain" quality={100} />
             </div>
             <h2 className="text-2xl font-black text-slate-900 tracking-tight">{t("register.createAccount")}</h2>
           </div>
@@ -132,41 +169,41 @@ export default function RegisterPage() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.firstName")} <span className="text-red-500">*</span></label>
-                <input name="firstName" required value={formData.firstName} onChange={handleChange} placeholder={t("register.firstName")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.firstName")} <span className="text-red-500">*</span>{errLabel('firstName')}</label>
+                <input name="firstName" required value={formData.firstName} onChange={handleChange} onBlur={() => handleBlur('firstName')} placeholder={t("register.firstName")} className={`w-full border-2 ${errCls('firstName')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.lastName")} <span className="text-red-500">*</span></label>
-                <input name="lastName" required value={formData.lastName} onChange={handleChange} placeholder={t("register.lastName")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.lastName")} <span className="text-red-500">*</span>{errLabel('lastName')}</label>
+                <input name="lastName" required value={formData.lastName} onChange={handleChange} onBlur={() => handleBlur('lastName')} placeholder={t("register.lastName")} className={`w-full border-2 ${errCls('lastName')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.licenseId")} <span className="text-red-500">*</span></label>
-                <input name="licenseId" required value={formData.licenseId} onChange={handleChange} placeholder={t("register.licenseId")} className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.licenseId")} <span className="text-red-500">*</span>{errLabel('licenseId')}</label>
+                <input name="licenseId" required value={formData.licenseId} onChange={handleChange} onBlur={() => handleBlur('licenseId')} placeholder={t("register.licenseId")} maxLength={5} minLength={5} pattern="[0-9]{5}" inputMode="numeric" className={`w-full border-2 ${errCls('licenseId')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.phone")}</label>
-                <div className="flex w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl overflow-hidden focus-within:border-violet-500 focus-within:bg-white focus-within:ring-4 focus-within:ring-violet-500/10 transition-all relative">
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.phone")}{errLabel('phone')}</label>
+                <div className={`flex w-full border-2 ${errCls('phone')} rounded-xl overflow-hidden focus-within:border-violet-500 focus-within:bg-white focus-within:ring-4 focus-within:ring-violet-500/10 transition-all relative`}>
                   <div className="absolute left-4 top-[50%] -translate-y-[50%]">
                     <span className="text-[17px] leading-none opacity-80 flex items-center pointer-events-none">🇹🇭</span>
                   </div>
-                  <input name="phone" value={formData.phone} onChange={handleChange} type="tel" placeholder={t("register.phone")} className="flex-1 pl-12 pr-4 py-2 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none bg-transparent w-full" />
+                  <input name="phone" value={formData.phone} onChange={handleChange} onBlur={() => handleBlur('phone')} type="tel" placeholder={t("register.phone")} maxLength={10} minLength={10} pattern="[0-9]{10}" inputMode="numeric" className="flex-1 pl-12 pr-4 py-2 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none bg-transparent w-full" />
                 </div>
               </div>
             </div>
 
             <div>
               <div className="relative z-[100]">
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.university")} <span className="text-red-500">*</span></label>
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.university")} <span className="text-red-500">*</span>{errLabel('university')}</label>
                 
                 <div 
                   className={`relative w-full border-2 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] font-medium cursor-pointer transition-all flex items-center justify-between
                     ${isUniOpen ? 'border-violet-500 bg-white ring-4 ring-violet-500/10' : 'border-slate-100 hover:border-slate-200'}
                     ${!formData.university ? 'text-slate-400' : 'text-slate-900'}
                   `}
-                  onClick={() => setIsUniOpen(!isUniOpen)}
+                  onClick={() => { setIsUniOpen(!isUniOpen); setTouched(prev => ({ ...prev, university: true })); }}
                 >
                   <span className="truncate">{formData.university || t("register.selectUniversity")}</span>
                   <svg className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ${isUniOpen ? 'rotate-180 text-violet-500' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -223,18 +260,18 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.email")} <span className="text-red-500">*</span></label>
-              <input name="email" type="email" required value={formData.email} onChange={handleChange} placeholder="email@example.com" className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+              <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.email")} <span className="text-red-500">*</span>{errLabel('email')}</label>
+              <input name="email" type="email" required value={formData.email} onChange={handleChange} onBlur={() => handleBlur('email')} placeholder="email@example.com" className={`w-full border-2 ${errCls('email')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.password")} <span className="text-red-500">*</span></label>
-                <input name="password" type="password" required value={formData.password} onChange={handleChange} placeholder="••••••••" className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.password")} <span className="text-red-500">*</span>{errLabel('password')}</label>
+                <input name="password" type="password" required value={formData.password} onChange={handleChange} onBlur={() => handleBlur('password')} placeholder="••••••••" className={`w-full border-2 ${errCls('password')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.confirmPassword")} <span className="text-red-500">*</span></label>
-                <input name="confirmPassword" type="password" required value={formData.confirmPassword} onChange={handleChange} placeholder="••••••••" className="w-full border-2 border-slate-100 bg-slate-50/50 rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium" />
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.confirmPassword")} <span className="text-red-500">*</span>{errLabel('confirmPassword')}</label>
+                <input name="confirmPassword" type="password" required value={formData.confirmPassword} onChange={handleChange} onBlur={() => handleBlur('confirmPassword')} placeholder="••••••••" className={`w-full border-2 ${errCls('confirmPassword')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
             </div>
 
