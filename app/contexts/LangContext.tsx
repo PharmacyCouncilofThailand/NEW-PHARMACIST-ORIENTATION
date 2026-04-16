@@ -26,7 +26,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.signIn": { TH: "เข้าสู่ระบบ", EN: "Sign In" },
   "nav.signUp": { TH: "ลงทะเบียน", EN: "Register" },
   "nav.signOut": { TH: "ออกจากระบบ", EN: "Sign Out" },
-  "nav.license": { TH: "ใบอนุญาต", EN: "License" },
+  "nav.license": { TH: "ใบอนุญาตประกอบวิชาชีพ", EN: "License" },
   "nav.licenseId": { TH: "เลขที่ใบอนุญาต", EN: "License No." },
   "nav.phone": { TH: "เบอร์โทรศัพท์", EN: "Phone" },
   "nav.myTicket": { TH: "บัตรเข้างาน", EN: "My Ticket" },
