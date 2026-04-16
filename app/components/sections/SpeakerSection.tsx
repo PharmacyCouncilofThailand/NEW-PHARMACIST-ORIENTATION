@@ -40,7 +40,7 @@ const speakers: Speaker[] = [
     gradient: "from-violet-600 to-purple-700",
     badgeColor: "bg-violet-500/10 text-violet-600 border-violet-200 dark:border-violet-800",
     tags: ["speaker.tag.expert", "speaker.tag.pharmacy"],
-    image: "/welcome message/Se.png",
+    image: "/welcome-se.png",
   },
   {
     id: "s2",
