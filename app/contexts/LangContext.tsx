@@ -92,7 +92,7 @@ const translations: Record<string, Record<Lang, string>> = {
   // Speaker Section
   "speaker.badge": { TH: "🎤 วิทยากร", EN: "🎤 Speakers" },
   "speaker.title1": { TH: "", EN: "" },
-  "speaker.title2": { TH: "รายชื่อวิทยากรรับเชิญทั้ง 7 ท่าน", EN: "All 7 Guest Speakers" },
+  "speaker.title2": { TH: "วิทยากร", EN: "Speakers" },
   "speaker.subtitle": { TH: "ผู้ทรงคุณวุฒิที่จะมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ", EN: "Experts who will share their experiences and inspiration." },
   "speaker.clickHint": { TH: "คลิกเพื่อดูข้อมูล", EN: "Click to flip" },
   "speaker.back": { TH: "กลับหน้าบัตร", EN: "Back" },
