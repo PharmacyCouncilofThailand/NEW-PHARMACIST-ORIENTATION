@@ -112,7 +112,7 @@ const BackgroundBlobs = () => (
 const NavButtons = ({ next, prev, index, total }: any) => (
   <div className="hidden lg:flex items-center gap-6 mt-8 lg:mt-0 lg:absolute lg:bottom-12 lg:right-12 z-30 justify-center lg:justify-end">
     <div className="flex items-center gap-2 text-sm font-black tracking-widest font-mono">
-      <span className="text-violet-600 dark:text-violet-400 text-base">{String(index + 1).padStart(2, '0')}</span>
+      <span className="text-violet-600 dark:text-violet-400 text-base">{String((index % total) + 1).padStart(2, '0')}</span>
       <span className="text-slate-300 dark:text-slate-600">/</span>
       <span className="text-slate-400 dark:text-slate-500">{String(total).padStart(2, '0')}</span>
     </div>
@@ -172,7 +172,7 @@ const GlassCardContent = ({ person }: { person: Person }) => {
         </motion.div>
         
         <motion.h2 variants={textItemVariants} style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-8 leading-[1.2] tracking-tight lg:text-left">
-          <span className="bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm text-[clamp(1.8rem,4vw,3.5rem)] lg:leading-[1.15] block pb-2 pr-2 overflow-visible">
+          <span className="bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm text-[clamp(1.8rem,4vw,3.5rem)] lg:leading-[1.15] block pb-2 pr-2 overflow-visible whitespace-pre-line">
             {t(person.posKey)}
           </span>
           <span className="text-2xl sm:text-3xl lg:text-4xl text-slate-800 dark:text-slate-200 mt-3 block font-bold leading-snug">
@@ -401,7 +401,7 @@ export default function WelcomeSection() {
               prevEl: '.welcome-nav-prev',
             }}
             loop={true}
-            onSlideChange={(swiper) => setIndex(swiper.realIndex)}
+            onSlideChange={(swiper) => setIndex(swiper.realIndex % people.length)}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,

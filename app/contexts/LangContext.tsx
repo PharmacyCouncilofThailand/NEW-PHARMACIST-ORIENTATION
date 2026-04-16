@@ -69,11 +69,11 @@ const translations: Record<string, Record<Lang, string>> = {
   "welcome.presidentPosition": { TH: "นายกสภาเภสัชกรรม", EN: "President of the Pharmacy Council" },
 
   "welcome.p2Name": { TH: "รศ.ภญ.สุณี เลิศสินอุดม", EN: "Associate Professor Sunee Lertsinudom" },
-  "welcome.p2Position": { TH: "เลขาธิการสภาเภสัชกรรม", EN: "Secretary-General of the Pharmacy Council" },
+  "welcome.p2Position": { TH: "เลขาธิการ\nสภาเภสัชกรรม", EN: "Secretary-General\nof the Pharmacy Council" },
   "welcome.p2Message": { TH: "สภาเภสัชกรรมขอแสดงความยินดีกับเภสัชกรใหม่ทุกท่านที่สอบผ่าน และกำลังก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรมอย่างเต็มภาคภูมิ เส้นทางวิชาชีพนี้เป็นการเรียนรู้และพัฒนาตนเองอย่างต่อเนื่อง เพื่อสร้างความเข้มแข็งให้กับทั้งตัวท่านและวิชาชีพเภสัชกรรม ขอเชิญชวนเภสัชกรใหม่ทุกท่านมาร่วมแบ่งปันประสบการณ์และแรงบันดาลใจ ในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้", EN: "The Pharmacy Council congratulates all new pharmacists who have passed their exams and are proudly stepping into the pharmacy profession. This career path is about continuous learning and self-development, building strength for both yourself and the pharmacy profession. We invite all new pharmacists to come share experiences and inspiration at this New Pharmacist Orientation 2026." },
 
   "welcome.p3Name": { TH: "ดร.ภก.นพดล อัจจิมาธีระ", EN: "Pharm. Dr. Noppadon Adjimatera" },
-  "welcome.p3Position": { TH: "อุปนายกสภาเภสัชกรรม คนที่2", EN: "Second Vice President" },
+  "welcome.p3Position": { TH: "อุปนายก\nสภาเภสัชกรรม คนที่2", EN: "Second\nVice President" },
   "welcome.p3Message": { TH: "ขอแสดงความยินดีกับเภสัชกรใหม่ทุกท่านที่ก้าวผ่านอีกหนึ่งก้าวสำคัญของชีวิต และกำลังก้าวเข้าสู่เส้นทางวิชาชีพเภสัชกรรม ซึ่งเป็นวิชาชีพที่มีบทบาทสำคัญต่อสุขภาพของประชาชนและระบบสาธารณสุขของประเทศ ขอให้ทุกท่านใช้ความรู้ ความสามารถ และจิตวิญญาณของความเป็นเภสัชกรในการพัฒนาตนเองและวิชาชีพ พร้อมทั้งร่วมพบปะแลกเปลี่ยนประสบการณ์กันในงานปฐมนิเทศเภสัชกรใหม่ ปี 2569 นี้", EN: "Congratulations to all new pharmacists who have crossed another major milestone and are entering the pharmacy profession, which plays a critical role in public health and the national healthcare system. I encourage all of you to use your knowledge, abilities, and the spirit of a pharmacist to develop yourselves and the profession, and to exchange experiences at this New Pharmacist Orientation 2026." },
 
   // Welcome Cards
@@ -119,7 +119,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.s4.desc": { TH: "รอการยืนยันจากวิทยากร", EN: "Speaker to be confirmed." },
 
   "speaker.s5.name": { TH: "ภก.อาทิตย์ สอดแสงอรุณงาม", EN: "Pharm. Athit Sotsaengarunngam" },
-  "speaker.s5.position": { TH: "ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม", EN: "Director of Registration Operations Division, GPO" },
+  "speaker.s5.position": { TH: "ผู้อำนวยการกองปฏิบัติการทะเบียน\nองค์การเภสัชกรรม", EN: "Director of Registration Operations Division, GPO" },
   "speaker.s5.topic": { TH: "เภสัชกรอุตสาหการ", EN: "Industrial Pharmacist" },
   "speaker.s5.desc": { TH: "ประสบการณ์การทำงานในองค์การเภสัชกรรมและงานขึ้นทะเบียน", EN: "Experience working in the Government Pharmaceutical Organization and drug registration." },
 
@@ -129,7 +129,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.s6.desc": { TH: "ประสบการณ์การทำงานในสำนักงานสาธารณสุขจังหวัด", EN: "Experience working in the Provincial Health Office." },
 
   "speaker.s7.name": { TH: "ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ", EN: "Pharm. Pinyapat Sukmankongsamun" },
-  "speaker.s7.position": { TH: "Associated Product Manager Abbott Laboratories", EN: "Associated Product Manager, Abbott Laboratories" },
+  "speaker.s7.position": { TH: "Associated Product Manager\nAbbott Laboratories", EN: "Associated Product Manager\nAbbott Laboratories" },
   "speaker.s7.topic": { TH: "เภสัชกรการตลาด", EN: "Pharmaceutical Marketing" },
   "speaker.s7.desc": { TH: "ประสบการณ์ด้านการตลาดและ Product Manager ในบริษัทยาชั้นนำ", EN: "Experience as an Associated Product Manager in a multinational pharmaceutical company." },
 
@@ -204,7 +204,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.d1e3.meta": { TH: "ภญ.โฉมคนางค์ ภูมิสายดร (ประชาสัมพันธ์และโฆษกสภาฯ)", EN: "Pharm. Chomkhanang Phumsaidorn (PR & Spokesperson)" },
 
   "agenda.d1e4.title": { TH: "พิธีเปิดและกล่าวให้โอวาท", EN: "Opening Ceremony & Address" },
-  "agenda.d1e4.desc": { TH: "พิธีเปิดและกล่าวให้โอวาทเภสัชกรใหม่ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรม", EN: "Opening ceremony and address for new pharmacists entering the profession." },
+  "agenda.d1e4.desc": { TH: "เนื่องในโอกาสเภสัชกรใหม่ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรม", EN: "On the occasion of new pharmacists entering the pharmacy profession." },
   "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช (นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej (President)" },
 
   "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
