@@ -301,6 +301,16 @@ html.dark ::-webkit-scrollbar-track {
   animation-play-state: paused;
 }
 
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 40s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
 .animate-marquee-right {
   animation: marquee-right 40s linear infinite;
 }

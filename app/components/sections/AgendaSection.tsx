@@ -8,6 +8,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface Speaker {
+  nameKey: string;
+  image: string;
+}
+
 interface TimelineEvent {
   id: string;
   time: string;
@@ -18,6 +23,10 @@ interface TimelineEvent {
   metaKey?: string;
   speakerImage?: string;
   speakerImages?: string[];
+  speakers?: Speaker[];
+  speakerLabelKey?: string;
+  mcLabelKey?: string;
+  mcKey?: string;
   isHighlight?: boolean;
 }
 
@@ -36,9 +45,19 @@ const events: TimelineEvent[] = [
   { id: "e3", time: "12.30 - 12.35 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta" },
   { id: "e4", time: "12.35 - 12.40 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc", metaKey: "agenda.d1e4.meta", speakerImage: "/welcome message/Pre.png" },
   { id: "e5", time: "12.40 - 13.20 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e5.title", descKey: "agenda.d1e5.desc", metaKey: "agenda.d1e5.meta" },
-  { id: "e6", time: "13.20 น.", badgeColor: "activity", badgeKey: "agenda.badge.activity", titleKey: "agenda.d1evt.title", descKey: "agenda.d1evt.desc" },
-  { id: "e7", time: "13.20 - 14.00 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc", metaKey: "agenda.d1e6.meta", speakerImage: "/welcome message/Se.png" },
-  { id: "e8", time: "14.00 - 15.00 น.", badgeColor: "workshop", badgeKey: "agenda.badge.workshop", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc", metaKey: "agenda.d1e7.meta", speakerImages: ["/speaker/1.png", "/speaker/4.png", "/speaker/5.png", "/speaker/3.png", "/speaker/6.png"] },
+  { id: "e6", time: "13.20 - 13.25 น.", badgeColor: "activity", badgeKey: "agenda.badge.activity", titleKey: "agenda.d1evt.title", descKey: "agenda.d1evt.desc" },
+  { id: "e7", time: "13.25 - 14.00 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e6.title", descKey: "agenda.d1e6.desc", metaKey: "agenda.d1e6.meta", speakerImage: "/welcome message/Se.png" },
+  { id: "e8", time: "14.00 - 15.00 น.", badgeColor: "workshop", badgeKey: "agenda.badge.workshop", titleKey: "agenda.d1e7.title", descKey: "agenda.d1e7.desc",
+    speakerLabelKey: "agenda.d1e7.speakerLabel",
+    speakers: [
+      { nameKey: "agenda.d1e7.speaker1", image: "/speaker/1.png" },
+      { nameKey: "agenda.d1e7.speaker2", image: "/speaker/4.png" },
+      { nameKey: "agenda.d1e7.speaker3", image: "/speaker/5.png" },
+      { nameKey: "agenda.d1e7.speaker4", image: "/speaker/3.png" },
+      { nameKey: "agenda.d1e7.speaker5", image: "/speaker/6.png" },
+    ],
+    mcLabelKey: "agenda.d1e7.mcLabel", mcKey: "agenda.d1e7.mc"
+  },
   { id: "e9", time: "15.00 - 15.30 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e8.title", descKey: "agenda.d1e8.desc", metaKey: "agenda.d1e8.meta", speakerImage: "/speaker/7.png" },
   { id: "e10", time: "15.30 - 16.00 น.", badgeColor: "summary", badgeKey: "agenda.badge.summary", titleKey: "agenda.d1e9.title", descKey: "agenda.d1e9.desc", metaKey: "agenda.d1e9.meta" }
 ];
@@ -80,19 +99,12 @@ export default function AgendaSection() {
       <div className="absolute top-[20%] left-[-10%] w-[30%] h-[50%] bg-fuchsia-400/10 dark:bg-fuchsia-600/10 blur-[150px] rounded-full mix-blend-multiply dark:mix-blend-screen pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-400/10 dark:bg-violet-600/10 blur-[150px] rounded-full mix-blend-multiply dark:mix-blend-screen pointer-events-none" />
       
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex flex-col mb-20 md:mb-32">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 w-fit mb-6 shadow-sm border border-violet-200/50 dark:border-violet-700/50">
-            <span className="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-400 animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest">{t("agenda.scheduleLabel")}</span>
-          </div>
           <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
             {t("agenda.title1")}<br/>
-            <span className="bg-gradient-to-r from-pink-500 via-violet-500 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-              {t("agenda.title2") || "Event Timeline"}
-            </span>
           </h2>
-          <p className="mt-8 text-xl text-slate-500 dark:text-slate-400 max-w-2xl font-medium tracking-tight">
+          <p className="mt-8 text-xl text-slate-500 dark:text-slate-400 font-medium tracking-tight whitespace-nowrap">
             <span className="text-slate-900 dark:text-white font-bold">{t("agenda.day1.date")}</span> — {t("agenda.day1.themeDesc")}
           </p>
         </div>
@@ -113,13 +125,8 @@ export default function AgendaSection() {
                   {/* Time Section */}
                   <div className="md:w-[30%] pl-12 md:pl-0 md:pr-16 md:text-right pt-[2px]">
                      <span className="block text-2xl md:text-[1.8rem] font-bold tracking-tight text-slate-800 dark:text-slate-200 leading-none">
-                       {event.time.split(' ')[0]} {event.time.split(' ')[1]} {event.time.split(' ')[2]}
+                       {event.time.split(' ')[0]} {event.time.split(' ')[1]} {event.time.split(' ')[2]}{event.time.split(' ')[3] ? ` ${event.time.split(' ')[3]}` : ''}
                      </span>
-                     {event.time.split(' ')[3] && (
-                       <span className="block mt-2 text-sm font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
-                         {event.time.split(' ')[3]}
-                       </span>
-                     )}
                      
                      {/* Badge in time column for desktop */}
                      <div className="hidden md:flex justify-end mt-6">
@@ -130,7 +137,7 @@ export default function AgendaSection() {
                   </div>
 
                   {/* Content Card Section */}
-                  <div className="md:w-[70%] pl-12 md:pl-0">
+                  <div className="flex-1 pl-12 md:pl-0">
                     <div className={`
                       relative rounded-[2rem] transition-all duration-500
                       ${event.isHighlight 
@@ -158,37 +165,58 @@ export default function AgendaSection() {
                         {t(event.descKey)}
                       </p>
 
-                      <div className="flex flex-col xl:flex-row gap-8 justify-between items-start">
-                        
-                        {/* Meta Text - Speakers */}
-                        <div className="flex-1 w-full max-w-full">
-                          {event.metaKey && (
-                             <div className="relative pl-5 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:rounded-full before:bg-gradient-to-b before:from-violet-500 before:to-fuchsia-500 before:opacity-40">
-                               <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 whitespace-pre-line leading-loose tracking-wide">
-                                 {t(event.metaKey)}
-                               </span>
-                             </div>
+                      {/* Speakers List (Panel Discussion style) */}
+                      {event.speakers && event.speakers.length > 0 && (
+                        <div className="relative pl-5 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:rounded-full before:bg-gradient-to-b before:from-violet-500 before:to-fuchsia-500 before:opacity-40">
+                          {event.speakerLabelKey && (
+                            <span className="block text-[0.85rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3">
+                              {t(event.speakerLabelKey)}
+                            </span>
+                          )}
+                          <div className="space-y-3">
+                            {event.speakers.map((speaker, idx) => (
+                              <div key={idx} className="flex items-center gap-4">
+                                <div className="relative shrink-0 rounded-xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-14 h-14 md:w-16 md:h-16 ring-1 ring-slate-900/5 dark:ring-white/10">
+                                  <Image src={speaker.image} alt="Speaker" fill unoptimized className="object-cover object-top" />
+                                </div>
+                                <span className="text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide">
+                                  {t(speaker.nameKey)}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          {event.mcLabelKey && event.mcKey && (
+                            <div className="mt-5 pt-4 border-t border-slate-200/60 dark:border-slate-700/40">
+                              <span className="block text-[0.85rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">
+                                {t(event.mcLabelKey)}
+                              </span>
+                              <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide">
+                                {t(event.mcKey)}
+                              </span>
+                            </div>
                           )}
                         </div>
+                      )}
 
-                        {/* Speaker Images */}
-                        {(event.speakerImage || (event.speakerImages && event.speakerImages.length > 0)) && (
-                           <div className="shrink-0 flex gap-[-8px] -space-x-4 hover:space-x-2 transition-all duration-500 items-start xl:justify-end pt-2">
-                             {event.speakerImage && (
-                               <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-white/50 dark:border-white/10 w-20 h-20 md:w-28 md:h-28 ring-1 ring-slate-900/5 dark:ring-white/10 group-hover:scale-105 transition-transform duration-500">
-                                 <Image src={event.speakerImage} alt="Speaker" fill unoptimized className="object-cover object-top" />
-                               </div>
-                             )}
-                             {event.speakerImages?.map((img, idx) => (
-                               <div key={idx} className="relative rounded-[2rem] overflow-hidden shadow-xl border-2 border-white dark:border-[#0f0f11] w-16 h-16 md:w-[5.5rem] md:h-[5.5rem] hover:!scale-125 hover:z-30 hover:-translate-y-2 hover:rotate-2 transition-all duration-300 cursor-pointer" style={{ zIndex: event.speakerImages!.length - idx }}>
-                                 {/* Glowing backdrop for avatar */}
-                                 <div className="absolute inset-0 bg-violet-500/20 mix-blend-overlay opacity-0 hover:opacity-100 transition-opacity" />
-                                 <Image src={img} alt={`Speaker ${idx+1}`} fill unoptimized className="object-cover object-top" />
-                               </div>
-                             ))}
-                           </div>
-                        )}
-                      </div>
+                      {/* Meta + Speaker Image (single speaker style) */}
+                      {!event.speakers && (
+                        <div className="relative">
+                          {event.metaKey && (
+                            <div className="relative pl-5 pr-36 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:rounded-full before:bg-gradient-to-b before:from-violet-500 before:to-fuchsia-500 before:opacity-40">
+                              <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 whitespace-pre-line leading-loose tracking-wide">
+                                {t(event.metaKey)}
+                              </span>
+                            </div>
+                          )}
+                          {event.speakerImage && (
+                            <div className="flex absolute right-0 top-1/2 -translate-y-1/2 items-center">
+                              <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-white/50 dark:border-white/10 w-24 h-24 md:w-28 md:h-28 ring-1 ring-slate-900/5 dark:ring-white/10 group-hover:scale-105 transition-transform duration-500">
+                                <Image src={event.speakerImage} alt="Speaker" fill unoptimized className="object-cover object-top" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
 
                     </div>
                   </div>

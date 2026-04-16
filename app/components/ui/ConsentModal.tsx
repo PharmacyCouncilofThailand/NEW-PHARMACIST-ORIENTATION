@@ -256,14 +256,17 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
                   </span>
                 </button>
                 
-                {/* Disabled State visible only when not scrolled to bottom */}
+                {/* Scroll-to-bottom button — visible only when not scrolled to bottom */}
                 <button
-                  disabled
+                  type="button"
+                  onClick={() => {
+                    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+                  }}
                   style={notoStyle}
-                  className={`absolute inset-0 w-full h-full flex items-center justify-center rounded-xl text-[14px] font-bold text-slate-500 bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 transition-all duration-300 ${hasScrolledToBottom ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}
+                  className={`absolute inset-0 w-full h-full flex items-center justify-center rounded-xl text-[14px] font-bold text-slate-500 bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-700 transition-all duration-300 ${hasScrolledToBottom ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}
                 >
                   <svg className="w-4 h-4 mr-1.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-                  เลื่อนอ่านจนครบก่อน
+                  เลื่อนไปด้านล่างสุด
                 </button>
               </div>
             </div>

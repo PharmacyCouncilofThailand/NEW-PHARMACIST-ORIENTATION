@@ -88,7 +88,7 @@ function LoginContent() {
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     if (turnstileSiteKey && !recaptchaToken) {
-      setError(lang === "TH" ? "กรุณายืนยันว่าคุณไม่ใช่บอท" : "Please verify that you are not a robot");
+      setError(lang === "TH" ? "กรุณายืนยันตัวตนก่อนดำเนินการ" : "Please complete the security verification");
       return;
     }
 
@@ -119,29 +119,22 @@ function LoginContent() {
       <div className={s.orb2} />
 
       <div className={s.card}>
-        {/* ── Logo row ── */}
-        <div className={s.top}>
-          <Link href="/" className={s.logoWrap}>
-            <Image src="/logo สภาเภสัชกรรม.jpg" alt="Logo" width={40} height={40} className={s.logoImg} quality={100} />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div className={s.logoText}>
-                {t("nav.brand")}
-              </div>
-              <div className={s.logoSub}>
-                The Pharmacy Council of Thailand
-              </div>
-            </div>
+        {/* ── Logo ── */}
+        <div className="flex justify-center mb-5">
+          <Link href="/">
+            <Image
+              src="/logo-pharmacy.png"
+              alt="สภาเภสัชกรรม - The Pharmacy Council of Thailand"
+              width={200}
+              height={48}
+              className="h-12 w-auto object-contain"
+              quality={100}
+            />
           </Link>
         </div>
 
         {/* ── Header ── */}
         <div className={s.head}>
-          <div className={s.eyebrow}>
-            <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 8 8">
-              <circle cx="4" cy="4" r="4"/>
-            </svg>
-            {t("nav.signIn")}
-          </div>
           <h1>{t("login.welcome")}</h1>
           <p>{t("login.subtitle")}</p>
         </div>
@@ -222,7 +215,7 @@ function LoginContent() {
           </div>
 
           {turnstileSiteKey && (
-          <div className={`${s.field} mt-6 mb-4 flex justify-center w-full`}>
+          <div className={`${s.field} mt-6 mb-4 flex items-center justify-center w-full`}>
             <Turnstile
               ref={turnstileRef}
               siteKey={turnstileSiteKey}

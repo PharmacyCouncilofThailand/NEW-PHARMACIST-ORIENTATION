@@ -126,7 +126,7 @@ export function useStatsData() {
       )
     },
     {
-      end: 30,
+      end: 10,
       suffix: "+",
       label: lang === "TH" ? "หัวข้อการบรรยาย" : "Sessions",
       delay: "animate-fade-in-up delay-[300ms]",
@@ -138,9 +138,9 @@ export function useStatsData() {
       )
     },
     {
-      end: 100,
+      end: 300,
       suffix: "+",
-      label: lang === "TH" ? "ตำแหน่งงานว่าง" : "Job Openings",
+      label: lang === "TH" ? "ตำแหน่งงาน" : "Job Openings",
       delay: "animate-fade-in-up delay-[400ms]",
       gradient: "from-violet-500 to-purple-600",
       icon: (
@@ -150,15 +150,15 @@ export function useStatsData() {
       )
     },
     {
-      end: 5000,
-      suffix: "+",
-      label: lang === "TH" ? "ผู้เข้าชมออนไลน์" : "Online Viewers",
+      end: 25,
+      suffix: "",
+      label: lang === "TH" ? "คณะเภสัชศาสตร์" : "Pharmacy Faculties",
       delay: "animate-fade-in-up delay-[500ms]",
       gradient: "from-cyan-500 to-blue-500",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422A12.083 12.083 0 0121 12.014C21 16.428 17.418 21 12 21S3 16.428 3 12.014c0-1.146.254-2.233.84-3.436L12 14z" />
         </svg>
       )
     },
