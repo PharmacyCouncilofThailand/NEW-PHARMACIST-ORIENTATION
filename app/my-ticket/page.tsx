@@ -200,7 +200,7 @@ export default function MyTicketPage() {
                     {regCode || "—"}
                   </p>
                   <p className="text-xs text-slate-400 dark:text-slate-500 text-center mt-1">
-                    คลิกเพื่อขยาย
+                    คลิกที่ QR Code เพื่อขยาย
                   </p>
                 </div>
               </div>
