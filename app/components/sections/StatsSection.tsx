@@ -154,7 +154,7 @@ export function useStatsData() {
       suffix: "",
       label: lang === "TH" ? "คณะเภสัชศาสตร์" : "Pharmacy Faculties",
       delay: "animate-fade-in-up delay-[500ms]",
-      gradient: "from-cyan-500 to-blue-500",
+      gradient: "from-green-700 to-emerald-500",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
