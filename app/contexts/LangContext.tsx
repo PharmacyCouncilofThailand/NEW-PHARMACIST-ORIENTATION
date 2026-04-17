@@ -104,7 +104,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "speaker.s1.desc": { TH: "กล่าวให้โอวาทและชี้แนะแนวทางการประกอบวิชาชีพเภสัชกรรม", EN: "Delivering advice and guidance on practicing pharmacy." },
   
   "speaker.s2.name": { TH: "ภญ.ชนากิต อิ่มบำรุง", EN: "Pharm. Chanakrit Imbamrung" },
-  "speaker.s2.position": { TH: "ร้านยาพรประสิทธิ์", EN: "Pornprasit Pharmacy" },
+  "speaker.s2.position": { TH: "เหรัญญิก สภาเภสัชกรรม", EN: "Treasurer, The Pharmacy Council of Thailand" },
   "speaker.s2.topic": { TH: "เภสัชกรชุมชน", EN: "Community Pharmacist" },
   "speaker.s2.desc": { TH: "ประสบการณ์การทำงานในร้านยาชุมชน สู่การพัฒนาวิชาชีพอย่างต่อเนื่อง", EN: "Experience in community pharmacy practice and continuous professional development." },
 
@@ -201,11 +201,11 @@ const translations: Record<string, Record<Lang, string>> = {
 
   "agenda.d1e3.title": { TH: "กล่าวต้อนรับ", EN: "Opening Remarks" },
   "agenda.d1e3.desc": { TH: "พิธีกรกล่าวต้อนรับผู้ร่วมงาน และแจ้งกำหนดการ", EN: "Welcome remarks and schedule explanation." },
-  "agenda.d1e3.meta": { TH: "ภญ.โฉมคนางค์ ภูมิสายดร (ประชาสัมพันธ์และโฆษกสภาฯ)", EN: "Pharm. Chomkhanang Phumsaidorn (PR & Spokesperson)" },
+  "agenda.d1e3.meta": { TH: "ภญ.โฉมคนางค์ ภูมิสายดร\n(ประชาสัมพันธ์และโฆษกสภาฯ)", EN: "Pharm. Chomkhanang Phumsaidorn\n(PR & Spokesperson)" },
 
   "agenda.d1e4.title": { TH: "พิธีเปิดและกล่าวให้โอวาท", EN: "Opening Ceremony & Address" },
   "agenda.d1e4.desc": { TH: "เนื่องในโอกาสเภสัชกรใหม่ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรม", EN: "On the occasion of new pharmacists entering the pharmacy profession." },
-  "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช (นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej (President)" },
+  "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช\n(นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej\n(President)" },
 
   "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
 
@@ -217,22 +217,22 @@ const translations: Record<string, Record<Lang, string>> = {
 
   "agenda.d1e6.title": { TH: "สิทธิหน้าที่สมาชิก & บริการสำนักงาน", EN: "Member Rights & Office Services" },
   "agenda.d1e6.desc": { TH: "สิทธิหน้าที่ของสมาชิก การให้บริการสำนักงานเลขาฯ ระบบ E-service การศึกษาต่อเนื่อง ความก้าวหน้าสายงาน Telehealth และกฎหมายวิชาชีพ", EN: "Member rights and duties, secretariat services, E-service, continuing education, career progression, Telehealth, and professional law." },
-  "agenda.d1e6.meta": { TH: "รศ.ภญ.สุณี เลิศสินอุดม (เลขาธิการสภาเภสัชกรรม)", EN: "Assoc. Prof. Sunee Lertsinudom (Secretary-General)" },
+  "agenda.d1e6.meta": { TH: "รศ.ภญ.สุณี เลิศสินอุดม\n(เลขาธิการสภาเภสัชกรรม)", EN: "Assoc. Prof. Sunee Lertsinudom\n(Secretary-General)" },
 
   "agenda.d1e7.title": { TH: "Panel Discussion: แลกเปลี่ยนประสบการณ์วิชาชีพ", EN: "Panel Discussion: Professional Experience Exchange" },
   "agenda.d1e7.desc": { TH: "แลกเปลี่ยนประสบการณ์วิชาชีพจากเภสัชกรหลากหลายสาขา ร้านยา โรงพยาบาล อุตสาหกรรม การตลาด และภาครัฐ", EN: "Professional experience sharing from pharmacists across community pharmacy, hospital, industry, marketing, and public sectors." },
   "agenda.d1e7.speakerLabel": { TH: "วิทยากร", EN: "Speakers" },
-  "agenda.d1e7.speaker1": { TH: "ภญ.ชนากิต อิ่มบำรุง (ร้านยาพรประสิทธิ์)", EN: "Pharm. Chanakit Imbamrung (Pornprasit Pharmacy)" },
-  "agenda.d1e7.speaker2": { TH: "ภญ.ชนิตรา อินทร์ศิริ (ศูนย์การแพทย์สมเด็จพระเทพฯ)", EN: "Pharm. Chanitra Insiri (HRH Princess Medical Center)" },
-  "agenda.d1e7.speaker3": { TH: "ภก.อาทิตย์ สอดแสงอรุณงาม (ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม)", EN: "Pharm. Athit Sotsaengarunngam (Director of Registration Ops, GPO)" },
-  "agenda.d1e7.speaker4": { TH: "ภก.นิชนนท์ ชาวเรา (สสจ.สมุทรสงคราม)", EN: "Pharm. Nichanon Chaorao (Samut Songkhram PHO)" },
-  "agenda.d1e7.speaker5": { TH: "ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ (Associated Product Manager, Abbott Laboratories)", EN: "Pharm. Pinyapat Sukmankongsamun (Associated Product Manager, Abbott)" },
+  "agenda.d1e7.speaker1": { TH: "ภญ.ชนากิต อิ่มบำรุง\n(เหรัญญิก สภาเภสัชกรรม)", EN: "Pharm. Chanakit Imbamrung\n(Treasurer, The Pharmacy Council of Thailand)" },
+  "agenda.d1e7.speaker2": { TH: "ภญ.ชนิตรา อินทร์ศิริ\n(ศูนย์การแพทย์สมเด็จพระเทพฯ)", EN: "Pharm. Chanitra Insiri\n(HRH Princess Medical Center)" },
+  "agenda.d1e7.speaker3": { TH: "ภก.อาทิตย์ สอดแสงอรุณงาม\n(ผู้อำนวยการกองปฏิบัติการทะเบียน องค์การเภสัชกรรม)", EN: "Pharm. Athit Sotsaengarunngam\n(Director of Registration Ops, GPO)" },
+  "agenda.d1e7.speaker4": { TH: "ภก.นิชนนท์ ชาวเรา\n(สสจ.สมุทรสงคราม)", EN: "Pharm. Nichanon Chaorao\n(Samut Songkhram PHO)" },
+  "agenda.d1e7.speaker5": { TH: "ภญ.ภิญญาพัชร์ สุขมั่นคงเสมอ\n(Associated Product Manager, Abbott Laboratories)", EN: "Pharm. Pinyapat Sukmankongsamun\n(Associated Product Manager, Abbott)" },
   "agenda.d1e7.mcLabel": { TH: "พิธีกร", EN: "MC" },
-  "agenda.d1e7.mc": { TH: "ภก.พงษ์ศิวะ กู่นอก (ผู้ช่วยเลขาธิการสภาเภสัชกรรม)", EN: "Pharm. Phongsiva Kunok (Asst. Secretary-General)" },
+  "agenda.d1e7.mc": { TH: "ภก.พงษ์ศิวะ กู่นอก\n(ผู้ช่วยเลขาธิการสภาเภสัชกรรม)", EN: "Pharm. Phongsiva Kunok\n(Asst. Secretary-General)" },
 
   "agenda.d1e8.title": { TH: "ทำงานอย่างไรไม่ให้ Burn Out", EN: "How to Work Without Burning Out" },
   "agenda.d1e8.desc": { TH: "เทคนิคการดูแลสุขภาพจิตและป้องกันภาวะ Burn Out สำหรับเภสัชกรใหม่", EN: "Mental health tips and Burn Out prevention techniques for new pharmacists." },
-  "agenda.d1e8.meta": { TH: "ภก.ณภัทร สัตยุตม์ (Nudge Thailand)", EN: "Pharm. Napat Sattayut (Bean, Nudge Thailand)" },
+  "agenda.d1e8.meta": { TH: "ภก.ณภัทร สัตยุตม์\n(Nudge Thailand)", EN: "Pharm. Napat Sattayut\n(Bean, Nudge Thailand)" },
 
   "agenda.d1e9.title": { TH: "Closing Activity & ลุ้นรางวัล", EN: "Closing Activity & Lucky Draw" },
   "agenda.d1e9.desc": { TH: "กิจกรรมร่วมสนุก ลุ้นรับของรางวัล และปิดงาน", EN: "Fun closing activities, lucky draw prizes, and event closing." },
@@ -490,13 +490,13 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // University Stats
   "stats.title1": { TH: "จำนวน", EN: "Number of " },
-  "stats.title2": { TH: "คนที่ลงทะเบียน", EN: "Registrants" },
+  "stats.title2": { TH: "ผู้เข้าร่วมงาน", EN: "Registrants" },
   "stats.line": { TH: "กราฟเส้น", EN: "Line Chart" },
   "stats.bar": { TH: "กราฟแท่ง", EN: "Bar Chart" },
   "stats.scrollHint": { TH: "เลื่อนขวาเพื่อดูเพิ่มเติม", EN: "Scroll right for more" },
   "stats.institutions": { TH: "25 สถาบัน", EN: "25 Institutions" },
   "stats.sortDesc": { TH: "เรียงจากมากไปน้อย", EN: "High to Low" },
-  "stats.totalRegistered": { TH: "ผู้ลงทะเบียนทั้งหมด", EN: "Total Registered" },
+  "stats.totalRegistered": { TH: "ผู้เข้าร่วมงานทั้งหมด", EN: "Total Registered" },
 
   "uni.cu": { TH: "จุฬาลงกรณ์มหาวิทยาลัย", EN: "Chulalongkorn University" },
   "uni.mu": { TH: "มหาวิทยาลัยมหิดล", EN: "Mahidol University" },
