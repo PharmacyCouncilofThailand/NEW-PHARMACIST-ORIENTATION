@@ -217,7 +217,7 @@ const OriginalWelcomeCard = memo(function OriginalWelcomeCard({
           fill 
           unoptimized={true}
           priority
-          className="object-cover transition-transform duration-700 group-hover:scale-105 object-[center_45%]" 
+          className="object-cover transition-transform duration-700 group-hover:scale-105 object-top" 
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent z-10" />
         

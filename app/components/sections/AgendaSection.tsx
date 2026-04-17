@@ -104,7 +104,7 @@ export default function AgendaSection() {
           <h2 style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }} className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
             {t("agenda.title1")}<br/>
           </h2>
-          <p className="mt-8 text-xl text-slate-500 dark:text-slate-400 font-medium tracking-tight whitespace-nowrap">
+          <p className="mt-6 md:mt-8 text-lg md:text-xl text-slate-500 dark:text-slate-400 font-medium tracking-tight leading-relaxed">
             <span className="text-slate-900 dark:text-white font-bold">{t("agenda.day1.date")}</span> — {t("agenda.day1.themeDesc")}
           </p>
         </div>
