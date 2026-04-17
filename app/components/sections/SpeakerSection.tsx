@@ -155,7 +155,7 @@ const SpeakerCard = memo(function SpeakerCard({
         <h3 className="text-[15px] sm:text-[18px] tracking-tight font-bold text-white mb-1.5 shadow-black drop-shadow-lg leading-snug whitespace-nowrap" style={{ textRendering: "optimizeLegibility" }}>
           {t(speaker.nameKey)}
         </h3>
-        <p className="text-[12px] sm:text-sm font-medium text-white bg-black/60 md:bg-black/20 md:backdrop-blur-md px-3 py-1 rounded-full shadow-sm opacity-100 transition-opacity duration-300">
+        <p className="whitespace-pre-line text-[12px] sm:text-sm font-medium text-white bg-black/60 md:bg-black/20 md:backdrop-blur-md px-3 py-1 rounded-full shadow-sm opacity-100 transition-opacity duration-300">
           {t(speaker.positionKey)}
         </p>
       </div>
