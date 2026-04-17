@@ -185,6 +185,9 @@ function PosterSkeleton() {
   );
 }
 
+// Items per row at the widest breakpoint (xl:grid-cols-6)
+const ITEMS_PER_ROW = 6;
+
 export default function JobPostersSection() {
   const { t } = useLang();
   const { isLoggedIn } = useAuth();
@@ -303,7 +306,7 @@ export default function JobPostersSection() {
             <div className="shrink-0 text-right">
               <div className="inline-flex flex-col items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-violet-500 to-blue-600 text-white shadow-xl shadow-violet-300/30">
                 <span className="text-3xl font-black leading-none">
-                  {loading ? "·" : (isLoggedIn ? posters.length : Math.min(posters.length, 5))}
+                  {loading ? "·" : posters.length}
                 </span>
                 <span className="text-xs font-semibold opacity-80 mt-0.5">{t("jobPosters.count")}</span>
               </div>
@@ -321,31 +324,50 @@ export default function JobPostersSection() {
           )}
 
           {/* Poster grid */}
-          {!error && (
-            <>
-              <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
-                {loading
-                  ? Array.from({ length: 6 }).map((_, i) => (
-                      <PosterSkeleton key={i} />
-                    ))
-                  : (isLoggedIn ? posters : posters.slice(0, 5)).map((poster, index) => (
-                      <div key={poster.id} className="job-poster-reveal">
-                        <PosterCard poster={poster} onOpen={openLightbox} index={index} />
-                      </div>
-                    ))}
-              </div>
-              
-              {!loading && !isLoggedIn && posters.length > 5 && (
-                <div className="mt-12 text-center">
-                  <div className="inline-block p-[2px] rounded-2xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500">
-                    <a href="/login" className="block px-8 py-3 bg-white dark:bg-slate-900 rounded-2xl text-slate-800 dark:text-slate-200 font-bold hover:bg-transparent hover:text-white transition-all duration-300">
-                      เข้าสู่ระบบเพื่อดูโปสเตอร์ทั้งหมด ({posters.length} ประกาศ)
-                    </a>
-                  </div>
+          {!error && (() => {
+            const hasMore = !loading && !isLoggedIn && posters.length > ITEMS_PER_ROW;
+            const visiblePosters = hasMore ? posters.slice(0, ITEMS_PER_ROW) : posters;
+
+            return (
+              <div className="relative">
+                <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
+                  {loading
+                    ? Array.from({ length: 6 }).map((_, i) => (
+                        <PosterSkeleton key={i} />
+                      ))
+                    : visiblePosters.map((poster, index) => (
+                        <div key={poster.id} className="job-poster-reveal">
+                          <PosterCard poster={poster} onOpen={openLightbox} index={index} />
+                        </div>
+                      ))}
                 </div>
-              )}
-            </>
-          )}
+
+                {/* Login gate overlay */}
+                {hasMore && (
+                  <div className="relative mt-0">
+                    {/* Fade gradient over bottom of grid */}
+                    <div className="absolute -top-32 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-slate-950 dark:via-slate-950/80 pointer-events-none z-10" />
+
+                    <div className="relative z-20 flex flex-col items-center py-10 gap-4">
+                      <p className="text-slate-500 dark:text-slate-400 text-sm text-center">
+                        ยังมีประกาศอีก <span className="font-bold text-slate-700 dark:text-slate-200">{posters.length - ITEMS_PER_ROW}</span> รายการ
+                      </p>
+                      <a
+                        href="/login"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold shadow-lg shadow-violet-300/30 hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <span className="sm:hidden flex flex-col items-center leading-tight"><span>เข้าสู่ระบบ / ลงทะเบียน</span><span>เพื่อดูประกาศทั้งหมด</span></span>
+                        <span className="hidden sm:inline">เข้าสู่ระบบ / ลงทะเบียน เพื่อดูประกาศทั้งหมด</span>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
         </div>
       </section>
