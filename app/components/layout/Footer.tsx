@@ -108,8 +108,8 @@ export default function Footer() {
 
         </div>
 
-        {/* Visitor Counter */}
-        <VisitorCounter />
+        {/* Visitor Counter — temporarily hidden */}
+        {/* <VisitorCounter /> */}
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-slate-200 dark:border-slate-800/50">
