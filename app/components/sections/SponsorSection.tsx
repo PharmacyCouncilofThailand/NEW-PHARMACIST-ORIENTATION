@@ -14,10 +14,24 @@ const sponsors = [
   { id: 3, name: "Kuk Jundoom", image: "/sponsor/IMG_4354 - Kuk Jundoom.jpeg", tier: "gold" },
   { id: 4, name: "Chonlatorn Nualsopa", image: "/sponsor/IMG_7271 - Chonlatorn Nualsopa.png", tier: "silver" },
   { id: 5, name: "Viiew", image: "/sponsor/RGB TP Standard Logo_Red - viiew.png", tier: "silver" },
+  { id: 6, name: "Biovalys BVL", image: "/sponsor/01-1_Biovalys_Vertical-Color - Biovalys BVL.png", tier: "gold" },
+  { id: 7, name: "Tung Kaenchan", image: "/sponsor/1775613129544 (1) - Tung Kaenchan.png", tier: "silver" },
+  { id: 8, name: "BMH 1", image: "/sponsor/BMH 1 - แผนก บุคคล.jpeg", tier: "silver" },
+  { id: 9, name: "FASCINO", image: "/sponsor/FASCINO LOGO 23-05_0 - Jiraporn Rodparn.png", tier: "gold" },
+  { id: 10, name: "ทิฆัมพร หมวดสิงห์", image: "/sponsor/IMG_3964 - ทิฆัมพร หมวดสิงห์.jpeg", tier: "silver" },
+  { id: 11, name: "boommie zung", image: "/sponsor/IMG_7212 - boommie zung.png", tier: "silver" },
+  { id: 12, name: "ATC", image: "/sponsor/LOGO-ATC - Hratlantic.jpg", tier: "gold" },
+  { id: 13, name: "CP AXTRA Makro Lotuss", image: "/sponsor/Logo CP AXTRA I Makro Lotuss Artwork_โลโก้โลตัส - Yanisa C..png", tier: "gold" },
+  { id: 14, name: "Siam Bheasach", image: "/sponsor/Logo_siam_Bheasach_mail - Pusadee Isarasereepong.jpg", tier: "silver" },
+  { id: 15, name: "Boots", image: "/sponsor/boots new logo-01 - Naphatsorn Phromraksa.png", tier: "gold" },
+  { id: 16, name: "อังคณา พวงสมบัติ", image: "/sponsor/inbound5383401797846593023 - อังคณา พวงสมบัติ.jpg", tier: "silver" },
+  { id: 17, name: "Topscare", image: "/sponsor/topscare-25 - Budsaya Rangdee.jpg", tier: "gold" },
+  { id: 18, name: "สุมณฑา สืบเหล่ารบ", image: "/sponsor/นามบัตร - สุมณฑา สืบเหล่ารบ.jpg", tier: "silver" },
+  { id: 19, name: "โรงพยาบาลสินแพทย์ ศรีนครินทร์", image: "/sponsor/โลโก้2 - โรงพยาบาลสินแพทย์ ศรีนครินทร์.jpg", tier: "gold" },
 ];
 
-// ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม (ยิ่งมีสปอนเซอร์น้อย ยิ่งต้องทำซ้ำเยอะเพื่อให้พอเต็มหน้าจอ)
-const marqueeItems = Array(12).fill(sponsors).flat();
+// ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม (ลดจำนวนรอบลงเพราะเรามีสปอนเซอร์เยอะแล้ว)
+const marqueeItems = Array(6).fill(sponsors).flat();
 // แถวที่ 2 — ลำดับสลับกัน
 const marqueeItemsRow2 = [...marqueeItems].reverse();
 
@@ -74,7 +88,7 @@ export default function SponsorSection() {
           >
             <div
               className="flex gap-4 sm:gap-6 w-max"
-              style={{ animation: "sponsor-scroll 40s linear infinite" }}
+              style={{ animation: "sponsor-scroll 70s linear infinite" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "paused")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "running")}
             >
@@ -113,7 +127,7 @@ export default function SponsorSection() {
           >
             <div
               className="flex gap-4 sm:gap-6 w-max"
-              style={{ animation: "sponsor-scroll-reverse 45s linear infinite" }}
+              style={{ animation: "sponsor-scroll-reverse 80s linear infinite" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "paused")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "running")}
             >
