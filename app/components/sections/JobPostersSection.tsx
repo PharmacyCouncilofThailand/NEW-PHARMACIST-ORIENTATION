@@ -2,6 +2,7 @@
 
 import { useCallback, useState, useEffect, useRef } from "react";
 import { useLang } from "../../contexts/LangContext";
+import { useAuth } from "../../contexts/AuthContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
@@ -186,6 +187,7 @@ function PosterSkeleton() {
 
 export default function JobPostersSection() {
   const { t } = useLang();
+  const { isLoggedIn } = useAuth();
   const [activePoster, setActivePoster] = useState<JobPoster | null>(null);
   const [posters, setPosters] = useState<JobPoster[]>([]);
   const [loading, setLoading] = useState(true);
@@ -301,7 +303,7 @@ export default function JobPostersSection() {
             <div className="shrink-0 text-right">
               <div className="inline-flex flex-col items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-violet-500 to-blue-600 text-white shadow-xl shadow-violet-300/30">
                 <span className="text-3xl font-black leading-none">
-                  {loading ? "·" : posters.length}
+                  {loading ? "·" : (isLoggedIn ? posters.length : Math.min(posters.length, 5))}
                 </span>
                 <span className="text-xs font-semibold opacity-80 mt-0.5">{t("jobPosters.count")}</span>
               </div>
@@ -320,17 +322,29 @@ export default function JobPostersSection() {
 
           {/* Poster grid */}
           {!error && (
-            <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
-              {loading
-                ? Array.from({ length: 6 }).map((_, i) => (
-                    <PosterSkeleton key={i} />
-                  ))
-                : posters.map((poster, index) => (
-                    <div key={poster.id} className="job-poster-reveal">
-                      <PosterCard poster={poster} onOpen={openLightbox} index={index} />
-                    </div>
-                  ))}
-            </div>
+            <>
+              <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
+                {loading
+                  ? Array.from({ length: 6 }).map((_, i) => (
+                      <PosterSkeleton key={i} />
+                    ))
+                  : (isLoggedIn ? posters : posters.slice(0, 5)).map((poster, index) => (
+                      <div key={poster.id} className="job-poster-reveal">
+                        <PosterCard poster={poster} onOpen={openLightbox} index={index} />
+                      </div>
+                    ))}
+              </div>
+              
+              {!loading && !isLoggedIn && posters.length > 5 && (
+                <div className="mt-12 text-center">
+                  <div className="inline-block p-[2px] rounded-2xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500">
+                    <a href="/login" className="block px-8 py-3 bg-white dark:bg-slate-900 rounded-2xl text-slate-800 dark:text-slate-200 font-bold hover:bg-transparent hover:text-white transition-all duration-300">
+                      เข้าสู่ระบบเพื่อดูโปสเตอร์ทั้งหมด ({posters.length} ประกาศ)
+                    </a>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
         </div>
