@@ -169,11 +169,11 @@ export default function RegisterPage() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.firstName")} <span className="text-red-500">*</span>{errLabel('firstName')}</label>
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.firstName")} <span className="text-slate-500 font-medium text-[12px]">(ภาษาไทย)</span> <span className="text-red-500">*</span>{errLabel('firstName')}</label>
                 <input name="firstName" required value={formData.firstName} onChange={handleChange} onBlur={() => handleBlur('firstName')} placeholder={t("register.firstName")} className={`w-full border-2 ${errCls('firstName')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
               <div>
-                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.lastName")} <span className="text-red-500">*</span>{errLabel('lastName')}</label>
+                <label className="block text-[13px] font-bold text-slate-700 mb-1 ml-1">{t("register.lastName")} <span className="text-slate-500 font-medium text-[12px]">(ภาษาไทย)</span> <span className="text-red-500">*</span>{errLabel('lastName')}</label>
                 <input name="lastName" required value={formData.lastName} onChange={handleChange} onBlur={() => handleBlur('lastName')} placeholder={t("register.lastName")} className={`w-full border-2 ${errCls('lastName')} rounded-xl px-4 py-2 text-[14px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 transition-all font-medium`} />
               </div>
             </div>

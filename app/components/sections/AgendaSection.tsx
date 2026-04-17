@@ -27,6 +27,7 @@ interface TimelineEvent {
   speakerLabelKey?: string;
   mcLabelKey?: string;
   mcKey?: string;
+  mcImage?: string;
   isHighlight?: boolean;
 }
 
@@ -42,7 +43,7 @@ const badgeStyles: Record<string, { bg: string; text: string; border: string }> 
 const events: TimelineEvent[] = [
   { id: "e1", time: "10.00 - 16.00 น.", badgeColor: "activity", badgeKey: "agenda.badge.activity", titleKey: "agenda.d1e1.title", descKey: "agenda.d1e1.desc", metaKey: "agenda.d1e1.meta", isHighlight: true },
   { id: "e2", time: "10.00 - 12.30 น.", badgeColor: "register", badgeKey: "agenda.badge.registration", titleKey: "agenda.d1e2.title", descKey: "agenda.d1e2.desc", metaKey: "agenda.d1e2.meta" },
-  { id: "e3", time: "12.30 - 12.35 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta" },
+  { id: "e3", time: "12.30 - 12.35 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e3.title", descKey: "agenda.d1e3.desc", metaKey: "agenda.d1e3.meta", speakerImage: "/99.png" },
   { id: "e4", time: "12.35 - 12.40 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e4.title", descKey: "agenda.d1e4.desc", metaKey: "agenda.d1e4.meta", speakerImage: "/welcome message/Pre.png" },
   { id: "e5", time: "12.40 - 13.20 น.", badgeColor: "ceremony", badgeKey: "agenda.badge.ceremony", titleKey: "agenda.d1e5.title", descKey: "agenda.d1e5.desc", metaKey: "agenda.d1e5.meta" },
   { id: "e6", time: "13.20 - 13.25 น.", badgeColor: "activity", badgeKey: "agenda.badge.activity", titleKey: "agenda.d1evt.title", descKey: "agenda.d1evt.desc" },
@@ -56,7 +57,7 @@ const events: TimelineEvent[] = [
       { nameKey: "agenda.d1e7.speaker4", image: "/speaker/3.png" },
       { nameKey: "agenda.d1e7.speaker5", image: "/speaker/6.png" },
     ],
-    mcLabelKey: "agenda.d1e7.mcLabel", mcKey: "agenda.d1e7.mc"
+    mcLabelKey: "agenda.d1e7.mcLabel", mcKey: "agenda.d1e7.mc", mcImage: "/98.png"
   },
   { id: "e9", time: "15.00 - 15.30 น.", badgeColor: "lecture", badgeKey: "agenda.badge.lecture", titleKey: "agenda.d1e8.title", descKey: "agenda.d1e8.desc", metaKey: "agenda.d1e8.meta", speakerImage: "/speaker/7.png" },
   { id: "e10", time: "15.30 - 16.00 น.", badgeColor: "summary", badgeKey: "agenda.badge.summary", titleKey: "agenda.d1e9.title", descKey: "agenda.d1e9.desc", metaKey: "agenda.d1e9.meta" }
@@ -187,12 +188,19 @@ export default function AgendaSection() {
                           </div>
                           {event.mcLabelKey && event.mcKey && (
                             <div className="mt-5 pt-4 border-t border-slate-200/60 dark:border-slate-700/40">
-                              <span className="block text-[0.85rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">
+                              <span className="block text-[0.85rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3">
                                 {t(event.mcLabelKey)}
                               </span>
-                              <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide whitespace-pre-line">
-                                {t(event.mcKey)}
-                              </span>
+                              <div className="flex items-center gap-4">
+                                {event.mcImage && (
+                                  <div className="relative shrink-0 rounded-xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-14 h-14 md:w-16 md:h-16 ring-1 ring-slate-900/5 dark:ring-white/10">
+                                    <Image src={event.mcImage} alt="MC" fill unoptimized className="object-cover object-top" />
+                                  </div>
+                                )}
+                                <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide">
+                                  {t(event.mcKey)}
+                                </span>
+                              </div>
                             </div>
                           )}
                         </div>
