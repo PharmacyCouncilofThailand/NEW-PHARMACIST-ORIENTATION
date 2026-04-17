@@ -197,7 +197,7 @@ export default function AgendaSection() {
                                     <Image src={event.mcImage} alt="MC" fill unoptimized className="object-cover object-top" />
                                   </div>
                                 )}
-                                <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide">
+                                <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide whitespace-pre-line">
                                   {t(event.mcKey)}
                                 </span>
                               </div>
