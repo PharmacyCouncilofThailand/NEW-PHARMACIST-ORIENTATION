@@ -180,7 +180,7 @@ export default function AgendaSection() {
                                 <div className="relative shrink-0 rounded-xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-14 h-14 md:w-16 md:h-16 ring-1 ring-slate-900/5 dark:ring-white/10">
                                   <Image src={speaker.image} alt="Speaker" fill unoptimized className="object-cover object-top" />
                                 </div>
-                                <span className="text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide">
+                                <span className="text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide whitespace-pre-line">
                                   {t(speaker.nameKey)}
                                 </span>
                               </div>
