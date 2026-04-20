@@ -158,7 +158,7 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
                 {
                   id: 1,
                   title: "การเก็บรวบรวมข้อมูลส่วนบุคคล",
-                  body: <>สภาเภสัชกรรมแห่งประเทศไทย ("สภาฯ") ดำเนินการเก็บรวบรวมข้อมูลส่วนบุคคลของท่าน ประกอบด้วย ชื่อ-สกุล เลขใบอนุญาตประกอบวิชาชีพ อีเมล เบอร์โทรศัพท์ และสถานที่ทำงาน เพื่อนำไปใช้ร่วมงาน <strong className="font-bold text-violet-700 dark:text-violet-400">ปฐมนิเทศเภสัชกรใหม่ ประจำปี 2569</strong></>
+                  body: <>สภาเภสัชกรรม ("สภาฯ") ดำเนินการเก็บรวบรวมข้อมูลส่วนบุคคลของท่าน ประกอบด้วย ชื่อ-สกุล เลขใบอนุญาตประกอบวิชาชีพ อีเมล เบอร์โทรศัพท์ และสถานที่ทำงาน เพื่อนำไปใช้ร่วมงาน <strong className="font-bold text-violet-700 dark:text-violet-400">ปฐมนิเทศเภสัชกรใหม่ ประจำปี 2569</strong></>
                 },
                 {
                   id: 2,
@@ -241,7 +241,7 @@ export default function ConsentModal({ isOpen, onAccept, onClose }: ConsentModal
                 ปิดหน้าต่าง
               </button>
               
-              <div className="flex-1 order-1 sm:order-2 group relative h-[46px] rounded-xl overflow-hidden">
+              <div className="sm:flex-1 order-1 sm:order-2 group relative h-[46px] rounded-xl overflow-hidden">
                 <button
                   onClick={() => { onAccept(); onClose(); }}
                   disabled={!hasScrolledToBottom}
