@@ -347,10 +347,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "register.consent": { TH: "ข้าพเจ้ายอมรับข้อตกลงและเงื่อนไข และยินยอมให้ประมวลผลข้อมูล", EN: "I agree to the terms and conditions and consent to data processing" },
 
   // Navbar extras
-  "nav.live": { TH: "รับชมไลฟ์สด", EN: "Watch Live Event" },
   "nav.materials": { TH: "เอกสารบรรยาย/คู่มือเภสัชกรใหม่(กำลังจัดทำ)", EN: "Lecture Materials/Manual (In Progress)" },
   "nav.photos": { TH: "ดาวน์โหลดภาพถ่ายบรรยากาศในงาน", EN: "Download Event Photos" },
-  "nav.watchHighlight": { TH: "ดูวิดีโอไฮไลท์", EN: "Watch Highlights" },
 
   // Welcome Section extras
   "welcome.swipeHint": { TH: "เลื่อนดูรายถัดไป", EN: "Swipe to navigate" },
