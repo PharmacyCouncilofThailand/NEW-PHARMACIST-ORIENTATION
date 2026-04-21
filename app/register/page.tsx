@@ -70,6 +70,7 @@ export default function RegisterPage() {
       case 'licenseId':
         if (!val?.trim()) return lang === 'TH' ? 'กรุณากรอกเลขใบอนุญาต' : 'Required';
         if (val.length !== 5) return lang === 'TH' ? 'ต้องเป็นตัวเลข 5 หลัก' : 'Must be 5 digits';
+        { const num = parseInt(val, 10); if (num < 53003 || num > 60000) return lang === 'TH' ? 'เลขใบอนุญาตไม่ถูกต้อง' : 'Invalid license number'; }
         return null;
       case 'phone':
         if (val && val.length > 0 && val.length !== 10) return lang === 'TH' ? 'ต้องเป็นตัวเลข 10 หลัก' : 'Must be 10 digits';

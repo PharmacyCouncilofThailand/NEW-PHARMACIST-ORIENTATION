@@ -322,11 +322,7 @@ export default function UniversityStatsSection() {
                         textClass="text-[10px]" 
                       />
                       
-                      {idx < 3 && (
-                        <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-[10px] font-black flex items-center justify-center border-2 border-white dark:border-slate-900 shadow-sm ${idx === 0 ? 'bg-amber-400' : idx === 1 ? 'bg-slate-400' : 'bg-orange-400'}`}>
-                          {idx + 1}
-                        </div>
-                      )}
+
                     </div>
                     
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
