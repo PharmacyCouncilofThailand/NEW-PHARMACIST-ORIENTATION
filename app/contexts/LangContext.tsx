@@ -348,7 +348,8 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Navbar extras
   "nav.materials": { TH: "เอกสารบรรยาย", EN: "Lecture Materials" },
-  "nav.photos": { TH: "ดาวน์โหลดภาพถ่ายบรรยากาศในงาน", EN: "Download Event Photos" },
+  "nav.manual": { TH: "คู่มือเภสัชกรใหม่(กำลังจัดทำ)", EN: "New Pharmacist Manual (In Progress)" },
+  "nav.photos": { TH: "ดาวน์โหลดรูปภาพในงาน", EN: "Download Event Photos" },
   "nav.watchHighlight": { TH: "ดูวิดีโอไฮไลท์", EN: "Watch Highlight Video" },
 
   // Welcome Section extras
