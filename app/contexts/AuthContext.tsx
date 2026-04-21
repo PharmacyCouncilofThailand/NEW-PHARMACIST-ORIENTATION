@@ -157,6 +157,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           ...resData.user,
           name: `${resData.user.firstName || ""} ${resData.user.lastName || ""}`.trim() || resData.user.email,
           licenseId: resData.user.pharmacyLicenseId || resData.user.licenseId,
+          // Fallback: use submitted form values if API didn't return them
+          university: resData.user.university || university,
+          organization: resData.user.organization || organization,
+          phone: resData.user.phone || phone,
         };
         localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
         localStorage.setItem(TOKEN_KEY, resData.token);
