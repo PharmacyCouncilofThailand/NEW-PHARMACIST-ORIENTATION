@@ -207,9 +207,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.d1e4.desc": { TH: "เนื่องในโอกาสเภสัชกรใหม่ก้าวเข้าสู่การประกอบวิชาชีพเภสัชกรรม", EN: "On the occasion of new pharmacists entering the pharmacy profession." },
   "agenda.d1e4.meta": { TH: "ภก.ปรีชา พันธุ์ติเวช\n(นายกสภาเภสัชกรรม)", EN: "Pharm. Preecha Bhandtivej\n(President)" },
 
-  "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาต", EN: "Professional License Ceremony" },
-
-"agenda.d1e5.desc": { TH: "การมอบเอกสารรับรองสิทธิ์ประกอบวิชาชีพให้แก่เภสัชกรผู้สำเร็จการศึกษา", EN: "A formal conferral of pharmacy practice credentials to newly qualified pharmacists." },
+  "agenda.d1e5.title": { TH: "พิธีมอบใบอนุญาตประกอบวิชาชีพเภสัชกรรม", EN: "Pharmacy License Granting Ceremony" },
+"agenda.d1e5.desc": { TH: "การมอบใบอนุญาตประกอบวิชาชีพให้แก่เภสัชกรผู้สำเร็จการศึกษา", EN: "The granting of professional licenses to graduating pharmacists." },
   "agenda.d1e5.meta": { TH: "คณะผู้บริหารสภาเภสัชกรรม", EN: "Pharmacy Council Executives" },
 
   "agenda.d1evt.title": { TH: "VTR แนะนำกรรมการสภาเภสัชกรรม", EN: "VTR: Pharmacy Council Committee Introduction" },
@@ -237,6 +236,21 @@ const translations: Record<string, Record<Lang, string>> = {
   "agenda.d1e9.title": { TH: "Closing Activity & ลุ้นรางวัล", EN: "Closing Activity & Lucky Draw" },
   "agenda.d1e9.desc": { TH: "กิจกรรมร่วมสนุก ลุ้นรับของรางวัล และปิดงาน", EN: "Fun closing activities, lucky draw prizes, and event closing." },
   "agenda.d1e9.meta": { TH: "ทีมงานสภาเภสัชกรรม", EN: "Pharmacy Council Team" },
+
+  // Location & Transportation Section
+  "location.badge": { TH: "📍 การเดินทาง", EN: "📍 Venue & Transportation" },
+  "location.title1": { TH: "สถานที่จัดงาน", EN: "Event " },
+  "location.title2": { TH: "และการเดินทาง", EN: "Venue" },
+  "location.desc": { TH: "ข้อมูลสถานที่และวิธีการเดินทางมายังกระทรวงสาธารณสุข เพื่อความสะดวกและรวดเร็ว", EN: "Venue information and how to get to the Ministry of Public Health conveniently." },
+  "location.venue.title": { TH: "สภาเภสัชกรรม\nอาคารมหิตลาธิเบศร", EN: "Pharmacy Council of Thailand\nMahitalathibet Building" },
+  "location.venue.desc": { TH: "ห้องสิริวัฒนภักดี ชั้น 3 กระทรวงสาธารณสุข จ.นนทบุรี", EN: "Siriwattana Phakdee Room, 3rd Fl, Ministry of Public Health, Nonthaburi" },
+  "location.mrt.title": { TH: "รถไฟฟ้า MRT (สายสีม่วง)", EN: "MRT (Purple Line)" },
+  "location.mrt.desc": { TH: "ลงสถานี 'กระทรวงสาธารณสุข' (ทางออก 2) ต่อวินมอเตอร์ไซค์หรือรถสองแถวเข้ามายังอาคาร", EN: "Alight at 'Ministry of Public Health' station (Exit 2), take a motorcycle taxi or minibus to the building." },
+  "location.bus.title": { TH: "รถโดยสารประจำทาง", EN: "Public Bus" },
+  "location.bus.desc": { TH: "สาย 32, 33, 63, 90, 97, 114 ลงป้ายหน้ากระทรวงสาธารณสุข หรือหน้า รพ.ศรีธัญญา", EN: "Bus no. 32, 33, 63, 90, 97, 114. Get off at the Ministry of Public Health or Srithanya Hospital." },
+  "location.car.title": { TH: "รถยนต์ส่วนตัว", EN: "Private Car" },
+  "location.car.desc": { TH: "สามารถจอดรถได้ที่ลานจอดรถรอบอาคารมหิตลาธิเบศรและบริเวณลานจอดรถใกล้เคียง", EN: "Parking is available around the Mahitalathibet Building and nearby parking lots." },
+  "location.map.btn": { TH: "เปิด Google Maps", EN: "Open in Google Maps" },
 
   // Memories Section
   "memories.badge": { TH: " ภาพบรรยากาศ", EN: "Gallery" },
@@ -333,6 +347,9 @@ const translations: Record<string, Record<Lang, string>> = {
   "register.consent": { TH: "ข้าพเจ้ายอมรับข้อตกลงและเงื่อนไข และยินยอมให้ประมวลผลข้อมูล", EN: "I agree to the terms and conditions and consent to data processing" },
 
   // Navbar extras
+  "nav.live": { TH: "รับชมไลฟ์สด", EN: "Watch Live Event" },
+  "nav.materials": { TH: "เอกสารบรรยาย/คู่มือเภสัชกรใหม่(กำลังจัดทำ)", EN: "Lecture Materials/Manual (In Progress)" },
+  "nav.photos": { TH: "ดาวน์โหลดภาพถ่ายบรรยากาศในงาน", EN: "Download Event Photos" },
   "nav.watchHighlight": { TH: "ดูวิดีโอไฮไลท์", EN: "Watch Highlights" },
 
   // Welcome Section extras
