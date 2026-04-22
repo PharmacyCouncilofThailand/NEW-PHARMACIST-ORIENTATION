@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 import { useLang } from "../../contexts/LangContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ข้อมูลสปอนเซอร์
 const sponsors = [
-  { id: 1, name: "สภาเภสัชกรรม", image: "/logo สภาเภสัชกรรม.jpg", tier: "platinum" },
+  { id: 1, name: "สภาเภสัชกรรม", image: "/logo-pharmacy-council.jpg", tier: "platinum" },
   { id: 2, name: "Sponsor 1", image: "/sponsor/Logo01-01.png", tier: "gold" },
   { id: 3, name: "Sponsor 2", image: "/sponsor/Logo01-02.png", tier: "gold" },
   { id: 4, name: "Sponsor 3", image: "/sponsor/Logo01-03.png", tier: "gold" },
@@ -98,10 +99,12 @@ export default function SponsorSection() {
                 >
                   <div className="flex items-center justify-center">
                     {s.image ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={encodeURI(s.image)}
+                      <Image
+                        src={s.image}
                         alt={s.name}
+                        width={400}
+                        height={100}
+                        sizes="200px"
                         className="h-14 sm:h-20 md:h-24 w-auto object-contain"
                         loading="lazy"
                       />
@@ -137,10 +140,12 @@ export default function SponsorSection() {
                 >
                   <div className="flex items-center justify-center">
                     {s.image ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={encodeURI(s.image)}
+                      <Image
+                        src={s.image}
                         alt={s.name}
+                        width={400}
+                        height={100}
+                        sizes="200px"
                         className="h-14 sm:h-20 md:h-24 w-auto object-contain"
                         loading="lazy"
                       />

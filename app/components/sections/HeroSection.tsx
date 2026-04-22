@@ -78,6 +78,8 @@ export default function HeroSection() {
         loop
         muted
         playsInline
+        preload="metadata"
+        aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
         <source src="/test.mp4" type="video/mp4" />
@@ -107,7 +109,7 @@ export default function HeroSection() {
           {/* Logo */}
           <motion.div variants={fadeSlideUp} className="flex justify-center mb-3">
             <div className="w-28 h-28 short:w-20 short:h-20 flex items-center justify-center">
-              <Image src="/logo สภาเภสัชกรรม.jpg" alt="Pharmacy Council" width={112} height={112} className="object-contain w-full h-full rounded-2xl" quality={100} />
+              <Image src="/logo-pharmacy-council.jpg" alt="Pharmacy Council" width={112} height={112} className="object-contain w-full h-full rounded-2xl" quality={100} />
             </div>
           </motion.div>
 

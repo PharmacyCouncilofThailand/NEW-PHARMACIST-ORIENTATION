@@ -178,7 +178,7 @@ export default function AgendaSection() {
                             {event.speakers.map((speaker, idx) => (
                               <div key={idx} className="flex items-center gap-4">
                                 <div className="relative shrink-0 rounded-xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-14 h-14 md:w-16 md:h-16 ring-1 ring-slate-900/5 dark:ring-white/10">
-                                  <Image src={speaker.image} alt="Speaker" fill unoptimized className="object-cover object-top" />
+                                  <Image src={speaker.image} alt="Speaker" fill sizes="64px" className="object-cover object-top" />
                                 </div>
                                 <span className="text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide whitespace-pre-line">
                                   {t(speaker.nameKey)}
@@ -194,7 +194,7 @@ export default function AgendaSection() {
                               <div className="flex items-center gap-4">
                                 {event.mcImage && (
                                   <div className="relative shrink-0 rounded-xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-14 h-14 md:w-16 md:h-16 ring-1 ring-slate-900/5 dark:ring-white/10">
-                                    <Image src={event.mcImage} alt="MC" fill unoptimized className="object-cover object-top" />
+                                    <Image src={event.mcImage} alt="MC" fill sizes="64px" className="object-cover object-top" />
                                   </div>
                                 )}
                                 <span className="block text-[0.95rem] font-semibold text-slate-700 dark:text-slate-300 tracking-wide whitespace-pre-line">
@@ -213,7 +213,7 @@ export default function AgendaSection() {
                             <div className="flex items-center gap-4">
                               {event.speakerImage && (
                                 <div className="relative shrink-0 rounded-2xl overflow-hidden shadow-lg border-2 border-white/50 dark:border-white/10 w-16 h-16 md:w-20 md:h-20 ring-1 ring-slate-900/5 dark:ring-white/10 group-hover:scale-105 transition-transform duration-500">
-                                  <Image src={event.speakerImage} alt="Speaker" fill unoptimized className="object-cover object-top" />
+                                  <Image src={event.speakerImage} alt="Speaker" fill sizes="80px" className="object-cover object-top" />
                                 </div>
                               )}
                               {event.metaKey && (

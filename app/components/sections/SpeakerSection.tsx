@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, memo } from "react";
+import { useRef, useEffect, useState, memo } from "react";
 import Image from "next/image";
 import { useLang } from "../../contexts/LangContext";
 import gsap from "gsap";
@@ -136,8 +136,7 @@ const SpeakerCard = memo(function SpeakerCard({
           src={speaker.image}
           alt={t(speaker.nameKey)}
           fill
-          unoptimized={true}
-          priority
+          sizes="(max-width: 640px) 65vw, 320px"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
       ) : (
@@ -169,6 +168,24 @@ export default function SpeakerSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  // Lazy-load the background video only when section is near the viewport.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || videoLoaded) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVideoLoaded(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" } // start loading 400px before section enters view
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [videoLoaded]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -200,16 +217,20 @@ export default function SpeakerSection() {
 
   return (
     <section id="speakers" ref={sectionRef} className="scroll-mt-40 py-12 md:py-20 lg:py-24 relative overflow-hidden">
-      {/* BG Video */}
+      {/* BG Video (lazy-loaded when section is near viewport) */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <video
-          src="/BgSp.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        />
+        {videoLoaded && (
+          <video
+            src="/BgSp.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+          />
+        )}
         {/* Optional overlay to darken/tint the video to ensure text readability */}
         <div className="absolute inset-0 bg-slate-900/60 mix-blend-multiply" />
       </div>

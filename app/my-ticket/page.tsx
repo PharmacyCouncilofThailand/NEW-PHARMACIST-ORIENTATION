@@ -128,7 +128,7 @@ export default function MyTicketPage() {
               </div>
 
               <div className="relative z-10 shrink-0 w-12 h-12 flex items-center justify-center top-3">
-                 <Image src="/logo สภาเภสัชกรรม.jpg" alt="Logo" width={48} height={48} className="rounded-full object-contain" />
+                 <Image src="/logo-pharmacy-council.jpg" alt="Logo" width={48} height={48} className="rounded-full object-contain" />
               </div>
             </div>
 
