@@ -44,7 +44,7 @@ export default function IntroOverlay() {
     >
       <div ref={logoRef} className="will-change-transform">
         <Image
-          src="/logo สภาเภสัชกรรม.jpg"
+          src="/logo-pharmacy-council.jpg"
           alt="Logo"
           width={180}
           height={180}

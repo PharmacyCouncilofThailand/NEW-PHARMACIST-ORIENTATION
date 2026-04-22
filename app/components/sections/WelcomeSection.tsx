@@ -155,7 +155,7 @@ const GlassCardContent = ({ person }: { person: Person }) => {
             src={person.image} 
             alt={t(person.nameKey)}
             fill
-            unoptimized
+            sizes="(max-width: 1280px) 45vw, 500px"
             className="object-cover object-[center_35%] transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-80" />
@@ -215,8 +215,7 @@ const OriginalWelcomeCard = memo(function OriginalWelcomeCard({
           src={person.image} 
           alt={t(person.nameKey)} 
           fill 
-          unoptimized={true}
-          priority
+          sizes="(max-width: 768px) 85vw, (max-width: 1024px) 450px, 850px"
           className="object-cover transition-transform duration-700 group-hover:scale-105 object-top" 
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent z-10" />

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "New Pharmacist Orientation",
     images: [
       {
-        url: "/logo สภาเภสัชกรรม.jpg",
+        url: "/logo-pharmacy-council.jpg",
         width: 800,
         height: 600,
         alt: "Pharmacy Council of Thailand Logo",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/logo สภาเภสัชกรรม.jpg",
+    icon: "/logo-pharmacy-council.jpg",
   },
 };
 

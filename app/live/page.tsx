@@ -90,7 +90,7 @@ export default function LiveStreamingPage() {
                  <div className="z-10 text-center px-4 animate-fade-in-up flex flex-col items-center">
                     <div className="relative w-32 h-40 md:w-36 md:h-44 mb-8 sm:mb-10">
                        <Image 
-                          src="/logo สภาเภสัชกรรม.jpg" 
+                          src="/logo-pharmacy-council.jpg" 
                           alt="Logo" 
                           fill 
                           className="object-contain drop-shadow-2xl" 
