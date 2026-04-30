@@ -28,6 +28,12 @@ const sponsors = [
   { id: 16, name: "Sponsor 15", image: "/sponsor/Logo02-06.png", tier: "gold" },
   { id: 17, name: "Sponsor 16", image: "/sponsor/Logo02-07.png", tier: "gold" },
   { id: 18, name: "Sponsor 17", image: "/sponsor/Logo02-08.png", tier: "gold" },
+  { id: 19, name: "Sponsor 18", image: "/sponsor/Logo01-10_11zon.webp", tier: "gold" },
+  { id: 20, name: "Sponsor 19", image: "/sponsor/Logo01-11_11zon.webp", tier: "gold" },
+  { id: 21, name: "Sponsor 20", image: "/sponsor/Logo01-12_11zon.webp", tier: "gold" },
+  { id: 22, name: "Sponsor 21", image: "/sponsor/Logo01-13_11zon.webp", tier: "gold" },
+  { id: 23, name: "Sponsor 22", image: "/sponsor/Logo01-14_11zon.webp", tier: "gold" },
+  { id: 24, name: "Sponsor 23", image: "/sponsor/Logo02-09_11zon.webp", tier: "gold" },
 ];
 
 // ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม (ลดจำนวนรอบลงเพราะเรามีสปอนเซอร์เยอะแล้ว)
