@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, memo, useCallback, useEffect, useState } from "react";
+import { useRef, memo, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
@@ -57,7 +57,6 @@ export default function HeroSection() {
   const { isRegistered } = useRegistrationStatus();
   const stats = useStatsData();
   const sectionRef = useRef<HTMLElement>(null);
-  const [showVideo, setShowVideo] = useState(false);
 
   const handleRegisterClick = useCallback(() => {
     if (!isLoggedIn || !token) {
@@ -73,53 +72,21 @@ export default function HeroSection() {
   const opacityParallax = useTransform(scrollY, [0, 600], [1, 0]);
   const scaleParallax = useTransform(scrollY, [0, 1000], [1, 0.9]);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    let idleId: number | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-
-    const enableVideo = () => setShowVideo(mediaQuery.matches);
-
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(enableVideo, { timeout: 1200 });
-    } else {
-      timeoutId = setTimeout(enableVideo, 350);
-    }
-
-    mediaQuery.addEventListener("change", enableVideo);
-
-    return () => {
-      mediaQuery.removeEventListener("change", enableVideo);
-      if (idleId !== undefined && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId !== undefined) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []);
-
   return (
     <section id="hero" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* VIDEO BACKGROUND */}
-      {showVideo ? (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        >
-          <source src={HERO_VIDEO_SRC} type="video/mp4" />
-        </video>
-      ) : (
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-slate-50 dark:bg-slate-950 pointer-events-none"
-        />
-      )}
+      <div aria-hidden="true" className="absolute inset-0 bg-slate-50 dark:bg-slate-950 pointer-events-none" />
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      >
+        <source src={HERO_VIDEO_SRC} type="video/mp4" />
+      </video>
 
       {/* CONTENT WITH FRAMER MOTION PARALLAX */}
       <motion.div 
