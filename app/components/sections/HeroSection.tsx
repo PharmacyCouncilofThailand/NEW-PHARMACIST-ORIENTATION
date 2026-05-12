@@ -49,7 +49,6 @@ const fadeSlideUp: Variants = {
 const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
 const MATERIALS_URL = "#"; // TODO: replace with actual document link
 const HERO_VIDEO_SRC = publicAsset("/test-optimized.m4v");
-const HERO_VIDEO_POSTER = publicAsset("/logo-pharmacy-council.jpg");
 
 export default function HeroSection() {
   const router = useRouter();
@@ -110,21 +109,15 @@ export default function HeroSection() {
           muted
           playsInline
           preload="metadata"
-          poster={HERO_VIDEO_POSTER}
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         >
           <source src={HERO_VIDEO_SRC} type="video/mp4" />
         </video>
       ) : (
-        <Image
-          src="/logo-pharmacy-council.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
+        <div
           aria-hidden="true"
-          className="absolute inset-0 object-cover opacity-20 blur-2xl scale-125 pointer-events-none"
+          className="absolute inset-0 bg-slate-50 dark:bg-slate-950 pointer-events-none"
         />
       )}
 
