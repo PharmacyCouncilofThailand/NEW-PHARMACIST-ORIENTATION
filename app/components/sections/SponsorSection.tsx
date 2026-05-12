@@ -36,8 +36,8 @@ const sponsors = [
   { id: 24, name: "Sponsor 23", image: "/sponsor/Logo02-09_11zon.webp", tier: "gold" },
 ];
 
-// ทำซ้ำเพื่อให้ marquee loop ได้สวยงาม (ลดจำนวนรอบลงเพราะเรามีสปอนเซอร์เยอะแล้ว)
-const marqueeItems = Array(6).fill(sponsors).flat();
+// ซ้ำแค่ 2 รอบก็พอสำหรับ loop — ลด DOM nodes จาก 288 → 96
+const marqueeItems = Array(2).fill(sponsors).flat();
 // แถวที่ 2 — ลำดับสลับกัน
 const marqueeItemsRow2 = [...marqueeItems].reverse();
 

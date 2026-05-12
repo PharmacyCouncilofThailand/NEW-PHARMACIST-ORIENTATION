@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, memo, useCallback } from "react";
+import { useRef, memo, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
@@ -10,6 +10,7 @@ import { useLang } from "../../contexts/LangContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { ssoRedirectToConferenceWeb } from "../../../lib/sso";
 import { useRegistrationStatus } from "../../hooks/useRegistrationStatus";
+import { publicAsset } from "../../../lib/assets";
 
 const ArrowIcon = memo(function ArrowIcon() {
   return (
@@ -47,6 +48,8 @@ const fadeSlideUp: Variants = {
 
 const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
 const MATERIALS_URL = "#"; // TODO: replace with actual document link
+const HERO_VIDEO_SRC = publicAsset("/test-optimized.m4v");
+const HERO_VIDEO_POSTER = publicAsset("/logo-pharmacy-council.jpg");
 
 export default function HeroSection() {
   const router = useRouter();
@@ -55,6 +58,7 @@ export default function HeroSection() {
   const { isRegistered } = useRegistrationStatus();
   const stats = useStatsData();
   const sectionRef = useRef<HTMLElement>(null);
+  const [showVideo, setShowVideo] = useState(false);
 
   const handleRegisterClick = useCallback(() => {
     if (!isLoggedIn || !token) {
@@ -70,20 +74,59 @@ export default function HeroSection() {
   const opacityParallax = useTransform(scrollY, [0, 600], [1, 0]);
   const scaleParallax = useTransform(scrollY, [0, 1000], [1, 0.9]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const enableVideo = () => setShowVideo(mediaQuery.matches);
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(enableVideo, { timeout: 1200 });
+    } else {
+      timeoutId = setTimeout(enableVideo, 350);
+    }
+
+    mediaQuery.addEventListener("change", enableVideo);
+
+    return () => {
+      mediaQuery.removeEventListener("change", enableVideo);
+      if (idleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, []);
+
   return (
     <section id="hero" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* VIDEO BACKGROUND */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/test.mp4" type="video/mp4" />
-      </video>
+      {showVideo ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={HERO_VIDEO_POSTER}
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        >
+          <source src={HERO_VIDEO_SRC} type="video/mp4" />
+        </video>
+      ) : (
+        <Image
+          src="/logo-pharmacy-council.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          aria-hidden="true"
+          className="absolute inset-0 object-cover opacity-20 blur-2xl scale-125 pointer-events-none"
+        />
+      )}
 
       {/* CONTENT WITH FRAMER MOTION PARALLAX */}
       <motion.div 

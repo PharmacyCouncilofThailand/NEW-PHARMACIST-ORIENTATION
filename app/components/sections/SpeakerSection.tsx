@@ -6,6 +6,7 @@ import { useLang } from "../../contexts/LangContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { publicAsset } from "../../../lib/assets";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
@@ -15,6 +16,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const SPEAKER_BG_VIDEO_SRC = publicAsset("/BgSp-optimized.m4v");
 
 interface Speaker {
   id: string;
@@ -221,7 +224,7 @@ export default function SpeakerSection() {
       <div className="absolute inset-0 pointer-events-none z-0">
         {videoLoaded && (
           <video
-            src="/BgSp.mp4"
+            src={SPEAKER_BG_VIDEO_SRC}
             autoPlay
             loop
             muted
