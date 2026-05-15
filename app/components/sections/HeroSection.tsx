@@ -290,24 +290,38 @@ export default function HeroSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2" style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }}>
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-8" style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }}>
                   คู่มือเภสัชกรใหม่
                 </h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-[260px] mx-auto">
-                  ระบบมือถือไม่รองรับการแสดงตัวอย่างเอกสารในหน้านี้ กรุณากดเพื่อเปิดอ่านแบบเต็มจอ
-                </p>
-                <a
-                  href={HANDBOOK_PDF}
-                  download="คู่มือเภสัชกรใหม่.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full max-w-[260px] py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg shadow-emerald-500/30 active:scale-95 transition-transform flex items-center justify-center gap-2"
-                >
-                  ดาวน์โหลด PDF
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                </a>
+                
+                <div className="w-full max-w-[260px] flex flex-col gap-3">
+                  {/* Open Fullscreen Button */}
+                  <a
+                    href={HANDBOOK_PDF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg shadow-emerald-500/30 active:scale-95 transition-transform flex items-center justify-center gap-2"
+                  >
+                    เปิดอ่าน PDF เต็มจอ
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+
+                  {/* Download Button */}
+                  <a
+                    href={HANDBOOK_PDF}
+                    download="คู่มือเภสัชกรใหม่.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 px-4 rounded-xl bg-white dark:bg-slate-800 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold shadow-sm hover:bg-emerald-50 dark:hover:bg-slate-700 active:scale-95 transition-all flex items-center justify-center gap-2"
+                  >
+                    ดาวน์โหลด PDF
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </motion.div>
           </motion.div>
