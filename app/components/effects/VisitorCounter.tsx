@@ -3,9 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useLang } from "../../contexts/LangContext";
 
-const SESSION_KEY = "pharma-session-ts";
-const SESSION_MS  = 30 * 60 * 1000; // 30 min
-const SYNC_MS     = 2  * 60 * 1000; // 2 min
+const VISITOR_DATE_KEY = "pharma-visitor-counted-date";
+const SYNC_MS = 5 * 60 * 1000;
 
 interface VisitorStats {
   today:    number;
@@ -14,13 +13,21 @@ interface VisitorStats {
 
 async function fetchVisitorStats(method: "GET" | "POST" = "GET"): Promise<VisitorStats | null> {
   try {
-    const res = await fetch("/api/visitors", { method });
+    const res = await fetch("/api/visitors", {
+      method,
+      cache: "no-store",
+      credentials: "same-origin",
+    });
     if (!res.ok) return null;
     const data = await res.json();
     return { today: data.today ?? 0, threeDay: data.threeDay ?? 0 };
   } catch {
     return null;
   }
+}
+
+function getBangkokDateKey() {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Bangkok" });
 }
 
 export default function VisitorCounter() {
@@ -33,13 +40,13 @@ export default function VisitorCounter() {
     let cancelled = false;
 
     async function init() {
-      const lastTs = Number(localStorage.getItem(SESSION_KEY) ?? "0");
-      const isNew  = Date.now() - lastTs > SESSION_MS;
+      const today = getBangkokDateKey();
+      const alreadyCountedToday = localStorage.getItem(VISITOR_DATE_KEY) === today;
 
-      if (isNew) {
+      if (!alreadyCountedToday) {
         const data = await fetchVisitorStats("POST");
         if (!cancelled && data) {
-          localStorage.setItem(SESSION_KEY, String(Date.now()));
+          localStorage.setItem(VISITOR_DATE_KEY, today);
           setStats(data);
         }
       } else {

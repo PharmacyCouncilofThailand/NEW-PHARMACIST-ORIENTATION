@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 declare global {
   interface Window {
     YT: any;
-    onYouTubeIframeAPIReady: () => void;
+    onYouTubeIframeAPIReady?: () => void;
   }
 }
 
@@ -23,7 +23,8 @@ export default function MaskScrollSection() {
   const iframeContainerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
   const isPlayerReady = useRef(false); // guard: true only after onReady fires
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [shouldLoadPlayer, setShouldLoadPlayer] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -35,11 +36,38 @@ export default function MaskScrollSection() {
   const safeMute   = () => { try { if (isPlayerReady.current && typeof playerRef.current?.mute      === 'function') playerRef.current.mute();       } catch (_) {} };
   const safeUnmute = () => { try { if (isPlayerReady.current && typeof playerRef.current?.unMute    === 'function') playerRef.current.unMute();     } catch (_) {} };
 
-  // Load YouTube IFrame API
+  // Keep the YouTube embed off the network until this desktop-only section is near view.
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (shouldLoadPlayer) return;
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
+
+    const target = containerRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShouldLoadPlayer(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px", threshold: 0.01 }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [shouldLoadPlayer]);
+
+  // Load YouTube IFrame API
+  useEffect(() => {
+    if (typeof window === "undefined" || !shouldLoadPlayer) return;
+
+    let cancelled = false;
 
     const initPlayer = () => {
+      if (cancelled || playerRef.current || !window.YT?.Player) return;
+
       playerRef.current = new window.YT.Player("yt-player", {
         videoId: YOUTUBE_VIDEO_ID,
         playerVars: {
@@ -77,11 +105,15 @@ export default function MaskScrollSection() {
     }
 
     return () => {
+      cancelled = true;
       isPlayerReady.current = false; // prevent any calls after destroy
       try { playerRef.current?.destroy(); } catch (_) {}
       playerRef.current = null;
+      if (window.onYouTubeIframeAPIReady === initPlayer) {
+        window.onYouTubeIframeAPIReady = undefined;
+      }
     };
-  }, []);
+  }, [shouldLoadPlayer]);
 
   // Intersection observer: pause/play when out of view
   useEffect(() => {

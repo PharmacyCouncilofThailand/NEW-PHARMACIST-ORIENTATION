@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useLang } from "../../contexts/LangContext";
-import VisitorCounter from "../effects/VisitorCounter";
 
 export default function Footer() {
   const { t } = useLang();
@@ -108,7 +107,7 @@ export default function Footer() {
 
         </div>
 
-        {/* Visitor Counter — temporarily hidden */}
+        {/* Visitor Counter — temporarily hidden. Import VisitorCounter here again before enabling. */}
         {/* <VisitorCounter /> */}
 
         {/* Bottom Bar */}

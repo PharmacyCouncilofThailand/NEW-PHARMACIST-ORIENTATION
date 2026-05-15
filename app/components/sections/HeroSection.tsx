@@ -10,6 +10,7 @@ import { useLang } from "../../contexts/LangContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { ssoRedirectToConferenceWeb } from "../../../lib/sso";
 import { useRegistrationStatus } from "../../hooks/useRegistrationStatus";
+import { publicAsset } from "../../../lib/assets";
 
 const ArrowIcon = memo(function ArrowIcon() {
   return (
@@ -47,6 +48,7 @@ const fadeSlideUp: Variants = {
 
 const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
 const MATERIALS_URL = "#"; // TODO: replace with actual document link
+const HERO_VIDEO_SRC = publicAsset("/test-optimized.m4v");
 
 export default function HeroSection() {
   const router = useRouter();
@@ -73,6 +75,7 @@ export default function HeroSection() {
   return (
     <section id="hero" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* VIDEO BACKGROUND */}
+      <div aria-hidden="true" className="absolute inset-0 bg-slate-50 dark:bg-slate-950 pointer-events-none" />
       <video
         autoPlay
         loop
@@ -82,7 +85,7 @@ export default function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
-        <source src="/test.mp4" type="video/mp4" />
+        <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
       {/* CONTENT WITH FRAMER MOTION PARALLAX */}
