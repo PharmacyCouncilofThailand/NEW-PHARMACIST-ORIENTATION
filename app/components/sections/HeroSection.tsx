@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, memo, useCallback } from "react";
+import { useRef, memo, useCallback, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { motion, useScroll, useTransform, Variants, AnimatePresence } from "framer-motion";
 import CountdownSection from "./CountdownSection";
 import { useStatsData, StatItem } from "./StatsSection";
 import { useLang } from "../../contexts/LangContext";
@@ -47,7 +47,7 @@ const fadeSlideUp: Variants = {
 };
 
 const EVENT_CODE = process.env.NEXT_PUBLIC_ORIENTATION_EVENT_CODE || "NPHA-2026";
-const MATERIALS_URL = "#"; // TODO: replace with actual document link
+const HANDBOOK_PDF = "/pharmacist-handbook.pdf";
 const HERO_VIDEO_SRC = publicAsset("/test-optimized.m4v");
 
 export default function HeroSection() {
@@ -57,6 +57,7 @@ export default function HeroSection() {
   const { isRegistered } = useRegistrationStatus();
   const stats = useStatsData();
   const sectionRef = useRef<HTMLElement>(null);
+  const [showHandbook, setShowHandbook] = useState(false);
 
   const handleRegisterClick = useCallback(() => {
     if (!isLoggedIn || !token) {
@@ -175,9 +176,9 @@ export default function HeroSection() {
               </motion.button>
             )}
 
-            {/* เอกสารบรรยาย / คู่มือเภสัชกรใหม่ */}
-            <motion.a
-              href={MATERIALS_URL}
+            {/* คู่มือเภสัชกรใหม่ */}
+            <motion.button
+              onClick={() => setShowHandbook(true)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               id="hero-materials-btn"
@@ -188,7 +189,7 @@ export default function HeroSection() {
               </svg>
               <span suppressHydrationWarning>{t("nav.materials")}</span>
               <div className="absolute inset-0 animate-shimmer pointer-events-none" />
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           {/* Countdown */}
@@ -206,6 +207,83 @@ export default function HeroSection() {
           ))}
         </div>
       </motion.div>
+
+      {/* PDF Handbook Modal */}
+      <AnimatePresence>
+        {showHandbook && (
+          <motion.div
+            key="handbook-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center sm:p-4"
+            onClick={() => setShowHandbook(false)}
+          >
+            {/* Backdrop — hidden on mobile since modal is fullscreen */}
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm hidden sm:block" />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative z-10 w-full sm:max-w-4xl bg-white dark:bg-slate-900 sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+              style={{ height: "100dvh", maxHeight: "100dvh" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-emerald-50 to-cyan-50 dark:from-slate-800 dark:to-slate-800 shrink-0">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-8 h-8 shrink-0 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <h2 className="font-bold text-slate-800 dark:text-white text-sm leading-tight truncate" style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }}>
+                      คู่มือเภสัชกรใหม่
+                    </h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">สภาเภสัชกรรม · 2569</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  {/* Download button — icon only on mobile, text on sm+ */}
+                  <a
+                    href={HANDBOOK_PDF}
+                    download="คู่มือเภสัชกรใหม่.pdf"
+                    className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-sm font-semibold shadow hover:shadow-lg transition-all active:scale-95"
+                  >
+                    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span className="hidden sm:inline">ดาวน์โหลด PDF</span>
+                  </a>
+                  {/* Close button */}
+                  <button
+                    onClick={() => setShowHandbook(false)}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                    aria-label="ปิด"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* PDF iframe */}
+              <iframe
+                src={`${HANDBOOK_PDF}#toolbar=1&navpanes=0&scrollbar=1`}
+                className="flex-1 w-full"
+                title="คู่มือเภสัชกรใหม่"
+                style={{ minHeight: 0 }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
