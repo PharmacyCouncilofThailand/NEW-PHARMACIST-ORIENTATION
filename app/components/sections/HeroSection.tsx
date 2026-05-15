@@ -273,13 +273,41 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* PDF iframe */}
-              <iframe
-                src={`${HANDBOOK_PDF}#toolbar=1&navpanes=0&scrollbar=1`}
-                className="flex-1 w-full"
-                title="คู่มือเภสัชกรใหม่"
-                style={{ minHeight: 0 }}
-              />
+              {/* PDF Viewer (Desktop) */}
+              <div className="hidden sm:block flex-1 w-full bg-slate-100 dark:bg-slate-800">
+                <iframe
+                  src={`${HANDBOOK_PDF}#toolbar=1&navpanes=0&scrollbar=1`}
+                  className="w-full h-full"
+                  title="คู่มือเภสัชกรใหม่"
+                  style={{ minHeight: 0 }}
+                />
+              </div>
+
+              {/* PDF Fallback (Mobile) */}
+              <div className="sm:hidden flex-1 w-full flex flex-col items-center justify-center p-6 text-center bg-slate-50 dark:bg-slate-900">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-cyan-100 dark:from-emerald-900/40 dark:to-cyan-900/40 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                  <svg className="w-10 h-10 text-emerald-500 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2" style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }}>
+                  คู่มือเภสัชกรใหม่
+                </h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-[260px] mx-auto">
+                  ระบบมือถือไม่รองรับการแสดงตัวอย่างเอกสารในหน้านี้ กรุณากดเพื่อเปิดอ่านแบบเต็มจอ
+                </p>
+                <a
+                  href={HANDBOOK_PDF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full max-w-[260px] py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg shadow-emerald-500/30 active:scale-95 transition-transform flex items-center justify-center gap-2"
+                >
+                  เปิดอ่าน PDF เต็มจอ
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
             </motion.div>
           </motion.div>
         )}
