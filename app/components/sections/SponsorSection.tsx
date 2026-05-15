@@ -110,14 +110,14 @@ export default function SponsorSection() {
           >
             <div
               className="marquee-track flex gap-4 sm:gap-6 w-max"
-              style={{ animation: "sponsor-scroll 70s linear infinite" }}
+              style={{ animation: "sponsor-scroll 120s linear infinite" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "paused")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "running")}
             >
               {marqueeItems.map((s, i) => (
                 <div
                   key={`${s.id}-${i}`}
-                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
+                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none hover:scale-105 transition-transform duration-300 opacity-90 hover:opacity-100"
                 >
                   <div className="flex items-center justify-center">
                     {s.image ? (
@@ -128,7 +128,7 @@ export default function SponsorSection() {
                         height={100}
                         sizes="200px"
                         className="h-14 sm:h-20 md:h-24 w-auto object-contain"
-                        loading="lazy"
+                        loading="eager"
                       />
                     ) : (
                       <span className="text-xl sm:text-2xl font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap">
@@ -151,14 +151,14 @@ export default function SponsorSection() {
           >
             <div
               className="marquee-track flex gap-4 sm:gap-6 w-max"
-              style={{ animation: "sponsor-scroll-reverse 80s linear infinite" }}
+              style={{ animation: "sponsor-scroll-reverse 140s linear infinite" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "paused")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.animationPlayState = "running")}
             >
               {marqueeItemsRow2.map((s, i) => (
                 <div
                   key={`r2-${s.id}-${i}`}
-                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
+                  className="flex-shrink-0 flex items-center gap-4 sm:gap-8 cursor-default select-none hover:scale-105 transition-transform duration-300 opacity-90 hover:opacity-100"
                 >
                   <div className="flex items-center justify-center">
                     {s.image ? (
@@ -169,7 +169,7 @@ export default function SponsorSection() {
                         height={100}
                         sizes="200px"
                         className="h-14 sm:h-20 md:h-24 w-auto object-contain"
-                        loading="lazy"
+                        loading="eager"
                       />
                     ) : (
                       <span className="text-xl sm:text-2xl font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap">
