@@ -78,73 +78,14 @@ export default function LiveStreamingPage() {
         
         {/* Main Video Area */}
         <div className="w-full flex-1 min-h-0 flex flex-col items-center justify-center relative z-20">
-          
-           {/* Mock Video Player Placeholder */}
-          <div className="w-full max-w-[1200px] mx-auto aspect-video relative group rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-black">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10 pointer-events-none transition-opacity duration-300 opacity-100 group-hover:opacity-100" />
-              
-              {/* Background gradient simulating a stream */}
-              <div className="absolute inset-0 bg-slate-900 overflow-hidden flex items-center justify-center">
-                 <div className="absolute w-[150%] h-[150%] -top-[25%] -left-[25%] opacity-30 animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,#000000_0%,#4c1d95_25%,#000000_50%,#1e3a8a_75%,#000000_100%)] blur-[100px]" />
-                 
-                 <div className="z-10 text-center px-4 animate-fade-in-up flex flex-col items-center">
-                    <div className="relative w-32 h-40 md:w-36 md:h-44 mb-8 sm:mb-10">
-                       <Image 
-                          src="/logo-pharmacy-council.jpg" 
-                          alt="Logo" 
-                          fill 
-                          className="object-contain drop-shadow-2xl" 
-                       />
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3 mt-4">{t("live.startingSoon")}</h2>
-                    <p className="text-slate-400 font-medium text-lg">{t("live.datetime")}</p>
-                 </div>
-              </div>
-
-              {/* Video Controls Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 z-20 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-full h-1 bg-white/20 rounded-full cursor-pointer overflow-hidden group/seek relative">
-                      <div className="h-full bg-rose-500 w-1/3"></div>
-                      <div className="absolute top-0 bottom-0 left-1/3 w-3 h-3 -mt-1 bg-white rounded-full opacity-0 group-hover/seek:opacity-100 transform -translate-x-1.5 transition-opacity" />
-                  </div>
-                  
-                  <div className="flex items-center justify-between text-white">
-                      <div className="flex items-center gap-4 lg:gap-6">
-                         <button className="hover:text-rose-400 transition-colors">
-                            <svg className="w-6 h-6 lg:w-8 lg:h-8" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                         </button>
-                         <div className="flex items-center gap-2 group/vol">
-                             <button className="hover:text-slate-300 transition-colors">
-                                <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                                </svg>
-                             </button>
-                             <div className="w-0 overflow-hidden group-hover/vol:w-20 transition-all duration-300">
-                                <div className="w-20 h-1 bg-white/20 rounded-full ml-2">
-                                   <div className="w-2/3 h-full bg-white rounded-full"></div>
-                                </div>
-                             </div>
-                         </div>
-                         <span className="text-sm font-mono tracking-wider opacity-80 hidden sm:block">01:24:19 <span className="text-rose-500">• LIVE</span></span>
-                      </div>
-                      
-                      <div className="flex items-center gap-4">
-                         <button className="hover:text-slate-300 transition-colors">
-                            <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                         </button>
-                         <button className="hover:text-slate-300 transition-colors">
-                            <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                            </svg>
-                         </button>
-                      </div>
-                  </div>
-              </div>
+          <div className="w-full max-w-[1200px] mx-auto aspect-video relative rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-black">
+            <iframe
+              src="https://www.youtube.com/embed/xdnn21_E0Cs?autoplay=1&rel=0"
+              title="Live Stream"
+              className="absolute inset-0 w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
           </div>
         </div>
 
