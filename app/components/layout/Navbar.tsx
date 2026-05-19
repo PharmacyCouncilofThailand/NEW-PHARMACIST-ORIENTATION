@@ -339,15 +339,17 @@ export default function Navbar() {
                     </button>
 
                     {/* Download Photos */}
-                    <button
-                      onClick={() => {}}
+                    <a
+                      href="https://drive.google.com/drive/folders/1Tt1FHoEHbnULw0HEjjnpibcDdDdZ5U67"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors flex items-center gap-2"
                     >
                       <svg className="w-4 h-4 text-sky-500 dark:text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                       {t("nav.photos")}
-                    </button>
+                    </a>
 
                     <div className="h-px bg-slate-100 dark:bg-slate-700 my-1" />
 
@@ -488,15 +490,18 @@ export default function Navbar() {
               </button>
 
               {/* Download Photos */}
-              <button
-                onClick={() => { closeMenu(); }}
+              <a
+                href="https://drive.google.com/drive/folders/1Tt1FHoEHbnULw0HEjjnpibcDdDdZ5U67"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
                 className="w-full py-3.5 rounded-[1.125rem] text-center text-sm font-bold text-sky-700 dark:text-sky-400 bg-sky-50 dark:bg-[#152e42] hover:bg-sky-100 dark:hover:bg-[#1c3d59] transition-all flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 {t("nav.photos")}
-              </button>
+              </a>
 
               <button
                 onClick={() => { closeMenu(); logout(); }}
